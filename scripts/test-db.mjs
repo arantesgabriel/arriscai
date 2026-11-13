@@ -218,6 +218,9 @@ await check(
     const total = game.players.reduce((n, p) => n + p.score, 0);
     assert.equal(total, 22);
     assert.equal(game.phase, "result");
+    assert.equal(game.round_points, 22);
+    assert.equal(game.answer, sec.answer);
+    assert.equal(game.aliases, undefined);
     await command("judge", { correct: true }, key, v);
     assert.equal(
       (await snapshot()).game.players.reduce((n, p) => n + p.score, 0),
@@ -234,6 +237,8 @@ await check("round advances manually and rotates first player", async () => {
   game = await command("next");
   assert.equal(game.round, 1);
   assert.equal(game.current, 1);
+  assert.equal(game.answer, undefined);
+  assert.equal(game.round_points, 0);
   assert(game.words.every((w) => w === null));
 });
 await check(
@@ -275,9 +280,15 @@ await check(
     }
     assert.equal(game.phase, "result");
     assert.equal(game.result, null);
+    assert.equal(game.round_points, 0);
+    assert(typeof game.answer === "string" && game.answer.length > 0);
     game = await command("next");
     assert.equal(game.status, "completed");
-    assert.equal((await snapshot()).history.length, 1);
+    const hist = (await snapshot()).history;
+    assert.equal(hist.length, 1);
+    assert.equal(hist[0].total_rounds, 2);
+    assert.equal(hist[0].host_nickname, "Ana");
+    assert.equal(hist[0].winner_nickname, "Bia");
   },
 );
 await check(
@@ -471,6 +482,111 @@ await check(
         answer: "Nada",
       }),
     );
+  },
+);
+await check(
+  "cancel converts late spectator into eligible player while preserving display_only screen",
+  async () => {
+    const lateJoiner = randomUUID();
+    await db.exec("reset role");
+    await db.query("insert into auth.users values($1)", [lateJoiner]);
+    await as(lateJoiner);
+    await call("join_room", [code, "Davi Tardio", false]);
+    let snap = await snapshot();
+    assert.equal(
+      snap.members.find((m) => m.user_id === lateJoiner)?.spectator,
+      true,
+    );
+    assert.equal(
+      snap.members.find((m) => m.user_id === screen)?.spectator,
+      true,
+    );
+    await as(player);
+    await command("cancel");
+    snap = await snapshot();
+    assert.equal(
+      snap.members.find((m) => m.user_id === lateJoiner)?.spectator,
+      false,
+    );
+    assert.equal(
+      snap.members.find((m) => m.user_id === screen)?.spectator,
+      true,
+    );
+    assert.equal(
+      snap.members.find((m) => m.user_id === screen)?.display_only,
+      true,
+    );
+  },
+);
+await check(
+  "host_question_preview only works for host outside active match and roulette syncs",
+  async () => {
+    await db.exec(
+      "reset role; update private.settings set allow_provisional=true",
+    );
+    await as(player);
+    const prev = await call("host_question_preview", [room, "Q0101"]);
+    assert.equal(prev.answer, "Marte");
+    await as(host);
+    await denied(() => call("host_question_preview", [room, "Q0101"]));
+    await as(player);
+    await call("choose_host", [room, null]);
+    const snap = await snapshot();
+    assert.equal(snap.roulette?.mode, "roulette");
+    assert(snap.roulette?.winner_id);
+  },
+);
+await check(
+  "nine-word Tour de France result exposes 8 round points and completed score",
+  async () => {
+    await db.exec("reset role; delete from private.rate_limits");
+    await db.query(
+      `insert into private.questions(id, category, question, answer, review_status)
+       values ('QA_NINE_WORDS', 'QA Pontuação', 'Qual esporte é tradicionalmente associado ao Tour de France', 'Ciclismo', 'approved')
+       on conflict(id) do nothing`,
+    );
+    await as(host);
+    const qaRoom = await call("create_room", ["Host oito pontos"]);
+    const qaSnapshot = () => call("public_room_snapshot", [qaRoom]);
+    const qaCode = (await qaSnapshot()).code;
+    await as(player);
+    await call("join_room", [qaCode, "Jogador oito pontos", false]);
+    await as(host);
+    await call("prepare_match", [
+      qaRoom,
+      1,
+      ["QA Pontuação"],
+      9,
+      ["QA_NINE_WORDS"],
+      "manual",
+    ]);
+    const send = async (name, payload = {}) => {
+      const game = (await qaSnapshot()).game;
+      await call("game_command", [
+        qaRoom,
+        game.id,
+        game.version,
+        randomUUID(),
+        name,
+        payload,
+      ]);
+      return (await qaSnapshot()).game;
+    };
+    for (const position of [0, 1]) {
+      await send("select", { position });
+      await send("reveal");
+      if (position === 0) await send("pass");
+    }
+    const secret = await call("host_private_round_snapshot", [qaRoom]);
+    await send("guess", { text: secret.answer });
+    const result = await send("judge", { correct: true });
+    assert.equal(result.phase, "result");
+    assert.equal(result.round_points, 8);
+    assert.equal(result.players[0].score, 8);
+    assert.equal((await qaSnapshot()).game.round_points, 8);
+    const completed = await send("next");
+    assert.equal(completed.status, "completed");
+    assert.equal(completed.players[0].score, 8);
   },
 );
 mkdirSync("docs", { recursive: true });

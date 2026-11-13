@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   firstPlayer,
+  humanError,
   normalize,
   points,
   questionText,
@@ -47,6 +48,17 @@ describe("Regras de conteúdo e pontuação", () => {
     expect(() => points(23, 1)).toThrow();
     expect(() => points(5, 6)).toThrow();
     expect(() => firstPlayer(0, [])).toThrow();
+  });
+  it("traduz erros de autenticação e rede para mensagens humanas", () => {
+    expect(humanError(new Error("Invalid login credentials"))).toContain(
+      "E-mail ou senha incorretos",
+    );
+    expect(humanError(new Error("Email not confirmed"))).toContain(
+      "ainda não foi confirmado",
+    );
+    expect(humanError(new Error("Failed to fetch"))).toContain(
+      "Sem conexão com o servidor",
+    );
   });
   it("seed tem 240 perguntas distintas, 30 por categoria e 6 de 22 palavras por categoria", () => {
     expect(seed).toHaveLength(240);

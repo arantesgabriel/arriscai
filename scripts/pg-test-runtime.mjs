@@ -1,7 +1,7 @@
 // Test-only PostgreSQL runtime. Not imported by the application.
 import { PGlite } from "@electric-sql/pglite";
-import { readFileSync } from "node:fs";
-export async function testDatabase() {
+import { readdirSync, readFileSync } from "node:fs";
+export async function testDatabase({ afterMigration } = {}) {
   const db = new PGlite();
   await db.exec(`create role anon; create role authenticated;
 create schema auth; create table auth.users(id uuid primary key);
@@ -15,9 +15,13 @@ create function realtime.topic() returns text language sql stable as $$select cu
 grant usage on schema realtime to authenticated; grant select,insert on realtime.messages to authenticated;
 grant execute on function realtime.topic() to authenticated;
 `);
-  await db.exec(
-    readFileSync("supabase/migrations/202611130001_game.sql", "utf8"),
-  );
+  const migrations = readdirSync("supabase/migrations")
+    .filter((f) => f.endsWith(".sql"))
+    .sort();
+  for (const file of migrations) {
+    await db.exec(readFileSync(`supabase/migrations/${file}`, "utf8"));
+    await afterMigration?.(file, db);
+  }
   await db.exec(readFileSync("supabase/seed.sql", "utf8"));
 
   return db;
