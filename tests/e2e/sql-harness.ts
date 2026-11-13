@@ -1,6 +1,6 @@
 // Test transport only: real SQL/RLS, simulated Supabase Auth and Phoenix wire protocol.
 // This cannot certify hosted Supabase Auth, Realtime or production network behavior.
-import type { BrowserContext, WebSocketRoute } from "@playwright/test";
+import type { BrowserContext, Route, WebSocketRoute } from "@playwright/test";
 import { randomUUID } from "node:crypto";
 import { testDatabase } from "../../scripts/pg-test-runtime.mjs";
 export async function harness() {
@@ -58,8 +58,7 @@ export async function harness() {
       );
       return result.rows[0]?.value;
     });
-  async function attach(context: BrowserContext) {
-    await context.route("http://127.0.0.1:54321/**", async (route) => {
+  async function handleRequest(route: Route) {
       const request = route.request(),
         url = new URL(request.url());
       const headers = {
@@ -143,8 +142,9 @@ export async function harness() {
           }),
         });
       }
-    });
-    await context.routeWebSocket("ws://127.0.0.1:54321/**", (ws) => {
+  }
+
+  function handleSocket(ws: WebSocketRoute) {
       ws.onMessage(async (raw) => {
         const msg = JSON.parse(String(raw));
         const [join, ref, topic, event, payload] = msg;
@@ -193,7 +193,21 @@ export async function harness() {
         } else reply();
       });
       ws.onClose(() => sockets.delete(ws));
-    });
+  }
+
+  async function attach(context: BrowserContext) {
+    await context.route("http://127.0.0.1:54321/**", handleRequest);
+    // A reused developer server may have a hosted Supabase URL baked into its
+    // client bundle. Local E2E must still be unable to mutate that project.
+    await context.route(
+      /^https?:\/\/[a-z0-9-]+\.supabase\.co\/.*$/i,
+      handleRequest,
+    );
+    await context.routeWebSocket("ws://127.0.0.1:54321/**", handleSocket);
+    await context.routeWebSocket(
+      /^wss:\/\/[a-z0-9-]+\.supabase\.co\/.*$/i,
+      handleSocket,
+    );
   }
   return { attach, close: () => db.close() };
 }

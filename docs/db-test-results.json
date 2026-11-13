@@ -25,9 +25,12 @@
     "private Broadcast topic membership and Presence-only client writes",
     "public launch blocks provisional catalog by default",
     "fourth reveal scores 19, final reveal scores 1 in real SQL",
-    "exhausted tie blocks victory, accepts only eligible pre-round custom reserve"
+    "exhausted tie blocks victory, accepts only eligible pre-round custom reserve",
+    "cancel converts late spectator into eligible player while preserving display_only screen",
+    "host_question_preview only works for host outside active match and roulette syncs",
+    "nine-word Tour de France result exposes 8 round points and completed score"
   ],
-  "passed": 25,
+  "passed": 28,
   "limitations": [
     "No live Supabase Auth or WebSocket transport",
     "Single embedded connection: no parallel row-lock contention measurement"

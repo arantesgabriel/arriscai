@@ -13,7 +13,9 @@ export default defineConfig({
   webServer: {
     command: "npm run dev",
     url: "http://127.0.0.1:3000",
-    reuseExistingServer: process.env.PW_REUSE_SERVER === '1',
+    reuseExistingServer:
+      process.env.ARRISCAI_LIVE_E2E !== "1" &&
+      process.env.PW_REUSE_SERVER === "1",
     timeout: 120000,
     env: {
       NEXT_PUBLIC_SUPABASE_URL:

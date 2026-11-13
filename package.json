@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "test:migrations": "node scripts/test-migration-upgrade.mjs",
     "seed": "node scripts/seed.mjs",
     "test:db": "node scripts/test-db.mjs",
     "format": "prettier --write src tests scripts *.ts *.mjs *.json"
@@ -31,6 +32,7 @@
     "eslint": "^9.0.0",
     "eslint-config-next": "^16.0.0",
     "prettier": "^3.10.1",
+    "supabase": "^3.1.0",
     "typescript": "^5.9.0",
     "vitest": "^4.0.0"
   },
