@@ -1,0 +1,35 @@
+{
+  "runtime": "PGlite PostgreSQL; auth and Realtime schemas mocked, real SQL grants/RLS/RPC executed",
+  "checks": [
+    "room codes, anonymous authenticated identity and lobby",
+    "outsider cannot read room or tables",
+    "guest cannot author, including authenticated Postgres role",
+    "permanent author can create and edit own questions",
+    "22 words + one category + 12 rounds rejects insufficient without duplicates",
+    "public snapshot has no question IDs, answers, aliases or hidden words",
+    "late spectator and player cannot mutate, read host RPC or catalog",
+    "host cannot change organizer or edit question during play",
+    "reveal requires selection; selection does not reveal",
+    "undo before guess removes last reveal",
+    "guess stays private; human can correct suggestion; duplicate command scores once",
+    "stale version loses; phase cannot double-award",
+    "round advances manually and rotates first player",
+    "pause blocks mutations; resume restores; invalid indices rejected",
+    "round adjustment uses prepared deck only",
+    "wrong/pass leaves words revealed and rotates turn",
+    "last incorrect answer ends without points; unique leader wins on manual advance",
+    "new host and match reset all scores, old host becomes player",
+    "disconnected host automatically pauses and can resume",
+    "skip only disconnected current player, preserves circular order",
+    "tie consumes an unrepeated reserve and keeps rotation",
+    "private Broadcast topic membership and Presence-only client writes",
+    "public launch blocks provisional catalog by default",
+    "fourth reveal scores 19, final reveal scores 1 in real SQL",
+    "exhausted tie blocks victory, accepts only eligible pre-round custom reserve"
+  ],
+  "passed": 25,
+  "limitations": [
+    "No live Supabase Auth or WebSocket transport",
+    "Single embedded connection: no parallel row-lock contention measurement"
+  ]
+}
