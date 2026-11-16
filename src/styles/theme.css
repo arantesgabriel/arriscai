@@ -1,8 +1,8 @@
 /*
  * Mapeamento semântico → Tailwind v4.
  * Deve ser importado LOGO APÓS `@import "tailwindcss";` em globals.css.
- * Fase 1: preparado, mas NÃO conectado (globals.css possui alterações locais não commitadas
- * do usuário; a ligação acontece na Fase 2, quando globals.css vira hub de imports).
+ * Conectado no hub globals.css. O jogo mantém seu escopo .app;
+ * a landing conserva seus tokens locais e seus estilos originais.
  */
 @theme inline {
   --color-canvas: var(--color-bg-canvas);

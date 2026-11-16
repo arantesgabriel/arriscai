@@ -1,0 +1,605 @@
+.app .game-layout {
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 20px 24px;
+  align-items: start;
+}
+.app .game-layout > div,
+.app .game-layout > aside {
+  display: contents;
+}
+.app .game-layout .board-shell {
+  grid-column: 1;
+  grid-row: 1 / span 4;
+}
+.app .game-layout .private {
+  grid-column: 2;
+  grid-row: 1;
+}
+.app .game-layout .controls {
+  grid-column: 2;
+  grid-row: 2;
+}
+.app .game-layout .scoreboard {
+  grid-column: 2;
+  grid-row: 3;
+}
+.app .game-layout .management {
+  grid-column: 2;
+  grid-row: 4;
+}
+.app .game-layout .round-result-overlay {
+  grid-column: 1;
+  grid-row: 1;
+}
+.app[data-phase="result"] .game-layout .board-shell {
+  grid-row: 2;
+}
+.app[data-phase="result"] .game-layout .private {
+  display: none;
+}
+.app[data-phase="result"] .game-layout .scoreboard {
+  grid-row: 1;
+}
+.app[data-phase="result"] .game-layout .management {
+  grid-row: 2;
+}
+.app[data-phase="result"] .public-layout > div {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.app[data-phase="result"] .public-layout .round-result-overlay {
+  order: -1;
+}
+.app .game-layout .panel {
+  margin: 0;
+}
+.app .board-shell {
+  background: var(--color-surface-stage);
+  border: 1px solid var(--color-border-on-dark);
+  border-radius: 22px;
+  padding: 24px;
+  margin: 0;
+  box-shadow: var(--shadow-tactile-lg);
+}
+.app .board-top {
+  color: var(--palette-paper);
+  gap: 16px;
+}
+.app .board-top h2 {
+  font-size: clamp(26px, 2.5vw, 38px);
+  margin-top: 8px;
+}
+.app .board-top > div > span {
+  font-size: 12px;
+  color: var(--palette-muted);
+}
+.app .points {
+  background: var(--color-reward);
+  color: var(--palette-ink);
+  border-radius: 14px;
+  min-height: 86px;
+  min-width: 100px;
+  padding: 10px 14px;
+  box-shadow: var(--shadow-tactile-sm);
+}
+.app .points strong {
+  font-size: 46px;
+}
+.app .points span {
+  font-size: 10px;
+}
+.app .board-top .points span {
+  color: var(--palette-ink);
+}
+.app .board-category {
+  color: var(--palette-muted);
+  margin: 20px 0 16px;
+  font-size: 12px;
+}
+.app .board {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+.app .tile {
+  background: var(--tile-bg-hidden);
+  color: var(--tile-text-hidden);
+  border: 2px solid var(--palette-ink);
+  border-radius: var(--tile-radius);
+  padding: 12px 6px;
+  min-height: 76px;
+  box-shadow: var(--shadow-tactile-sm);
+}
+.app .tile:disabled {
+  background: var(--tile-bg-hidden);
+  color: var(--tile-text-hidden);
+  box-shadow: var(--shadow-tactile-sm);
+  opacity: 1;
+}
+.app .tile-index {
+  font: 30px var(--font-display);
+}
+.app .tile.selected,
+.app .tile.selected:disabled {
+  background: var(--color-selected);
+  outline: 3px solid var(--palette-mint);
+  outline-offset: 2px;
+}
+.app .tile.revealed,
+.app .tile.revealed:disabled {
+  background: var(--color-revealed);
+  color: var(--palette-ink);
+}
+.app .tile.revealed .tile-index {
+  font: 800 10px var(--font-body);
+  position: absolute;
+  left: 8px;
+  top: 5px;
+}
+.app .tile strong {
+  font: 900 clamp(13px, 1.1vw, 18px)/1.25 var(--font-body);
+  overflow-wrap: anywhere;
+  max-width: 100%;
+  padding-top: 7px;
+}
+.app .tile.just-opened {
+  animation: game-card-reveal var(--motion-flip) var(--ease-out);
+}
+.app .board-hint {
+  color: var(--palette-mint);
+  font-size: 12px;
+  margin: 16px 0 0;
+}
+.app .pause-banner {
+  background: var(--palette-lilac);
+  color: var(--palette-ink);
+  border-color: var(--palette-ink);
+  margin: 16px 0 0;
+}
+.app .controls {
+  padding: 22px;
+  position: static;
+  max-height: none;
+  overflow: visible;
+}
+.app .controls h2 {
+  font-size: 25px;
+}
+.app .controls .actions {
+  gap: 10px;
+}
+.app .controls .actions button {
+  flex: 1 1 100%;
+}
+.app .guess-form {
+  grid-template-columns: 1fr;
+  margin-bottom: 16px;
+}
+.app .guess-form button {
+  width: 100%;
+}
+.app .judgement {
+  background: var(--color-surface-subtle);
+  padding: 16px;
+}
+.app .private {
+  background: var(--color-surface-private);
+  color: var(--palette-paper);
+  border: 1px solid var(--palette-line);
+  border-left: 4px solid var(--color-private-accent);
+  box-shadow: none;
+  padding: 20px;
+}
+.app .private-heading {
+  color: var(--palette-lilac);
+  border-color: var(--palette-line);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+  font-size: 11px;
+}
+.app .private h2 {
+  font-size: 21px;
+  margin-bottom: 12px;
+}
+.app .private p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+.app .private > strong {
+  color: var(--palette-lilac);
+  font-size: 23px;
+  overflow-wrap: anywhere;
+}
+.app .private small,
+.app .private > span {
+  color: var(--palette-muted);
+}
+.app .management {
+  background: transparent;
+  color: var(--palette-muted);
+  border: 1px solid var(--palette-line);
+  box-shadow: none;
+  padding: 16px;
+  font-size: 12px;
+}
+.app .management .actions {
+  align-items: stretch;
+}
+.app .management .actions > * {
+  flex: 1 1 100%;
+}
+.app .scoreboard {
+  padding: 22px;
+}
+.app .scoreboard h2 {
+  font-size: 25px;
+}
+.app .scoreboard li {
+  border-color: var(--palette-blue-200);
+  padding: 12px 0;
+  overflow-wrap: anywhere;
+}
+.app .scoreboard li > strong {
+  min-width: 0;
+}
+.app .scoreboard li > b {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+.app .scoreboard .current > span {
+  color: var(--palette-ink);
+}
+.app .compact-score-bar {
+  background: transparent;
+  color: var(--palette-paper);
+  border: 1px solid var(--palette-line);
+  box-shadow: none;
+  padding: 10px 12px;
+  margin-bottom: 18px;
+  border-radius: 12px;
+}
+.app .score-chip {
+  background: transparent;
+  color: var(--palette-paper);
+  border: 1px solid var(--palette-line);
+  border-radius: 9px;
+}
+.app .score-chip.turn {
+  border-color: var(--palette-mint);
+  color: var(--palette-mint);
+  outline: none;
+}
+.app .score-chip.leader {
+  background: var(--palette-gold);
+  color: var(--palette-ink);
+}
+.app .score-toggle-btn {
+  font-size: 12px;
+}
+.app .score-drawer {
+  background: var(--palette-paper);
+  color: var(--palette-ink);
+}
+.app .public-layout {
+  grid-template-columns: minmax(0, 1fr) 280px;
+  align-items: start;
+  gap: 24px;
+}
+.app .spectator-note {
+  color: var(--palette-muted);
+  margin-top: 20px;
+}
+@media (min-width: 801px) {
+  .app .compact-score-bar {
+    display: none;
+  }
+}
+/* Television has its own stage proportions, without host UI. */
+.app.television .tv-stage-bar {
+  min-height: 76px;
+  background: var(--palette-night);
+  color: var(--palette-paper);
+  border-bottom: 1px solid var(--palette-line);
+}
+.app.television .tv-brand strong {
+  font-family: var(--font-display);
+}
+.app.television .tv-brand span {
+  color: var(--palette-mint);
+}
+.app.television .tv-chip {
+  background: transparent;
+  color: var(--palette-mint);
+}
+.app.television .tv-room-badge strong {
+  color: var(--palette-paper);
+}
+.app.television main {
+  max-width: none;
+  padding: 30px 40px 40px;
+}
+.app.television .room-heading h1 {
+  font-size: 32px;
+}
+.app.television .public-layout {
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 32px;
+}
+.app.television .board-shell {
+  min-height: 0;
+  padding: 28px;
+}
+.app.television .board {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 18px;
+}
+.app.television .tile {
+  min-height: 124px;
+}
+.app.television .tile-index {
+  font-size: 46px;
+}
+.app.television .tile strong {
+  font-size: clamp(20px, 1.6vw, 30px);
+}
+.app.television .board-top h2 {
+  font-size: 56px;
+}
+.app.television .points {
+  min-width: 130px;
+  min-height: 110px;
+}
+.app.television .points strong {
+  font-size: 68px;
+}
+.app.television .scoreboard {
+  background: var(--palette-night-secondary);
+  color: var(--palette-paper);
+  border-color: var(--palette-line);
+  box-shadow: none;
+}
+.app.television .scoreboard li {
+  border-color: var(--palette-line);
+  padding: 20px 0;
+}
+.app.television .scoreboard li > b {
+  color: var(--palette-gold);
+  font-size: 36px;
+}
+.app.television .scoreboard .current > span {
+  color: var(--palette-mint);
+}
+.app.television .lobby-layout {
+  grid-template-columns: 1fr;
+}
+.app.television .members {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.app.television .members > h2,
+.app.television .members > p {
+  grid-column: 1 / -1;
+}
+.app.television .members ul {
+  grid-column: 1;
+}
+.app.television .roulette-box {
+  grid-column: 2;
+  grid-row: 3;
+  border: 0;
+  background: transparent;
+}
+@media (max-width: 1100px) and (min-width: 801px) {
+  .app .game-layout {
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 18px;
+  }
+  .app .board {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .app .board-shell {
+    padding: 18px;
+  }
+  .app .board-top h2 {
+    font-size: 26px;
+  }
+  .app.television .tile {
+    min-height: 90px;
+  }
+  .app.television .board-top h2 {
+    font-size: 38px;
+  }
+}
+@media (max-width: 800px) {
+  .app[data-experience="host"] .room-heading,
+  .app[data-experience="player"] .room-heading {
+    margin-bottom: 12px;
+    flex-direction: row;
+    align-items: center;
+  }
+  .app[data-experience="host"] .room-heading h1,
+  .app[data-experience="player"] .room-heading h1 {
+    font-size: 18px;
+  }
+  .app[data-experience="host"] .room-heading > .actions,
+  .app[data-experience="player"] .room-heading > .actions {
+    display: none;
+  }
+  .app .room-code {
+    margin-bottom: 4px;
+    font-size: 10px;
+  }
+  .app .room-code strong {
+    font-size: 12px;
+  }
+  .app .game-layout,
+  .app .public-layout,
+  .app.television .public-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .app .game-layout > div,
+  .app .public-layout > div {
+    display: contents;
+  }
+  .app .game-layout > aside,
+  .app .public-layout > aside {
+    display: contents;
+  }
+  .app .board-shell {
+    order: 0;
+    padding: 14px;
+    width: 100%;
+    margin: 0;
+  }
+  .app .controls {
+    order: 1;
+    width: 100%;
+    padding: 18px;
+    position: static;
+    overflow: visible;
+    max-height: none;
+  }
+  .app .round-result-overlay {
+    order: 1;
+  }
+  .app[data-phase="result"] .board-shell {
+    order: 2;
+  }
+  .app .management {
+    order: 2;
+    width: 100%;
+  }
+  .app .game-layout > aside > .scoreboard,
+  .app .public-layout > aside > .scoreboard,
+  .app .game-layout > aside > .private {
+    display: none;
+  }
+  .app .board {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .app .tile {
+    min-height: 52px;
+    padding: 12px 4px;
+  }
+  .app .tile-index {
+    font-size: 24px;
+  }
+  .app .tile strong {
+    font-size: 13px;
+    line-height: 1.3;
+    padding-top: 8px;
+  }
+  .app .board-top h2 {
+    font-size: 26px;
+  }
+  .app .board-top > div > span {
+    font-size: 10px;
+  }
+  .app .points {
+    min-width: 82px;
+    min-height: 70px;
+    padding: 8px;
+  }
+  .app .points strong {
+    font-size: 36px;
+  }
+  .app .points span {
+    font-size: 9px;
+  }
+  .app .board-category {
+    font-size: 10px;
+    margin: 14px 0 12px;
+  }
+  .app .board-hint {
+    font-size: 11px;
+    margin-top: 12px;
+  }
+  .app .compact-score-bar {
+    padding: 8px;
+    margin-bottom: 14px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 6px;
+  }
+  .app .score-drawer {
+    grid-column: 1 / -1;
+  }
+  .app .score-chip {
+    font-size: 10px;
+    padding: 6px 8px;
+  }
+  .app .score-chips {
+    gap: 6px;
+  }
+  .app .score-toggle-btn {
+    padding: 6px;
+    min-height: 44px;
+    font-size: 10px;
+  }
+  .app .controls h2 {
+    font-size: 23px;
+  }
+  .app .controls .actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+  .app .mobile-secret-peek {
+    display: block;
+    width: 100%;
+  }
+  .app .mobile-secret-peek summary {
+    color: var(--palette-ink);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .app .peek-box {
+    background: var(--color-surface-subtle);
+    border-color: var(--palette-lilac);
+    color: var(--palette-ink);
+  }
+  .app .spectator-note {
+    order: 3;
+  }
+  .app.television main {
+    padding: 20px 16px;
+  }
+  .app.television .board {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .app.television .tile {
+    min-height: 70px;
+  }
+  .app.television .board-top h2 {
+    font-size: 30px;
+  }
+  .app.television .members {
+    display: block;
+  }
+}
+@keyframes game-card-reveal {
+  from {
+    transform: rotateX(70deg);
+    opacity: 0.6;
+  }
+  to {
+    transform: rotateX(0);
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app *,
+  .app *::before,
+  .app *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

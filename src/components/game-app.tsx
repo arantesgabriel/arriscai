@@ -1,15 +1,15 @@
 "use client";
 import Link from "next/link";
+import { EntryScreen } from "./game/entry-screen";
+import { Board, Scoreboard } from "./game/board";
+import { Icon } from "./game/game-icon";
+import { HostRoulette } from "./game/host-roulette";
+import { CompactScoreStrip } from "./game/score-strip";
+import { RoundResultOverlay, VictoryStage } from "./game/results";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { configured, identity, rpc, supabase } from "@/lib/supabase";
-import {
-  humanError,
-  type Game,
-  type Member,
-  type Secret,
-  type Snapshot,
-} from "@/lib/game";
+import { humanError, type Game, type Member, type Secret, type Snapshot } from "@/lib/game";
 
 type Catalog = {
   id: string;
@@ -47,17 +47,6 @@ const categoryMeta: Record<string, { hint: string; icon: string }> = {
   "Ciência e tecnologia": { hint: "Descobertas e futuro", icon: "atom" },
   "Cultura pop": { hint: "Games, heróis e redes", icon: "gamepad" },
 };
-
-const wheelPalette = [
-  "#FFBE3B",
-  "#27A5F9",
-  "#1BBC91",
-  "#FFD875",
-  "#4D94FF",
-  "#FF8B6A",
-  "#68D6B9",
-  "#FFA630",
-];
 
 type SoundKind = "reveal" | "error" | "correct" | "roulette" | "victory";
 
@@ -130,155 +119,6 @@ function playEventSound(kind: SoundKind, enabled: boolean, volume: number) {
   } catch {
     // Ignore audio context restrictions if blocked by browser policy
   }
-}
-
-function Icon({
-  name,
-}: {
-  name:
-    | "star"
-    | "trophy"
-    | "arrow"
-    | "crown"
-    | "wheel"
-    | "fullscreen"
-    | "bulb"
-    | "clapper"
-    | "music"
-    | "ball"
-    | "globe"
-    | "column"
-    | "atom"
-    | "gamepad";
-}) {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      {name === "star" ? (
-        <path
-          fill="#FFBE3B"
-          stroke="#102E53"
-          d="m12 2 3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1Z"
-        />
-      ) : name === "trophy" ? (
-        <>
-          <path
-            fill="#FFBE3B"
-            stroke="#102E53"
-            d="M7 3h10v7a5 5 0 0 1-10 0V3Z"
-          />
-          <path
-            stroke="#102E53"
-            d="M12 15v6m-4 0h8M7 5H3v3a4 4 0 0 0 4 4m10-7h4v3a4 4 0 0 1-4 4"
-          />
-        </>
-      ) : name === "crown" ? (
-        <path
-          fill="#FFBE3B"
-          stroke="#102E53"
-          d="m2 18 2-11 5 4 3-6 3 6 5-4 2 11H2Z"
-        />
-      ) : name === "wheel" ? (
-        <>
-          <circle cx="12" cy="12" r="9" fill="#FFBE3B" stroke="#102E53" />
-          <circle cx="12" cy="12" r="2.5" fill="#fff" stroke="#102E53" />
-          <path stroke="#102E53" d="M12 3v6.5M12 14.5V21M3 12h6.5M14.5 12H21" />
-        </>
-      ) : name === "fullscreen" ? (
-        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
-      ) : name === "bulb" ? (
-        <path
-          fill="#FFBE3B"
-          stroke="#102E53"
-          d="M9 18h6m-5 3h4M12 3a6 6 0 0 0-4 10.5c.7.6 1 1.5 1 2.5h6c0-1 .3-1.9 1-2.5A6 6 0 0 0 12 3Z"
-        />
-      ) : name === "clapper" ? (
-        <>
-          <rect
-            x="3"
-            y="8"
-            width="18"
-            height="13"
-            rx="2"
-            fill="#FFBE3B"
-            stroke="#102E53"
-          />
-          <path stroke="#102E53" d="M3 8 6 3h13l2 5M8 3l2 5m4-5 2 5" />
-        </>
-      ) : name === "music" ? (
-        <>
-          <path stroke="#102E53" d="M9 18V5l12-2v13" />
-          <circle cx="6" cy="18" r="3" fill="#FFBE3B" stroke="#102E53" />
-          <circle cx="18" cy="16" r="3" fill="#FFBE3B" stroke="#102E53" />
-        </>
-      ) : name === "ball" ? (
-        <>
-          <circle cx="12" cy="12" r="9" fill="#FFBE3B" stroke="#102E53" />
-          <path
-            stroke="#102E53"
-            d="M4.5 9.5c5 0 10 0 15 0M4.5 14.5h15M12 3v18"
-          />
-        </>
-      ) : name === "globe" ? (
-        <>
-          <circle cx="12" cy="12" r="9" fill="#68D6B9" stroke="#102E53" />
-          <path
-            stroke="#102E53"
-            d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"
-          />
-        </>
-      ) : name === "column" ? (
-        <>
-          <path fill="#FFBE3B" stroke="#102E53" d="M4 6h16v3H4zM4 18h16v3H4z" />
-          <path stroke="#102E53" d="M7 9v9m5-9v9m5-9v9" />
-        </>
-      ) : name === "atom" ? (
-        <>
-          <circle cx="12" cy="12" r="2.5" fill="#FFBE3B" stroke="#102E53" />
-          <ellipse
-            cx="12"
-            cy="12"
-            rx="9"
-            ry="4"
-            transform="rotate(30 12 12)"
-            stroke="#102E53"
-          />
-          <ellipse
-            cx="12"
-            cy="12"
-            rx="9"
-            ry="4"
-            transform="rotate(-30 12 12)"
-            stroke="#102E53"
-          />
-        </>
-      ) : name === "gamepad" ? (
-        <>
-          <rect
-            x="2"
-            y="6"
-            width="20"
-            height="12"
-            rx="5"
-            fill="#FFBE3B"
-            stroke="#102E53"
-          />
-          <path stroke="#102E53" d="M6 12h4m-2-2v4m7-1h.01M18 11h.01" />
-        </>
-      ) : (
-        <path d="m9 5 7 7-7 7" />
-      )}
-    </svg>
-  );
 }
 
 export default function GameApp({ roomId }: { roomId?: string }) {
@@ -741,6 +581,18 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   return (
     <div
       className={screen ? "app television" : "app"}
+      data-experience={
+        !roomId
+          ? "entry"
+          : active
+            ? screen
+              ? "television"
+              : host
+                ? "host"
+                : "player"
+            : "lobby"
+      }
+      data-phase={game?.phase}
       data-ready={uid && identityStatus === "ready" ? "true" : "false"}
     >
       <div className="sr-only" aria-live="polite" aria-atomic="true">
@@ -1054,145 +906,85 @@ export default function GameApp({ roomId }: { roomId?: string }) {
 
       {!roomId ? (
         <main>
-          <section className="hero">
-            <div className="hero-copy">
-              <span className="hero-kicker">
-                ✦ GAME SHOW SOCIAL · ATÉ 22 PALAVRAS
-              </span>
-              <h1>
-                Uma palavra.
-                <br />
-                Um palpite.
-                <br />
-                Vale arriscar.
-              </h1>
-              <p>
-                Reúna a galera. Revele as pistas.
-                <br />
-                Quem acerta antes, leva mais pontos.
-              </p>
-              <form
-                className="entry"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  void enter(false, screen);
-                }}
+          <EntryScreen>
+            <form
+              className="entry"
+              onSubmit={(e) => {
+                e.preventDefault();
+                void enter(false, screen);
+              }}
+            >
+              <label>
+                Como a galera te chama?
+                <input
+                  placeholder="Seu apelido"
+                  ref={nicknameInput}
+                  value={nickname}
+                  maxLength={24}
+                  required
+                  onChange={(e) => setNickname(e.target.value)}
+                />
+              </label>
+              <button
+                className="primary"
+                disabled={
+                  screen ||
+                  busy ||
+                  !nickname ||
+                  !configured() ||
+                  identityStatus !== "ready"
+                }
+                type="button"
+                onClick={() => void enter(true)}
               >
+                Criar uma sala <Icon name="arrow" />
+              </button>
+              <div className="join">
                 <label>
-                  Como a galera te chama?
+                  Código da sala
                   <input
-                    placeholder="Seu apelido"
-                    ref={nicknameInput}
-                    value={nickname}
-                    maxLength={24}
-                    required
-                    onChange={(e) => setNickname(e.target.value)}
+                    placeholder="Ex.: A1B2C3D4"
+                    value={code}
+                    minLength={8}
+                    maxLength={8}
+                    onChange={(e) => setCode(e.target.value.toUpperCase())}
                   />
                 </label>
                 <button
-                  className="primary"
+                  className="secondary"
                   disabled={
-                    screen ||
                     busy ||
                     !nickname ||
+                    code.length !== 8 ||
                     !configured() ||
                     identityStatus !== "ready"
                   }
-                  type="button"
-                  onClick={() => void enter(true)}
                 >
-                  Criar uma sala <Icon name="arrow" />
+                  Entrar
                 </button>
-                <div className="join">
-                  <label>
-                    Código da sala
-                    <input
-                      placeholder="Ex.: A1B2C3D4"
-                      value={code}
-                      minLength={8}
-                      maxLength={8}
-                      onChange={(e) => setCode(e.target.value.toUpperCase())}
-                    />
-                  </label>
-                  <button
-                    className="secondary"
-                    disabled={
-                      busy ||
-                      !nickname ||
-                      code.length !== 8 ||
-                      !configured() ||
-                      identityStatus !== "ready"
-                    }
-                  >
-                    Entrar
-                  </button>
-                </div>
-              </form>
-              {configured() && identityStatus === "loading" && (
-                <p role="status" className="setup-note">
-                  Conectando sua identidade para entrar na sala…
-                </p>
-              )}
-              {configured() && identityStatus === "error" && (
-                <button
-                  className="secondary"
-                  type="button"
-                  onClick={() => void establishIdentity()}
-                >
-                  Tentar conectar novamente
-                </button>
-              )}
-              {!configured() && (
-                <p className="setup-note">
-                  O jogo está aguardando a conexão com o Supabase. As instruções
-                  estão no README do projeto.
-                </p>
-              )}
-            </div>
-            <div className="hero-art" aria-hidden="true">
-              <div className="orbit" />
-              <span className="floating-star">
-                <Icon name="star" />
-              </span>
-              <div className="floating-crown">
-                <Icon name="crown" />
               </div>
-              <div className="question-block">?</div>
-              <div className="point-token">
-                22<span>pontos</span>
-              </div>
-              <div className="mini-tile">6</div>
-              <div className="hero-live-card">
-                <span className="live-pill">PISTA #6 ABERTA</span>
-                <strong>“...galo sobre uma bola...”</strong>
-                <small>Acertou na 1ª pista: +22 pts!</small>
-              </div>
-              <span className="art-caption">
-                O próximo palpite pode ser o seu.
-              </span>
-            </div>
-          </section>
-          <section className="how">
-            <h2>
-              Todo mundo sabe jogar.
-              <br />
-              Ninguém sabe a resposta.
-            </h2>
-            <ol>
-              <li>
-                <strong>Escolha uma posição</strong>
-                <span>O organizador confirma e revela a palavra.</span>
-              </li>
-              <li>
-                <strong>Junte as pistas</strong>
-                <span>Arrisque uma resposta ou passe a vez.</span>
-              </li>
-              <li>
-                <strong>Some os pontos</strong>
-                <span>Menos palavras abertas, mais pontos para você.</span>
-              </li>
-            </ol>
-          </section>
+            </form>
+            {configured() && identityStatus === "loading" && (
+              <p role="status" className="setup-note">
+                Conectando sua identidade para entrar na sala…
+              </p>
+            )}
+            {configured() && identityStatus === "error" && (
+              <button
+                className="secondary"
+                type="button"
+                onClick={() => void establishIdentity()}
+              >
+                Tentar conectar novamente
+              </button>
+            )}
+            {!configured() && (
+              <p className="setup-note">
+                O jogo está aguardando a conexão com o Supabase. As instruções
+                estão no README do projeto.
+              </p>
+            )}
+          </EntryScreen>
         </main>
       ) : !snapshot ? (
         <main className="loading">
@@ -2046,387 +1838,5 @@ export default function GameApp({ roomId }: { roomId?: string }) {
         </footer>
       )}
     </div>
-  );
-}
-
-function HostRoulette({
-  members,
-  hostId,
-  isHost,
-  busy,
-  wheelAngle,
-  wheelSpinning,
-  wheelBanner,
-  onChooseManual,
-  onSpin,
-}: {
-  members: Member[];
-  hostId: string;
-  isHost: boolean;
-  busy: boolean;
-  wheelAngle: number;
-  wheelSpinning: boolean;
-  wheelBanner: string;
-  onChooseManual: (memberId: string) => void;
-  onSpin: () => void;
-}) {
-  const n = Math.max(1, members.length);
-  const gradient = useMemo(() => {
-    if (!members.length) return "#FFBE3B";
-    const step = 360 / members.length;
-    return `conic-gradient(from 0deg, ${members
-      .map(
-        (_, i) =>
-          `${wheelPalette[i % wheelPalette.length]} ${(i * step).toFixed(1)}deg ${((i + 1) * step).toFixed(1)}deg`,
-      )
-      .join(", ")})`;
-  }, [members]);
-
-  return (
-    <div className="roulette-box">
-      <h3>Quem vai organizar?</h3>
-      <div className="wheel-stage" aria-hidden="true">
-        <div className="wheel-pointer" />
-        <div
-          className={`wheel-disc ${wheelSpinning ? "spinning" : ""}`}
-          style={{
-            transform: `rotate(${wheelAngle}deg)`,
-            background: gradient,
-          }}
-        >
-          {members.map((m, i) => {
-            const angle = ((i + 0.5) * 360) / n;
-            return (
-              <span
-                key={m.user_id}
-                className="wheel-slice-label"
-                style={{
-                  transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(var(--wheel-label-radius, -68px))`,
-                }}
-              >
-                {m.nickname.slice(0, 10)}
-              </span>
-            );
-          })}
-          <span className="wheel-hub">★</span>
-        </div>
-      </div>
-
-      {wheelBanner && (
-        <p className="wheel-announcement" role="status">
-          {wheelBanner}
-        </p>
-      )}
-
-      {isHost && (
-        <div className="actions">
-          <select
-            aria-label="Escolher organizador"
-            value={hostId}
-            disabled={busy}
-            onChange={(e) => onChooseManual(e.target.value)}
-          >
-            {members.map((m) => (
-              <option key={m.user_id} value={m.user_id}>
-                {m.nickname}
-              </option>
-            ))}
-          </select>
-          <button
-            className="secondary"
-            type="button"
-            disabled={busy || members.length < 1}
-            onClick={onSpin}
-          >
-            <Icon name="wheel" />{" "}
-            {wheelSpinning ? "Girando roleta…" : "Sortear organizador"}
-          </button>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function CompactScoreStrip({
-  game,
-  expanded,
-  onToggle,
-}: {
-  game: Game;
-  expanded: boolean;
-  onToggle: () => void;
-}) {
-  const sorted = [...game.players].sort((a, b) => b.score - a.score);
-  return (
-    <div className="compact-score-bar" aria-label="Resumo do placar">
-      <div className="score-chips">
-        {sorted.map((p, i) => (
-          <span
-            key={p.id}
-            className={`score-chip ${i === 0 && p.score > 0 ? "leader" : ""} ${game.players[game.current]?.id === p.id ? "turn" : ""}`}
-          >
-            <strong>{p.nickname}</strong>
-            <b>{p.score} pts</b>
-          </span>
-        ))}
-      </div>
-      <button
-        type="button"
-        className="quiet score-toggle-btn"
-        onClick={onToggle}
-      >
-        {expanded ? "Recolher tabela" : "Classificação completa"}
-      </button>
-      {expanded && (
-        <div className="score-drawer">
-          <Scoreboard game={game} />
-        </div>
-      )}
-    </div>
-  );
-}
-
-function RoundResultOverlay({
-  game,
-  host,
-  busy,
-  permanent,
-  onNext,
-  onReserve,
-  onReserveCustom,
-}: {
-  game: Game;
-  host: boolean;
-  busy: boolean;
-  permanent: boolean;
-  onNext: () => void;
-  onReserve: () => void;
-  onReserveCustom: (q: string, a: string) => void;
-}) {
-  const winner = game.players.find((p) => p.id === game.result);
-  const fullQuestion = game.words.filter(Boolean).join(" ") + "?";
-  const earned = game.round_points ?? 0;
-
-  return (
-    <section
-      className="panel round-result-overlay"
-      aria-label="Resultado da rodada"
-    >
-      <div className="result-badge-3d">
-        <Icon name={winner ? "trophy" : "star"} />
-      </div>
-      <span className="result-kicker">RODADA {game.round + 1} ENCERRADA</span>
-      <h2>
-        {winner
-          ? `${winner.nickname} acertou e levou +${earned} ${earned === 1 ? "ponto" : "pontos"}!`
-          : "Ninguém pontuou nesta rodada!"}
-      </h2>
-      {game.answer && (
-        <div className="solution-reveal">
-          <span>Resposta correta</span>
-          <strong className="solution-answer">{game.answer}</strong>
-        </div>
-      )}
-      <p className="solution-question">{fullQuestion}</p>
-
-      {host && (
-        <div className="overlay-host-actions">
-          <button disabled={busy} onClick={onNext}>
-            Avançar rodada / encerrar
-          </button>
-          {game.round + 1 >= game.prepared && (
-            <button className="secondary" disabled={busy} onClick={onReserve}>
-              Preparar pergunta extra inédita
-            </button>
-          )}
-          {game.round + 1 >= game.prepared && permanent && (
-            <details className="custom-form">
-              <summary>Criar pergunta própria para o desempate</summary>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const data = new FormData(e.currentTarget);
-                  onReserveCustom(
-                    String(data.get("question")),
-                    String(data.get("answer")),
-                  );
-                }}
-              >
-                <label>
-                  Pergunta inédita, até 22 palavras
-                  <textarea required name="question" maxLength={1500} />
-                </label>
-                <label>
-                  Resposta da pergunta extra
-                  <input required name="answer" maxLength={200} />
-                </label>
-                <button disabled={busy}>Preparar pergunta própria extra</button>
-              </form>
-            </details>
-          )}
-        </div>
-      )}
-    </section>
-  );
-}
-
-function VictoryStage({ game }: { game: Game }) {
-  const sorted = [...game.players].sort((a, b) => b.score - a.score);
-  const champ = game.players.find((p) => p.id === game.winner) ?? sorted[0];
-  const podiumOrder = [sorted[1], sorted[0], sorted[2]].filter(Boolean);
-
-  return (
-    <section className="podium" aria-label="Pódio da partida">
-      <div className="podium-crown">
-        <Icon name="crown" />
-        <Icon name="trophy" />
-      </div>
-      <span className="podium-kicker">✦ FIM DE JOGO · GRANDE CAMPEÃO ✦</span>
-      <p>Essa foi de</p>
-      <h2>{champ?.nickname}!</h2>
-      <p className="podium-sub">
-        Uma boa dose de coragem. Um lugar no topo com{" "}
-        <strong>{champ?.score ?? 0} pontos</strong> em {game.round + 1}{" "}
-        {game.round + 1 === 1 ? "rodada" : "rodadas"}.
-      </p>
-
-      <div className="podium-3d-pedestals">
-        {podiumOrder.map((p) => {
-          const rank = sorted.findIndex((x) => x.id === p.id) + 1;
-          return (
-            <div key={p.id} className={`pedestal-col rank-${rank}`}>
-              <span className="pedestal-avatar">
-                {p.nickname.slice(0, 1).toUpperCase()}
-              </span>
-              <strong className="pedestal-name">{p.nickname}</strong>
-              <span className="pedestal-score">{p.score} pts</span>
-              <div className="pedestal-block">{rank}º</div>
-            </div>
-          );
-        })}
-      </div>
-
-      <Scoreboard game={game} />
-    </section>
-  );
-}
-
-function Board({
-  game: g,
-  host,
-  busy,
-  onSelect,
-}: {
-  game: Game;
-  host: boolean;
-  busy: boolean;
-  onSelect: (p: number) => void;
-}) {
-  const revealed = g.words.filter((x) => x !== null).length;
-  const isResult = g.phase === "result";
-  const availablePoints = Math.max(
-    1,
-    g.words.length - revealed + (g.phase === "awaiting_guess" ? 1 : 0),
-  );
-  const displayPoints = isResult ? (g.round_points ?? 0) : availablePoints;
-  const pointsLabel = isResult
-    ? g.result
-      ? displayPoints === 1
-        ? "ponto conquistado"
-        : "pontos conquistados"
-      : "sem vencedor"
-    : availablePoints === 1
-      ? "ponto em jogo"
-      : "pontos em jogo";
-
-  return (
-    <section className="board-shell">
-      <div className="board-top">
-        <div>
-          <span>
-            Rodada {g.round + 1}
-            {g.round >= g.planned ? " · Desempate" : ` de ${g.planned}`}
-          </span>
-          <h2>
-            {isResult
-              ? "Pergunta revelada"
-              : `É a vez de ${g.players[g.current]?.nickname}`}
-          </h2>
-        </div>
-        <div className={`points ${isResult ? "points-result" : ""}`}>
-          <strong>{displayPoints}</strong>
-          <span>{pointsLabel}</span>
-        </div>
-      </div>
-      <div className="board-category">
-        {g.category}
-        <span>
-          {revealed} de {g.words.length} palavras
-        </span>
-      </div>
-      <div className="board">
-        {g.words.map((word, i) => (
-          <button
-            key={i}
-            type="button"
-            className={`tile ${word ? "revealed" : ""} ${g.selected === i ? "selected" : ""} ${g.last === i ? "just-opened" : ""}`}
-            aria-label={word ? `Posição ${i + 1}: ${word}` : `Posição ${i + 1}`}
-            disabled={
-              busy ||
-              !host ||
-              g.paused ||
-              g.phase !== "awaiting_position" ||
-              word !== null
-            }
-            onClick={() => onSelect(i)}
-          >
-            <span className="tile-index">{i + 1}</span>
-            {word && (
-              <strong>
-                {word}
-                {i === g.words.length - 1 ? "?" : ""}
-              </strong>
-            )}
-          </button>
-        ))}
-      </div>
-      {g.phase === "pending_confirmation" && (
-        <p className="board-hint" role="status">
-          Posição {(g.selected ?? 0) + 1} selecionada. Aguardando confirmação.
-        </p>
-      )}
-      {g.paused && (
-        <p className="pause-banner" role="status">
-          Partida pausada. O organizador precisa retomar.
-        </p>
-      )}
-    </section>
-  );
-}
-
-function Scoreboard({ game }: { game: Game }) {
-  return (
-    <section className="panel scoreboard">
-      <h2>Placar</h2>
-      <ol>
-        {[...game.players]
-          .sort((a, b) => b.score - a.score)
-          .map((p, i) => (
-            <li
-              key={p.id}
-              className={
-                game.players[game.current]?.id === p.id ? "current" : ""
-              }
-            >
-              <span>{i + 1}</span>
-              <strong>{p.nickname}</strong>
-              <b>
-                {p.score}
-                <small>pts</small>
-              </b>
-            </li>
-          ))}
-      </ol>
-    </section>
   );
 }

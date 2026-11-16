@@ -32,13 +32,14 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
     screen = false,
   ) {
     await page.goto(`/?codigo=${code}${screen ? "&telao=1" : ""}`);
-    if (!screen) await page.getByLabel("Como a galera te chama?").fill(nickname);
+    if (!screen)
+      await page.getByLabel("Como a galera te chama?").fill(nickname);
     await expect(
       page.getByRole("button", { name: "Entrar", exact: true }),
     ).toBeEnabled();
     await page.getByRole("button", { name: "Entrar", exact: true }).click();
     await expect(
-      page.getByRole("heading", { name: "Junte a galera." }),
+      page.getByRole("heading", { name: "Junte a galera.", exact: true }),
     ).toBeVisible();
   }
   async function currentHost() {
@@ -69,7 +70,7 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
     await host.getByLabel("Como a galera te chama?").fill("QA-Organizador-R");
     await host.getByRole("button", { name: "Criar uma sala" }).click();
     await expect(
-      host.getByRole("heading", { name: "Junte a galera." }),
+      host.getByRole("heading", { name: "Junte a galera.", exact: true }),
     ).toBeVisible();
     const code = await host.locator(".room-code strong").innerText();
 
@@ -89,7 +90,7 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
     ).toBeEnabled();
     await first.getByRole("button", { name: "Entrar", exact: true }).click();
     await expect(
-      first.getByRole("heading", { name: "Junte a galera." }),
+      first.getByRole("heading", { name: "Junte a galera.", exact: true }),
     ).toBeVisible();
     expect(signups).toBe(1);
     const firstUid = await first.evaluate(
@@ -128,7 +129,7 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
     expect(membershipUid).toBe(firstUid);
     await first.reload();
     await expect(
-      first.getByRole("heading", { name: "Junte a galera." }),
+      first.getByRole("heading", { name: "Junte a galera.", exact: true }),
     ).toBeVisible();
     expect(
       await first.evaluate(
@@ -167,7 +168,7 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
       .getByRole("button", { name: "Entrar", exact: true })
       .click();
     await expect(
-      duplicate.getByRole("heading", { name: "Junte a galera." }),
+      duplicate.getByRole("heading", { name: "Junte a galera.", exact: true }),
     ).toBeVisible();
     await expect(host.locator(".members li")).toHaveCount(6);
     await expect(tv.locator(".wheel-announcement")).toContainText(

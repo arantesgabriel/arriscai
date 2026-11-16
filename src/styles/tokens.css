@@ -2,23 +2,40 @@
  * Arriscaí! — Design tokens
  * Camadas: 1) primitivos  →  2) semânticos  →  3) componente
  * Componentes devem consumir SOMENTE semânticos/componente.
- * Variáveis legadas (--blue, --gold, --ink...) continuam em globals.css até a migração (Fases 2–6).
+ * Aliases de compatibilidade ficam restritos à raiz .app em game/shell.css.
  */
 :root {
+  --palette-night: #11162c;
+  --palette-night-secondary: #1e2144;
+  --palette-mint: #79f5cb;
+  --palette-gold: #ffcf65;
+  --palette-lilac: #a99cfc;
+  --palette-paper: #f5f5f1;
+  --palette-muted: #b4bcd3;
+  --palette-ink: #101633;
+  --palette-line: #3c416b;
+  --color-text-on-dark: var(--palette-paper);
+  --color-text-muted-on-dark: var(--palette-muted);
+  --color-surface-stage: var(--palette-night-secondary);
+  --color-selected: var(--palette-lilac);
+  --color-revealed: var(--palette-mint);
+  --color-reward: var(--palette-gold);
+  --color-border-on-dark: var(--palette-line);
+  --color-private-accent: var(--palette-lilac);
   /* ───────── 1. PRIMITIVOS ───────── */
-  --palette-white: #ffffff;
-  --palette-blue-50: #eaf6ff; /* "soft" da marca */
-  --palette-blue-100: #d4ebff;
-  --palette-blue-200: #a9d4fb;
-  --palette-blue-500: #087df2; /* azul da marca */
-  --palette-blue-600: #066fd8;
-  --palette-blue-700: #0661bd;
-  --palette-ink-900: #102e53; /* azul-tinta */
-  --palette-ink-700: #35507a;
-  --palette-ink-500: #5b7398;
+  --palette-white: var(--palette-paper);
+  --palette-blue-50: #eeedf5;
+  --palette-blue-100: #e2dff4;
+  --palette-blue-200: #c4bfdc;
+  --palette-blue-500: var(--palette-night-secondary);
+  --palette-blue-600: var(--palette-night);
+  --palette-blue-700: var(--palette-ink);
+  --palette-ink-900: var(--palette-ink);
+  --palette-ink-700: #454960;
+  --palette-ink-500: #5b6077;
   --palette-ink-300: #9fb2cc;
   --palette-gold-200: #ffe3a8;
-  --palette-gold-400: #ffbe3b; /* dourado da marca */
+  --palette-gold-400: var(--palette-gold);
   --palette-gold-600: #e09a0e;
   --palette-success-100: #d6f5ec;
   --palette-success-500: #1bbc91;
@@ -52,12 +69,12 @@
   --size-touch-min: 44px;
 
   /* ───────── 2. SEMÂNTICOS ───────── */
-  --color-bg-canvas: var(--palette-blue-50);
-  --color-bg-stage: var(--palette-blue-500);
+  --color-bg-canvas: var(--palette-night);
+  --color-bg-stage: var(--palette-night-secondary);
   --color-surface-default: var(--palette-white);
   --color-surface-subtle: var(--palette-blue-50);
   --color-surface-raised: var(--palette-white);
-  --color-surface-private: var(--palette-gold-200); /* área só-host */
+  --color-surface-private: var(--palette-night-secondary);
 
   --color-text-primary: var(--palette-ink-900);
   --color-text-secondary: var(--palette-ink-700);
@@ -68,8 +85,8 @@
   --color-border-default: var(--palette-blue-200);
   --color-border-strong: var(--palette-ink-900);
 
-  --color-action-primary: var(--palette-gold-400);
-  --color-action-primary-hover: #ffc95c;
+  --color-action-primary: var(--palette-mint);
+  --color-action-primary-hover: #a2f8dd;
   --color-action-primary-text: var(--palette-ink-900);
   --color-action-secondary: var(--palette-white);
   --color-action-secondary-hover: var(--palette-blue-50);
@@ -90,8 +107,9 @@
   --color-danger-subtle: var(--palette-danger-100);
   --color-info-subtle: var(--palette-blue-100);
 
-  --color-focus-ring: var(--palette-blue-500);
-  --focus-ring: 0 0 0 3px var(--palette-white), 0 0 0 6px var(--color-focus-ring);
+  --color-focus-ring: var(--palette-ink);
+  --focus-ring:
+    0 0 0 3px var(--palette-white), 0 0 0 6px var(--color-focus-ring);
 
   /* Sombras táteis (offset sólido, sem blur difuso) */
   --shadow-tactile-sm: 0 3px 0 var(--color-border-strong);
@@ -114,11 +132,11 @@
   --field-radius: var(--radius-md);
 
   --tile-radius: var(--radius-lg);
-  --tile-bg-hidden: var(--palette-blue-500);
-  --tile-text-hidden: var(--palette-white);
-  --tile-bg-revealed: var(--palette-white);
+  --tile-bg-hidden: var(--palette-paper);
+  --tile-text-hidden: var(--palette-ink);
+  --tile-bg-revealed: var(--palette-mint);
   --tile-text-revealed: var(--palette-ink-900);
-  --tile-border-selected: var(--palette-gold-400);
+  --tile-border-selected: var(--palette-mint);
   --tile-bg-disabled: var(--palette-blue-200);
 
   --score-chip-bg: var(--palette-white);

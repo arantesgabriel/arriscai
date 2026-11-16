@@ -1,6 +1,5 @@
 import GameApp from "@/components/game-app";
 import type { Metadata, Viewport } from "next";
-import { Changa_One } from "next/font/google";
 import Landing from "@/components/landing/landing";
 import {
   Hero,
@@ -13,13 +12,6 @@ import {
 } from "@/components/landing/sections";
 import "@/components/landing/landing.css";
 
-const changa = Changa_One({
-  weight: "400",
-  style: ["normal", "italic"],
-  subsets: ["latin"],
-  variable: "--font-changa",
-  display: "swap",
-});
 const origin =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://arriscai.vercel.app";
 const title = "Arriscaí! | Jogo de Adivinhação com Amigos";
@@ -67,7 +59,7 @@ export default async function Home({
   )
     return <GameApp />;
   return (
-    <Landing fontClass={changa.variable}>
+    <Landing fontClass="">
       <main id="conteudo">
         <Hero />
         <ScoreSection />
