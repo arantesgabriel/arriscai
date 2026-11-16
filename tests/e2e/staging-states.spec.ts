@@ -64,7 +64,7 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
   }
 
   try {
-    await host.goto("/");
+    await host.goto("/jogar");
     await expect(host.locator(".app")).toHaveAttribute("data-ready", "true");
     await host.getByLabel("Como a turma te chama?").fill("QA-Organizador-R");
     await host.getByRole("button", { name: "Criar uma sala" }).click();

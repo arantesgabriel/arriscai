@@ -87,7 +87,7 @@ test("three players, telão and late spectator share one hosted or isolated game
   const errors: string[] = [];
   for (const page of pages) page.on("pageerror", (e) => errors.push(e.message));
   try {
-    await host.goto("/");
+    await host.goto("/jogar");
     await expect(host.locator(".app")).toHaveAttribute("data-ready", "true");
     for (const width of sizes) {
       await host.setViewportSize({ width, height: 1000 });
