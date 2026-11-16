@@ -1,6 +1,7 @@
 import { test, expect, type Page } from "@playwright/test";
 import { mkdirSync } from "node:fs";
 import { harness } from "./sql-harness";
+import { assertStagingFrontend } from "./staging-guard";
 const sizes = [390, 768, 1440, 1920];
 async function browserRPC(
   page: Page,
@@ -25,7 +26,8 @@ async function browserRPC(
         },
         body: JSON.stringify(args),
       });
-      return { status: response.status, body: await response.json() };
+      const text = await response.text();
+      return { status: response.status, body: text ? JSON.parse(text) : null };
     },
     {
       url: live
@@ -66,26 +68,12 @@ async function joinAs(
   ).toBeVisible();
 }
 
-test("three players, telão and late spectator use isolated SQL harness", async ({
+test("three players, telão and late spectator share one hosted or isolated game", async ({
   browser,
 }) => {
+  test.setTimeout(300000);
   const live = process.env.ARRISCAI_LIVE_E2E === "1";
-  if (live) {
-    const configuredUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const stagingRef = process.env.ARRISCAI_STAGING_PROJECT_REF?.trim();
-    const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-    const ref = configuredUrl ? new URL(configuredUrl).hostname.split(".")[0] : "";
-    if (
-      !configuredUrl?.startsWith("https://") ||
-      !key ||
-      !stagingRef ||
-      ref !== stagingRef
-    ) {
-      throw new Error(
-        "Hosted E2E requires the publishable key and URL for the staging project, with ARRISCAI_STAGING_PROJECT_REF matching that URL.",
-      );
-    }
-  }
+  if (live) await assertStagingFrontend();
   const runtime = live ? null : await harness();
   const videoDirectory = ".tmp/qa-evidence/videos";
   mkdirSync(videoDirectory, { recursive: true });
@@ -93,15 +81,13 @@ test("three players, telão and late spectator use isolated SQL harness", async 
   const contexts = await Promise.all(
     Array.from({ length: 6 }, () => browser.newContext(video)),
   );
-  for (const context of contexts)
-    await runtime?.attach(context);
+  for (const context of contexts) await runtime?.attach(context);
   const pages = await Promise.all(contexts.map((context) => context.newPage()));
   const [host, player, secondPlayer, thirdPlayer, tv, late] = pages;
   const errors: string[] = [];
-  for (const page of pages)
-    page.on("pageerror", (e) => errors.push(e.message));
+  for (const page of pages) page.on("pageerror", (e) => errors.push(e.message));
   try {
-    await host.goto("/");
+    await host.goto("/jogar");
     await expect(host.locator(".app")).toHaveAttribute("data-ready", "true");
     for (const width of sizes) {
       await host.setViewportSize({ width, height: 1000 });
@@ -134,8 +120,12 @@ test("three players, telão and late spectator use isolated SQL harness", async 
       await tv.setViewportSize({ width, height: 1000 });
       await capture(tv, `lobby-tv-${width}`);
     }
+    for (const height of [1080, 900]) {
+      await tv.setViewportSize({ width: 1920, height });
+      await capture(tv, `lobby-tv-1920x${height}`);
+    }
     await host.setViewportSize({ width: 1440, height: 1000 });
-    await host.getByLabel("Rodadas", { exact: true }).fill("3");
+    await host.getByLabel("Rodadas", { exact: true }).fill("4");
     await host.getByLabel("Tamanho da pergunta").selectOption("22");
     await host.getByRole("button", { name: "Preparar e iniciar" }).click();
     await expect(
@@ -193,7 +183,9 @@ test("three players, telão and late spectator use isolated SQL harness", async 
         }),
       ),
     );
-    expect(race.filter((r) => r.status === 200)).toHaveLength(1);
+    expect(race.filter((r) => r.status >= 200 && r.status < 300)).toHaveLength(
+      1,
+    );
     expect(race.filter((r) => r.status >= 400)).toHaveLength(1);
     await host.getByRole("button", { name: "Cancelar seleção" }).click();
     const visualRoles: Array<[Page, string]> = [
@@ -249,9 +241,9 @@ test("three players, telão and late spectator use isolated SQL harness", async 
     await expect(
       player.locator(".round-result-overlay .solution-question"),
     ).toHaveText(fullQuestion);
-    await expect(
-      player.locator(".round-result-overlay h2"),
-    ).toContainText("Bia acertou e levou +22 pontos");
+    await expect(player.locator(".round-result-overlay h2")).toContainText(
+      "Bia acertou e levou +22 pontos",
+    );
     await expect(host.locator(".host-sticky-dock")).toHaveCount(0);
     await expect(host.locator(".points-result span")).toHaveText(
       "pontos conquistados",
@@ -301,7 +293,7 @@ test("three players, telão and late spectator use isolated SQL harness", async 
       .getByRole("button", { name: "Avançar rodada / encerrar" })
       .click();
 
-    // Round 3: the next starter is Davi; the last word is worth one point.
+    // Round 3: Davi starts, and every revealed word remains visible after a miss.
     await expect(host.locator(".board-top h2")).toContainText("Davi");
     for (let reveal = 1; reveal <= 22; reveal += 1) {
       await host
@@ -309,20 +301,33 @@ test("three players, telão and late spectator use isolated SQL harness", async 
         .click();
       await host.getByRole("button", { name: "Confirmar revelação" }).click();
       await expect(host.locator(".tile.revealed")).toHaveCount(reveal);
-      if (reveal < 22)
-        await host.getByRole("button", { name: "Jogador desistiu" }).click();
+      await host.getByRole("button", { name: "Jogador desistiu" }).click();
     }
-    const answer3 = await host.locator(".private>strong").innerText();
-    await host.getByLabel("Palpite de Davi").fill(answer3);
-    await host.getByRole("button", { name: "Comparar palpite" }).click();
-    await host.getByRole("button", { name: "Confirmar acerto" }).click();
-    await expect(host.locator(".points-result strong")).toHaveText("1");
+    await expect(host.locator(".points-result strong")).toHaveText("0");
     await expect(
       thirdPlayer
         .locator(".scoreboard li")
         .filter({ hasText: "Davi" })
         .locator("b"),
-    ).toHaveText("1pts");
+    ).toHaveText("0pts");
+    await expect(tv.locator(".tile.revealed")).toHaveCount(22);
+    await host
+      .locator(".round-result-overlay")
+      .getByRole("button", { name: "Avançar rodada / encerrar" })
+      .click();
+
+    // Round 4 returns to Bia, who extends a unique lead.
+    await expect(host.locator(".board-top h2")).toContainText("Bia");
+    await host.getByRole("button", { name: "Posição 6", exact: true }).click();
+    await host.getByRole("button", { name: "Confirmar revelação" }).click();
+    const answer4 = await host.locator(".private>strong").innerText();
+    await host.getByLabel("Palpite de Bia").fill(answer4);
+    await host.getByRole("button", { name: "Comparar palpite" }).click();
+    await host.getByRole("button", { name: "Confirmar acerto" }).click();
+    await expect(host.locator(".points-result strong")).toHaveText("22");
+    await expect(
+      tv.locator(".round-result-overlay .solution-answer"),
+    ).toHaveText(answer4);
     await host
       .locator(".round-result-overlay")
       .getByRole("button", { name: "Avançar rodada / encerrar" })
@@ -402,10 +407,14 @@ test("three players, telão and late spectator use isolated SQL harness", async 
 
     // The screenshot's 9-word Tour de France question is worth 8 points
     // when the correct answer comes after two revealed words.
-    await player.getByRole("button", { name: "Posição 1", exact: true }).click();
+    await player
+      .getByRole("button", { name: "Posição 1", exact: true })
+      .click();
     await player.getByRole("button", { name: "Confirmar revelação" }).click();
     await player.getByRole("button", { name: "Jogador desistiu" }).click();
-    await player.getByRole("button", { name: "Posição 2", exact: true }).click();
+    await player
+      .getByRole("button", { name: "Posição 2", exact: true })
+      .click();
     await player.getByRole("button", { name: "Confirmar revelação" }).click();
     const answer9 = await player.locator(".private>strong").innerText();
     const turn9 = (await player.locator(".board-top h2").innerText()).replace(
@@ -437,15 +446,17 @@ test("three players, telão and late spectator use isolated SQL harness", async 
         page
           .video()
           ?.saveAs(
-            `${videoDirectory}/${[
-              "host",
-              "player-a",
-              "player-b",
-              "player-c",
-              "telao",
-              "late-spectator",
-              "cancel-late-spectator",
-            ][index]}.webm`,
+            `${videoDirectory}/${
+              [
+                "host",
+                "player-a",
+                "player-b",
+                "player-c",
+                "telao",
+                "late-spectator",
+                "cancel-late-spectator",
+              ][index]
+            }.webm`,
           ),
       ),
     );

@@ -1,16 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito+Sans:wght@400;600;700;800;900&display=swap");
 @import "tailwindcss";
-@font-face {
-  font-family: "Rufing";
-  src:
-    local("Rufing"),
-    local("Rufing Regular"),
-    url("/fonts/Rufing-Regular.woff2") format("woff2"),
-    url("/fonts/Rufing-Regular.otf") format("opentype");
-  font-display: swap;
-  font-style: normal;
-  font-weight: 400 900;
-}
 :root {
   --blue: #087df2;
   --white: #fff;
@@ -19,7 +8,7 @@
   --soft: #eaf6ff;
   --success: #10765e;
   --danger: #b12647;
-  --display: "Rufing", "Lilita One", "Arial Black", sans-serif;
+  --display: "Lilita One", "Arial Black", sans-serif;
   --body: "Nunito Sans", Arial, sans-serif;
   --radius: 22px;
   color-scheme: light;
@@ -779,6 +768,86 @@ footer {
 .television main {
   max-width: 1920px;
 }
+@media (min-width: 1101px) {
+  .television .lobby-layout {
+    display: block;
+  }
+  .television .members {
+    display: grid;
+    grid-template-areas:
+      "title wheel"
+      "intro wheel"
+      "players wheel"
+      "note wheel";
+    grid-template-columns: minmax(0, 1.15fr) minmax(420px, 0.85fr);
+    grid-template-rows: auto auto 1fr auto;
+    column-gap: clamp(32px, 4vw, 88px);
+    min-height: clamp(600px, calc(100dvh - 235px), 850px);
+    padding: clamp(30px, 3vw, 56px);
+  }
+  .television .members > h2 {
+    grid-area: title;
+    font-size: clamp(30px, 2.4vw, 46px);
+  }
+  .television .members > p:first-of-type {
+    grid-area: intro;
+    font-size: clamp(18px, 1.1vw, 22px);
+  }
+  .television .members > ul {
+    grid-area: players;
+    margin: 16px 0;
+  }
+  .television .members li {
+    padding: clamp(13px, 1.25vh, 20px) 0;
+    font-size: clamp(20px, 1.3vw, 26px);
+  }
+  .television .members .avatar {
+    width: 54px;
+    height: 54px;
+    font-size: 23px;
+  }
+  .television .members small,
+  .television .members .presence {
+    font-size: 16px;
+  }
+  .television .members > .lobby-wait-note {
+    grid-area: note;
+    font-size: 18px;
+  }
+  .television .roulette-box {
+    grid-area: wheel;
+    margin: 0;
+    padding: 24px;
+    border: 2px solid #d7e4ef;
+    border-radius: 22px;
+    background: #eaf6ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    --wheel-label-radius: -128px;
+  }
+  .television .roulette-box h3 {
+    font-size: clamp(26px, 2vw, 38px);
+  }
+  .television .wheel-stage {
+    height: 390px;
+    width: 100%;
+    margin: 16px 0 24px;
+  }
+  .television .wheel-disc {
+    width: 350px;
+    height: 350px;
+  }
+  .television .wheel-slice-label {
+    font-size: 17px;
+    max-width: 145px;
+  }
+  .television .wheel-announcement {
+    font-size: 22px;
+  }
+}
 .television .public-layout {
   grid-template-columns: minmax(0, 1fr) 350px;
 }
@@ -1478,7 +1547,10 @@ footer {
   border-radius: 14px;
   padding: 10px 12px;
   cursor: pointer;
-  transition: transform 0.12s, border-color 0.12s, background 0.12s;
+  transition:
+    transform 0.12s,
+    border-color 0.12s,
+    background 0.12s;
 }
 
 .cat-card.selected {
@@ -1641,7 +1713,7 @@ footer {
   padding: 10px 16px;
   margin-bottom: 20px;
   display: flex;
-   flex-wrap: wrap;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 10px;

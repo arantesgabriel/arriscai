@@ -1,0 +1,20 @@
+/*
+ * Mapeamento semântico → Tailwind v4.
+ * Deve ser importado LOGO APÓS `@import "tailwindcss";` em globals.css.
+ * Fase 1: preparado, mas NÃO conectado (globals.css possui alterações locais não commitadas
+ * do usuário; a ligação acontece na Fase 2, quando globals.css vira hub de imports).
+ */
+@theme inline {
+  --color-canvas: var(--color-bg-canvas);
+  --color-stage: var(--color-bg-stage);
+  --color-surface: var(--color-surface-default);
+  --color-ink: var(--color-text-primary);
+  --color-muted: var(--color-text-muted);
+  --color-primary: var(--color-action-primary);
+  --color-brand: var(--color-action-brand);
+  --color-positive: var(--color-success);
+  --color-negative: var(--color-danger);
+  --font-sans: var(--font-body);
+  /* --radius-* e --font-display já usam o namespace do Tailwind em tokens.css/typography.css
+     (sem auto-referência aqui). */
+}

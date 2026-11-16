@@ -223,20 +223,22 @@ function Icon({
       ) : name === "ball" ? (
         <>
           <circle cx="12" cy="12" r="9" fill="#FFBE3B" stroke="#102E53" />
-          <path stroke="#102E53" d="M4.5 9.5c5 0 10 0 15 0M4.5 14.5h15M12 3v18" />
+          <path
+            stroke="#102E53"
+            d="M4.5 9.5c5 0 10 0 15 0M4.5 14.5h15M12 3v18"
+          />
         </>
       ) : name === "globe" ? (
         <>
           <circle cx="12" cy="12" r="9" fill="#68D6B9" stroke="#102E53" />
-          <path stroke="#102E53" d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+          <path
+            stroke="#102E53"
+            d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"
+          />
         </>
       ) : name === "column" ? (
         <>
-          <path
-            fill="#FFBE3B"
-            stroke="#102E53"
-            d="M4 6h16v3H4zM4 18h16v3H4z"
-          />
+          <path fill="#FFBE3B" stroke="#102E53" d="M4 6h16v3H4zM4 18h16v3H4z" />
           <path stroke="#102E53" d="M7 9v9m5-9v9m5-9v9" />
         </>
       ) : name === "atom" ? (
@@ -283,6 +285,9 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const router = useRouter();
   const [now, setNow] = useState(0);
   const [uid, setUid] = useState("");
+  const [identityStatus, setIdentityStatus] = useState<
+    "loading" | "ready" | "error"
+  >("loading");
   const [userEmail, setUserEmail] = useState("");
   const [emailConfirmed, setEmailConfirmed] = useState(false);
   const [permanent, setPermanent] = useState(false);
@@ -299,7 +304,8 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const [sound, setSound] = useState(false);
   const [volume, setVolume] = useState(0.25);
   const [online, setOnline] = useState<string[]>([]);
-  const [connected, setConnected] = useState(false);
+  const [channelHealthy, setChannelHealthy] = useState(false);
+  const [restHealthy, setRestHealthy] = useState(false);
   const [screen, setScreen] = useState(false);
   const [catalog, setCatalog] = useState<Catalog[]>([]);
   const [rounds, setRounds] = useState(3);
@@ -322,7 +328,10 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const [wheelAngle, setWheelAngle] = useState(0);
   const [wheelSpinning, setWheelSpinning] = useState(false);
   const [wheelBanner, setWheelBanner] = useState("");
+  const [wheelMembers, setWheelMembers] = useState<Member[] | null>(null);
   const lastRouletteId = useRef<string | null>(null);
+  const rouletteTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const nicknameInput = useRef<HTMLInputElement>(null);
   const prevGameRef = useRef<Game | null>(null);
   const refreshSequence = useRef(0);
   const locked = useRef(false);
@@ -371,13 +380,31 @@ export default function GameApp({ roomId }: { roomId?: string }) {
       await fn();
       if (roomId) await refresh();
     } catch (e) {
-      setError(humanError(e));
+      const message = humanError(e);
+      setError(message);
+      if (message.startsWith("Esse apelido já está em uso"))
+        nicknameInput.current?.focus();
       if (roomId) await refresh().catch(() => {});
     } finally {
       locked.current = false;
       setBusy(false);
     }
   }
+
+  const establishIdentity = useCallback(async () => {
+    setIdentityStatus("loading");
+    try {
+      const u = await identity();
+      setUid(u.id);
+      setPermanent(!u.is_anonymous);
+      setUserEmail(u.email ?? "");
+      setEmailConfirmed(Boolean(u.email_confirmed_at || u.confirmed_at));
+      setIdentityStatus("ready");
+    } catch (e) {
+      setIdentityStatus("error");
+      setError(humanError(e));
+    }
+  }, []);
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
@@ -389,16 +416,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
     setVolume(Number(sessionStorage.getItem("volume") ?? 0.25));
     if (!configured()) return;
     let alive = true;
-    identity()
-      .then((u) => {
-        if (alive) {
-          setUid(u.id);
-          setPermanent(!u.is_anonymous);
-          setUserEmail(u.email ?? "");
-          setEmailConfirmed(Boolean(u.email_confirmed_at || u.confirmed_at));
-        }
-      })
-      .catch((e) => setError(humanError(e)));
+    void establishIdentity();
     const {
       data: { subscription },
     } = supabase().auth.onAuthStateChange((event, session) => {
@@ -420,7 +438,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
       alive = false;
       subscription.unsubscribe();
     };
-  }, []);
+  }, [establishIdentity]);
 
   useEffect(() => {
     if (!roomId || !uid) return;
@@ -449,7 +467,8 @@ export default function GameApp({ roomId }: { roomId?: string }) {
             if (channel) setOnline(Object.keys(channel.presenceState()));
           })
           .subscribe((status) => {
-            setConnected(status === "SUBSCRIBED");
+            if (!alive) return;
+            setChannelHealthy(status === "SUBSCRIBED");
             if (status === "SUBSCRIBED") {
               void channel?.track({ user_id: uid });
               void load();
@@ -458,18 +477,30 @@ export default function GameApp({ roomId }: { roomId?: string }) {
       });
     const heartbeat = () => {
       void rpc("heartbeat", { room: roomId })
-        .then(load)
-        .catch(() => setConnected(false));
+        .then(() => {
+          if (!alive) return;
+          setRestHealthy(true);
+          void load();
+        })
+        .catch(() => {
+          if (alive) setRestHealthy(false);
+        });
     };
     heartbeat();
     const timer = setInterval(heartbeat, 15000);
-    const focus = () => void load();
+    const focus = () => {
+      heartbeat();
+      void load();
+    };
+    const offline = () => setRestHealthy(false);
     window.addEventListener("online", focus);
+    window.addEventListener("offline", offline);
     window.addEventListener("focus", focus);
     return () => {
       alive = false;
       clearInterval(timer);
       window.removeEventListener("online", focus);
+      window.removeEventListener("offline", offline);
       window.removeEventListener("focus", focus);
       if (channel) void supabase().removeChannel(channel);
     };
@@ -479,16 +510,24 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const game = snapshot?.game;
   const active = game?.status === "active";
 
-  // Synchronized Roulette animation & announcement across all clients
+  const connected = channelHealthy && restHealthy;
+
+  // The event ID is consumed once. Its timer survives presence and snapshot refreshes.
   useEffect(() => {
     if (!snapshot?.roulette) return;
     const r = snapshot.roulette;
-    if (lastRouletteId.current === null) {
-      lastRouletteId.current = r.id;
-      return;
-    }
     if (lastRouletteId.current !== r.id) {
+      const firstObservation = lastRouletteId.current === null;
       lastRouletteId.current = r.id;
+      if (rouletteTimer.current) clearTimeout(rouletteTimer.current);
+      rouletteTimer.current = null;
+      setWheelSpinning(false);
+      const recent = Date.now() - Date.parse(r.spun_at) < 3500;
+      if (firstObservation && !recent) {
+        setWheelMembers(null);
+        setWheelBanner(`${r.winner_nickname} organiza a sala.`);
+        return;
+      }
       const eligible = snapshot.members.filter(
         (m) => !m.spectator && !m.display_only,
       );
@@ -498,32 +537,36 @@ export default function GameApp({ roomId }: { roomId?: string }) {
       );
       const count = Math.max(1, eligible.length);
       if (r.mode === "roulette") {
-        setWheelSpinning(true);
-        playEventSound("roulette", sound, volume);
+        setWheelMembers(eligible);
+        const reduced = window.matchMedia?.(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+        if (!reduced) {
+          setWheelSpinning(true);
+          playEventSound("roulette", sound, volume);
+        }
         const sliceDeg = 360 / count;
-        const targetDeg = (360 - ((idx + 0.5) * sliceDeg) % 360) % 360;
+        const targetDeg = (360 - (((idx + 0.5) * sliceDeg) % 360)) % 360;
         setWheelAngle((prev) => {
           const currentMod = ((prev % 360) + 360) % 360;
           const diff = (targetDeg - currentMod + 360) % 360;
           return prev + 1440 + diff;
         });
-        const reduced =
-          typeof window !== "undefined" &&
-          window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-        const timer = setTimeout(
-          () => {
-            setWheelSpinning(false);
-            setWheelBanner(
-              `${r.winner_nickname} foi sorteado(a) na roleta para organizar!`,
-            );
-            setLiveAnnouncement(
-              `Roleta concluída: ${r.winner_nickname} vai organizar a partida.`,
-            );
-          },
-          reduced ? 50 : 2100,
-        );
-        return () => clearTimeout(timer);
+        const finish = () => {
+          rouletteTimer.current = null;
+          setWheelSpinning(false);
+          setWheelMembers(null);
+          setWheelBanner(
+            `${r.winner_nickname} foi sorteado(a) na roleta para organizar!`,
+          );
+          setLiveAnnouncement(
+            `Roleta concluída: ${r.winner_nickname} vai organizar a partida.`,
+          );
+        };
+        if (reduced) finish();
+        else rouletteTimer.current = setTimeout(finish, 2100);
       } else {
+        setWheelMembers(null);
         setWheelBanner(`${r.winner_nickname} assumiu a organização da sala.`);
         setLiveAnnouncement(
           `${r.winner_nickname} assumiu a organização da sala.`,
@@ -531,6 +574,13 @@ export default function GameApp({ roomId }: { roomId?: string }) {
       }
     }
   }, [snapshot?.roulette, snapshot?.members, sound, volume]);
+
+  useEffect(
+    () => () => {
+      if (rouletteTimer.current) clearTimeout(rouletteTimer.current);
+    },
+    [],
+  );
 
   useEffect(() => {
     if (!host || active || !roomId) return;
@@ -602,6 +652,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   }, [game, sound, volume]);
 
   async function enter(create: boolean, view = false) {
+    if (identityStatus !== "ready") return;
     await act(async () => {
       const u = await identity();
       setUid(u.id);
@@ -690,7 +741,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   return (
     <div
       className={screen ? "app television" : "app"}
-      data-ready={uid ? "true" : "false"}
+      data-ready={uid && identityStatus === "ready" ? "true" : "false"}
     >
       <div className="sr-only" aria-live="polite" aria-atomic="true">
         {liveAnnouncement}
@@ -712,7 +763,11 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                   className={`live-dot ${connected ? "online" : "offline"}`}
                   aria-hidden="true"
                 />
-                {connected ? "Ao vivo" : "Reconectando…"}
+                {connected
+                  ? "Ao vivo"
+                  : channelHealthy
+                    ? "Reconectando dados…"
+                    : "Reconectando…"}
               </span>
             )}
             <button
@@ -1027,6 +1082,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                   Como a turma te chama?
                   <input
                     placeholder="Seu apelido"
+                    ref={nicknameInput}
                     value={nickname}
                     maxLength={24}
                     required
@@ -1035,7 +1091,13 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                 </label>
                 <button
                   className="primary"
-                  disabled={screen || busy || !nickname || !configured()}
+                  disabled={
+                    screen ||
+                    busy ||
+                    !nickname ||
+                    !configured() ||
+                    identityStatus !== "ready"
+                  }
                   type="button"
                   onClick={() => void enter(true)}
                 >
@@ -1055,13 +1117,31 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                   <button
                     className="secondary"
                     disabled={
-                      busy || !nickname || code.length !== 8 || !configured()
+                      busy ||
+                      !nickname ||
+                      code.length !== 8 ||
+                      !configured() ||
+                      identityStatus !== "ready"
                     }
                   >
                     Entrar
                   </button>
                 </div>
               </form>
+              {configured() && identityStatus === "loading" && (
+                <p role="status" className="setup-note">
+                  Conectando sua identidade para entrar na sala…
+                </p>
+              )}
+              {configured() && identityStatus === "error" && (
+                <button
+                  className="secondary"
+                  type="button"
+                  onClick={() => void establishIdentity()}
+                >
+                  Tentar conectar novamente
+                </button>
+              )}
               {!configured() && (
                 <p className="setup-note">
                   O jogo está aguardando a conexão com o Supabase. As instruções
@@ -1472,7 +1552,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                   </ul>
 
                   <HostRoulette
-                    members={eligibleMembers}
+                    members={wheelMembers ?? eligibleMembers}
                     hostId={snapshot.host_id}
                     isHost={host}
                     busy={busy || wheelSpinning}
@@ -1507,12 +1587,14 @@ export default function GameApp({ roomId }: { roomId?: string }) {
 
                     {catalog.length === 0 && (
                       <div role="status" className="empty-catalog-banner">
-                        <strong>Catálogo oficial sem perguntas liberadas.</strong>
+                        <strong>
+                          Catálogo oficial sem perguntas liberadas.
+                        </strong>
                         <p>
                           Nenhuma pergunta aprovada está disponível no momento.
                           {permanent
-                            ? " Crie suas próprias perguntas personalizadas abaixo para iniciar."
-                            : " Entre em uma conta permanente para cadastrar perguntas próprias ou aguarde a liberação editorial do catálogo."}
+                            ? " Você pode criar perguntas próprias abaixo. O catálogo oficial depende de liberação editorial."
+                            : " O catálogo oficial ainda depende de liberação editorial. Você pode aguardar e jogar como convidado quando houver perguntas, ou usar uma conta permanente para criar perguntas próprias."}
                         </p>
                       </div>
                     )}
@@ -1713,14 +1795,13 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                                           });
                                           return;
                                         }
-                                        const data =
-                                          await rpc<QuestionPreview>(
-                                            "host_question_preview",
-                                            {
-                                              room: roomId,
-                                              question_id: q.id,
-                                            },
-                                          );
+                                        const data = await rpc<QuestionPreview>(
+                                          "host_question_preview",
+                                          {
+                                            room: roomId,
+                                            question_id: q.id,
+                                          },
+                                        );
                                         setPreviewMap((m) => ({
                                           ...m,
                                           [q.id]: data,
@@ -1769,9 +1850,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                               type="button"
                               className="secondary"
                               disabled={currentPage <= 1}
-                              onClick={() =>
-                                setPage((p) => Math.max(1, p - 1))
-                              }
+                              onClick={() => setPage((p) => Math.max(1, p - 1))}
                             >
                               Anterior
                             </button>
@@ -2022,7 +2101,7 @@ function HostRoulette({
                 key={m.user_id}
                 className="wheel-slice-label"
                 style={{
-                  transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(-68px)`,
+                  transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(var(--wheel-label-radius, -68px))`,
                 }}
               >
                 {m.nickname.slice(0, 10)}
@@ -2136,9 +2215,7 @@ function RoundResultOverlay({
       <div className="result-badge-3d">
         <Icon name={winner ? "trophy" : "star"} />
       </div>
-      <span className="result-kicker">
-        RODADA {game.round + 1} ENCERRADA
-      </span>
+      <span className="result-kicker">RODADA {game.round + 1} ENCERRADA</span>
       <h2>
         {winner
           ? `${winner.nickname} acertou e levou +${earned} ${earned === 1 ? "ponto" : "pontos"}!`
@@ -2195,8 +2272,7 @@ function RoundResultOverlay({
 
 function VictoryStage({ game }: { game: Game }) {
   const sorted = [...game.players].sort((a, b) => b.score - a.score);
-  const champ =
-    game.players.find((p) => p.id === game.winner) ?? sorted[0];
+  const champ = game.players.find((p) => p.id === game.winner) ?? sorted[0];
   const podiumOrder = [sorted[1], sorted[0], sorted[2]].filter(Boolean);
 
   return (

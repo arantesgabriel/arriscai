@@ -1,0 +1,128 @@
+/*
+ * Arriscaí! — Design tokens
+ * Camadas: 1) primitivos  →  2) semânticos  →  3) componente
+ * Componentes devem consumir SOMENTE semânticos/componente.
+ * Variáveis legadas (--blue, --gold, --ink...) continuam em globals.css até a migração (Fases 2–6).
+ */
+:root {
+  /* ───────── 1. PRIMITIVOS ───────── */
+  --palette-white: #ffffff;
+  --palette-blue-50: #eaf6ff; /* "soft" da marca */
+  --palette-blue-100: #d4ebff;
+  --palette-blue-200: #a9d4fb;
+  --palette-blue-500: #087df2; /* azul da marca */
+  --palette-blue-600: #066fd8;
+  --palette-blue-700: #0661bd;
+  --palette-ink-900: #102e53; /* azul-tinta */
+  --palette-ink-700: #35507a;
+  --palette-ink-500: #5b7398;
+  --palette-ink-300: #9fb2cc;
+  --palette-gold-200: #ffe3a8;
+  --palette-gold-400: #ffbe3b; /* dourado da marca */
+  --palette-gold-600: #e09a0e;
+  --palette-success-100: #d6f5ec;
+  --palette-success-500: #1bbc91;
+  --palette-success-700: #10765e; /* texto (AA) */
+  --palette-danger-100: #fde3e9;
+  --palette-danger-500: #e95672;
+  --palette-danger-700: #b12647; /* texto (AA) */
+
+  /* Escalas */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 48px;
+  --space-9: 64px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-pill: 999px;
+
+  --border-1: 1px;
+  --border-2: 2px;
+  --border-3: 3px;
+
+  --size-touch-min: 44px;
+
+  /* ───────── 2. SEMÂNTICOS ───────── */
+  --color-bg-canvas: var(--palette-blue-50);
+  --color-bg-stage: var(--palette-blue-500);
+  --color-surface-default: var(--palette-white);
+  --color-surface-subtle: var(--palette-blue-50);
+  --color-surface-raised: var(--palette-white);
+  --color-surface-private: var(--palette-gold-200); /* área só-host */
+
+  --color-text-primary: var(--palette-ink-900);
+  --color-text-secondary: var(--palette-ink-700);
+  --color-text-muted: var(--palette-ink-500);
+  --color-text-inverse: var(--palette-white);
+  --color-text-link: var(--palette-blue-700);
+
+  --color-border-default: var(--palette-blue-200);
+  --color-border-strong: var(--palette-ink-900);
+
+  --color-action-primary: var(--palette-gold-400);
+  --color-action-primary-hover: #ffc95c;
+  --color-action-primary-text: var(--palette-ink-900);
+  --color-action-secondary: var(--palette-white);
+  --color-action-secondary-hover: var(--palette-blue-50);
+  --color-action-secondary-text: var(--palette-ink-900);
+  /* Botão brand usa blue-700: branco sobre blue-500 = 4.02:1 (falha AA texto normal) */
+  --color-action-brand: var(--palette-blue-700);
+  --color-action-brand-hover: #05529f;
+  --color-action-brand-text: var(--palette-white);
+  --color-action-disabled: #dbe5f1;
+  --color-action-disabled-text: var(--palette-ink-500);
+
+  --color-highlight: var(--palette-gold-400);
+  --color-success: var(--palette-success-500);
+  --color-success-text: var(--palette-success-700);
+  --color-success-subtle: var(--palette-success-100);
+  --color-danger: var(--palette-danger-500);
+  --color-danger-text: var(--palette-danger-700);
+  --color-danger-subtle: var(--palette-danger-100);
+  --color-info-subtle: var(--palette-blue-100);
+
+  --color-focus-ring: var(--palette-blue-500);
+  --focus-ring: 0 0 0 3px var(--palette-white), 0 0 0 6px var(--color-focus-ring);
+
+  /* Sombras táteis (offset sólido, sem blur difuso) */
+  --shadow-tactile-sm: 0 3px 0 var(--color-border-strong);
+  --shadow-tactile-md: 0 5px 0 var(--color-border-strong);
+  --shadow-tactile-lg: 0 8px 0 var(--color-border-strong);
+  --shadow-tactile-pressed: 0 1px 0 var(--color-border-strong);
+  --shadow-overlay: 0 16px 40px rgb(16 46 83 / 0.28);
+
+  /* ───────── 3. COMPONENTE ───────── */
+  --button-height-sm: 40px;
+  --button-height-md: 48px;
+  --button-height-lg: 60px;
+  --button-radius: var(--radius-lg);
+
+  --card-radius: var(--radius-2xl);
+  --card-border: var(--border-3) solid var(--color-border-strong);
+  --card-padding: var(--space-6);
+
+  --field-height: 48px;
+  --field-radius: var(--radius-md);
+
+  --tile-radius: var(--radius-lg);
+  --tile-bg-hidden: var(--palette-blue-500);
+  --tile-text-hidden: var(--palette-white);
+  --tile-bg-revealed: var(--palette-white);
+  --tile-text-revealed: var(--palette-ink-900);
+  --tile-border-selected: var(--palette-gold-400);
+  --tile-bg-disabled: var(--palette-blue-200);
+
+  --score-chip-bg: var(--palette-white);
+  --score-chip-bg-active: var(--palette-gold-400);
+
+  --host-dock-height: 88px;
+}

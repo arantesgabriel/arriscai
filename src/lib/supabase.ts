@@ -1,5 +1,6 @@
-import { createClient, SupabaseClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient, type User } from "@supabase/supabase-js";
 let client: SupabaseClient | undefined;
+let pendingIdentity: Promise<User> | undefined;
 export function configured() {
   return Boolean(
     process.env.NEXT_PUBLIC_SUPABASE_URL &&
@@ -28,7 +29,7 @@ export function supabase() {
     },
   ));
 }
-export async function identity() {
+async function resolveIdentity() {
   const db = supabase();
   const {
     data: { session },
@@ -38,11 +39,19 @@ export async function identity() {
   if (error) throw error;
   return data.user!;
 }
+export function identity() {
+  if (!pendingIdentity) {
+    pendingIdentity = resolveIdentity().finally(() => {
+      pendingIdentity = undefined;
+    });
+  }
+  return pendingIdentity;
+}
 export async function rpc<T>(
   name: string,
   args: Record<string, unknown>,
 ): Promise<T> {
   const { data, error } = await supabase().rpc(name, args);
-  if (error) throw new Error(error.message);
+  if (error) throw error;
   return data as T;
 }
