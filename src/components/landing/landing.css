@@ -2301,7 +2301,7 @@ html:has(.landing-v4) {
   height: 36px;
   background: #ffffff99;
   transition:
-    transform 0.22s cubic-bezier(0.22, 0.8, 0.25, 1),
+    transform 0.34s cubic-bezier(0.22, 0.8, 0.25, 1),
     background 0.18s;
 }
 .landing-v4 .animated-score > div.leader {
@@ -2311,16 +2311,16 @@ html:has(.landing-v4) {
   opacity: 0;
 }
 .landing-v4 .feature-animate .avatar-row > span:not(:first-child) {
-  animation: join-room 0.28s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: join-room 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 .landing-v4 .feature-animate .avatar-row > span:nth-child(2) {
-  animation-delay: 0.12s;
+  animation-delay: 0.2s;
 }
 .landing-v4 .feature-animate .avatar-row > span:nth-child(3) {
-  animation-delay: 0.3s;
+  animation-delay: 0.6s;
 }
 .landing-v4 .feature-animate .avatar-row > span:nth-child(4) {
-  animation-delay: 0.48s;
+  animation-delay: 1s;
 }
 @keyframes join-room {
   from {
@@ -2363,7 +2363,7 @@ html:has(.landing-v4) {
   transform: rotateY(180deg);
 }
 .landing-v4 .feature-animate .tv-glass .tv-flip {
-  animation: reveal-tv 0.36s cubic-bezier(0.2, 0.7, 0.2, 1) 0.08s both;
+  animation: reveal-tv 0.42s cubic-bezier(0.2, 0.7, 0.2, 1) 0.08s both;
 }
 @keyframes reveal-tv {
   from {

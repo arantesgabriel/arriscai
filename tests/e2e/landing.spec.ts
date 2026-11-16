@@ -192,7 +192,7 @@ test("feature illustrations animate to their final state", async ({ page }) => {
     .evaluateAll((items) =>
       items.slice(1).map((el) => getComputedStyle(el).animationDelay),
     );
-  expect(delays).toEqual(["0.12s", "0.3s", "0.48s"]);
+  expect(delays).toEqual(["0.2s", "0.6s", "1s"]);
   await page.locator(".feature-tv").scrollIntoViewIfNeeded();
   await expect(page.locator(".feature-tv")).toHaveClass(/feature-animate/);
   expect(

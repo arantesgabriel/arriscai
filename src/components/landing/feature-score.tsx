@@ -29,9 +29,9 @@ export function FeatureScore() {
         setPoints(Math.max(0, count));
         if (count === 22) {
           clearInterval(timer);
-          finish = setTimeout(complete, 220);
+          finish = setTimeout(complete, 340);
         }
-      }, 32);
+      }, 80);
     }
     const observer = new MutationObserver(start);
     if (card)

@@ -27,7 +27,7 @@ export function FeatureSequence({ children }: { children: React.ReactNode }) {
       playing = true;
       card.classList.add("feature-animate");
       container?.setAttribute("data-animation-stage", String(stage + 1));
-      if (stage === 0) timer = setTimeout(advance, reduced.matches ? 0 : 760);
+      if (stage === 0) timer = setTimeout(advance, reduced.matches ? 0 : 1400);
     }
     const observer = new IntersectionObserver(
       (entries) => {
