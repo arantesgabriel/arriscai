@@ -1,4 +1,5 @@
 import { defineConfig } from "@playwright/test";
+const port = process.env.ARRISCAI_E2E_PORT ?? "3000";
 export default defineConfig({
   testDir: "tests/e2e",
   timeout: 90000,
@@ -6,16 +7,18 @@ export default defineConfig({
   workers: 1,
   reporter: [["list"], ["html", { open: "never" }]],
   use: {
-    baseURL: "http://127.0.0.1:3000",
-    trace: "retain-on-failure",
+    baseURL: `http://127.0.0.1:${port}`,
+    trace:
+      process.env.ARRISCAI_LIVE_E2E === "1" ||
+      process.env.PW_REUSE_SERVER === "1"
+        ? "off"
+        : "retain-on-failure",
     screenshot: "only-on-failure",
   },
   webServer: {
-    command: "npm run dev",
-    url: "http://127.0.0.1:3000",
-    reuseExistingServer:
-      process.env.ARRISCAI_LIVE_E2E !== "1" &&
-      process.env.PW_REUSE_SERVER === "1",
+    command: `npm run dev -- --port ${port}`,
+    url: `http://127.0.0.1:${port}`,
+    reuseExistingServer: process.env.PW_REUSE_SERVER === "1",
     timeout: 120000,
     env: {
       NEXT_PUBLIC_SUPABASE_URL:

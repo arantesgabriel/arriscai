@@ -40,8 +40,21 @@ export function firstPlayer(round: number, players: string[]) {
   return players[round % players.length];
 }
 export function humanError(raw: unknown): string {
-  const msg = raw instanceof Error ? raw.message : String(raw ?? "");
+  const msg =
+    raw &&
+    typeof raw === "object" &&
+    "message" in raw &&
+    typeof raw.message === "string"
+      ? raw.message
+      : String(raw ?? "");
   const low = msg.toLowerCase();
+  const code =
+    raw && typeof raw === "object" && "code" in raw ? raw.code : null;
+  if (
+    (code === "23505" || low.includes("duplicate key")) &&
+    low.includes("room_members_room_id_nickname_key")
+  )
+    return "Esse apelido já está em uso nesta sala. Escolha outro.";
   if (low.includes("invalid login credentials"))
     return "E-mail ou senha incorretos. Confira seus dados ou use a opção de recuperar senha.";
   if (low.includes("email not confirmed"))
@@ -52,6 +65,11 @@ export function humanError(raw: unknown): string {
     return "A senha precisa ter pelo menos 12 caracteres.";
   if (low.includes("for security purposes, you can only request"))
     return "Aguarde alguns segundos antes de solicitar outro envio de e-mail.";
+  if (
+    low.includes("request rate limit reached") ||
+    low.includes("rate limit exceeded")
+  )
+    return "Muitas tentativas de conexão em pouco tempo. Aguarde um momento e tente novamente.";
   if (low.includes("failed to fetch") || low.includes("networkerror"))
     return "Sem conexão com o servidor no momento. Verifique sua internet e tente novamente.";
   if (low.includes("jwt expired") || low.includes("authentification requise"))
@@ -59,10 +77,7 @@ export function humanError(raw: unknown): string {
   return msg || "Não foi possível concluir a ação. Tente novamente.";
 }
 export type Phase =
-  | "awaiting_position"
-  | "pending_confirmation"
-  | "awaiting_guess"
-  | "result";
+  "awaiting_position" | "pending_confirmation" | "awaiting_guess" | "result";
 export type Player = { id: string; nickname: string; score: number };
 export type Game = {
   id: string;

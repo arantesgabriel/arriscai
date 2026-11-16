@@ -59,6 +59,26 @@ describe("Regras de conteúdo e pontuação", () => {
     expect(humanError(new Error("Failed to fetch"))).toContain(
       "Sem conexão com o servidor",
     );
+    expect(humanError({ message: "Request rate limit reached" })).toContain(
+      "Muitas tentativas",
+    );
+    expect(
+      humanError(
+        Object.assign(
+          new Error(
+            'duplicate key value violates unique constraint "room_members_room_id_nickname_key"',
+          ),
+          { code: "23505" },
+        ),
+      ),
+    ).toBe("Esse apelido já está em uso nesta sala. Escolha outro.");
+    expect(
+      humanError({
+        code: "23505",
+        message:
+          'duplicate key value violates unique constraint "room_members_room_id_nickname_key"',
+      }),
+    ).toBe("Esse apelido já está em uso nesta sala. Escolha outro.");
   });
   it("seed tem 240 perguntas distintas, 30 por categoria e 6 de 22 palavras por categoria", () => {
     expect(seed).toHaveLength(240);
@@ -74,6 +94,9 @@ describe("Regras de conteúdo e pontuação", () => {
     }
     for (const q of seed) {
       expect(q.question).not.toContain("?");
+      expect(` ${normalize(q.question)} `, q.id).not.toContain(
+        ` ${normalize(q.answer)} `,
+      );
       expect(tokenize(q.question).length).toBe(q.word_count);
       expect(q.word_count).toBeLessThanOrEqual(22);
       expect(q.review_status).toBe("provisional");

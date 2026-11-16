@@ -525,12 +525,12 @@
   {
     "id": "Q0221",
     "category": "Esportes",
-    "question": "Quantos jogadores de uma equipe ficam em campo no futebol de onze",
+    "question": "Qual é o número máximo de jogadores de uma equipe em campo numa partida de futebol incluindo o goleiro",
     "answer": "Onze",
     "aliases": [
       "11"
     ],
-    "word_count": 12,
+    "word_count": 19,
     "difficulty": "medio",
     "review_status": "provisional"
   },
@@ -937,10 +937,10 @@
   {
     "id": "Q0328",
     "category": "Filmes e séries",
-    "question": "Qual protagonista do filme Barbie de 2023 foi interpretada por Margot Robbie",
+    "question": "Qual personagem interpretada por Margot Robbie dá nome ao filme de 2023 dirigido por Greta Gerwig",
     "answer": "Barbie",
     "aliases": [],
-    "word_count": 12,
+    "word_count": 16,
     "difficulty": "dificil",
     "review_status": "provisional"
   },
@@ -1181,22 +1181,22 @@
   {
     "id": "Q0421",
     "category": "Música",
-    "question": "Qual instrumento toca notas ao pressionar cordas com um arco",
+    "question": "Qual instrumento de cordas tocado com arco fica entre queixo e ombro e é afinado em sol ré lá mi",
     "answer": "Violino",
     "aliases": [],
-    "word_count": 10,
+    "word_count": 20,
     "difficulty": "medio",
     "review_status": "provisional"
   },
   {
     "id": "Q0422",
     "category": "Música",
-    "question": "Qual cantora internacional é conhecida pelo nome artístico Lady Gaga",
-    "answer": "Stefani Germanotta",
+    "question": "Qual é o nome civil da cantora conhecida pelo nome artístico Lady Gaga",
+    "answer": "Stefani Joanne Angelina Germanotta",
     "aliases": [
-      "Stefani Joanne Angelina Germanotta"
+      "Stefani Germanotta"
     ],
-    "word_count": 10,
+    "word_count": 13,
     "difficulty": "medio",
     "review_status": "provisional"
   },
@@ -1225,10 +1225,10 @@
   {
     "id": "Q0425",
     "category": "Música",
-    "question": "Qual ritmo musical brasileiro é associado ao carnaval e às escolas de samba",
+    "question": "Qual gênero musical de origem afro-brasileira usa surdos tamborins e cuícas e anima o carnaval carioca",
     "answer": "Samba",
     "aliases": [],
-    "word_count": 13,
+    "word_count": 16,
     "difficulty": "dificil",
     "review_status": "provisional"
   },
@@ -1983,7 +1983,7 @@
   {
     "id": "Q0703",
     "category": "Ciência e tecnologia",
-    "question": "Qual unidade do Sistema Internacional representa a resistência elétrica e recebe nome em homenagem ao físico alemão conhecido como Georg Simon Ohm",
+    "question": "Qual unidade do Sistema Internacional mede resistência elétrica e equivale à razão entre um volt de tensão e um ampere de corrente",
     "answer": "Ohm",
     "aliases": [
       "Ôhm"
@@ -2360,12 +2360,12 @@
   {
     "id": "Q0808",
     "category": "Cultura pop",
-    "question": "Qual franquia de games tem o personagem Sonic como protagonista",
+    "question": "Qual personagem da Sega é um ouriço azul conhecido pela velocidade e por coletar anéis dourados nos jogos",
     "answer": "Sonic",
     "aliases": [
       "Sonic the Hedgehog"
     ],
-    "word_count": 10,
+    "word_count": 18,
     "difficulty": "facil",
     "review_status": "provisional"
   },
@@ -2544,10 +2544,10 @@
   {
     "id": "Q0825",
     "category": "Cultura pop",
-    "question": "Qual jogo da Nintendo acompanha o personagem Kirby que pode absorver inimigos",
+    "question": "Qual personagem rosa da Nintendo engole inimigos para copiar habilidades em seus jogos de plataforma",
     "answer": "Kirby",
     "aliases": [],
-    "word_count": 12,
+    "word_count": 15,
     "difficulty": "dificil",
     "review_status": "provisional"
   },
@@ -2598,12 +2598,12 @@
   {
     "id": "Q0830",
     "category": "Cultura pop",
-    "question": "Qual protagonista de Persona 5 é conhecido pelo codinome Joker e lidera os Ladrões Fantasma",
+    "question": "Qual é o codinome do protagonista de Persona 5 que lidera os Ladrões Fantasma",
     "answer": "Joker",
     "aliases": [
       "Ren Amamiya"
     ],
-    "word_count": 15,
+    "word_count": 14,
     "difficulty": "dificil",
     "review_status": "provisional"
   }

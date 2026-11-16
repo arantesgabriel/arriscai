@@ -388,6 +388,24 @@ await check("public launch blocks provisional catalog by default", async () => {
   );
   await as(player);
   assert.equal((await call("question_catalog", [room])).length, 0);
+  await as(outsider);
+  const emptyRoom = await call("create_room", ["Host catálogo vazio"]);
+  const emptyCode = (await call("public_room_snapshot", [emptyRoom])).code;
+  await as(player);
+  await call("join_room", [emptyCode, "Jogador catálogo vazio", false]);
+  await as(outsider);
+  await assert.rejects(
+    () =>
+      call("prepare_match", [
+        emptyRoom,
+        1,
+        ["Conhecimentos gerais"],
+        null,
+        [],
+        "automatic",
+      ]),
+    /Nenhuma pergunta elegível disponível/,
+  );
 });
 await check(
   "fourth reveal scores 19, final reveal scores 1 in real SQL",
