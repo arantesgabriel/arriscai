@@ -22,7 +22,7 @@ const changa = Changa_One({
 });
 const origin =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://arriscai.vercel.app";
-const title = "Arriscaí! — Jogo de Adivinhação com Amigos";
+const title = "Arriscaí! | Jogo de Adivinhação com Amigos";
 const description =
   "Revele palavras de uma pergunta escondida, arrisque a resposta e dispute pontos com seus amigos. Quanto menos pistas, mais pontos!";
 export const viewport: Viewport = { themeColor: "#11162c" };

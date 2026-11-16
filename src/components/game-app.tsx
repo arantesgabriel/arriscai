@@ -1067,7 +1067,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                 Vale arriscar.
               </h1>
               <p>
-                Reúna a turma. Revele as pistas.
+                Reúna a galera. Revele as pistas.
                 <br />
                 Quem acerta antes, leva mais pontos.
               </p>
@@ -1079,7 +1079,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                 }}
               >
                 <label>
-                  Como a turma te chama?
+                  Como a galera te chama?
                   <input
                     placeholder="Seu apelido"
                     ref={nicknameInput}
@@ -1216,7 +1216,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                     : host
                       ? "Você comanda o jogo."
                       : "Sua próxima pista está aqui."
-                  : "Junte a turma."}
+                  : "Junte a galera."}
               </h1>
             </div>
             {!screen && (
@@ -1518,7 +1518,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
 
               <div className="lobby-layout">
                 <section className="panel members">
-                  <h2>A turma está chegando</h2>
+                  <h2>A galera está chegando</h2>
                   <p>
                     Compartilhe o código <strong>{snapshot.code}</strong>. Quem
                     organiza conduz as pistas e não disputa pontos.

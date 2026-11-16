@@ -32,13 +32,13 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
     screen = false,
   ) {
     await page.goto(`/?codigo=${code}${screen ? "&telao=1" : ""}`);
-    if (!screen) await page.getByLabel("Como a turma te chama?").fill(nickname);
+    if (!screen) await page.getByLabel("Como a galera te chama?").fill(nickname);
     await expect(
       page.getByRole("button", { name: "Entrar", exact: true }),
     ).toBeEnabled();
     await page.getByRole("button", { name: "Entrar", exact: true }).click();
     await expect(
-      page.getByRole("heading", { name: "Junte a turma." }),
+      page.getByRole("heading", { name: "Junte a galera." }),
     ).toBeVisible();
   }
   async function currentHost() {
@@ -66,10 +66,10 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
   try {
     await host.goto("/jogar");
     await expect(host.locator(".app")).toHaveAttribute("data-ready", "true");
-    await host.getByLabel("Como a turma te chama?").fill("QA-Organizador-R");
+    await host.getByLabel("Como a galera te chama?").fill("QA-Organizador-R");
     await host.getByRole("button", { name: "Criar uma sala" }).click();
     await expect(
-      host.getByRole("heading", { name: "Junte a turma." }),
+      host.getByRole("heading", { name: "Junte a galera." }),
     ).toBeVisible();
     const code = await host.locator(".room-code strong").innerText();
 
@@ -80,7 +80,7 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
       await route.continue();
     });
     await first.goto(`/?codigo=${code}`);
-    await first.getByLabel("Como a turma te chama?").fill("QA-Jogador-1");
+    await first.getByLabel("Como a galera te chama?").fill("QA-Jogador-1");
     await expect(
       first.getByRole("button", { name: "Entrar", exact: true }),
     ).toBeDisabled();
@@ -89,7 +89,7 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
     ).toBeEnabled();
     await first.getByRole("button", { name: "Entrar", exact: true }).click();
     await expect(
-      first.getByRole("heading", { name: "Junte a turma." }),
+      first.getByRole("heading", { name: "Junte a galera." }),
     ).toBeVisible();
     expect(signups).toBe(1);
     const firstUid = await first.evaluate(
@@ -128,7 +128,7 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
     expect(membershipUid).toBe(firstUid);
     await first.reload();
     await expect(
-      first.getByRole("heading", { name: "Junte a turma." }),
+      first.getByRole("heading", { name: "Junte a galera." }),
     ).toBeVisible();
     expect(
       await first.evaluate(
@@ -140,7 +140,7 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
     await join(third, code, "QA-Jogador-3");
     await join(tv, code, "Telão", true);
     await duplicate.goto(`/?codigo=${code}`);
-    await duplicate.getByLabel("Como a turma te chama?").fill("QA-Jogador-1");
+    await duplicate.getByLabel("Como a galera te chama?").fill("QA-Jogador-1");
     await expect(
       duplicate.getByRole("button", { name: "Entrar", exact: true }),
     ).toBeEnabled();
@@ -150,8 +150,8 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
     await expect(duplicate.locator(".error[role=alert]")).toContainText(
       "Esse apelido já está em uso nesta sala. Escolha outro.",
     );
-    await expect(duplicate.getByLabel("Como a turma te chama?")).toBeFocused();
-    await duplicate.getByLabel("Como a turma te chama?").fill("QA-Jogador-4");
+    await expect(duplicate.getByLabel("Como a galera te chama?")).toBeFocused();
+    await duplicate.getByLabel("Como a galera te chama?").fill("QA-Jogador-4");
     await expect(host.locator(".members li")).toHaveCount(5);
 
     const members = await host.locator(".members li").allInnerTexts();
@@ -167,7 +167,7 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
       .getByRole("button", { name: "Entrar", exact: true })
       .click();
     await expect(
-      duplicate.getByRole("heading", { name: "Junte a turma." }),
+      duplicate.getByRole("heading", { name: "Junte a galera." }),
     ).toBeVisible();
     await expect(host.locator(".members li")).toHaveCount(6);
     await expect(tv.locator(".wheel-announcement")).toContainText(

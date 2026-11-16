@@ -57,14 +57,14 @@ export function Demo() {
             <p style={{ fontFamily: "var(--font-display)", fontSize: "var(--text-display)", lineHeight: 1 }}>Display 22 pontos</p>
             <p style={{ fontFamily: "var(--font-display)", fontSize: "var(--text-heading-lg)" }}>Heading LG</p>
             <p style={{ fontFamily: "var(--font-display)", fontSize: "var(--text-heading-md)" }}>Heading MD</p>
-            <p style={{ fontWeight: 900, fontSize: "var(--text-heading-sm)" }}>Heading SM — Nunito Sans 900</p>
-            <p>Body — Em qual filme de animação um leão precisa recuperar seu lugar como rei?</p>
+            <p style={{ fontWeight: 900, fontSize: "var(--text-heading-sm)" }}>Heading SM: Nunito Sans 900</p>
+            <p>Body: Em qual filme de animação um leão precisa recuperar seu lugar como rei?</p>
             <p style={{ fontSize: "var(--text-caption)", fontWeight: 800, textTransform: "uppercase", letterSpacing: ".06em" }}>Caption</p>
           </div>
         </Card>
 
         <Card>
-          <h2 className={s.h2}>Botões — normal / hover / foco (Tab) / pressed / disabled / loading</h2>
+          <h2 className={s.h2}>Botões: normal / hover / foco (Tab) / pressed / disabled / loading</h2>
           {variants.map((v) => (
             <div key={v} className={s.row} style={{ marginBottom: "var(--space-4)" }}>
               <Button variant={v}>{v}</Button>
@@ -90,7 +90,7 @@ export function Demo() {
           <Card style={{ flex: "1 1 300px" }}>
             <h2 className={s.h2}>Campos</h2>
             <div className={s.stack}>
-              <Field label="Como a turma te chama?" placeholder="Seu apelido" hint="Até 20 caracteres" />
+              <Field label="Como a galera te chama?" placeholder="Seu apelido" hint="Até 20 caracteres" />
               <Field label="Código da sala" placeholder="Ex.: A1B2C3D4" error="Sala não encontrada" defaultValue="ZZZ" />
               <Field label="Desabilitado" placeholder="—" disabled />
             </div>
@@ -138,7 +138,7 @@ export function Demo() {
         </div>
 
         <Card>
-          <h2 className={s.h2}>Tiles — oculto / selecionado / revelado / desabilitado (22 posições)</h2>
+          <h2 className={s.h2}>Tiles: oculto / selecionado / revelado / desabilitado (22 posições)</h2>
           <div className={s.board}>
             {tiles.map((st, i) => (
               <Tile

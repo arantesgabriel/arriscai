@@ -126,7 +126,7 @@ export function DemoGame() {
         ? "2. Agora arrisque uma resposta. Se errar, abra mais uma palavra."
         : phase === "win"
           ? "Acertou! A rodada está concluída."
-          : "Fim da rodada — nenhuma pontuação.";
+          : "Fim da rodada. Nenhuma pontuação.";
   const hint = finished
     ? `Resposta: Saturno. Pergunta: ${question}?`
     : canGuess
@@ -159,6 +159,7 @@ export function DemoGame() {
         aria-label="Tabuleiro interativo com 14 posições de palavras"
         className="demo-board"
         data-board=""
+        id="demo-tabuleiro"
         role="group"
       >
         {words.map((word, i) => {
