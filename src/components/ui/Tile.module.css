@@ -1,0 +1,72 @@
+.tile {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 64px;
+  min-width: var(--size-touch-min);
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-3) solid var(--color-border-strong);
+  border-radius: var(--tile-radius);
+  box-shadow: var(--shadow-tactile-md);
+  font-family: var(--font-display);
+  font-size: var(--text-heading-sm);
+  line-height: var(--leading-snug);
+  text-align: center;
+  overflow-wrap: break-word;
+  hyphens: manual;
+  container-type: inline-size;
+  cursor: pointer;
+  transition:
+    transform var(--motion-fast) var(--ease-standard),
+    box-shadow var(--motion-fast) var(--ease-standard),
+    background-color var(--motion-flip) var(--ease-standard);
+}
+.hidden { background: var(--tile-bg-hidden); color: var(--tile-text-hidden); }
+.hidden:hover:not(:disabled) { transform: translateY(-2px); }
+.selected {
+  background: var(--tile-bg-hidden);
+  color: var(--tile-text-hidden);
+  outline: var(--border-3) solid var(--tile-border-selected);
+  outline-offset: 3px;
+  transform: translateY(-3px);
+}
+.revealed {
+  background: var(--tile-bg-revealed);
+  color: var(--tile-text-revealed);
+  font-family: var(--font-body);
+  font-weight: var(--weight-black);
+  cursor: default;
+  animation: flip var(--motion-flip) var(--ease-out);
+}
+/* cqi resolve contra o próprio tile (container), encolhendo palavras longas */
+.word {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  font-size: clamp(0.625rem, 14cqi, 1rem);
+  overflow-wrap: anywhere; /* último recurso para palavras > largura do tile */
+}
+.tile:focus-visible { outline: none; box-shadow: var(--shadow-tactile-md), var(--focus-ring); }
+.tile:disabled { opacity: 1; }
+.tile:disabled:not(.revealed) {
+  background: var(--tile-bg-disabled);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+  box-shadow: var(--shadow-tactile-sm);
+}
+.number {
+  position: absolute;
+  top: var(--space-1);
+  left: var(--space-2);
+  font-family: var(--font-display);
+  font-size: var(--text-caption);
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+@keyframes flip {
+  from { transform: rotateX(90deg); }
+  to { transform: rotateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .revealed { animation: none; }
+}

@@ -1,0 +1,29 @@
+/*
+ * Papéis tipográficos. Fontes resolvidas via next/font em layout.tsx:
+ *   --font-lilita (display, OFL) e --font-nunito-sans (UI, OFL).
+ * Rufing: NÃO incluída (sem arquivo/licença web). Para ativar, adicionar via next/font/local
+ * e prefixar em --font-display.
+ */
+:root {
+  --font-display: var(--font-lilita, "Lilita One"), "Arial Black", sans-serif;
+  --font-body: var(--font-nunito-sans, "Nunito Sans"), Arial, sans-serif;
+
+  --text-caption: 0.75rem; /* 12 */
+  --text-body-sm: 0.875rem; /* 14 */
+  --text-body: 1rem; /* 16 */
+  --text-label: 0.9375rem; /* 15 */
+  --text-heading-sm: 1.25rem; /* 20 */
+  --text-heading-md: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  --text-heading-lg: clamp(2rem, 1.5rem + 2vw, 3rem);
+  --text-display: clamp(2.75rem, 1.8rem + 4vw, 5rem);
+  --text-stage: clamp(3rem, 2rem + 4vw, 7rem); /* telão */
+
+  --leading-tight: 1.05;
+  --leading-snug: 1.25;
+  --leading-body: 1.5;
+
+  --weight-regular: 400;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-black: 900;
+}
