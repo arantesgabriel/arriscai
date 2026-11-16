@@ -166,12 +166,10 @@ try {
       "true",
     );
     await matrix(host, "landing");
-    report.landingFonts = await host
-      .locator("h1")
-      .evaluate((el) => ({
-        title: getComputedStyle(el).fontFamily,
-        body: getComputedStyle(el.closest(".landing-v4")).fontFamily,
-      }));
+    report.landingFonts = await host.locator("h1").evaluate((el) => ({
+      title: getComputedStyle(el).fontFamily,
+      body: getComputedStyle(el.closest(".landing-v4")).fontFamily,
+    }));
     await host.bringToFront();
     await host.goto(`${report.origin}/jogar`);
     await expect(host.locator(".app")).toHaveAttribute("data-ready", "true");
@@ -209,6 +207,7 @@ try {
       .getByPlaceholder("Digite trecho da pergunta ou categoria...")
       .fill("");
     await host.getByLabel("Seleção").selectOption("automatic");
+    await host.locator(".organizer-options > summary").click();
     await host.getByRole("button", { name: "Sortear organizador" }).click();
     await shot(p1, "roleta-em-curso");
     await expect(p1.locator(".wheel-announcement")).toContainText(

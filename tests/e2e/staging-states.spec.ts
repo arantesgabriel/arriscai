@@ -48,7 +48,12 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
       .poll(async () => {
         const count = await Promise.all(
           candidates.map((p) =>
-            p.getByRole("button", { name: "Sortear organizador" }).count(),
+            p
+              .getByRole("button", {
+                name: "Sortear organizador",
+                includeHidden: true,
+              })
+              .count(),
           ),
         );
         return count.reduce((sum, n) => sum + n, 0);
@@ -57,10 +62,20 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
     for (const candidate of candidates)
       if (
         await candidate
-          .getByRole("button", { name: "Sortear organizador" })
+          .getByRole("button", {
+            name: "Sortear organizador",
+            includeHidden: true,
+          })
           .count()
-      )
+      ) {
+        if (
+          (await candidate
+            .locator(".organizer-options")
+            .getAttribute("open")) === null
+        )
+          await candidate.locator(".organizer-options > summary").click();
         return candidate;
+      }
     throw new Error("Organizador não encontrado");
   }
 
@@ -174,6 +189,7 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
     await expect(tv.locator(".wheel-announcement")).toContainText(
       "foi sorteado(a)",
     );
+    await expect(tv.locator(".wheel-announcement")).toBeVisible();
     await firstSpinHost.getByRole("button", { name: "Som desligado" }).click();
     await firstSpinHost.getByLabel("Volume").press("ArrowRight");
     for (const page of [host, first, second, third, tv, duplicate]) {

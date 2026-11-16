@@ -337,6 +337,7 @@ test("three players, telão and late spectator share one hosted or isolated game
       await host.setViewportSize({ width, height: 1000 });
       await capture(host, `match-result-${width}`);
     }
+    await host.locator(".organizer-options > summary").click();
     await host
       .getByRole("combobox", { name: "Escolher organizador" })
       .selectOption({ label: "Bia" });

@@ -1,15 +1,24 @@
 "use client";
 import Link from "next/link";
-import { EntryScreen } from "./game/entry-screen";
+import { EntryScreen, EntryForm, type EntryMode } from "./game/entry-screen";
+import { PublicPreparation } from "./game/preparation-preview";
+import { readPreparation, type PreparationPreview } from "@/lib/preparation";
 import { Board, Scoreboard } from "./game/board";
 import { Icon } from "./game/game-icon";
+import { categoryMeta } from "./game/category-metadata";
 import { HostRoulette } from "./game/host-roulette";
 import { CompactScoreStrip } from "./game/score-strip";
 import { RoundResultOverlay, VictoryStage } from "./game/results";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { configured, identity, rpc, supabase } from "@/lib/supabase";
-import { humanError, type Game, type Member, type Secret, type Snapshot } from "@/lib/game";
+import {
+  humanError,
+  type Game,
+  type Member,
+  type Secret,
+  type Snapshot,
+} from "@/lib/game";
 
 type Catalog = {
   id: string;
@@ -36,17 +45,6 @@ const categories = [
   "Ciência e tecnologia",
   "Cultura pop",
 ];
-
-const categoryMeta: Record<string, { hint: string; icon: string }> = {
-  "Conhecimentos gerais": { hint: "De tudo um pouco", icon: "bulb" },
-  "Filmes e séries": { hint: "Telonas e maratonas", icon: "clapper" },
-  Música: { hint: "Ritmos, bandas e hits", icon: "music" },
-  Esportes: { hint: "Recordes e campeões", icon: "ball" },
-  Geografia: { hint: "Mapas e lugares", icon: "globe" },
-  História: { hint: "Fatias do tempo", icon: "column" },
-  "Ciência e tecnologia": { hint: "Descobertas e futuro", icon: "atom" },
-  "Cultura pop": { hint: "Games, heróis e redes", icon: "gamepad" },
-};
 
 type SoundKind = "reveal" | "error" | "correct" | "roulette" | "victory";
 
@@ -139,6 +137,9 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const [busy, setBusy] = useState(false);
   const [nickname, setNickname] = useState("");
   const [code, setCode] = useState("");
+  const [entryMode, setEntryMode] = useState<EntryMode>("create");
+  const [remotePreparation, setRemotePreparation] =
+    useState<PreparationPreview | null>(null);
   const [auth, setAuth] = useState(false);
   const [recoveryMode, setRecoveryMode] = useState(false);
   const [sound, setSound] = useState(false);
@@ -175,6 +176,26 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const prevGameRef = useRef<Game | null>(null);
   const refreshSequence = useRef(0);
   const locked = useRef(false);
+  const presenceChannel = useRef<ReturnType<
+    ReturnType<typeof supabase>["channel"]
+  > | null>(null);
+  const draftRef = useRef<PreparationPreview | null>(null);
+  const roomHostRef = useRef<string | undefined>(undefined);
+
+  useEffect(() => {
+    roomHostRef.current = snapshot?.host_id;
+    const hostId = snapshot?.host_id;
+    const presence = presenceChannel.current?.presenceState<{
+      preparation?: unknown;
+    }>();
+    setRemotePreparation(
+      hostId
+        ? (presence?.[hostId]
+            ?.map((meta) => readPreparation(meta.preparation, hostId))
+            .find(Boolean) ?? null)
+        : null,
+    );
+  }, [snapshot?.host_id]);
 
   const refresh = useCallback(async () => {
     if (!roomId) return;
@@ -249,6 +270,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     setCode(query.get("codigo") ?? "");
+    if (query.has("codigo") || query.has("telao")) setEntryMode("join");
     setScreen(query.has("telao"));
     setNow(Date.now());
     if (query.has("telao")) setNickname("Telão");
@@ -304,16 +326,36 @@ export default function GameApp({ roomId }: { roomId?: string }) {
           })
           .on("broadcast", { event: "state_changed" }, () => void load())
           .on("presence", { event: "sync" }, () => {
-            if (channel) setOnline(Object.keys(channel.presenceState()));
+            if (!channel) return;
+            const presence = channel.presenceState<{ preparation?: unknown }>();
+            setOnline(Object.keys(presence));
+            const hostId = roomHostRef.current;
+            if (hostId) {
+              const preview =
+                presence[hostId]
+                  ?.map((meta) => readPreparation(meta.preparation, hostId))
+                  .find(Boolean) ?? null;
+              setRemotePreparation((current) =>
+                JSON.stringify(current) === JSON.stringify(preview)
+                  ? current
+                  : preview,
+              );
+            }
           })
           .subscribe((status) => {
             if (!alive) return;
             setChannelHealthy(status === "SUBSCRIBED");
             if (status === "SUBSCRIBED") {
-              void channel?.track({ user_id: uid });
+              void channel?.track({
+                user_id: uid,
+                ...(draftRef.current?.hostId === uid
+                  ? { preparation: draftRef.current }
+                  : {}),
+              });
               void load();
             }
           });
+        presenceChannel.current = channel;
       });
     const heartbeat = () => {
       void rpc("heartbeat", { room: roomId })
@@ -342,6 +384,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
       window.removeEventListener("online", focus);
       window.removeEventListener("offline", offline);
       window.removeEventListener("focus", focus);
+      if (presenceChannel.current === channel) presenceChannel.current = null;
       if (channel) void supabase().removeChannel(channel);
     };
   }, [roomId, uid, refresh]);
@@ -568,6 +611,46 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   );
 
   const reserveCount = Math.max(0, Math.min(5, filtered.length - rounds));
+
+  // Presence carries only an ephemeral public preview. RPCs remain authoritative.
+  const publicDraft = useMemo<PreparationPreview | null>(
+    () =>
+      host && !active
+        ? {
+            hostId: uid,
+            rounds,
+            words: exact ? Number(exact) : null,
+            categories: cats,
+            categoryOptions: allCats,
+            mode: mode as PreparationPreview["mode"],
+            selectedCount: chosen.length,
+            availableCount: filtered.length,
+          }
+        : null,
+    [
+      host,
+      active,
+      uid,
+      rounds,
+      exact,
+      cats,
+      allCats,
+      mode,
+      chosen.length,
+      filtered.length,
+    ],
+  );
+  useEffect(() => {
+    draftRef.current = publicDraft;
+    if (!publicDraft || !channelHealthy) return;
+    const timer = window.setTimeout(() => {
+      void presenceChannel.current?.track({
+        user_id: uid,
+        preparation: publicDraft,
+      });
+    }, 180);
+    return () => window.clearTimeout(timer);
+  }, [publicDraft, channelHealthy, uid]);
 
   function toggleFullscreen() {
     if (typeof document === "undefined") return;
@@ -907,63 +990,19 @@ export default function GameApp({ roomId }: { roomId?: string }) {
       {!roomId ? (
         <main>
           <EntryScreen>
-            <form
-              className="entry"
-              onSubmit={(e) => {
-                e.preventDefault();
-                void enter(false, screen);
-              }}
-            >
-              <label>
-                Como a galera te chama?
-                <input
-                  placeholder="Seu apelido"
-                  ref={nicknameInput}
-                  value={nickname}
-                  maxLength={24}
-                  required
-                  onChange={(e) => setNickname(e.target.value)}
-                />
-              </label>
-              <button
-                className="primary"
-                disabled={
-                  screen ||
-                  busy ||
-                  !nickname ||
-                  !configured() ||
-                  identityStatus !== "ready"
-                }
-                type="button"
-                onClick={() => void enter(true)}
-              >
-                Criar uma sala <Icon name="arrow" />
-              </button>
-              <div className="join">
-                <label>
-                  Código da sala
-                  <input
-                    placeholder="Ex.: A1B2C3D4"
-                    value={code}
-                    minLength={8}
-                    maxLength={8}
-                    onChange={(e) => setCode(e.target.value.toUpperCase())}
-                  />
-                </label>
-                <button
-                  className="secondary"
-                  disabled={
-                    busy ||
-                    !nickname ||
-                    code.length !== 8 ||
-                    !configured() ||
-                    identityStatus !== "ready"
-                  }
-                >
-                  Entrar
-                </button>
-              </div>
-            </form>
+            <EntryForm
+              mode={entryMode}
+              onModeChange={setEntryMode}
+              nickname={nickname}
+              onNicknameChange={setNickname}
+              code={code}
+              onCodeChange={setCode}
+              nicknameRef={nicknameInput}
+              ready={configured() && identityStatus === "ready"}
+              busy={busy}
+              screen={screen}
+              onEnter={(create) => void enter(create, screen)}
+            />
             {configured() && identityStatus === "loading" && (
               <p role="status" className="setup-note">
                 Conectando sua identidade para entrar na sala…
@@ -1310,10 +1349,15 @@ export default function GameApp({ roomId }: { roomId?: string }) {
 
               <div className="lobby-layout">
                 <section className="panel members">
-                  <h2>A galera está chegando</h2>
-                  <p>
-                    Compartilhe o código <strong>{snapshot.code}</strong>. Quem
-                    organiza conduz as pistas e não disputa pontos.
+                  <div className="members-heading">
+                    <h2>Na sala</h2>
+                    <span>
+                      {snapshot.members.filter((m) => !m.display_only).length}{" "}
+                      participantes
+                    </span>
+                  </div>
+                  <p className="members-room-code">
+                    Código <strong>{snapshot.code}</strong>
                   </p>
                   <ul>
                     {snapshot.members.map((m) => (
@@ -1363,17 +1407,10 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                       void act(() => rpc("choose_host", { room: roomId }))
                     }
                   />
-
-                  {!host && (
-                    <p className="lobby-wait-note">
-                      O organizador está preparando a próxima partida. Ela
-                      aparecerá aqui automaticamente.
-                    </p>
-                  )}
                 </section>
 
                 {host && (
-                  <section className="panel preparation">
+                  <section className="panel preparation" data-editable="true">
                     <h2>{game ? "Mais uma partida?" : "Prepare a partida"}</h2>
                     <p>Escolha as perguntas antes de abrir o tabuleiro.</p>
 
@@ -1793,6 +1830,20 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                       </form>
                     )}
                   </section>
+                )}
+                {!host && (
+                  <PublicPreparation
+                    draft={
+                      remotePreparation?.hostId === snapshot.host_id
+                        ? remotePreparation
+                        : null
+                    }
+                    hostName={
+                      snapshot.members.find(
+                        (m) => m.user_id === snapshot.host_id,
+                      )?.nickname ?? "O organizador"
+                    }
+                  />
                 )}
               </div>
 

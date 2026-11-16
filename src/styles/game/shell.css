@@ -1,5 +1,12 @@
 /* Official application shell. Landing styles never consume this scope. */
 .app {
+  --game-footer-height: 64px;
+  box-sizing: border-box;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: calc(var(--game-footer-height) + env(safe-area-inset-bottom));
   --blue: var(--palette-night-secondary);
   --white: var(--palette-paper);
   --gold: var(--palette-gold);
@@ -15,13 +22,84 @@
   color-scheme: dark;
 }
 .app main {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: clip;
+  width: 100%;
+  margin: 0 auto;
   max-width: 1440px;
   padding: 28px 32px 56px;
 }
+.app.television {
+  padding-bottom: 0;
+}
 .app footer {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 30;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  min-height: var(--game-footer-height);
+  padding: 12px max(20px, calc((100vw - 1376px) / 2));
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  background: var(--color-bg-canvas);
   border-color: var(--color-border-on-dark);
   color: var(--color-text-muted-on-dark);
   font-size: 12px;
+}
+.app[data-experience="entry"] main {
+  display: grid;
+  place-items: center;
+  align-content: safe center;
+}
+.app[data-experience="entry"] .game-entry {
+  width: 100%;
+  margin: 0 auto;
+  padding-block: 28px;
+}
+.app .entry-switcher {
+  gap: 12px;
+}
+.app .entry-option {
+  border: 1px solid var(--palette-blue-200);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.app .entry-option[data-expanded="true"] {
+  border-color: var(--palette-ink);
+}
+.app .entry-option-toggle {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 16px;
+  background: var(--color-surface-subtle);
+  box-shadow: none;
+  border: 0;
+  border-radius: 0;
+  text-align: left;
+  font-size: 15px;
+}
+.app .entry-option-toggle:hover:enabled {
+  transform: none;
+}
+.app .entry-option[data-expanded="true"] .entry-option-toggle {
+  background: var(--palette-paper);
+}
+.app .entry-option-toggle span {
+  font-size: 20px;
+  line-height: 1;
+}
+.app .entry-option-fields {
+  display: grid;
+  gap: 18px;
+  padding: 6px 16px 20px;
+}
+.app .entry-option-fields .primary {
+  width: 100%;
 }
 .app .topbar {
   min-height: 76px;
@@ -150,6 +228,10 @@
   padding: 8px 12px;
 }
 .app .account {
+  min-height: 0;
+  max-height: calc(100dvh - 230px);
+  overflow-y: auto;
+  flex-shrink: 0;
   position: relative;
   max-width: 620px;
   width: calc(100% - 32px);

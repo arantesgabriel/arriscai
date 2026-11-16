@@ -20,6 +20,8 @@ Fontes Changa One em marca, títulos e pontuação; Nunito Sans em palavras, per
 
 O cenário usa Night. A operação usa Paper, a seleção Lilac com contorno Mint, a revelação Mint e as recompensas Gold. A informação privada usa superfície escura, faixa Lilac e rótulo explícito. Preferir superfícies sólidas, bordas e sombras deslocadas. Cor não é o único sinal de estado.
 
+A entrada alterna entre criar sala e entrar por código, preservando o apelido. Convites abrem diretamente o código preenchido. O rodapé fica fixo, separado da área central de rolagem. No lobby, participantes usam avatares circulares pequenos e a escolha de outro organizador fica recolhida por padrão. Todos acompanham a prévia pública da preparação; apenas o organizador edita, e perguntas/respostas continuam privadas.
+
 `globals.css` é o hub de imports. Os estilos do aplicativo ficam restritos a `.app` em `src/styles/game/`. `legacy.css` preserva estruturas ainda utilizadas com escopo restrito; novos ajustes pertencem a shell/lobby/play/results. A landing conserva suas regras locais.
 
 O organizador desktop usa tabuleiro e operação em duas colunas. No mobile, o painel contextual segue o tabuleiro, a consulta privada fica recolhível e o ranking completo é expansível. Painéis não cobrem posições nem inputs. O telão usa seis colunas em Full HD, ranking lateral e nenhuma ação de jogo.
