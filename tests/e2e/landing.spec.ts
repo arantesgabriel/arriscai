@@ -86,7 +86,7 @@ for (const width of [320, 390, 768, 1360, 1440, 1920]) {
     expect(errors).toEqual([]);
     await page.locator(".nav-cta").click();
     await expect(page).toHaveURL(/\/jogar$/);
-    await expect(page.getByLabel("Como a turma te chama?")).toBeVisible();
+    await expect(page.getByLabel("Como a galera te chama?")).toBeVisible();
   });
 }
 
@@ -168,4 +168,72 @@ test("landing V4: original animations and scroll feedback", async ({
   expect(
     await page.locator(".top").evaluate((el) => getComputedStyle(el).position),
   ).toBe("fixed");
+});
+
+test("feature illustrations animate to their final state", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".landing-v4")).toHaveAttribute(
+    "data-ready",
+    "true",
+  );
+  const bia = page
+    .locator(".animated-score > div")
+    .filter({ has: page.locator("strong", { hasText: "Bia" }) });
+  await expect(bia.locator("b")).toHaveText("00");
+  await expect(bia).toHaveAttribute("style", /80px/);
+  await page.locator(".feature-score").scrollIntoViewIfNeeded();
+  await expect(bia.locator("b")).toHaveText("22");
+  await expect(bia).toHaveAttribute("style", /0px/);
+  await expect(page.locator(".animated-score .leader")).toHaveCount(1);
+  await page.locator(".feature-room").scrollIntoViewIfNeeded();
+  await expect(page.locator(".feature-room")).toHaveClass(/feature-animate/);
+  const delays = await page
+    .locator(".avatar-row > span")
+    .evaluateAll((items) =>
+      items.slice(1).map((el) => getComputedStyle(el).animationDelay),
+    );
+  expect(delays).toEqual(["0.12s", "0.3s", "0.48s"]);
+  await page.locator(".feature-tv").scrollIntoViewIfNeeded();
+  await expect(page.locator(".feature-tv")).toHaveClass(/feature-animate/);
+  expect(
+    await page
+      .locator(".tv-flip")
+      .evaluate((el) => getComputedStyle(el).animationName),
+  ).toBe("reveal-tv");
+});
+
+test("mobile feature sequence waits for the previous card and visibility", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  await expect(page.locator(".landing-v4")).toHaveAttribute(
+    "data-ready",
+    "true",
+  );
+  await page.locator(".feature-room").scrollIntoViewIfNeeded();
+  await expect(page.locator(".feature-grid")).toHaveAttribute(
+    "data-animation-stage",
+    "1",
+  );
+  await expect(page.locator(".feature-score")).not.toHaveClass(
+    /feature-animate/,
+  );
+  await expect(page.locator(".feature-tv")).not.toHaveClass(/feature-animate/);
+  await page.locator(".feature-score").scrollIntoViewIfNeeded();
+  await expect(page.locator(".feature-grid")).toHaveAttribute(
+    "data-animation-stage",
+    "2",
+  );
+  await expect(page.locator(".feature-tv")).not.toHaveClass(/feature-animate/);
+  const bia = page
+    .locator(".animated-score > div")
+    .filter({ has: page.locator("strong", { hasText: "Bia" }) });
+  await expect(bia.locator("b")).toHaveText("22");
+  await page.locator(".feature-tv").scrollIntoViewIfNeeded();
+  await expect(page.locator(".feature-grid")).toHaveAttribute(
+    "data-animation-stage",
+    "3",
+  );
+  await expect(page.locator(".feature-tv")).toHaveClass(/feature-animate/);
 });

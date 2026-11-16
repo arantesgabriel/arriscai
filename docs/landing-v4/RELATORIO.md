@@ -1,5 +1,15 @@
 # Landing Arriscaí! GDevelop V4
 
+## Refinamentos posteriores solicitados
+
+Textos da interface atualizados de “turma” para “galera”; removidos travessões textuais e traços decorativos antes das frases. CTA final compactado, tracejado do portal removido, explicação dos pontos simplificada e convite da demonstração redesenhado. Identificadores das regras usam peso normal e os números dos quadrados foram reduzidos.
+
+No mobile, os textos de apoio e títulos são menores em extensão, as regras usam uma composição mais compacta e os espaços verticais foram reduzidos. O desktop mantém seus textos completos.
+
+Os exemplos de recursos agora animam em ordem: chegada dos participantes (760 ms), subida de Bia de 0 a 22 pontos com mudança de posição (aproximadamente 924 ms) e flip do telão (440 ms incluindo espera). Com os três cards visíveis, a sequência leva aproximadamente 2,1 segundos. Em telas estreitas, cada etapa aguarda seu card ficar visível. Movimento reduzido apresenta os estados finais sem essas transições.
+
+As capturas comparativas abaixo documentam a V4 inicial, anterior a esses refinamentos intencionais. Os testes de regressão foram atualizados para os novos textos e incluem a ordem das animações e a espera por visibilidade no mobile.
+
 Implementação na branch `dev`, conforme orientação atualizada. Sem merge, push ou deploy. Nenhuma dependência adicionada.
 
 ## Referência e arquitetura

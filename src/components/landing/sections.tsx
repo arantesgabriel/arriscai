@@ -1,3 +1,5 @@
+import { FeatureScore } from "./feature-score";
+import { FeatureSequence } from "./feature-sequence";
 import { ScoreSimulator, DemoGame } from "./interactions";
 export function Header({ scrolled }: { scrolled: boolean }) {
   return (
@@ -42,8 +44,13 @@ export function Hero() {
             <em>Arrisque.</em>
           </h1>
           <p>
-            Uma pergunta escondida, uma palavra por vez. Acerte antes dos seus
-            amigos e conquiste mais pontos.
+            <span className="desktop-copy">
+              Uma pergunta escondida, uma palavra por vez. Acerte antes dos seus
+              amigos e conquiste mais pontos.
+            </span>
+            <span className="mobile-copy">
+              Uma palavra por vez. Descubra a resposta antes dos amigos.
+            </span>
           </p>
           <div className="hero-actions">
             <a className="btn btn-primary" href="/jogar">
@@ -69,7 +76,7 @@ export function Hero() {
         >
           <div className="scene-halo"></div>
           <div className="portal-rays"></div>
-          <div className="portal-outline"></div>
+
           <div className="portal"></div>
           <div className="star-asset">✶</div>
           <div className="game-card">
@@ -99,9 +106,6 @@ export function Hero() {
           <div className="coin">
             12<small>PTS</small>
           </div>
-          <div className="scene-caption">
-            <i></i> Descubra antes da turma
-          </div>
         </div>
       </div>
     </section>
@@ -127,15 +131,18 @@ export function ScoreSection() {
             <br /> é <em>antes.</em>
           </h2>
           <p>
-            Em uma pergunta com <strong>22 palavras</strong>, acertar cedo faz
-            toda a diferença.
+            <span className="desktop-copy">
+              Em uma pergunta com <strong>22 palavras</strong>, acertar cedo faz
+              toda a diferença.
+            </span>
+            <span className="mobile-copy">
+              Acerte com menos pistas. Ganhe mais pontos.
+            </span>
           </p>
-          <div
-            aria-label="Pontuação igual ao total de palavras, menos palavras reveladas, mais um"
-            className="score-equation"
-          >
-            22 − pistas abertas + 1 = pontos
-          </div>
+          <p className="score-explainer">
+            A primeira pista vale 22 pontos. Cada pista extra tira 1 ponto do
+            acerto.
+          </p>
         </div>
         <ScoreSimulator />
       </div>
@@ -150,9 +157,12 @@ export function HowItWorks() {
           <div className="enter">
             <div className="overline sec-kicker">A MECÂNICA</div>
             <h2>
-              Regras simples.
-              <br />
-              Reações enormes.
+              <span className="desktop-copy">
+                Regras simples.
+                <br />
+                Reações enormes.
+              </span>
+              <span className="mobile-copy">Aprenda em três passos.</span>
             </h2>
           </div>
           <p className="lead-small enter">
@@ -197,15 +207,24 @@ export function DemoSection() {
       <div className="shell demo-layout">
         <div className="demo-copy enter">
           <div className="overline sec-kicker">UM GOSTINHO DO JOGO</div>
-          <h2>Seu instinto vale pontos.</h2>
+          <h2>
+            <span className="desktop-copy">Seu instinto vale pontos.</span>
+            <span className="mobile-copy">Teste seu palpite.</span>
+          </h2>
           <p className="lead-small">
-            Escolha uma posição, abra uma palavra e tente descobrir a resposta.
-            A demonstração é individual; no jogo real, o organizador conduz as
-            jogadas.
+            <span className="desktop-copy">
+              Escolha uma posição, abra uma palavra e tente descobrir a
+              resposta. A demonstração é individual; no jogo real, o organizador
+              conduz as jogadas.
+            </span>
+            <span className="mobile-copy">
+              Abra uma palavra e tente acertar. No multiplayer, o organizador
+              conduz a rodada.
+            </span>
           </p>
-          <span className="pill">
-            <i className="pill-dot"></i> Demonstração interativa
-          </span>
+          <a className="demo-invite" href="#demo-tabuleiro">
+            <span aria-hidden="true">↗</span> Experimente: escolha uma posição
+          </a>
         </div>
         <DemoGame />
       </div>
@@ -224,18 +243,21 @@ export function Features() {
           <div>
             <div className="overline sec-kicker">TODO MUNDO ENTRA NO JOGO</div>
             <h2 id="features-title">
-              É melhor quando
-              <br /> a turma participa.
+              <span className="desktop-copy">
+                É melhor quando
+                <br /> a galera participa.
+              </span>
+              <span className="mobile-copy">Jogue com a galera.</span>
             </h2>
           </div>
           <p className="lead-small">
             Seja no sofá ou à distância, o jogo é de todo mundo.
           </p>
         </div>
-        <div className="feature-grid">
+        <FeatureSequence>
           <article className="feature feature-room enter">
             <span className="feature-eyebrow">01 / CONVIDE</span>
-            <h3>Sua sala. Sua turma.</h3>
+            <h3>Sua sala. Sua galera.</h3>
             <p>Crie uma sala, copie o código e chame os amigos.</p>
             <div
               aria-label="Exemplo de uma sala com três participantes"
@@ -256,35 +278,26 @@ export function Features() {
             <span className="feature-eyebrow">02 / DISPUTE</span>
             <h3>Uma rodada muda tudo.</h3>
             <p>
-              Escolhas ousadas rendem pontos. O placar acompanha cada acerto.
+              <span className="desktop-copy">
+                Escolhas ousadas rendem pontos. O placar acompanha cada acerto.
+              </span>
+              <span className="mobile-copy">
+                Cada acerto pode virar o placar.
+              </span>
             </p>
-            <div
-              aria-label="Exemplo ilustrativo de pontuação"
-              className="score-ui"
-            >
-              <div>
-                <span>01</span>
-                <strong>Bia</strong>
-                <b>22</b>
-              </div>
-              <div>
-                <span>02</span>
-                <strong>Ana</strong>
-                <b>19</b>
-              </div>
-              <div>
-                <span>03</span>
-                <strong>Caio</strong>
-                <b>08</b>
-              </div>
-            </div>
+            <FeatureScore />
           </article>
           <article className="feature feature-tv enter">
             <span className="feature-eyebrow">03 / ACOMPANHE</span>
             <h3>Todo mundo de olho.</h3>
             <p>
-              Na tela de cada jogador ou no modo telão, as pistas aparecem para
-              a turma.
+              <span className="desktop-copy">
+                Na tela de cada jogador ou no modo telão, as pistas aparecem
+                para a galera.
+              </span>
+              <span className="mobile-copy">
+                As pistas chegam a todos, no celular ou no telão.
+              </span>
             </p>
             <div aria-label="Exemplo visual do modo telão" className="tv-ui">
               <div className="tv-glass">
@@ -292,14 +305,17 @@ export function Features() {
                 <strong>
                   <i>?</i>
                   <i>?</i>
-                  <i>G E L O</i>
+                  <i className="tv-flip">
+                    <span className="tv-face tv-back">?</span>
+                    <span className="tv-face tv-front">GELO</span>
+                  </i>
                   <i>?</i>
                 </strong>
               </div>
               <div className="tv-stand"></div>
             </div>
           </article>
-        </div>
+        </FeatureSequence>
       </div>
     </section>
   );
@@ -315,7 +331,7 @@ export function FinalCallToAction() {
       </span>
       <div className="shell enter">
         <span className="pill">A próxima rodada é sua</span>
-        <h2>Chame a turma. O próximo palpite é seu.</h2>
+        <h2>Chame a galera. O próximo palpite é seu.</h2>
         <p>Crie sua sala grátis, compartilhe o código e comece a partida.</p>
         <a className="btn btn-dark" href="/jogar">
           Jogar grátis ↗

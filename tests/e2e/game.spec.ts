@@ -58,10 +58,10 @@ async function joinAs(
   page: Page,
   code: string,
   nickname: string,
-  expectedHeading = "Junte a turma.",
+  expectedHeading = "Junte a galera.",
 ) {
   await page.goto("/?codigo=" + encodeURIComponent(code));
-  await page.getByLabel("Como a turma te chama?").fill(nickname);
+  await page.getByLabel("Como a galera te chama?").fill(nickname);
   await page.getByRole("button", { name: "Entrar", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: expectedHeading }),
@@ -94,10 +94,10 @@ test("three players, telão and late spectator share one hosted or isolated game
       await capture(host, `home-${width}`);
     }
     await host.setViewportSize({ width: 1440, height: 1000 });
-    await host.getByLabel("Como a turma te chama?").fill("Ana");
+    await host.getByLabel("Como a galera te chama?").fill("Ana");
     await host.getByRole("button", { name: "Criar uma sala" }).click();
     await expect(
-      host.getByRole("heading", { name: "Junte a turma." }),
+      host.getByRole("heading", { name: "Junte a galera." }),
     ).toBeVisible();
     const code = await host.locator(".room-code strong").innerText();
     await joinAs(player, code, "Bia");
@@ -106,7 +106,7 @@ test("three players, telão and late spectator share one hosted or isolated game
     await tv.goto("/?codigo=" + code + "&telao=1");
     await tv.getByRole("button", { name: "Entrar", exact: true }).click();
     await expect(
-      tv.getByRole("heading", { name: "Junte a turma." }),
+      tv.getByRole("heading", { name: "Junte a galera." }),
     ).toBeVisible();
     for (const width of sizes) {
       await host.setViewportSize({ width, height: 1000 });
@@ -368,7 +368,7 @@ test("three players, telão and late spectator share one hosted or isolated game
     player.once("dialog", (dialog) => void dialog.accept());
     await player.getByRole("button", { name: "Cancelar partida" }).click();
     await expect(
-      player.getByRole("heading", { name: "Junte a turma." }),
+      player.getByRole("heading", { name: "Junte a galera." }),
     ).toBeVisible();
     const cancelled = await browserRPC(cancelPage, "public_room_snapshot", {
       room,
