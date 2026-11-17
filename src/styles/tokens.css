@@ -107,9 +107,8 @@
   --color-danger-subtle: var(--palette-danger-100);
   --color-info-subtle: var(--palette-blue-100);
 
-  --color-focus-ring: var(--palette-ink);
-  --focus-ring:
-    0 0 0 3px var(--palette-white), 0 0 0 6px var(--color-focus-ring);
+  --color-focus-ring: var(--palette-ink-500);
+  --focus-ring: 0 0 0 1px var(--color-focus-ring);
 
   /* Sombras táteis (offset sólido, sem blur difuso) */
   --shadow-tactile-sm: 0 3px 0 var(--color-border-strong);

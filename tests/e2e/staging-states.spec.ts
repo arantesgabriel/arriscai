@@ -50,7 +50,7 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
           candidates.map((p) =>
             p
               .getByRole("button", {
-                name: "Sortear organizador",
+                name: "Trocar organizador",
                 includeHidden: true,
               })
               .count(),
@@ -63,17 +63,18 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
       if (
         await candidate
           .getByRole("button", {
-            name: "Sortear organizador",
+            name: "Trocar organizador",
             includeHidden: true,
           })
           .count()
       ) {
-        if (
-          (await candidate
-            .locator(".organizer-options")
-            .getAttribute("open")) === null
-        )
-          await candidate.locator(".organizer-options > summary").click();
+        if (!(await candidate.getByRole("dialog").isVisible()))
+          await candidate
+            .getByRole("button", { name: "Trocar organizador", exact: true })
+            .click();
+        await candidate
+          .getByRole("button", { name: "Sortear na roleta", exact: true })
+          .click();
         return candidate;
       }
     throw new Error("Organizador não encontrado");
@@ -168,9 +169,11 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
     );
     await expect(duplicate.getByLabel("Como a galera te chama?")).toBeFocused();
     await duplicate.getByLabel("Como a galera te chama?").fill("QA-Jogador-4");
-    await expect(host.locator(".members li")).toHaveCount(5);
+    await expect(host.locator(".members li:not(.member-empty)")).toHaveCount(5);
 
-    const members = await host.locator(".members li").allInnerTexts();
+    const members = await host
+      .locator(".members li:not(.member-empty)")
+      .allInnerTexts();
     expect(members.some((member) => member.includes("QA-Jogador-1"))).toBe(
       true,
     );
@@ -185,12 +188,13 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
     await expect(
       duplicate.getByRole("heading", { name: "Junte a galera.", exact: true }),
     ).toBeVisible();
-    await expect(host.locator(".members li")).toHaveCount(6);
+    await expect(host.locator(".members li:not(.member-empty)")).toHaveCount(6);
     await expect(tv.locator(".wheel-announcement")).toContainText(
       "foi sorteado(a)",
     );
-    await expect(tv.locator(".wheel-announcement")).toBeVisible();
-    await firstSpinHost.getByRole("button", { name: "Som desligado" }).click();
+    await expect(tv.getByRole("dialog")).toBeHidden();
+
+    await firstSpinHost.getByRole("button", { name: "Ativar som" }).click();
     await firstSpinHost.getByLabel("Volume").press("ArrowRight");
     for (const page of [host, first, second, third, tv, duplicate]) {
       await expect(page.locator(".wheel-disc.spinning")).toHaveCount(0);
@@ -206,8 +210,10 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
       .getByRole("button", { name: "Sortear organizador" })
       .click();
     await expect(secondSpinHost.locator(".wheel-disc.spinning")).toBeVisible();
+    await expect(secondSpinHost.locator(".wheel-disc.spinning")).toHaveCount(0);
+
     await secondSpinHost
-      .getByRole("button", { name: /Som (ligado|desligado)/ })
+      .getByRole("button", { name: /Ativar som|Desativar som/ })
       .click();
     await expect(secondSpinHost.locator(".wheel-disc.spinning")).toHaveCount(0);
     await expect(secondSpinHost.locator(".wheel-announcement")).toContainText(
@@ -219,15 +225,21 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
       timeout: 25000,
     });
     await contexts[2].setOffline(false);
-    await expect(second.getByText("Ao vivo", { exact: true })).toBeVisible({
+    await expect(second.locator(".connection")).toBeHidden({
       timeout: 25000,
     });
     const activeHost = await currentHost();
+    await activeHost
+      .getByRole("button", { name: "Selecionar manualmente", exact: true })
+      .click();
     await activeHost
       .getByRole("combobox", { name: "Escolher organizador" })
       .selectOption({
         label: activeHost === first ? "QA-Jogador-3" : "QA-Jogador-1",
       });
+    await activeHost
+      .getByRole("button", { name: "Confirmar novo organizador" })
+      .click();
     await expect(second.locator(".wheel-announcement")).toContainText(
       "assumiu a organização",
     );

@@ -166,12 +166,12 @@
   color: var(--palette-paper);
 }
 .app :is(button, a, input, select, textarea, summary):focus-visible {
-  outline: 3px solid var(--palette-gold);
-  outline-offset: 4px;
+  outline: 1px solid var(--palette-lilac);
+  outline-offset: 2px;
 }
 .app .panel :is(button, a, input, select, textarea, summary):focus-visible,
 .app .entry-surface :is(button, input):focus-visible {
-  outline-color: var(--palette-ink);
+  outline-color: var(--palette-ink-500);
 }
 .app :is(input, select, textarea) {
   background: var(--palette-paper);
@@ -401,5 +401,44 @@
   }
   .app .entry-surface {
     padding: 18px;
+  }
+}
+.app .entry-option-fields {
+  overflow: hidden;
+  box-sizing: border-box;
+  min-height: 0;
+}
+.app .notice-banner {
+  position: fixed;
+  top: 92px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  margin: 0;
+  padding: 8px 12px 8px 16px;
+  gap: 12px;
+  font-size: 13px;
+  box-shadow: var(--shadow-tactile-md);
+  animation: notice-appear var(--motion-base) var(--ease-out);
+}
+.app .notice-banner button {
+  flex-shrink: 0;
+  min-width: 36px;
+}
+@keyframes notice-appear {
+  from {
+    opacity: 0;
+    translate: 0 -8px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app .notice-banner {
+    animation: none;
   }
 }

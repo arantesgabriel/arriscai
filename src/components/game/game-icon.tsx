@@ -6,6 +6,9 @@ export function Icon({
     | "trophy"
     | "arrow"
     | "crown"
+    | "speaker"
+    | "speaker-off"
+    | "user"
     | "wheel"
     | "fullscreen"
     | "bulb"
@@ -53,6 +56,22 @@ export function Icon({
           stroke="var(--palette-ink)"
           d="m2 18 2-11 5 4 3-6 3 6 5-4 2 11H2Z"
         />
+      ) : name === "speaker" || name === "speaker-off" ? (
+        <>
+          <path d="M11 4 6 8H3v8h3l5 4V4Z" />
+          {name === "speaker" ? (
+            <>
+              <path d="M15 8a6 6 0 0 1 0 8M18 5a10 10 0 0 1 0 14" />
+            </>
+          ) : (
+            <path d="m3 3 18 18" />
+          )}
+        </>
+      ) : name === "user" ? (
+        <>
+          <circle cx="12" cy="8" r="4" />
+          <path d="M4 21v-2a8 8 0 0 1 16 0v2" />
+        </>
       ) : name === "wheel" ? (
         <>
           <circle

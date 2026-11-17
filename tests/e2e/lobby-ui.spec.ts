@@ -59,6 +59,13 @@ test("entrada alternável, convite direto e preparação pública sincronizada",
   try {
     await host.goto("/jogar");
     await expect(host.locator(".app")).toHaveAttribute("data-ready", "true");
+    await expect(
+      host.getByRole("button", { name: "Ativar som" }),
+    ).toBeVisible();
+    await host.getByRole("button", { name: "Ativar som" }).click();
+    await expect(host.getByLabel("Volume", { exact: true })).toBeVisible();
+    await host.getByRole("button", { name: "Desativar som" }).click();
+    await expect(host.getByLabel("Volume", { exact: true })).toBeHidden();
     await host.getByLabel("Como a galera te chama?").fill("UX Ana");
     await expect(host.locator("#join-room-fields")).toHaveCount(0);
     await host.getByRole("button", { name: "Tenho um código" }).click();
@@ -67,6 +74,12 @@ test("entrada alternável, convite direto e preparação pública sincronizada",
       "UX Ana",
     );
     await host.getByLabel("Código da sala").fill("AB12CD34");
+    await host.getByLabel("Código da sala").focus();
+    expect(
+      await host
+        .getByLabel("Código da sala")
+        .evaluate((el) => getComputedStyle(el).outlineWidth),
+    ).toBe("1px");
     for (const [w, h] of [
       [320, 720],
       [390, 844],
@@ -105,6 +118,104 @@ test("entrada alternável, convite direto e preparação pública sincronizada",
     ).toBeVisible();
     const code = await host.locator(".room-code strong").innerText();
     await join(guest, code, "UX Bia");
+    for (const name of ["UX Davi", "UX Eva", "UX Fábio"]) {
+      const context = await browser.newContext();
+      contexts.push(context);
+      await runtime?.attach(context);
+      await join(await context.newPage(), code, name);
+    }
+    await expect(host.locator(".members-heading > span")).toHaveText("5 / 14");
+    await expect(host.locator('.member-slot[data-self="true"]')).toContainText(
+      "UX Ana",
+    );
+    await expect(
+      host
+        .locator('.member-slot[data-self="true"]')
+        .getByRole("img", { name: "Seu usuário" }),
+    ).toBeVisible();
+    await expect(
+      host
+        .locator('.member-slot[data-self="true"]')
+        .getByRole("img", { name: "Organizador", exact: true }),
+    ).toBeVisible();
+    expect(
+      await host
+        .locator(".member-list")
+        .evaluate((el) => el.scrollHeight > el.clientHeight),
+    ).toBe(true);
+    await host
+      .context()
+      .grantPermissions(["clipboard-read", "clipboard-write"]);
+    const beforeCopy = await host.locator(".preparation").boundingBox();
+    await host
+      .getByRole("button", { name: "Copiar convite", exact: true })
+      .click();
+    await expect(host.locator(".notice-banner")).toContainText(
+      "Link de convite copiado!",
+    );
+    expect(await host.locator(".preparation").boundingBox()).toEqual(
+      beforeCopy,
+    );
+    expect(await host.evaluate(() => navigator.clipboard.readText())).toContain(
+      `?codigo=${code}`,
+    );
+    await host
+      .getByRole("button", { name: "Copiar código", exact: true })
+      .click();
+    await expect(host.locator(".notice-banner")).toContainText(
+      `Código ${code} copiado!`,
+    );
+    expect(await host.evaluate(() => navigator.clipboard.readText())).toBe(
+      code,
+    );
+    await expect(host.locator(".notice-banner")).toBeHidden({ timeout: 6000 });
+    for (const [width, height] of [
+      [390, 844],
+      [768, 1024],
+      [1360, 768],
+      [1920, 1080],
+    ]) {
+      await host.setViewportSize({ width, height });
+      await capture(host, `lobby-automatico-${width}`);
+      if (width >= 1360) {
+        await host
+          .getByRole("button", { name: "Trocar organizador", exact: true })
+          .click();
+        await expect(host.getByRole("dialog")).toBeVisible();
+        await expect(
+          host.getByRole("combobox", { name: "Escolher organizador" }),
+        ).toBeHidden();
+        await host.screenshot({
+          path: `${output}/organizador-roleta-${width}.jpg`,
+          type: "jpeg",
+          quality: 80,
+        });
+        expect(
+          await host
+            .locator("main")
+            .evaluate((el) => el.scrollHeight <= el.clientHeight + 1),
+        ).toBe(true);
+        await host
+          .getByRole("button", { name: "Selecionar manualmente", exact: true })
+          .click();
+        await expect(host.locator(".wheel-stage")).toBeHidden();
+        await expect(
+          host.getByRole("combobox", { name: "Escolher organizador" }),
+        ).toBeVisible();
+        await host
+          .getByRole("button", { name: "Sortear na roleta", exact: true })
+          .click();
+        await expect(host.locator(".wheel-stage")).toBeVisible();
+        await host
+          .getByRole("button", { name: "Fechar troca de organizador" })
+          .click();
+        expect(
+          await host
+            .locator("main")
+            .evaluate((el) => el.scrollHeight <= el.clientHeight + 1),
+        ).toBe(true);
+      }
+    }
     await expect(host.locator(".wheel-stage")).toBeHidden();
     await expect(guest.locator(".wheel-stage")).toBeHidden();
     await host.getByLabel("Rodadas", { exact: true }).fill("5");
@@ -165,13 +276,33 @@ test("entrada alternável, convite direto e preparação pública sincronizada",
       await guest.setViewportSize({ width: w, height: h });
       await capture(guest, `lobby-player-${w}`);
     }
-    await host.locator(".organizer-options > summary").click();
+    await host
+      .getByRole("button", { name: "Trocar organizador", exact: true })
+      .click();
     await expect(
       host.getByRole("button", { name: "Sortear organizador" }),
     ).toBeVisible();
     await host
+      .getByRole("button", { name: "Selecionar manualmente", exact: true })
+      .click();
+    await expect(
+      host.getByRole("button", { name: "Confirmar novo organizador" }),
+    ).toBeDisabled();
+    await host
       .getByRole("combobox", { name: "Escolher organizador" })
       .selectOption({ label: "UX Bia" });
+    await expect(
+      host.getByRole("button", { name: "Confirmar novo organizador" }),
+    ).toBeEnabled();
+    await expect(
+      host
+        .locator(".member-slot")
+        .filter({ hasText: "UX Ana" })
+        .getByRole("img", { name: "Organizador", exact: true }),
+    ).toBeVisible();
+    await host
+      .getByRole("button", { name: "Confirmar novo organizador" })
+      .click();
     await expect(
       guest.locator('.preparation[data-editable="true"]'),
     ).toBeVisible();
@@ -180,6 +311,50 @@ test("entrada alternável, convite direto e preparação pública sincronizada",
         .locator(".preparation-preview")
         .getByLabel("Rodadas", { exact: true }),
     ).toHaveValue("3");
+    await guest
+      .getByRole("button", { name: "Trocar organizador", exact: true })
+      .click();
+    await guest
+      .getByRole("button", { name: "Sortear organizador", exact: true })
+      .click();
+    await expect(host.locator(".wheel-countdown strong")).toHaveText("3");
+    await expect(host.locator(".wheel-disc")).toBeHidden();
+    await expect(host.locator(".wheel-pointer")).toBeHidden();
+    await expect(guest.locator(".wheel-countdown strong")).toHaveText("3");
+    await expect(late.locator(".wheel-countdown strong")).toHaveText("3");
+    await host.screenshot({
+      path: ".tmp/entry-lobby-ux/isolated/roleta-contagem.jpg",
+    });
+    await expect(host.locator(".wheel-countdown strong")).toHaveText("2");
+    await expect(host.locator(".wheel-countdown strong")).toHaveText("1");
+    await expect(host.locator(".wheel-disc.spinning")).toBeVisible();
+    await expect(host.locator(".wheel-announcement")).toContainText(
+      "foi sorteado(a)",
+    );
+    const sessionPages = contexts.flatMap((context) => context.pages());
+    await Promise.all(
+      sessionPages.map(async (page) => {
+        await expect(page.getByRole("dialog")).toBeHidden();
+        await expect(page.locator(".notice-banner")).toContainText(
+          "foi sorteado(a)",
+        );
+        const isWinner = await page
+          .locator('.member-slot[data-self="true"]')
+          .getByRole("img", { name: "Organizador", exact: true })
+          .count();
+        if (isWinner)
+          await expect(page.locator(".notice-banner")).toHaveText(
+            /Você foi sorteado/,
+          );
+        else
+          await expect(page.locator(".notice-banner")).not.toContainText(
+            "Você foi sorteado",
+          );
+      }),
+    );
+    await host.screenshot({
+      path: ".tmp/entry-lobby-ux/isolated/roleta-resultado.jpg",
+    });
     expect(errors).toEqual([]);
   } finally {
     await Promise.all(contexts.map((c) => c.close()));

@@ -113,6 +113,8 @@ export type RouletteState = {
   winner_nickname: string;
   mode: "roulette" | "manual";
   spun_at: string;
+  previous_host_id?: string;
+  members?: Member[];
 };
 export type HistoryItem = {
   id: string;

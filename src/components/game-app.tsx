@@ -6,6 +6,7 @@ import { readPreparation, type PreparationPreview } from "@/lib/preparation";
 import { Board, Scoreboard } from "./game/board";
 import { Icon } from "./game/game-icon";
 import { categoryMeta } from "./game/category-metadata";
+import { playerColor } from "./game/player-colors";
 import { HostRoulette } from "./game/host-roulette";
 import { CompactScoreStrip } from "./game/score-strip";
 import { RoundResultOverlay, VictoryStage } from "./game/results";
@@ -133,6 +134,18 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const [secret, setSecret] = useState<Secret | null>(null);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  const noticeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const showNotice = useCallback((message: string) => {
+    if (noticeTimer.current) clearTimeout(noticeTimer.current);
+    setNotice(message);
+    noticeTimer.current = setTimeout(() => setNotice(""), 3500);
+  }, []);
+  useEffect(
+    () => () => {
+      if (noticeTimer.current) clearTimeout(noticeTimer.current);
+    },
+    [],
+  );
   const [liveAnnouncement, setLiveAnnouncement] = useState("");
   const [busy, setBusy] = useState(false);
   const [nickname, setNickname] = useState("");
@@ -168,6 +181,8 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const [scoresExpanded, setScoresExpanded] = useState(false);
   const [wheelAngle, setWheelAngle] = useState(0);
   const [wheelSpinning, setWheelSpinning] = useState(false);
+  const [wheelCountdown, setWheelCountdown] = useState<number | null>(null);
+  const [wheelDuration, setWheelDuration] = useState(2100);
   const [wheelBanner, setWheelBanner] = useState("");
   const [wheelMembers, setWheelMembers] = useState<Member[] | null>(null);
   const lastRouletteId = useRef<string | null>(null);
@@ -389,11 +404,22 @@ export default function GameApp({ roomId }: { roomId?: string }) {
     };
   }, [roomId, uid, refresh]);
 
-  const host = Boolean(snapshot && snapshot.host_id === uid && !screen);
+  const host = Boolean(
+    snapshot &&
+    snapshot.host_id === uid &&
+    !screen &&
+    wheelCountdown === null &&
+    !wheelSpinning,
+  );
   const game = snapshot?.game;
   const active = game?.status === "active";
 
   const connected = channelHealthy && restHealthy;
+  const roomPlayers = snapshot?.members.filter((m) => !m.display_only) ?? [];
+  const shownHostId =
+    wheelCountdown !== null || wheelSpinning
+      ? (snapshot?.roulette?.previous_host_id ?? snapshot?.host_id)
+      : snapshot?.host_id;
 
   // The event ID is consumed once. Its timer survives presence and snapshot refreshes.
   useEffect(() => {
@@ -405,15 +431,17 @@ export default function GameApp({ roomId }: { roomId?: string }) {
       if (rouletteTimer.current) clearTimeout(rouletteTimer.current);
       rouletteTimer.current = null;
       setWheelSpinning(false);
-      const recent = Date.now() - Date.parse(r.spun_at) < 3500;
-      if (firstObservation && !recent) {
+      const startedAt = Date.parse(r.spun_at);
+      const elapsed = Date.now() - startedAt;
+      setWheelCountdown(null);
+      if (firstObservation && elapsed >= 5100) {
         setWheelMembers(null);
         setWheelBanner(`${r.winner_nickname} organiza a sala.`);
         return;
       }
-      const eligible = snapshot.members.filter(
-        (m) => !m.spectator && !m.display_only,
-      );
+      const eligible =
+        r.members ??
+        snapshot.members.filter((m) => !m.spectator && !m.display_only);
       const idx = Math.max(
         0,
         eligible.findIndex((m) => m.user_id === r.winner_id),
@@ -421,33 +449,52 @@ export default function GameApp({ roomId }: { roomId?: string }) {
       const count = Math.max(1, eligible.length);
       if (r.mode === "roulette") {
         setWheelMembers(eligible);
-        const reduced = window.matchMedia?.(
+        setWheelBanner("");
+        const reduced = window.matchMedia(
           "(prefers-reduced-motion: reduce)",
         ).matches;
-        if (!reduced) {
-          setWheelSpinning(true);
-          playEventSound("roulette", sound, volume);
-        }
-        const sliceDeg = 360 / count;
-        const targetDeg = (360 - (((idx + 0.5) * sliceDeg) % 360)) % 360;
-        setWheelAngle((prev) => {
-          const currentMod = ((prev % 360) + 360) % 360;
-          const diff = (targetDeg - currentMod + 360) % 360;
-          return prev + 1440 + diff;
-        });
-        const finish = () => {
-          rouletteTimer.current = null;
-          setWheelSpinning(false);
-          setWheelMembers(null);
-          setWheelBanner(
-            `${r.winner_nickname} foi sorteado(a) na roleta para organizar!`,
-          );
-          setLiveAnnouncement(
-            `Roleta concluída: ${r.winner_nickname} vai organizar a partida.`,
-          );
+        let spinStarted = false;
+        const tick = () => {
+          const remaining = startedAt + 3000 - Date.now();
+          if (remaining > 0) {
+            setWheelCountdown(Math.min(3, Math.ceil(remaining / 1000)));
+          } else if (Date.now() < startedAt + 5100) {
+            setWheelCountdown(null);
+            if (!spinStarted) {
+              spinStarted = true;
+              setWheelDuration(
+                reduced ? 0 : Math.max(0, startedAt + 5100 - Date.now()),
+              );
+              setWheelSpinning(true);
+              playEventSound("roulette", sound, volume);
+              const target =
+                (360 - ((((idx + 0.5) * 360) / count) % 360)) % 360;
+              setWheelAngle(
+                (prev) =>
+                  prev +
+                  1440 +
+                  ((target - (((prev % 360) + 360) % 360) + 360) % 360),
+              );
+            }
+          } else {
+            rouletteTimer.current = null;
+            setWheelCountdown(null);
+            setWheelSpinning(false);
+            // Keep the event roster stable until the next draw.
+            const winnerLabel =
+              r.winner_id === uid ? "Você" : r.winner_nickname;
+            const resultMessage =
+              winnerLabel + " foi sorteado(a) na roleta para organizar!";
+            setWheelBanner(resultMessage);
+            showNotice(resultMessage);
+            setLiveAnnouncement(
+              "Roleta concluída: " + winnerLabel + " vai organizar a partida.",
+            );
+            return;
+          }
+          rouletteTimer.current = setTimeout(tick, 50);
         };
-        if (reduced) finish();
-        else rouletteTimer.current = setTimeout(finish, 2100);
+        tick();
       } else {
         setWheelMembers(null);
         setWheelBanner(`${r.winner_nickname} assumiu a organização da sala.`);
@@ -456,7 +503,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
         );
       }
     }
-  }, [snapshot?.roulette, snapshot?.members, sound, volume]);
+  }, [snapshot?.roulette, snapshot?.members, sound, volume, uid, showNotice]);
 
   useEffect(
     () => () => {
@@ -692,32 +739,26 @@ export default function GameApp({ roomId }: { roomId?: string }) {
           </Link>
           <span className="tagline">Quanto menos pistas, mais pontos!</span>
           <div className="top-actions">
-            {snapshot && (
-              <span className="connection">
-                <span
-                  className={`live-dot ${connected ? "online" : "offline"}`}
-                  aria-hidden="true"
-                />
-                {connected
-                  ? "Ao vivo"
-                  : channelHealthy
-                    ? "Reconectando dados…"
-                    : "Reconectando…"}
+            {snapshot && !connected && (
+              <span className="connection" role="status">
+                Reconectando…
               </span>
             )}
             <button
-              className="quiet"
+              className="quiet sound-toggle"
               type="button"
+              aria-label={sound ? "Desativar som" : "Ativar som"}
+              aria-pressed={sound}
+              title={sound ? "Desativar som" : "Ativar som"}
               onClick={() => {
                 setSound(!sound);
                 sessionStorage.setItem("sound", String(!sound));
               }}
             >
-              {sound ? "Som ligado" : "Som desligado"}
+              <Icon name={sound ? "speaker" : "speaker-off"} />
             </button>
             {sound && (
               <label className="volume">
-                Volume
                 <input
                   aria-label="Volume"
                   type="range"
@@ -753,7 +794,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
             <strong>
               Arriscaí<span>!</span>
             </strong>
-            <span className="tv-chip">PALCO AO VIVO · 16:9</span>
+            <span className="tv-chip">PALCO · 16:9</span>
           </div>
           {snapshot && (
             <div className="tv-room-badge">
@@ -1060,7 +1101,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                       await navigator.clipboard.writeText(
                         `${location.origin}/?codigo=${snapshot.code}`,
                       );
-                      setNotice("Link de convite copiado!");
+                      showNotice("Link de convite copiado!");
                     })
                   }
                 >
@@ -1072,7 +1113,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                   onClick={() =>
                     void act(async () => {
                       await navigator.clipboard.writeText(snapshot.code);
-                      setNotice(`Código ${snapshot.code} copiado!`);
+                      showNotice(`Código ${snapshot.code} copiado!`);
                     })
                   }
                 >
@@ -1351,49 +1392,115 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                 <section className="panel members">
                   <div className="members-heading">
                     <h2>Na sala</h2>
-                    <span>
-                      {snapshot.members.filter((m) => !m.display_only).length}{" "}
-                      participantes
+                    <span
+                      aria-label={`${roomPlayers.length} de 14 vagas ocupadas`}
+                    >
+                      <strong>{roomPlayers.length}</strong> / 14
                     </span>
                   </div>
                   <p className="members-room-code">
                     Código <strong>{snapshot.code}</strong>
                   </p>
-                  <ul>
-                    {snapshot.members.map((m) => (
-                      <li key={m.user_id}>
-                        <span className="avatar">
-                          {m.nickname.slice(0, 1).toUpperCase()}
+                  <ul
+                    className="member-list"
+                    aria-label="Participantes da sala"
+                    tabIndex={0}
+                  >
+                    {roomPlayers.map((m, index) => (
+                      <li
+                        key={m.user_id}
+                        className="member-slot"
+                        data-self={m.user_id === uid}
+                      >
+                        <span className="member-avatar">
+                          <span
+                            className="avatar"
+                            style={{
+                              background: playerColor(index),
+                              color: "var(--palette-ink)",
+                            }}
+                          >
+                            {m.nickname.slice(0, 1).toUpperCase()}
+                          </span>
+                          {m.user_id === uid && (
+                            <span
+                              className="self-marker"
+                              role="img"
+                              aria-label="Seu usuário"
+                              title="Seu usuário"
+                            >
+                              <Icon name="user" />
+                            </span>
+                          )}
                         </span>
-                        <div>
-                          <strong>
-                            {m.nickname}
-                            {m.user_id === uid ? " (você)" : ""}
-                          </strong>
-                          <small>
-                            {m.user_id === snapshot.host_id
-                              ? "Organizador"
-                              : m.display_only
-                                ? "Telão (somente leitura)"
-                                : m.spectator
-                                  ? "Espectador (entra na próxima)"
-                                  : "Jogador"}
-                          </small>
+                        <div className="member-identity">
+                          <strong title={m.nickname}>{m.nickname}</strong>
+                          {(m.display_only || m.spectator) && (
+                            <small>
+                              {m.display_only ? "Telão" : "Espectador"}
+                            </small>
+                          )}
                         </div>
-                        <span className="presence">
-                          {online.includes(m.user_id) ? "Online" : "Ausente"}
+                        <span className="member-markers">
+                          {m.user_id === shownHostId && (
+                            <span
+                              className="host-marker"
+                              role="img"
+                              aria-label="Organizador"
+                              title="Organizador"
+                            >
+                              <Icon name="crown" />
+                            </span>
+                          )}
+                          <span
+                            className={`member-presence ${online.includes(m.user_id) ? "online" : "offline"}`}
+                            role="img"
+                            aria-label={
+                              online.includes(m.user_id) ? "Online" : "Ausente"
+                            }
+                            title={
+                              online.includes(m.user_id) ? "Online" : "Ausente"
+                            }
+                          />
                         </span>
                       </li>
                     ))}
+                    {Array.from(
+                      { length: Math.max(0, 14 - roomPlayers.length) },
+                      (_, i) => (
+                        <li
+                          className="member-slot member-empty"
+                          key={`empty-${i}`}
+                          aria-hidden="true"
+                        >
+                          <span className="avatar">
+                            <Icon name="user" />
+                          </span>
+                          <span>Vaga livre</span>
+                        </li>
+                      ),
+                    )}
                   </ul>
+                  {roomPlayers.length <= 14 && (
+                    <p className="members-scroll-hint">
+                      Role a lista para ver todos ↓
+                    </p>
+                  )}
 
                   <HostRoulette
-                    members={wheelMembers ?? eligibleMembers}
+                    viewerId={uid}
+                    members={eligibleMembers}
+                    drawMembers={wheelMembers ?? eligibleMembers}
+                    memberColors={Object.fromEntries(
+                      roomPlayers.map((m, i) => [m.user_id, playerColor(i)]),
+                    )}
                     hostId={snapshot.host_id}
                     isHost={host}
-                    busy={busy || wheelSpinning}
+                    busy={busy || wheelSpinning || wheelCountdown !== null}
                     wheelAngle={wheelAngle}
                     wheelSpinning={wheelSpinning}
+                    wheelCountdown={wheelCountdown}
+                    wheelDuration={wheelDuration}
                     wheelBanner={wheelBanner}
                     onChooseManual={(memberId) =>
                       void act(() =>
@@ -1413,7 +1520,6 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                   <section className="panel preparation" data-editable="true">
                     <h2>{game ? "Mais uma partida?" : "Prepare a partida"}</h2>
                     <p>Escolha as perguntas antes de abrir o tabuleiro.</p>
-
                     {catalog.length === 0 && (
                       <div role="status" className="empty-catalog-banner">
                         <strong>
@@ -1427,121 +1533,113 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                         </p>
                       </div>
                     )}
-
-                    <div className="fields">
-                      <label>
-                        Rodadas
-                        <input
-                          type="number"
-                          min="1"
-                          max="30"
-                          value={rounds}
-                          onChange={(e) => setRounds(Number(e.target.value))}
-                        />
-                      </label>
-                      <label>
-                        Tamanho da pergunta
-                        <select
-                          value={exact}
-                          onChange={(e) => {
-                            setExact(e.target.value);
-                            setPage(1);
-                          }}
-                        >
-                          <option value="">Todos os tamanhos</option>
-                          {Array.from({ length: 22 }, (_, i) => (
-                            <option key={i} value={i + 1}>
-                              {i + 1} palavras
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                    </div>
-
-                    <fieldset>
-                      <legend>
-                        Categorias ({cats.length} de {allCats.length}{" "}
-                        selecionadas)
-                      </legend>
-                      <div className="category-list">
-                        {allCats.map((c) => {
-                          const meta = categoryMeta[c] ?? {
-                            hint: "Perguntas variadas",
-                            icon: "bulb",
-                          };
-                          const stat = categoryCounts[c] ?? {
-                            total: 0,
-                            w22: 0,
-                          };
-                          return (
-                            <label
-                              key={c}
-                              className={`cat-card ${cats.includes(c) ? "selected" : ""}`}
-                            >
-                              <input
-                                type="checkbox"
-                                checked={cats.includes(c)}
-                                onChange={(e) => {
-                                  setCats(
-                                    e.target.checked
-                                      ? [...cats, c]
-                                      : cats.filter((x) => x !== c),
-                                  );
-                                  setPage(1);
-                                }}
-                              />
-                              <span className="cat-icon-3d" aria-hidden="true">
-                                <Icon
-                                  name={
-                                    meta.icon as Parameters<
-                                      typeof Icon
-                                    >[0]["name"]
-                                  }
+                    <div className="preparation-workspace">
+                      {" "}
+                      <fieldset className="preparation-categories">
+                        <legend>
+                          Categorias ({cats.length} de {allCats.length}{" "}
+                          selecionadas)
+                        </legend>
+                        <div className="category-list">
+                          {allCats.map((c) => {
+                            const meta = categoryMeta[c] ?? {
+                              hint: "Perguntas variadas",
+                              icon: "bulb",
+                            };
+                            const stat = categoryCounts[c] ?? {
+                              total: 0,
+                              w22: 0,
+                            };
+                            return (
+                              <label
+                                key={c}
+                                className={`cat-card ${cats.includes(c) ? "selected" : ""}`}
+                              >
+                                <input
+                                  type="checkbox"
+                                  checked={cats.includes(c)}
+                                  onChange={(e) => {
+                                    setCats(
+                                      e.target.checked
+                                        ? [...cats, c]
+                                        : cats.filter((x) => x !== c),
+                                    );
+                                    setPage(1);
+                                  }}
                                 />
-                              </span>
-                              <span className="cat-info">
-                                <strong>{c}</strong>
-                                <small>
-                                  {stat.total} itens · {stat.w22} de 22 palavras
-                                </small>
-                              </span>
-                            </label>
-                          );
-                        })}
+                                <span
+                                  className="cat-icon-3d"
+                                  aria-hidden="true"
+                                >
+                                  <Icon
+                                    name={
+                                      meta.icon as Parameters<
+                                        typeof Icon
+                                      >[0]["name"]
+                                    }
+                                  />
+                                </span>
+                                <span className="cat-info">
+                                  <strong>{c}</strong>
+                                  <small>
+                                    {stat.total} itens · {stat.w22} de 22
+                                    palavras
+                                  </small>
+                                </span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </fieldset>
+                      <div className="preparation-settings">
+                        <h3>Ajustes da partida</h3>{" "}
+                        <div className="fields">
+                          <label>
+                            Rodadas
+                            <input
+                              type="number"
+                              min="1"
+                              max="30"
+                              value={rounds}
+                              onChange={(e) =>
+                                setRounds(Number(e.target.value))
+                              }
+                            />
+                          </label>
+                          <label>
+                            Tamanho da pergunta
+                            <select
+                              value={exact}
+                              onChange={(e) => {
+                                setExact(e.target.value);
+                                setPage(1);
+                              }}
+                            >
+                              <option value="">Todos os tamanhos</option>
+                              {Array.from({ length: 22 }, (_, i) => (
+                                <option key={i} value={i + 1}>
+                                  {i + 1} palavras
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                        </div>
+                        <label>
+                          Seleção
+                          <select
+                            value={mode}
+                            onChange={(e) => {
+                              setMode(e.target.value);
+                              setPage(1);
+                            }}
+                          >
+                            <option value="automatic">Automática</option>
+                            <option value="manual">Manual</option>
+                            <option value="mixed">Mista</option>
+                          </select>
+                        </label>
                       </div>
-                    </fieldset>
-
-                    <label>
-                      Seleção
-                      <select
-                        value={mode}
-                        onChange={(e) => {
-                          setMode(e.target.value);
-                          setPage(1);
-                        }}
-                      >
-                        <option value="automatic">Automática</option>
-                        <option value="manual">Manual</option>
-                        <option value="mixed">Mista</option>
-                      </select>
-                    </label>
-
-                    <div className="prep-stats-bar">
-                      <span>
-                        <strong>{filtered.length}</strong> elegíveis nos filtros
-                      </span>
-                      <span>
-                        <strong>{reserveCount}</strong> extras de reserva
-                        (desempate)
-                      </span>
-                      {mode !== "automatic" && (
-                        <span>
-                          <strong>{chosen.length}</strong> selecionadas p/{" "}
-                          {rounds} rodadas
-                        </span>
-                      )}
                     </div>
-
                     {mode !== "automatic" && (
                       <div className="manual-selector">
                         <div className="selector-toolbar">
@@ -1700,64 +1798,80 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                         )}
                       </div>
                     )}
-
-                    <p
-                      className={filtered.length < rounds ? "insufficient" : ""}
-                    >
-                      {filtered.length} perguntas disponíveis.{" "}
-                      {filtered.length < rounds
-                        ? "Amplie os filtros ou reduza as rodadas."
-                        : "Até 5 perguntas adicionais ficam reservadas para desempate."}
-                    </p>
-                    <div className="actions">
-                      <button
-                        disabled={
-                          busy ||
-                          filtered.length < rounds ||
-                          !cats.length ||
-                          (mode === "manual" && chosen.length < rounds) ||
-                          snapshot.members.filter(
-                            (m) => m.user_id !== uid && !m.spectator,
-                          ).length < 1
-                        }
-                        onClick={() =>
-                          void act(() =>
-                            rpc("prepare_match", {
-                              room: roomId,
-                              planned: rounds,
-                              categories: cats,
-                              exact_words: exact ? Number(exact) : null,
-                              selected: mode === "automatic" ? [] : chosen,
-                              selection_mode: mode,
-                            }),
-                          )
-                        }
-                      >
-                        {busy
-                          ? "Preparando…"
-                          : game
-                            ? "Iniciar nova partida"
-                            : "Preparar e iniciar"}
-                      </button>
-                      <button
-                        className="secondary"
-                        type="button"
-                        disabled={!permanent}
-                        onClick={() => {
-                          setEditId(null);
-                          setEditSecret(null);
-                          setCustom(!custom);
-                        }}
-                      >
-                        Criar pergunta
-                      </button>
+                    <div className="preparation-footer">
+                      {filtered.length < rounds && (
+                        <p className="insufficient" role="status">
+                          Amplie os filtros ou reduza as rodadas.
+                        </p>
+                      )}
+                      <div className="prep-stats-bar">
+                        <span>
+                          <strong>{filtered.length}</strong> elegíveis nos
+                          filtros
+                        </span>
+                        <span>
+                          <strong>{reserveCount}</strong> extras de reserva
+                          (desempate)
+                        </span>
+                        {mode !== "automatic" && (
+                          <span>
+                            <strong>{chosen.length}</strong> selecionadas p/{" "}
+                            {rounds} rodadas
+                          </span>
+                        )}
+                      </div>
+                      <div className="actions">
+                        <button
+                          disabled={
+                            busy ||
+                            wheelCountdown !== null ||
+                            wheelSpinning ||
+                            filtered.length < rounds ||
+                            !cats.length ||
+                            (mode === "manual" && chosen.length < rounds) ||
+                            snapshot.members.filter(
+                              (m) => m.user_id !== uid && !m.spectator,
+                            ).length < 1
+                          }
+                          onClick={() =>
+                            void act(() =>
+                              rpc("prepare_match", {
+                                room: roomId,
+                                planned: rounds,
+                                categories: cats,
+                                exact_words: exact ? Number(exact) : null,
+                                selected: mode === "automatic" ? [] : chosen,
+                                selection_mode: mode,
+                              }),
+                            )
+                          }
+                        >
+                          {busy
+                            ? "Preparando…"
+                            : game
+                              ? "Iniciar nova partida"
+                              : "Preparar e iniciar"}
+                        </button>
+                        <button
+                          className="secondary"
+                          type="button"
+                          disabled={!permanent}
+                          onClick={() => {
+                            setEditId(null);
+                            setEditSecret(null);
+                            setCustom(!custom);
+                          }}
+                        >
+                          Criar pergunta
+                        </button>
+                      </div>
+                      {!permanent && (
+                        <small>
+                          Entre em uma conta permanente para usar perguntas
+                          próprias.
+                        </small>
+                      )}
                     </div>
-                    {!permanent && (
-                      <small>
-                        Entre em uma conta permanente para usar perguntas
-                        próprias.
-                      </small>
-                    )}
                     {custom && (
                       <form
                         className="custom-form"
@@ -1834,14 +1948,13 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                 {!host && (
                   <PublicPreparation
                     draft={
-                      remotePreparation?.hostId === snapshot.host_id
+                      remotePreparation?.hostId === shownHostId
                         ? remotePreparation
                         : null
                     }
                     hostName={
-                      snapshot.members.find(
-                        (m) => m.user_id === snapshot.host_id,
-                      )?.nickname ?? "O organizador"
+                      snapshot.members.find((m) => m.user_id === shownHostId)
+                        ?.nickname ?? "O organizador"
                     }
                   />
                 )}

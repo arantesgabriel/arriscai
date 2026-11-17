@@ -1,4 +1,4 @@
-import type { ReactNode, Ref } from "react";
+import { useLayoutEffect, useRef, type ReactNode, type Ref } from "react";
 
 export type EntryMode = "create" | "join";
 
@@ -27,6 +27,63 @@ export function EntryForm({
   screen: boolean;
   onEnter: (create: boolean) => void;
 }) {
+  const formRef = useRef<HTMLFormElement>(null);
+  const transitioning = useRef(false);
+  const previousMode = useRef(mode);
+  useLayoutEffect(() => {
+    if (previousMode.current === mode) return;
+    previousMode.current = mode;
+    const fields = formRef.current?.querySelector<HTMLElement>(
+      ".entry-option-fields",
+    );
+    if (
+      !fields ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
+    const animation = fields.animate(
+      [
+        { height: "0px", opacity: 0, paddingTop: 0, paddingBottom: 0 },
+        {
+          height: `${fields.getBoundingClientRect().height}px`,
+          opacity: 1,
+          paddingTop: "6px",
+          paddingBottom: "20px",
+        },
+      ],
+      { duration: 250, easing: "cubic-bezier(0.2, 0, 0, 1)" },
+    );
+    return () => animation.cancel();
+  }, [mode]);
+  async function switchMode(next: EntryMode) {
+    if (next === mode || transitioning.current) return;
+    const fields = formRef.current?.querySelector<HTMLElement>(
+      ".entry-option-fields",
+    );
+    if (
+      !fields ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      onModeChange(next);
+      return;
+    }
+    transitioning.current = true;
+    const animation = fields.animate(
+      [
+        { height: `${fields.getBoundingClientRect().height}px`, opacity: 1 },
+        { height: "0px", opacity: 0, paddingTop: 0, paddingBottom: 0 },
+      ],
+      { duration: 150, easing: "cubic-bezier(0.2, 0, 0, 1)", fill: "forwards" },
+    );
+    try {
+      await animation.finished;
+      onModeChange(next);
+    } catch {
+      /* The form may be unmounted while closing. */
+    } finally {
+      transitioning.current = false;
+    }
+  }
   const nameField = (
     <label>
       Como a galera te chama?
@@ -43,6 +100,7 @@ export function EntryForm({
   );
   return (
     <form
+      ref={formRef}
       className="entry entry-switcher"
       onSubmit={(e) => {
         e.preventDefault();
@@ -56,7 +114,7 @@ export function EntryForm({
           aria-expanded={mode === "create"}
           aria-controls="create-room-fields"
           disabled={screen || busy}
-          onClick={() => onModeChange("create")}
+          onClick={() => void switchMode("create")}
         >
           Criar sala
           <span aria-hidden="true">{mode === "create" ? "−" : "+"}</span>
@@ -81,7 +139,7 @@ export function EntryForm({
           aria-expanded={mode === "join"}
           aria-controls="join-room-fields"
           disabled={busy}
-          onClick={() => onModeChange("join")}
+          onClick={() => void switchMode("join")}
         >
           Tenho um código
           <span aria-hidden="true">{mode === "join" ? "−" : "+"}</span>

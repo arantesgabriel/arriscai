@@ -8,3 +8,6 @@ test-results/
 .local-db/
 
 .tmp/
+
+debug.log
+supabase/.temp/
