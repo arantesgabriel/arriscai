@@ -394,15 +394,8 @@ test("three players, telão and late spectator share one hosted or isolated game
 
     await player.getByLabel("Rodadas", { exact: true }).fill("1");
     await player.getByLabel("Tamanho da pergunta").selectOption("9");
-    await player.getByLabel("Seleção").selectOption("manual");
-    await player
-      .getByPlaceholder("Digite trecho da pergunta ou categoria...")
-      .fill("Tour de France");
-    const nineWordQuestion = player
-      .locator(".question-card")
-      .filter({ hasText: "Tour de France" });
-    await expect(nineWordQuestion).toHaveCount(1);
-    await nineWordQuestion.getByRole("checkbox").check();
+    await expect(player.getByLabel("Seleção", { exact: true })).toBeDisabled();
+    await expect(player.locator(".manual-selector")).toHaveCount(0);
     await player.getByRole("button", { name: "Iniciar nova partida" }).click();
     await expect(host.locator(".scoreboard li")).toHaveCount(5);
     await expect(host.locator(".board .tile")).toHaveCount(9);
@@ -414,7 +407,7 @@ test("three players, telão and late spectator share one hosted or isolated game
     ).toHaveCount(1);
     await expect(tv.locator(".controls")).toHaveCount(0);
 
-    // The screenshot's 9-word Tour de France question is worth 8 points
+    // An automatically selected 9-word question is worth 8 points
     // when the correct answer comes after two revealed words.
     await player
       .getByRole("button", { name: "Posição 1", exact: true })

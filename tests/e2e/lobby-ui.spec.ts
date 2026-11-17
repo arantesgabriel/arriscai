@@ -190,11 +190,20 @@ test("entrada alternável, convite direto e preparação pública sincronizada",
           type: "jpeg",
           quality: 80,
         });
-        expect(
-          await host
-            .locator("main")
-            .evaluate((el) => el.scrollHeight <= el.clientHeight + 1),
-        ).toBe(true);
+        const layout = await host.locator("main").evaluate((el) => ({
+          height: el.clientHeight,
+          content: el.scrollHeight,
+          panels: [
+            ...el.querySelectorAll(".room-heading,.members,.preparation"),
+          ].map((p) => ({
+            name: p.className,
+            top: p.getBoundingClientRect().top,
+            height: p.getBoundingClientRect().height,
+          })),
+        }));
+        expect(layout.content, JSON.stringify(layout)).toBeLessThanOrEqual(
+          layout.height + 1,
+        );
         await host
           .getByRole("button", { name: "Selecionar manualmente", exact: true })
           .click();
@@ -238,17 +247,18 @@ test("entrada alternável, convite direto e preparação pública sincronizada",
         .filter({ hasText: categoryName })
         .getByRole("checkbox"),
     ).not.toBeChecked();
-    await host.getByLabel("Seleção", { exact: false }).selectOption("manual");
-    const question = host.locator(".question-card").first();
-    const privateQuestion = await question
-      .locator("strong")
-      .first()
-      .innerText();
-    await question.getByRole("checkbox").check();
-    await expect(
-      publicCard.getByText("1 pergunta selecionada", { exact: true }),
-    ).toBeVisible();
-    expect(await publicCard.innerText()).not.toContain(privateQuestion);
+    await expect(host.getByLabel("Seleção", { exact: true })).toBeDisabled();
+    await expect(host.getByLabel("Seleção", { exact: true })).toHaveValue(
+      "automatic",
+    );
+    await expect(host.locator(".manual-selector")).toHaveCount(0);
+    await expect(host.getByLabel("Rodadas", { exact: true })).toHaveAttribute(
+      "max",
+      "8",
+    );
+    await host.getByLabel("Rodadas", { exact: true }).fill("9");
+    await expect(host.getByLabel("Rodadas", { exact: true })).toHaveValue("8");
+    await host.getByLabel("Rodadas", { exact: true }).fill("5");
     for (const control of await publicCard.locator("input,select,button").all())
       await expect(control).toBeDisabled();
     await expect(
@@ -261,8 +271,10 @@ test("entrada alternável, convite direto e preparação pública sincronizada",
         .getByLabel("Rodadas", { exact: true }),
     ).toHaveValue("5");
     await expect(
-      late.getByText("1 pergunta selecionada", { exact: true }),
-    ).toBeVisible();
+      late
+        .locator(".preparation-preview")
+        .getByLabel("Seleção", { exact: true }),
+    ).toHaveValue("automatic");
     for (const [w, h] of [
       [320, 720],
       [390, 844],

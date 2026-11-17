@@ -5,7 +5,7 @@ export type PreparationPreview = {
   words: number | null;
   categories: string[];
   categoryOptions: string[];
-  mode: "automatic" | "manual" | "mixed";
+  mode: "automatic";
   selectedCount: number;
   availableCount: number;
 };
@@ -24,14 +24,14 @@ export function readPreparation(
     a.every((n) => typeof n === "string" && n.length <= 100);
   if (
     v.hostId !== hostId ||
-    !count(v.rounds, 30) ||
+    !count(v.rounds, 8) ||
     Number(v.rounds) < 1 ||
     (v.words !== null && (!count(v.words, 22) || Number(v.words) < 1)) ||
     !names(v.categories) ||
     !names(v.categoryOptions) ||
     typeof v.mode !== "string" ||
-    !["automatic", "manual", "mixed"].includes(v.mode) ||
-    !count(v.selectedCount, 10000) ||
+    v.mode !== "automatic" ||
+    v.selectedCount !== 0 ||
     !count(v.availableCount, 10000)
   )
     return null;

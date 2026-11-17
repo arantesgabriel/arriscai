@@ -58,7 +58,13 @@ export function PublicPreparation({
                 <div className="fields">
                   <label>
                     Rodadas
-                    <input type="number" value={draft.rounds} readOnly />
+                    <input
+                      type="number"
+                      min={1}
+                      max={8}
+                      value={draft.rounds}
+                      readOnly
+                    />
                   </label>
                   <label>
                     Tamanho da pergunta
@@ -74,10 +80,12 @@ export function PublicPreparation({
                 </div>
                 <label>
                   Seleção
-                  <select value={draft.mode} onChange={() => {}}>
+                  <select
+                    aria-label="Seleção"
+                    value={draft.mode}
+                    onChange={() => {}}
+                  >
                     <option value="automatic">Automática</option>
-                    <option value="manual">Manual</option>
-                    <option value="mixed">Mista</option>
                   </select>
                 </label>
               </div>
@@ -85,14 +93,6 @@ export function PublicPreparation({
           </fieldset>
           <div className="prep-stats-bar">
             <span>{draft.availableCount} perguntas disponíveis</span>
-            {draft.mode !== "automatic" && (
-              <span>
-                {draft.selectedCount}{" "}
-                {draft.selectedCount === 1
-                  ? "pergunta selecionada"
-                  : "perguntas selecionadas"}
-              </span>
-            )}
           </div>
           <p className="public-preparation-note">
             As perguntas e respostas ficam com o organizador. A partida aparece

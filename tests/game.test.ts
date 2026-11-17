@@ -8,7 +8,7 @@ import {
   suggestsCorrect,
   tokenize,
 } from "../src/lib/game";
-import seed from "../data/perguntas_240.json";
+import seed from "../data/perguntas_504.json";
 describe("Regras de conteúdo e pontuação", () => {
   it.each([
     [22, 1, 22],
@@ -80,17 +80,17 @@ describe("Regras de conteúdo e pontuação", () => {
       }),
     ).toBe("Esse apelido já está em uso nesta sala. Escolha outro.");
   });
-  it("seed tem 240 perguntas distintas, 30 por categoria e 6 de 22 palavras por categoria", () => {
-    expect(seed).toHaveLength(240);
-    expect(new Set(seed.map((q) => normalize(q.question))).size).toBe(240);
+  it("seed tem 504 perguntas distintas, 63 por categoria e ao menos 6 de 22 palavras por categoria", () => {
+    expect(seed).toHaveLength(504);
+    expect(new Set(seed.map((q) => normalize(q.question))).size).toBe(504);
     const cats = [...new Set(seed.map((q) => q.category))];
     expect(cats).toHaveLength(8);
     for (const cat of cats) {
       const qs = seed.filter((q) => q.category === cat);
-      expect(qs).toHaveLength(30);
-      expect(qs.filter((q) => tokenize(q.question).length === 22)).toHaveLength(
-        6,
-      );
+      expect(qs).toHaveLength(63);
+      expect(
+        qs.filter((q) => tokenize(q.question).length === 22).length,
+      ).toBeGreaterThanOrEqual(6);
     }
     for (const q of seed) {
       expect(q.question).not.toContain("?");

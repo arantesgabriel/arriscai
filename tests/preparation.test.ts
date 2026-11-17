@@ -6,8 +6,8 @@ const preview = {
   words: 22,
   categories: ["Música"],
   categoryOptions: ["Música", "História"],
-  mode: "manual",
-  selectedCount: 2,
+  mode: "automatic",
+  selectedCount: 0,
   availableCount: 20,
 };
 describe("prévia pública de preparação", () => {
@@ -28,9 +28,12 @@ describe("prévia pública de preparação", () => {
     expect(readPreparation(preview, "outro-host")).toBeNull();
     for (const values of [
       { rounds: 0 },
-      { rounds: 31 },
+      { rounds: 9 },
       { words: 23 },
       { mode: "inventado" },
+      { mode: "manual" },
+      { mode: "mixed" },
+      { selectedCount: 1 },
       { mode: { toString: "invalid" } },
       { categories: [5] },
       { selectedCount: -1 },

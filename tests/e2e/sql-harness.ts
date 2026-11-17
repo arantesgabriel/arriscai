@@ -219,5 +219,14 @@ export async function harness() {
       handleSocket,
     );
   }
-  return { attach, close: () => db.close() };
+  return {
+    attach,
+    close: () => db.close(),
+    // Simula a passagem do prazo sem aguardar dois minutos no teste de UI.
+    expireMember: (room: string, nickname: string) =>
+      db.query(
+        "update public.room_members set last_seen=now()-interval '3 minutes' where room_id=$1 and nickname=$2",
+        [room, nickname],
+      ),
+  };
 }

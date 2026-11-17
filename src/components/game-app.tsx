@@ -29,13 +29,6 @@ type Catalog = {
   own: boolean;
 };
 
-type QuestionPreview = Secret & {
-  id: string;
-  category: string;
-  word_count: number;
-  own: boolean;
-};
-
 const categories = [
   "Conhecimentos gerais",
   "Filmes e séries",
@@ -165,13 +158,6 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const [rounds, setRounds] = useState(3);
   const [exact, setExact] = useState("");
   const [cats, setCats] = useState<string[]>([]);
-  const [mode, setMode] = useState("automatic");
-  const [chosen, setChosen] = useState<string[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [previewMap, setPreviewMap] = useState<Record<string, QuestionPreview>>(
-    {},
-  );
   const [guess, setGuess] = useState("");
   const [custom, setCustom] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
@@ -195,6 +181,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
     ReturnType<typeof supabase>["channel"]
   > | null>(null);
   const draftRef = useRef<PreparationPreview | null>(null);
+  const roomCodeRef = useRef("");
   const roomHostRef = useRef<string | undefined>(undefined);
 
   useEffect(() => {
@@ -215,7 +202,21 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const refresh = useCallback(async () => {
     if (!roomId) return;
     const sequence = ++refreshSequence.current;
-    const s = await rpc<Snapshot>("public_room_snapshot", { room: roomId });
+    let s: Snapshot;
+    try {
+      s = await rpc<Snapshot>("public_room_snapshot", { room: roomId });
+    } catch (e) {
+      if (humanError(e).startsWith("Sua presença na sala expirou")) {
+        const inviteCode = roomCodeRef.current;
+        router.replace(
+          "/jogar?expirada=1" +
+            (inviteCode ? "&codigo=" + encodeURIComponent(inviteCode) : ""),
+        );
+        return;
+      }
+      throw e;
+    }
+    roomCodeRef.current = s.code;
     if (sequence !== refreshSequence.current) return;
     setNow(Date.now());
     setSnapshot((prev) => {
@@ -245,7 +246,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
       });
       if (sequence === refreshSequence.current) setSecret(data);
     } else setSecret(null);
-  }, [roomId]);
+  }, [roomId, router]);
 
   async function act(fn: () => Promise<unknown>) {
     if (locked.current) return;
@@ -285,7 +286,12 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     setCode(query.get("codigo") ?? "");
-    if (query.has("codigo") || query.has("telao")) setEntryMode("join");
+    if (query.has("codigo") || query.has("telao") || query.has("expirada"))
+      setEntryMode("join");
+    if (query.has("expirada"))
+      setNotice(
+        "Sua presença na sala expirou após 2 minutos sem conexão. Entre novamente pelo link ou código.",
+      );
     setScreen(query.has("telao"));
     setNow(Date.now());
     if (query.has("telao")) setNickname("Telão");
@@ -379,8 +385,11 @@ export default function GameApp({ roomId }: { roomId?: string }) {
           setRestHealthy(true);
           void load();
         })
-        .catch(() => {
-          if (alive) setRestHealthy(false);
+        .catch((e) => {
+          if (!alive) return;
+          setRestHealthy(false);
+          if (humanError(e).startsWith("Sua presença na sala expirou"))
+            void load();
         });
     };
     heartbeat();
@@ -619,18 +628,15 @@ export default function GameApp({ roomId }: { roomId?: string }) {
     [catalog],
   );
 
-  const filtered = useMemo(() => {
-    const qNorm = searchQuery.trim().toLocaleLowerCase("pt-BR");
-    return catalog.filter(
-      (q) =>
-        (!exact || q.word_count === Number(exact)) &&
-        cats.includes(q.category) &&
-        (!qNorm ||
-          q.question.toLocaleLowerCase("pt-BR").includes(qNorm) ||
-          q.category.toLocaleLowerCase("pt-BR").includes(qNorm) ||
-          previewMap[q.id]?.answer?.toLocaleLowerCase("pt-BR").includes(qNorm)),
-    );
-  }, [catalog, exact, cats, searchQuery, previewMap]);
+  const filtered = useMemo(
+    () =>
+      catalog.filter(
+        (q) =>
+          (!exact || q.word_count === Number(exact)) &&
+          cats.includes(q.category),
+      ),
+    [catalog, exact, cats],
+  );
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, { total: number; w22: number }> = {};
@@ -642,14 +648,6 @@ export default function GameApp({ roomId }: { roomId?: string }) {
     }
     return counts;
   }, [catalog, allCats]);
-
-  const pageSize = 12;
-  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-  const currentPage = Math.min(page, totalPages);
-  const pagedQuestions = filtered.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize,
-  );
 
   const eligibleMembers = useMemo(
     () =>
@@ -669,23 +667,12 @@ export default function GameApp({ roomId }: { roomId?: string }) {
             words: exact ? Number(exact) : null,
             categories: cats,
             categoryOptions: allCats,
-            mode: mode as PreparationPreview["mode"],
-            selectedCount: chosen.length,
+            mode: "automatic",
+            selectedCount: 0,
             availableCount: filtered.length,
           }
         : null,
-    [
-      host,
-      active,
-      uid,
-      rounds,
-      exact,
-      cats,
-      allCats,
-      mode,
-      chosen.length,
-      filtered.length,
-    ],
+    [host, active, uid, rounds, exact, cats, allCats, filtered.length],
   );
   useEffect(() => {
     draftRef.current = publicDraft;
@@ -1325,8 +1312,9 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                           <input
                             aria-label="Ajustar rodadas"
                             type="number"
-                            min={game.round + 1}
-                            max={game.prepared}
+                            min={Math.min(8, game.round + 1)}
+                            disabled={game.round >= 8}
+                            max={Math.min(8, game.prepared)}
                             defaultValue={game.planned}
                             key={game.planned}
                             onBlur={(e) => {
@@ -1484,6 +1472,8 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                   {roomPlayers.length <= 14 && (
                     <p className="members-scroll-hint">
                       Role a lista para ver todos ↓
+                      <br />
+                      Após 2 min sem conexão, você sai. Volte pelo link.
                     </p>
                   )}
 
@@ -1519,7 +1509,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                 {host && (
                   <section className="panel preparation" data-editable="true">
                     <h2>{game ? "Mais uma partida?" : "Prepare a partida"}</h2>
-                    <p>Escolha as perguntas antes de abrir o tabuleiro.</p>
+                    <p>Escolha as categorias e jogue de 1 a 8 rodadas.</p>
                     {catalog.length === 0 && (
                       <div role="status" className="empty-catalog-banner">
                         <strong>
@@ -1564,7 +1554,6 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                                         ? [...cats, c]
                                         : cats.filter((x) => x !== c),
                                     );
-                                    setPage(1);
                                   }}
                                 />
                                 <span
@@ -1599,10 +1588,18 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                             <input
                               type="number"
                               min="1"
-                              max="30"
+                              max="8"
                               value={rounds}
                               onChange={(e) =>
-                                setRounds(Number(e.target.value))
+                                setRounds(
+                                  Math.max(
+                                    1,
+                                    Math.min(
+                                      8,
+                                      Math.trunc(Number(e.target.value)) || 1,
+                                    ),
+                                  ),
+                                )
                               }
                             />
                           </label>
@@ -1612,7 +1609,6 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                               value={exact}
                               onChange={(e) => {
                                 setExact(e.target.value);
-                                setPage(1);
                               }}
                             >
                               <option value="">Todos os tamanhos</option>
@@ -1627,177 +1623,19 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                         <label>
                           Seleção
                           <select
-                            value={mode}
-                            onChange={(e) => {
-                              setMode(e.target.value);
-                              setPage(1);
-                            }}
+                            aria-label="Seleção"
+                            aria-describedby="selection-note"
+                            value="automatic"
+                            disabled
                           >
                             <option value="automatic">Automática</option>
-                            <option value="manual">Manual</option>
-                            <option value="mixed">Mista</option>
                           </select>
+                          <small id="selection-note" className="sr-only">
+                            A seleção manual está temporariamente desativada.
+                          </small>
                         </label>
                       </div>
                     </div>
-                    {mode !== "automatic" && (
-                      <div className="manual-selector">
-                        <div className="selector-toolbar">
-                          <label className="search-field">
-                            Buscar pergunta ou tema
-                            <input
-                              type="search"
-                              placeholder="Digite trecho da pergunta ou categoria..."
-                              value={searchQuery}
-                              onChange={(e) => {
-                                setSearchQuery(e.target.value);
-                                setPage(1);
-                              }}
-                            />
-                          </label>
-                          {chosen.length > 0 && (
-                            <button
-                              type="button"
-                              className="quiet"
-                              onClick={() => setChosen([])}
-                            >
-                              Limpar ({chosen.length})
-                            </button>
-                          )}
-                        </div>
-
-                        <div className="question-list">
-                          {pagedQuestions.map((q) => {
-                            const prev = previewMap[q.id];
-                            const isChecked = chosen.includes(q.id);
-                            return (
-                              <div
-                                key={q.id}
-                                className={`question-card ${isChecked ? "chosen" : ""}`}
-                              >
-                                <label className="question-card-main">
-                                  <input
-                                    type="checkbox"
-                                    checked={isChecked}
-                                    onChange={(e) =>
-                                      setChosen(
-                                        e.target.checked
-                                          ? [...chosen, q.id]
-                                          : chosen.filter((x) => x !== q.id),
-                                      )
-                                    }
-                                  />
-                                  <div>
-                                    <strong>{q.question}?</strong>
-                                    <small>
-                                      {q.category} · {q.word_count} palavras
-                                      {q.own ? " · Autoral" : ""}
-                                    </small>
-                                    {prev && (
-                                      <div className="question-private-preview">
-                                        <span>
-                                          Resposta privada:{" "}
-                                          <strong>{prev.answer}</strong>
-                                        </span>
-                                        {prev.aliases?.length > 0 && (
-                                          <small>
-                                            Aliases: {prev.aliases.join(", ")}
-                                          </small>
-                                        )}
-                                      </div>
-                                    )}
-                                  </div>
-                                </label>
-                                <div className="question-card-actions">
-                                  <button
-                                    className="quiet"
-                                    type="button"
-                                    onClick={() =>
-                                      void act(async () => {
-                                        if (previewMap[q.id]) {
-                                          setPreviewMap((m) => {
-                                            const copy = { ...m };
-                                            delete copy[q.id];
-                                            return copy;
-                                          });
-                                          return;
-                                        }
-                                        const data = await rpc<QuestionPreview>(
-                                          "host_question_preview",
-                                          {
-                                            room: roomId,
-                                            question_id: q.id,
-                                          },
-                                        );
-                                        setPreviewMap((m) => ({
-                                          ...m,
-                                          [q.id]: data,
-                                        }));
-                                      })
-                                    }
-                                  >
-                                    {prev ? "Ocultar resposta" : "Ver resposta"}
-                                  </button>
-                                  {q.own && (
-                                    <button
-                                      className="quiet"
-                                      type="button"
-                                      onClick={() =>
-                                        void act(async () => {
-                                          const data = await rpc<
-                                            Secret & { category: string }
-                                          >("own_question_snapshot", {
-                                            room: roomId,
-                                            question_id: q.id,
-                                          });
-                                          setEditSecret(data);
-                                          setEditId(q.id);
-                                          setCustom(true);
-                                        })
-                                      }
-                                    >
-                                      Editar
-                                    </button>
-                                  )}
-                                </div>
-                              </div>
-                            );
-                          })}
-                          {pagedQuestions.length === 0 && (
-                            <p className="empty-filter-msg">
-                              Nenhuma pergunta encontrada para esta busca ou
-                              combinação de filtros.
-                            </p>
-                          )}
-                        </div>
-
-                        {totalPages > 1 && (
-                          <div className="pagination">
-                            <button
-                              type="button"
-                              className="secondary"
-                              disabled={currentPage <= 1}
-                              onClick={() => setPage((p) => Math.max(1, p - 1))}
-                            >
-                              Anterior
-                            </button>
-                            <span>
-                              Página {currentPage} de {totalPages}
-                            </span>
-                            <button
-                              type="button"
-                              className="secondary"
-                              disabled={currentPage >= totalPages}
-                              onClick={() =>
-                                setPage((p) => Math.min(totalPages, p + 1))
-                              }
-                            >
-                              Próxima
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    )}
                     <div className="preparation-footer">
                       {filtered.length < rounds && (
                         <p className="insufficient" role="status">
@@ -1813,12 +1651,6 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                           <strong>{reserveCount}</strong> extras de reserva
                           (desempate)
                         </span>
-                        {mode !== "automatic" && (
-                          <span>
-                            <strong>{chosen.length}</strong> selecionadas p/{" "}
-                            {rounds} rodadas
-                          </span>
-                        )}
                       </div>
                       <div className="actions">
                         <button
@@ -1828,7 +1660,8 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                             wheelSpinning ||
                             filtered.length < rounds ||
                             !cats.length ||
-                            (mode === "manual" && chosen.length < rounds) ||
+                            rounds < 1 ||
+                            rounds > 8 ||
                             snapshot.members.filter(
                               (m) => m.user_id !== uid && !m.spectator,
                             ).length < 1
@@ -1840,8 +1673,8 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                                 planned: rounds,
                                 categories: cats,
                                 exact_words: exact ? Number(exact) : null,
-                                selected: mode === "automatic" ? [] : chosen,
-                                selection_mode: mode,
+                                selected: [],
+                                selection_mode: "automatic",
                               }),
                             )
                           }

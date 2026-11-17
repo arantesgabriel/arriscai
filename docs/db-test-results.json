@@ -5,7 +5,7 @@
     "outsider cannot read room or tables",
     "guest cannot author, including authenticated Postgres role",
     "permanent author can create and edit own questions",
-    "22 words + one category + 12 rounds rejects insufficient without duplicates",
+    "22 words + one category + 8 rounds rejects insufficient without duplicates",
     "public snapshot has no question IDs, answers, aliases or hidden words",
     "late spectator and player cannot mutate, read host RPC or catalog",
     "host cannot change organizer or edit question during play",
