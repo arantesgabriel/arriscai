@@ -1,0 +1,101 @@
+[
+  {
+    "view": "entry",
+    "width": 1440,
+    "height": 900,
+    "overflow": false,
+    "fontChanga": true,
+    "fontNunito": true,
+    "scrollHeight": 900
+  },
+  {
+    "view": "lobby",
+    "width": 1440,
+    "height": 900,
+    "overflow": false,
+    "fontChanga": true,
+    "fontNunito": true,
+    "scrollHeight": 956
+  },
+  {
+    "view": "host",
+    "width": 1440,
+    "height": 900,
+    "overflow": false,
+    "fontChanga": true,
+    "fontNunito": true,
+    "scrollHeight": 900
+  },
+  {
+    "view": "host",
+    "width": 390,
+    "height": 844,
+    "overflow": false,
+    "fontChanga": true,
+    "fontNunito": true,
+    "scrollHeight": 846
+  },
+  {
+    "view": "player",
+    "width": 390,
+    "height": 844,
+    "overflow": false,
+    "fontChanga": true,
+    "fontNunito": true,
+    "scrollHeight": 936
+  },
+  {
+    "view": "tv",
+    "width": 1920,
+    "height": 1080,
+    "overflow": false,
+    "fontChanga": true,
+    "fontNunito": true,
+    "scrollHeight": 1080
+  },
+  {
+    "view": "result",
+    "width": 1440,
+    "height": 900,
+    "overflow": false,
+    "fontChanga": true,
+    "fontNunito": true,
+    "scrollHeight": 900
+  },
+  {
+    "view": "victory",
+    "width": 1440,
+    "height": 900,
+    "overflow": false,
+    "fontChanga": true,
+    "fontNunito": true,
+    "scrollHeight": 922
+  },
+  {
+    "view": "entry",
+    "width": 320,
+    "height": 720,
+    "overflow": false,
+    "fontChanga": true,
+    "fontNunito": true,
+    "scrollHeight": 862
+  },
+  {
+    "view": "lobby",
+    "width": 390,
+    "height": 844,
+    "overflow": false,
+    "fontChanga": true,
+    "fontNunito": true,
+    "scrollHeight": 1928
+  },
+  {
+    "view": "host",
+    "width": 320,
+    "height": 720,
+    "overflow": false,
+    "fontChanga": true,
+    "fontNunito": true,
+    "scrollHeight": 900
+  }
+]

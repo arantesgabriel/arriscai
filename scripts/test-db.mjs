@@ -101,13 +101,13 @@ await check("permanent author can create and edit own questions", async () => {
   );
 });
 await check(
-  "22 words + one category + 12 rounds rejects insufficient without duplicates",
+  "22 words + one category + 8 rounds rejects insufficient without duplicates",
   async () => {
     await as(host);
     await denied(() =>
       call("prepare_match", [
         room,
-        12,
+        8,
         ["Conhecimentos gerais"],
         22,
         [],
@@ -465,14 +465,11 @@ await check(
     await db.exec("reset role; delete from private.rate_limits");
     await as(player);
     // Original room is cancelled by the preceding public-catalog check.
-    await call("prepare_match", [
-      room,
-      1,
-      ["Conhecimentos gerais"],
-      22,
-      ["Q0101"],
-      "manual",
-    ]);
+    await db.exec("reset role");
+    await db.exec(`insert into private.questions(id,category,question,answer,review_status)
+      select 'QA_SINGLE_RESERVE','QA Reserva',question,answer,'approved' from private.questions where id='Q0101'`);
+    await as(player);
+    await call("prepare_match", [room, 1, ["QA Reserva"], 22, [], "automatic"]);
     for (let i = 0; i < 22; i++) {
       await command("select", { position: i });
       await command("reveal");
@@ -575,8 +572,8 @@ await check(
       1,
       ["QA Pontuação"],
       9,
-      ["QA_NINE_WORDS"],
-      "manual",
+      [],
+      "automatic",
     ]);
     const send = async (name, payload = {}) => {
       const game = (await qaSnapshot()).game;

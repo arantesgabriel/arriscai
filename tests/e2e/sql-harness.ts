@@ -9,7 +9,13 @@ export async function harness() {
   const users = new Map<string, Record<string, unknown>>();
   const sockets = new Map<
     WebSocketRoute,
-    { topic: string; join: string; uid: string }
+    {
+      topic: string;
+      join: string;
+      uid: string;
+      presence?: Record<string, unknown>;
+      presenceRef?: string;
+    }
   >();
   const encode = (x: unknown) =>
     Buffer.from(JSON.stringify(x)).toString("base64url");
@@ -59,140 +65,144 @@ export async function harness() {
       return result.rows[0]?.value;
     });
   async function handleRequest(route: Route) {
-      const request = route.request(),
-        url = new URL(request.url());
-      const headers = {
-        "access-control-allow-origin": "*",
-        "access-control-allow-headers": "*",
-        "content-type": "application/json",
-      };
-      if (request.method() === "OPTIONS") {
-        await route.fulfill({ status: 200, headers, body: "" });
-        return;
-      }
-      try {
-        let data: unknown;
-        if (url.pathname === "/auth/v1/signup") {
-          const id = randomUUID();
-          const user = {
-            id,
-            aud: "authenticated",
-            role: "authenticated",
-            email: "",
-            is_anonymous: true,
-            app_metadata: { provider: "anonymous", providers: ["anonymous"] },
-            user_metadata: {},
-            created_at: new Date().toISOString(),
-          };
-          users.set(id, user);
-          await db.transaction(async (tx) => {
-            await tx.exec("reset role");
-            await tx.query("insert into auth.users values($1)", [id]);
-          });
-          data = {
-            access_token: token(id),
-            refresh_token: randomUUID(),
-            expires_in: 3600,
-            expires_at: Math.floor(Date.now() / 1000) + 3600,
-            token_type: "bearer",
-            user,
-          };
-        } else if (url.pathname === "/auth/v1/user")
-          data = users.get(uid(request.headers().authorization ?? ""));
-        else if (url.pathname.startsWith("/rest/v1/rpc/")) {
-          const id = uid(request.headers().authorization ?? "");
-          if (!users.has(id)) throw new Error("Missing user");
-          data = await execute(
-            id,
-            url.pathname.split("/").pop()!,
-            request.postDataJSON(),
-          );
-          if (
-            ![
-              "public_room_snapshot",
-              "host_private_round_snapshot",
-              "question_catalog",
-              "heartbeat",
-            ].some((x) => url.pathname.endsWith(x))
-          ) {
-            for (const [ws, sub] of sockets)
-              ws.send(
-                JSON.stringify([
-                  sub.join,
-                  null,
-                  sub.topic,
-                  "broadcast",
-                  { event: "state_changed", type: "broadcast", payload: {} },
-                ]),
-              );
-          }
-        } else throw new Error("Unsupported test endpoint " + url.pathname);
-        await route.fulfill({
-          status: 200,
-          headers,
-          body: JSON.stringify(data ?? null),
+    const request = route.request(),
+      url = new URL(request.url());
+    const headers = {
+      "access-control-allow-origin": "*",
+      "access-control-allow-headers": "*",
+      "content-type": "application/json",
+    };
+    if (request.method() === "OPTIONS") {
+      await route.fulfill({ status: 200, headers, body: "" });
+      return;
+    }
+    try {
+      let data: unknown;
+      if (url.pathname === "/auth/v1/signup") {
+        const id = randomUUID();
+        const user = {
+          id,
+          aud: "authenticated",
+          role: "authenticated",
+          email: "",
+          is_anonymous: true,
+          app_metadata: { provider: "anonymous", providers: ["anonymous"] },
+          user_metadata: {},
+          created_at: new Date().toISOString(),
+        };
+        users.set(id, user);
+        await db.transaction(async (tx) => {
+          await tx.exec("reset role");
+          await tx.query("insert into auth.users values($1)", [id]);
         });
-      } catch (e) {
-        await route.fulfill({
-          status: 400,
-          headers,
-          body: JSON.stringify({
-            message: (e as Error).message,
-            code: "TEST_RPC",
-          }),
-        });
-      }
+        data = {
+          access_token: token(id),
+          refresh_token: randomUUID(),
+          expires_in: 3600,
+          expires_at: Math.floor(Date.now() / 1000) + 3600,
+          token_type: "bearer",
+          user,
+        };
+      } else if (url.pathname === "/auth/v1/user")
+        data = users.get(uid(request.headers().authorization ?? ""));
+      else if (url.pathname.startsWith("/rest/v1/rpc/")) {
+        const id = uid(request.headers().authorization ?? "");
+        if (!users.has(id)) throw new Error("Missing user");
+        data = await execute(
+          id,
+          url.pathname.split("/").pop()!,
+          request.postDataJSON(),
+        );
+        if (
+          ![
+            "public_room_snapshot",
+            "host_private_round_snapshot",
+            "question_catalog",
+            "heartbeat",
+          ].some((x) => url.pathname.endsWith(x))
+        ) {
+          for (const [ws, sub] of sockets)
+            ws.send(
+              JSON.stringify([
+                sub.join,
+                null,
+                sub.topic,
+                "broadcast",
+                { event: "state_changed", type: "broadcast", payload: {} },
+              ]),
+            );
+        }
+      } else throw new Error("Unsupported test endpoint " + url.pathname);
+      await route.fulfill({
+        status: 200,
+        headers,
+        body: JSON.stringify(data ?? null),
+      });
+    } catch (e) {
+      await route.fulfill({
+        status: 400,
+        headers,
+        body: JSON.stringify({
+          message: (e as Error).message,
+          code: "TEST_RPC",
+        }),
+      });
+    }
   }
 
   function handleSocket(ws: WebSocketRoute) {
-      ws.onMessage(async (raw) => {
-        const msg = JSON.parse(String(raw));
-        const [join, ref, topic, event, payload] = msg;
-        const reply = (status = "ok", response = {}) =>
-          ws.send(
-            JSON.stringify([
-              join,
-              ref,
-              topic,
-              "phx_reply",
-              { status, response },
+    ws.onMessage(async (raw) => {
+      const msg = JSON.parse(String(raw));
+      const [join, ref, topic, event, payload] = msg;
+      const reply = (status = "ok", response = {}) =>
+        ws.send(
+          JSON.stringify([join, ref, topic, "phx_reply", { status, response }]),
+        );
+      if (event === "phx_join") {
+        const id = uid(payload.access_token ?? "");
+        const room = topic.replace(/^realtime:room:/, "");
+        try {
+          await execute(id, "public_room_snapshot", { room });
+          sockets.set(ws, { topic, join, uid: id });
+          reply();
+          ws.send(JSON.stringify([join, null, topic, "presence_state", {}]));
+        } catch {
+          reply("error", { reason: "forbidden" });
+        }
+      } else if (event === "heartbeat") reply();
+      else if (event === "presence") {
+        const sub = sockets.get(ws);
+        if (!sub) return;
+        sub.presence = payload.payload ?? {};
+        sub.presenceRef = randomUUID();
+        reply();
+        const state = Object.fromEntries(
+          [...sockets.values()]
+            .filter((s) => s.topic === topic)
+            .map((s) => [
+              s.uid,
+              {
+                metas: [
+                  {
+                    ...s.presence,
+                    phx_ref: s.presenceRef ?? s.uid,
+                    user_id: s.uid,
+                  },
+                ],
+              },
             ]),
-          );
-        if (event === "phx_join") {
-          const id = uid(payload.access_token ?? "");
-          const room = topic.replace(/^realtime:room:/, "");
-          try {
-            await execute(id, "public_room_snapshot", { room });
-            sockets.set(ws, { topic, join, uid: id });
-            reply();
-            ws.send(JSON.stringify([join, null, topic, "presence_state", {}]));
-          } catch {
-            reply("error", { reason: "forbidden" });
-          }
-        } else if (event === "heartbeat") reply();
-        else if (event === "presence") {
-          const sub = sockets.get(ws);
-          if (!sub) return;
-          reply();
-          const state = Object.fromEntries(
-            [...sockets.values()]
-              .filter((s) => s.topic === topic)
-              .map((s) => [
-                s.uid,
-                { metas: [{ phx_ref: s.uid, user_id: s.uid }] },
-              ]),
-          );
-          for (const [other, s] of sockets)
-            if (s.topic === topic)
-              other.send(
-                JSON.stringify([s.join, null, topic, "presence_state", state]),
-              );
-        } else if (event === "phx_leave") {
-          sockets.delete(ws);
-          reply();
-        } else reply();
-      });
-      ws.onClose(() => sockets.delete(ws));
+        );
+        for (const [other, s] of sockets)
+          if (s.topic === topic)
+            other.send(
+              JSON.stringify([s.join, null, topic, "presence_state", state]),
+            );
+      } else if (event === "phx_leave") {
+        sockets.delete(ws);
+        reply();
+      } else reply();
+    });
+    ws.onClose(() => sockets.delete(ws));
   }
 
   async function attach(context: BrowserContext) {
@@ -209,5 +219,14 @@ export async function harness() {
       handleSocket,
     );
   }
-  return { attach, close: () => db.close() };
+  return {
+    attach,
+    close: () => db.close(),
+    // Simula a passagem do prazo sem aguardar dois minutos no teste de UI.
+    expireMember: (room: string, nickname: string) =>
+      db.query(
+        "update public.room_members set last_seen=now()-interval '3 minutes' where room_id=$1 and nickname=$2",
+        [room, nickname],
+      ),
+  };
 }

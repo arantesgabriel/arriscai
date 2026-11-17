@@ -64,7 +64,7 @@ async function joinAs(
   await page.getByLabel("Como a galera te chama?").fill(nickname);
   await page.getByRole("button", { name: "Entrar", exact: true }).click();
   await expect(
-    page.getByRole("heading", { name: expectedHeading }),
+    page.getByRole("heading", { name: expectedHeading, exact: true }),
   ).toBeVisible();
 }
 
@@ -97,7 +97,7 @@ test("three players, telão and late spectator share one hosted or isolated game
     await host.getByLabel("Como a galera te chama?").fill("Ana");
     await host.getByRole("button", { name: "Criar uma sala" }).click();
     await expect(
-      host.getByRole("heading", { name: "Junte a galera." }),
+      host.getByRole("heading", { name: "Junte a galera.", exact: true }),
     ).toBeVisible();
     const code = await host.locator(".room-code strong").innerText();
     await joinAs(player, code, "Bia");
@@ -106,7 +106,7 @@ test("three players, telão and late spectator share one hosted or isolated game
     await tv.goto("/?codigo=" + code + "&telao=1");
     await tv.getByRole("button", { name: "Entrar", exact: true }).click();
     await expect(
-      tv.getByRole("heading", { name: "Junte a galera." }),
+      tv.getByRole("heading", { name: "Junte a galera.", exact: true }),
     ).toBeVisible();
     for (const width of sizes) {
       await host.setViewportSize({ width, height: 1000 });
@@ -338,8 +338,17 @@ test("three players, telão and late spectator share one hosted or isolated game
       await capture(host, `match-result-${width}`);
     }
     await host
+      .getByRole("button", { name: "Trocar organizador", exact: true })
+      .click();
+    await host
+      .getByRole("button", { name: "Selecionar manualmente", exact: true })
+      .click();
+    await host
       .getByRole("combobox", { name: "Escolher organizador" })
       .selectOption({ label: "Bia" });
+    await host
+      .getByRole("button", { name: "Confirmar novo organizador" })
+      .click();
     await expect(
       player.getByRole("heading", { name: "Mais uma partida?" }),
     ).toBeVisible();
@@ -368,7 +377,7 @@ test("three players, telão and late spectator share one hosted or isolated game
     player.once("dialog", (dialog) => void dialog.accept());
     await player.getByRole("button", { name: "Cancelar partida" }).click();
     await expect(
-      player.getByRole("heading", { name: "Junte a galera." }),
+      player.getByRole("heading", { name: "Junte a galera.", exact: true }),
     ).toBeVisible();
     const cancelled = await browserRPC(cancelPage, "public_room_snapshot", {
       room,
@@ -385,15 +394,8 @@ test("three players, telão and late spectator share one hosted or isolated game
 
     await player.getByLabel("Rodadas", { exact: true }).fill("1");
     await player.getByLabel("Tamanho da pergunta").selectOption("9");
-    await player.getByLabel("Seleção").selectOption("manual");
-    await player
-      .getByPlaceholder("Digite trecho da pergunta ou categoria...")
-      .fill("Tour de France");
-    const nineWordQuestion = player
-      .locator(".question-card")
-      .filter({ hasText: "Tour de France" });
-    await expect(nineWordQuestion).toHaveCount(1);
-    await nineWordQuestion.getByRole("checkbox").check();
+    await expect(player.getByLabel("Seleção", { exact: true })).toBeDisabled();
+    await expect(player.locator(".manual-selector")).toHaveCount(0);
     await player.getByRole("button", { name: "Iniciar nova partida" }).click();
     await expect(host.locator(".scoreboard li")).toHaveCount(5);
     await expect(host.locator(".board .tile")).toHaveCount(9);
@@ -405,7 +407,7 @@ test("three players, telão and late spectator share one hosted or isolated game
     ).toHaveCount(1);
     await expect(tv.locator(".controls")).toHaveCount(0);
 
-    // The screenshot's 9-word Tour de France question is worth 8 points
+    // An automatically selected 9-word question is worth 8 points
     // when the correct answer comes after two revealed words.
     await player
       .getByRole("button", { name: "Posição 1", exact: true })

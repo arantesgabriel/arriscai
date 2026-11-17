@@ -1,0 +1,444 @@
+/* Official application shell. Landing styles never consume this scope. */
+.app {
+  --game-footer-height: 64px;
+  box-sizing: border-box;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: calc(var(--game-footer-height) + env(safe-area-inset-bottom));
+  --blue: var(--palette-night-secondary);
+  --white: var(--palette-paper);
+  --gold: var(--palette-gold);
+  --ink: var(--palette-ink);
+  --soft: var(--color-surface-subtle);
+  --display: var(--font-display);
+  --body: var(--font-body);
+  --radius: var(--radius-xl);
+  min-height: 100dvh;
+  background: var(--color-bg-canvas);
+  color: var(--color-text-on-dark);
+  font-family: var(--font-body);
+  color-scheme: dark;
+}
+.app main {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: clip;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 28px 32px 56px;
+}
+.app.television {
+  padding-bottom: 0;
+}
+.app footer {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 30;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  min-height: var(--game-footer-height);
+  padding: 12px max(20px, calc((100vw - 1376px) / 2));
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  background: var(--color-bg-canvas);
+  border-color: var(--color-border-on-dark);
+  color: var(--color-text-muted-on-dark);
+  font-size: 12px;
+}
+.app[data-experience="entry"] main {
+  display: grid;
+  place-items: center;
+  align-content: safe center;
+}
+.app[data-experience="entry"] .game-entry {
+  width: 100%;
+  margin: 0 auto;
+  padding-block: 28px;
+}
+.app .entry-switcher {
+  gap: 12px;
+}
+.app .entry-option {
+  border: 1px solid var(--palette-blue-200);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.app .entry-option[data-expanded="true"] {
+  border-color: var(--palette-ink);
+}
+.app .entry-option-toggle {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 16px;
+  background: var(--color-surface-subtle);
+  box-shadow: none;
+  border: 0;
+  border-radius: 0;
+  text-align: left;
+  font-size: 15px;
+}
+.app .entry-option-toggle:hover:enabled {
+  transform: none;
+}
+.app .entry-option[data-expanded="true"] .entry-option-toggle {
+  background: var(--palette-paper);
+}
+.app .entry-option-toggle span {
+  font-size: 20px;
+  line-height: 1;
+}
+.app .entry-option-fields {
+  display: grid;
+  gap: 18px;
+  padding: 6px 16px 20px;
+}
+.app .entry-option-fields .primary {
+  width: 100%;
+}
+.app .topbar {
+  min-height: 76px;
+  padding: 12px 32px;
+  background: var(--color-bg-canvas);
+  border-bottom: 1px solid var(--color-border-on-dark);
+}
+.app .brand {
+  font-family: var(--font-display);
+  font-size: 32px;
+  letter-spacing: -1px;
+  transform: none;
+}
+.app .brand span {
+  color: var(--palette-mint);
+}
+.app .brand-badge {
+  display: none;
+}
+.app .tagline {
+  font-size: 12px;
+  color: var(--color-text-muted-on-dark);
+}
+.app button,
+.app .button {
+  background: var(--color-action-primary);
+  color: var(--color-action-primary-text);
+  border: 2px solid var(--color-border-strong);
+  border-radius: var(--button-radius);
+  box-shadow: var(--shadow-tactile-sm);
+  font-family: var(--font-body);
+  font-weight: 800;
+  min-height: 48px;
+  transition:
+    transform var(--motion-fast) var(--ease-standard),
+    box-shadow var(--motion-fast) var(--ease-standard);
+}
+.app button:disabled {
+  opacity: 1;
+  background: var(--color-action-disabled);
+  color: var(--color-action-disabled-text);
+  box-shadow: none;
+  cursor: default;
+}
+.app button:hover:enabled {
+  transform: translateY(-1px);
+}
+.app button:active:enabled {
+  transform: translateY(2px);
+  box-shadow: var(--shadow-tactile-pressed);
+}
+.app .secondary {
+  background: var(--color-action-secondary);
+  color: var(--color-action-secondary-text);
+}
+.app .quiet {
+  background: transparent;
+  color: inherit;
+  border-color: transparent;
+  box-shadow: none;
+}
+.app .danger {
+  background: var(--color-danger-text);
+  color: var(--palette-paper);
+}
+.app :is(button, a, input, select, textarea, summary):focus-visible {
+  outline: 1px solid var(--palette-lilac);
+  outline-offset: 2px;
+}
+.app .panel :is(button, a, input, select, textarea, summary):focus-visible,
+.app .entry-surface :is(button, input):focus-visible {
+  outline-color: var(--palette-ink-500);
+}
+.app :is(input, select, textarea) {
+  background: var(--palette-paper);
+  color: var(--palette-ink);
+  border-color: var(--palette-ink-500);
+  border-radius: var(--field-radius);
+  color-scheme: light;
+}
+.app :is(input, textarea)::placeholder {
+  color: var(--palette-ink-500);
+}
+.app input[type="checkbox"] {
+  accent-color: var(--palette-ink);
+}
+.app .panel {
+  background: var(--color-surface-default);
+  color: var(--color-text-primary);
+  border: 2px solid var(--color-border-strong);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-tactile-md);
+}
+.app .top-actions {
+  gap: 6px;
+}
+.app .top-actions button {
+  font-size: 12px;
+}
+.app .live-dot.online {
+  background: var(--palette-mint);
+  box-shadow: none;
+}
+.app .room-heading {
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.app .room-heading h1 {
+  font-size: clamp(26px, 2.5vw, 36px);
+}
+.app .room-code {
+  color: var(--color-text-muted-on-dark);
+  font-size: 12px;
+}
+.app .room-code strong {
+  color: var(--palette-paper);
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+.app .room-heading .actions {
+  gap: 8px;
+}
+.app .room-heading .actions :is(button, a) {
+  font-size: 12px;
+  min-height: 44px;
+  padding: 8px 12px;
+}
+.app .account {
+  min-height: 0;
+  max-height: calc(100dvh - 230px);
+  overflow-y: auto;
+  flex-shrink: 0;
+  position: relative;
+  max-width: 620px;
+  width: calc(100% - 32px);
+  margin: 24px auto;
+}
+.app .account h2 {
+  padding-right: 70px;
+}
+.app .error {
+  background: var(--color-danger-subtle);
+  color: var(--color-danger-text);
+  border-color: var(--color-danger-text);
+  width: calc(100% - 32px);
+}
+.app .notice-banner {
+  background: var(--palette-mint);
+  color: var(--palette-ink);
+  border-color: var(--palette-ink);
+}
+.app .setup-note {
+  font-size: 13px;
+}
+.app .game-entry {
+  max-width: 1100px;
+  margin: 40px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  align-items: center;
+}
+.app .entry-kicker {
+  color: var(--palette-mint);
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.app .entry-introduction h1 {
+  font-size: clamp(44px, 5vw, 70px);
+  margin: 20px 0;
+  line-height: 1.02;
+}
+.app .entry-introduction h1 span {
+  color: var(--palette-mint);
+}
+.app .entry-introduction p {
+  color: var(--color-text-muted-on-dark);
+  max-width: 34ch;
+}
+.app .entry-surface {
+  padding: 32px;
+  background: var(--palette-paper);
+  color: var(--palette-ink);
+  border: 2px solid var(--palette-ink);
+  border-radius: 22px;
+  box-shadow: var(--shadow-tactile-lg);
+}
+.app .entry-surface h2 {
+  font-size: 30px;
+}
+.app .entry {
+  max-width: none;
+  margin-top: 24px;
+  gap: 20px;
+}
+.app .entry .primary {
+  font-size: 16px;
+  min-height: 54px;
+}
+.app .entry .join {
+  border-top: 1px solid var(--palette-blue-200);
+  padding-top: 24px;
+  margin-top: 4px;
+}
+.app .entry-caption {
+  color: var(--color-text-secondary);
+  margin: 24px 0 0;
+  font-size: 12px;
+}
+.app .entry-cards {
+  display: flex;
+  gap: 12px;
+  margin-top: 40px;
+  transform: rotate(-4deg);
+}
+.app .entry-cards span {
+  display: grid;
+  place-items: center;
+  width: 86px;
+  height: 100px;
+  background: var(--palette-paper);
+  color: var(--palette-ink);
+  border: 2px solid var(--palette-ink);
+  border-radius: 12px;
+  box-shadow: var(--shadow-tactile-md);
+  font: 34px var(--font-display);
+}
+.app .entry-cards span:nth-child(2) {
+  background: var(--palette-mint);
+  transform: translateY(-10px) rotate(9deg);
+  font: 900 16px var(--font-body);
+}
+@media (max-width: 800px) {
+  .app main {
+    padding: 20px 16px 36px;
+  }
+  .app .topbar {
+    min-height: 64px;
+    padding: 8px 16px;
+    gap: 8px;
+  }
+  .app .brand {
+    font-size: 28px;
+  }
+  .app .tagline {
+    display: none;
+  }
+  .app .top-actions {
+    gap: 0;
+    max-width: 240px;
+  }
+  .app .top-actions button {
+    font-size: 11px;
+    padding: 6px 8px;
+    min-height: 44px;
+  }
+  .app .connection {
+    font-size: 10px;
+  }
+  .app .room-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .app .game-entry {
+    display: block;
+    margin: 12px 0;
+  }
+  .app .entry-introduction h1 {
+    font-size: 44px;
+    margin: 12px 0;
+  }
+  .app .entry-introduction p {
+    font-size: 14px;
+  }
+  .app .entry-surface {
+    padding: 24px;
+    margin-top: 28px;
+  }
+  .app .entry-surface h2 {
+    font-size: 27px;
+  }
+  .app .entry-cards {
+    display: none;
+  }
+}
+@media (max-width: 360px) {
+  .app .topbar {
+    flex-wrap: wrap;
+  }
+  .app .top-actions {
+    margin-left: auto;
+  }
+  .app .entry-introduction h1 {
+    font-size: 38px;
+  }
+  .app .entry-surface {
+    padding: 18px;
+  }
+}
+.app .entry-option-fields {
+  overflow: hidden;
+  box-sizing: border-box;
+  min-height: 0;
+}
+.app .notice-banner {
+  position: fixed;
+  top: 92px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  margin: 0;
+  padding: 8px 12px 8px 16px;
+  gap: 12px;
+  font-size: 13px;
+  box-shadow: var(--shadow-tactile-md);
+  animation: notice-appear var(--motion-base) var(--ease-out);
+}
+.app .notice-banner button {
+  flex-shrink: 0;
+  min-width: 36px;
+}
+@keyframes notice-appear {
+  from {
+    opacity: 0;
+    translate: 0 -8px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app .notice-banner {
+    animation: none;
+  }
+}

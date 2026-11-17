@@ -19,8 +19,10 @@ export async function assertStagingFrontend() {
 
   // Navigating to the app signs in anonymously. Inspect its served bundle first.
   const origin = `http://127.0.0.1:${process.env.ARRISCAI_E2E_PORT ?? "3000"}`;
-  const html = await (await fetch(origin)).text();
-  const scripts = [...html.matchAll(/src="([^"]+\/app\/page\.js[^"]*)"/g)];
+  const html = await (await fetch(`${origin}/jogar`)).text();
+  // Inspect the actual entry route and all its chunks: extracting visual
+  // components can move the Supabase module out of app/page.js.
+  const scripts = [...html.matchAll(/src="([^"]+\.js[^"]*)"/g)];
   const chunks = await Promise.all(
     scripts.map(async ([, path]) =>
       (await fetch(new URL(path, origin))).text(),

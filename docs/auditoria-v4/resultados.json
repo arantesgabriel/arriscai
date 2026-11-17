@@ -1,0 +1,651 @@
+{
+  "date": "2026-11-16T20:13:40.318Z",
+  "origin": "https://arriscai.vercel.app",
+  "screenshots": [
+    "landing-320x720",
+    "landing-390x844",
+    "landing-768x1024",
+    "landing-1360x768",
+    "landing-1440x900",
+    "landing-1920x1080",
+    "entrada-320x720",
+    "entrada-390x844",
+    "entrada-768x1024",
+    "entrada-1360x768",
+    "entrada-1440x900",
+    "entrada-1920x1080",
+    "conta-desktop",
+    "recuperacao-desktop",
+    "lobby-host-320x720",
+    "lobby-host-390x844",
+    "lobby-host-768x1024",
+    "lobby-host-1360x768",
+    "lobby-host-1440x900",
+    "lobby-host-1920x1080",
+    "lobby-jogador",
+    "lobby-telao",
+    "biblioteca-desktop",
+    "biblioteca-busca",
+    "roleta-em-curso",
+    "roleta-resultado",
+    "rodada-host-320x720",
+    "rodada-host-390x844",
+    "rodada-host-768x1024",
+    "rodada-host-1360x768",
+    "rodada-host-1440x900",
+    "rodada-host-1920x1080",
+    "rodada-jogador-320x720",
+    "rodada-jogador-390x844",
+    "rodada-jogador-768x1024",
+    "rodada-jogador-1360x768",
+    "rodada-jogador-1440x900",
+    "rodada-jogador-1920x1080",
+    "rodada-telao",
+    "selecao-host",
+    "selecao-telao",
+    "palpite-host",
+    "revelacao-telao",
+    "palpite-mobile",
+    "julgamento-mobile",
+    "erro-mobile",
+    "pausa-host-mobile",
+    "pausa-telao",
+    "offline-jogador",
+    "reconectado-jogador",
+    "julgamento-acerto",
+    "resultado-host-320x720",
+    "resultado-host-390x844",
+    "resultado-host-768x1024",
+    "resultado-host-1360x768",
+    "resultado-host-1440x900",
+    "resultado-host-1920x1080",
+    "resultado-jogador",
+    "resultado-telao",
+    "sem-acerto-host",
+    "sem-acerto-telao",
+    "podio-host-320x720",
+    "podio-host-390x844",
+    "podio-host-768x1024",
+    "podio-host-1360x768",
+    "podio-host-1440x900",
+    "podio-host-1920x1080",
+    "podio-telao",
+    "historico-desktop",
+    "nova-partida-host"
+  ],
+  "checks": [
+    {
+      "name": "landing-320x720",
+      "width": 320,
+      "height": 720,
+      "scrollWidth": 320,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "landing-390x844",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "landing-768x1024",
+      "width": 768,
+      "height": 1024,
+      "scrollWidth": 768,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "landing-1360x768",
+      "width": 1360,
+      "height": 768,
+      "scrollWidth": 1360,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "landing-1440x900",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "landing-1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "entrada-320x720",
+      "width": 320,
+      "height": 720,
+      "scrollWidth": 320,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "entrada-390x844",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "entrada-768x1024",
+      "width": 768,
+      "height": 1024,
+      "scrollWidth": 768,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "entrada-1360x768",
+      "width": 1360,
+      "height": 768,
+      "scrollWidth": 1360,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "entrada-1440x900",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "entrada-1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "conta-desktop",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "recuperacao-desktop",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "lobby-host-320x720",
+      "width": 320,
+      "height": 720,
+      "scrollWidth": 320,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "lobby-host-390x844",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "lobby-host-768x1024",
+      "width": 768,
+      "height": 1024,
+      "scrollWidth": 768,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "lobby-host-1360x768",
+      "width": 1360,
+      "height": 768,
+      "scrollWidth": 1360,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "lobby-host-1440x900",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "lobby-host-1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "lobby-jogador",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "lobby-telao",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "biblioteca-desktop",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "biblioteca-busca",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "roleta-em-curso",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "roleta-resultado",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "rodada-host-320x720",
+      "width": 320,
+      "height": 720,
+      "scrollWidth": 320,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "rodada-host-390x844",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "rodada-host-768x1024",
+      "width": 768,
+      "height": 1024,
+      "scrollWidth": 768,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "rodada-host-1360x768",
+      "width": 1360,
+      "height": 768,
+      "scrollWidth": 1360,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "rodada-host-1440x900",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "rodada-host-1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "rodada-jogador-320x720",
+      "width": 320,
+      "height": 720,
+      "scrollWidth": 320,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "rodada-jogador-390x844",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "rodada-jogador-768x1024",
+      "width": 768,
+      "height": 1024,
+      "scrollWidth": 768,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "rodada-jogador-1360x768",
+      "width": 1360,
+      "height": 768,
+      "scrollWidth": 1360,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "rodada-jogador-1440x900",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "rodada-jogador-1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "rodada-telao",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "public-private-separation",
+      "passed": true
+    },
+    {
+      "name": "selecao-host",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "selecao-telao",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "palpite-host",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "revelacao-telao",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "palpite-mobile",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "julgamento-mobile",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "erro-mobile",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "pausa-host-mobile",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "pausa-telao",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "offline-jogador",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "reconectado-jogador",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "julgamento-acerto",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "resultado-host-320x720",
+      "width": 320,
+      "height": 720,
+      "scrollWidth": 320,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "resultado-host-390x844",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "resultado-host-768x1024",
+      "width": 768,
+      "height": 1024,
+      "scrollWidth": 768,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "resultado-host-1360x768",
+      "width": 1360,
+      "height": 768,
+      "scrollWidth": 1360,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "resultado-host-1440x900",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "resultado-host-1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "resultado-jogador",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "resultado-telao",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "sem-acerto-host",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "sem-acerto-telao",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "podio-host-320x720",
+      "width": 320,
+      "height": 720,
+      "scrollWidth": 320,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "podio-host-390x844",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "podio-host-768x1024",
+      "width": 768,
+      "height": 1024,
+      "scrollWidth": 768,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "podio-host-1360x768",
+      "width": 1360,
+      "height": 768,
+      "scrollWidth": 1360,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "podio-host-1440x900",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "podio-host-1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "podio-telao",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "historico-desktop",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    },
+    {
+      "name": "nova-partida-host",
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "font": "\"Nunito Sans\", Arial, sans-serif"
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "landingFonts": {
+    "title": "\"Changa One\", \"Changa One Fallback\", Impact, Arial, sans-serif",
+    "body": "\"Nunito Sans\", \"Nunito Sans Fallback\", Arial, sans-serif"
+  },
+  "roomCode": "4107BDD5",
+  "roomUrl": "https://arriscai.vercel.app/sala/be1cbca5-3d9a-4990-8baf-7cd495656849",
+  "completed": true
+}

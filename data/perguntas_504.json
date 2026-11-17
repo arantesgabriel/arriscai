@@ -1,0 +1,6007 @@
+[
+  {
+    "id": "Q0101",
+    "category": "Conhecimentos gerais",
+    "question": "Qual planeta do Sistema Solar é conhecido como Planeta Vermelho por sua aparência avermelhada causada por minerais de ferro presentes na superfície",
+    "answer": "Marte",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0102",
+    "category": "Conhecimentos gerais",
+    "question": "Qual é o maior oceano da Terra em extensão, ocupando uma vasta área marítima entre as Américas, a Ásia e a Oceania",
+    "answer": "Oceano Pacífico",
+    "aliases": [
+      "Pacífico"
+    ],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0103",
+    "category": "Conhecimentos gerais",
+    "question": "Qual é o metal representado pelo símbolo químico Au, muito utilizado na fabricação de joias, moedas históricas e muitos componentes eletrônicos resistentes",
+    "answer": "Ouro",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0104",
+    "category": "Conhecimentos gerais",
+    "question": "Qual instrumento costuma ser utilizado para medir a temperatura do corpo humano, especialmente durante a investigação clínica de febre e outros sintomas",
+    "answer": "Termômetro",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0105",
+    "category": "Conhecimentos gerais",
+    "question": "Qual é a moeda oficial utilizada no Japão, país asiático conhecido por cidades como Tóquio, Osaka, Kyoto e pela cultura tradicional japonesa",
+    "answer": "Iene",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0106",
+    "category": "Conhecimentos gerais",
+    "question": "Qual animal terrestre herbívoro africano é conhecido pelo pescoço extremamente comprido, pelas manchas no corpo e por alcançar folhas de árvores altas",
+    "answer": "Girafa",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0107",
+    "category": "Conhecimentos gerais",
+    "question": "Qual é o idioma oficial falado na Argentina",
+    "answer": "Espanhol",
+    "aliases": [
+      "Castelhano"
+    ],
+    "word_count": 8,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0108",
+    "category": "Conhecimentos gerais",
+    "question": "Que gás as plantas absorvem da atmosfera durante a fotossíntese",
+    "answer": "Dióxido de carbono",
+    "aliases": [
+      "Gás carbônico",
+      "CO2"
+    ],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0109",
+    "category": "Conhecimentos gerais",
+    "question": "Que instrumento é usado para indicar os pontos cardeais",
+    "answer": "Bússola",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0110",
+    "category": "Conhecimentos gerais",
+    "question": "Qual mamífero é capaz de voar de forma sustentada",
+    "answer": "Morcego",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0111",
+    "category": "Conhecimentos gerais",
+    "question": "Como se chama a água no estado sólido",
+    "answer": "Gelo",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 5
+  },
+  {
+    "id": "Q0112",
+    "category": "Conhecimentos gerais",
+    "question": "Qual é o maior órgão do corpo humano",
+    "answer": "Pele",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0113",
+    "category": "Conhecimentos gerais",
+    "question": "Qual é o nome da estrela mais próxima da Terra",
+    "answer": "Sol",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0114",
+    "category": "Conhecimentos gerais",
+    "question": "Qual é o satélite natural da Terra",
+    "answer": "Lua",
+    "aliases": [],
+    "word_count": 7,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 5
+  },
+  {
+    "id": "Q0115",
+    "category": "Conhecimentos gerais",
+    "question": "Quantas faces possui um cubo",
+    "answer": "Seis",
+    "aliases": [
+      "6"
+    ],
+    "word_count": 5,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0116",
+    "category": "Conhecimentos gerais",
+    "question": "Qual peça de xadrez se move em formato de L",
+    "answer": "Cavalo",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0117",
+    "category": "Conhecimentos gerais",
+    "question": "Qual cor surge ao misturar azul e amarelo em tinta",
+    "answer": "Verde",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0118",
+    "category": "Conhecimentos gerais",
+    "question": "Qual é o instrumento de escrita que usa grafite",
+    "answer": "Lápis",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 5
+  },
+  {
+    "id": "Q0119",
+    "category": "Conhecimentos gerais",
+    "question": "Como se chama o processo pelo qual a água passa de líquido para vapor",
+    "answer": "Evaporação",
+    "aliases": [],
+    "word_count": 14,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0120",
+    "category": "Conhecimentos gerais",
+    "question": "Qual é a unidade básica de tempo do Sistema Internacional",
+    "answer": "Segundo",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0121",
+    "category": "Conhecimentos gerais",
+    "question": "Qual é o nome da camada gasosa que envolve a Terra",
+    "answer": "Atmosfera",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0122",
+    "category": "Conhecimentos gerais",
+    "question": "Como se chama o profissional que estuda o tempo atmosférico",
+    "answer": "Meteorologista",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0123",
+    "category": "Conhecimentos gerais",
+    "question": "Qual alimento é tradicionalmente produzido por abelhas",
+    "answer": "Mel",
+    "aliases": [],
+    "word_count": 7,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 5
+  },
+  {
+    "id": "Q0124",
+    "category": "Conhecimentos gerais",
+    "question": "Qual é a figura geométrica de três lados",
+    "answer": "Triângulo",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 5
+  },
+  {
+    "id": "Q0125",
+    "category": "Conhecimentos gerais",
+    "question": "Qual equipamento é utilizado para ampliar objetos muito pequenos",
+    "answer": "Microscópio",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0126",
+    "category": "Conhecimentos gerais",
+    "question": "Qual continente contém o deserto do Saara",
+    "answer": "África",
+    "aliases": [],
+    "word_count": 7,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0127",
+    "category": "Conhecimentos gerais",
+    "question": "Que nome recebe o lugar onde se guardam e emprestam livros",
+    "answer": "Biblioteca",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 5
+  },
+  {
+    "id": "Q0128",
+    "category": "Conhecimentos gerais",
+    "question": "Qual animal marinho é conhecido por possuir oito braços",
+    "answer": "Polvo",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0129",
+    "category": "Conhecimentos gerais",
+    "question": "Qual é o nome do aparelho usado para medir a pressão atmosférica",
+    "answer": "Barômetro",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0130",
+    "category": "Conhecimentos gerais",
+    "question": "Como é chamada a sequência ordenada de letras de uma língua",
+    "answer": "Alfabeto",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 5
+  },
+  {
+    "id": "Q0201",
+    "category": "Esportes",
+    "question": "Qual clube inglês de futebol profissional tem um galo em pé sobre uma bola como elemento central de seu tradicional escudo oficial",
+    "answer": "Tottenham",
+    "aliases": [
+      "Tottenham Hotspur"
+    ],
+    "word_count": 22,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 75
+  },
+  {
+    "id": "Q0202",
+    "category": "Esportes",
+    "question": "Qual esporte de raquete tem um torneio tradicional chamado Wimbledon, disputado em quadras de grama na cidade de Londres todos os anos",
+    "answer": "Tênis",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0203",
+    "category": "Esportes",
+    "question": "Quantos jogadores de cada equipe permanecem simultaneamente em quadra durante uma partida oficial de vôlei indoor, sem contar os integrantes do banco",
+    "answer": "Seis",
+    "aliases": [
+      "6"
+    ],
+    "word_count": 22,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0204",
+    "category": "Esportes",
+    "question": "Qual esporte coletivo tem como principal objetivo acertar uma bola em uma cesta elevada e pode conceder três pontos em arremessos distantes",
+    "answer": "Basquete",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0205",
+    "category": "Esportes",
+    "question": "Qual seleção de futebol conquistou a Copa do Mundo de 2002, disputada no Japão e na Coreia do Sul, com Ronaldo artilheiro",
+    "answer": "Brasil",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0206",
+    "category": "Esportes",
+    "question": "Qual piloto brasileiro de Fórmula 1 conquistou três títulos mundiais e ficou conhecido por suas atuações memoráveis em corridas debaixo de chuva",
+    "answer": "Ayrton Senna",
+    "aliases": [
+      "Senna"
+    ],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0207",
+    "category": "Esportes",
+    "question": "Em qual esporte uma equipe tenta marcar touchdowns",
+    "answer": "Futebol americano",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0208",
+    "category": "Esportes",
+    "question": "Qual modalidade utiliza florete espada e sabre",
+    "answer": "Esgrima",
+    "aliases": [],
+    "word_count": 7,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0209",
+    "category": "Esportes",
+    "question": "Qual esporte sobre gelo utiliza pedras e vassouras",
+    "answer": "Curling",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 65
+  },
+  {
+    "id": "Q0210",
+    "category": "Esportes",
+    "question": "Qual esporte tem provas de nado peito costas e borboleta",
+    "answer": "Natação",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0211",
+    "category": "Esportes",
+    "question": "Qual jogador brasileiro é conhecido pelo apelido de Rei do Futebol",
+    "answer": "Pelé",
+    "aliases": [
+      "Edson Arantes do Nascimento"
+    ],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0212",
+    "category": "Esportes",
+    "question": "Quantos pontos vale uma cesta convertida de lance livre no basquete",
+    "answer": "Um",
+    "aliases": [
+      "1"
+    ],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0213",
+    "category": "Esportes",
+    "question": "Qual país sediou os Jogos Olímpicos de Verão de 2016",
+    "answer": "Brasil",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0214",
+    "category": "Esportes",
+    "question": "Qual é a prova do atletismo com distância oficial de 42 quilômetros e 195 metros",
+    "answer": "Maratona",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0215",
+    "category": "Esportes",
+    "question": "Qual esporte se pratica com prancha sobre as ondas do mar",
+    "answer": "Surfe",
+    "aliases": [
+      "Surf"
+    ],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0216",
+    "category": "Esportes",
+    "question": "Qual é o nome da área em que ocorre um combate de boxe",
+    "answer": "Ringue",
+    "aliases": [
+      "Ring"
+    ],
+    "word_count": 13,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0217",
+    "category": "Esportes",
+    "question": "Qual instrumento os ciclistas usam obrigatoriamente em competições por segurança da cabeça",
+    "answer": "Capacete",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0218",
+    "category": "Esportes",
+    "question": "Qual esporte é tradicionalmente associado ao Tour de France",
+    "answer": "Ciclismo",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0219",
+    "category": "Esportes",
+    "question": "Em qual esporte se utiliza um taco para acertar uma bola em direção a buracos",
+    "answer": "Golfe",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0220",
+    "category": "Esportes",
+    "question": "Qual esporte utiliza o tatame e técnicas de imobilização e projeção",
+    "answer": "Judô",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0221",
+    "category": "Esportes",
+    "question": "Qual é o número máximo de jogadores de uma equipe em campo numa partida de futebol incluindo o goleiro",
+    "answer": "Onze",
+    "aliases": [
+      "11"
+    ],
+    "word_count": 19,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0222",
+    "category": "Esportes",
+    "question": "Qual peça do tênis de mesa os atletas utilizam para rebater a bolinha",
+    "answer": "Raquete",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0223",
+    "category": "Esportes",
+    "question": "Qual modalidade combina corrida natação e ciclismo",
+    "answer": "Triatlo",
+    "aliases": [],
+    "word_count": 7,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0224",
+    "category": "Esportes",
+    "question": "Qual clube de futebol disputa o clássico paulista chamado Derby com o Corinthians",
+    "answer": "Palmeiras",
+    "aliases": [
+      "Sociedade Esportiva Palmeiras"
+    ],
+    "word_count": 13,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0225",
+    "category": "Esportes",
+    "question": "Qual seleção venceu a primeira Copa do Mundo masculina de futebol em 1930",
+    "answer": "Uruguai",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0226",
+    "category": "Esportes",
+    "question": "Qual país é conhecido por dar origem ao sumô",
+    "answer": "Japão",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0227",
+    "category": "Esportes",
+    "question": "Qual esporte utiliza uma peteca lançada sobre uma rede com raquetes",
+    "answer": "Badminton",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 65
+  },
+  {
+    "id": "Q0228",
+    "category": "Esportes",
+    "question": "Qual equipamento é utilizado para proteger as mãos durante o boxe",
+    "answer": "Luvas",
+    "aliases": [
+      "Luva de boxe"
+    ],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 5
+  },
+  {
+    "id": "Q0229",
+    "category": "Esportes",
+    "question": "Em qual esporte uma corrida pode começar com largada de blocos",
+    "answer": "Atletismo",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0230",
+    "category": "Esportes",
+    "question": "Qual país venceu a Copa do Mundo masculina de futebol em 2014",
+    "answer": "Alemanha",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0301",
+    "category": "Filmes e séries",
+    "question": "Qual filme de animação da Pixar acompanha brinquedos que ganham vida na ausência dos humanos e tem Woody e Buzz entre protagonistas",
+    "answer": "Toy Story",
+    "aliases": [
+      "Toy Story: Um Mundo de Aventuras"
+    ],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0302",
+    "category": "Filmes e séries",
+    "question": "Qual franquia cinematográfica de ficção científica apresenta sabres de luz, Jedi e a famosa frase clássica Que a Força esteja com você",
+    "answer": "Star Wars",
+    "aliases": [
+      "Guerra nas Estrelas"
+    ],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0303",
+    "category": "Filmes e séries",
+    "question": "Qual ator interpretou Jack Dawson no filme Titanic de 1997, dirigido por James Cameron e protagonizado também pela atriz britânica Kate Winslet",
+    "answer": "Leonardo DiCaprio",
+    "aliases": [
+      "DiCaprio"
+    ],
+    "word_count": 22,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0304",
+    "category": "Filmes e séries",
+    "question": "Qual animação musical da Disney apresenta as irmãs Elsa e Anna, um reino coberto de gelo e a famosa canção Livre Estou",
+    "answer": "Frozen",
+    "aliases": [
+      "Frozen: Uma Aventura Congelante"
+    ],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0305",
+    "category": "Filmes e séries",
+    "question": "Qual personagem do universo Marvel utiliza um martelo chamado Mjölnir, é associado ao trovão e tem origem na antiga mitologia nórdica europeia",
+    "answer": "Thor",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0306",
+    "category": "Filmes e séries",
+    "question": "Em qual animação um ogro verde que mora num pântano conhece um burro falante e acaba se envolvendo com uma princesa encantada",
+    "answer": "Shrek",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0307",
+    "category": "Filmes e séries",
+    "question": "Qual série acompanha um professor de química chamado Walter White",
+    "answer": "Breaking Bad",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0308",
+    "category": "Filmes e séries",
+    "question": "Qual série apresenta o mundo paralelo conhecido como Mundo Invertido",
+    "answer": "Stranger Things",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0309",
+    "category": "Filmes e séries",
+    "question": "Qual filme apresenta um parque com dinossauros recriados a partir do DNA",
+    "answer": "Jurassic Park",
+    "aliases": [
+      "Parque dos Dinossauros"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0310",
+    "category": "Filmes e séries",
+    "question": "Qual série de fantasia possui dragões e a disputa pelo Trono de Ferro",
+    "answer": "Game of Thrones",
+    "aliases": [
+      "GOT"
+    ],
+    "word_count": 13,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0311",
+    "category": "Filmes e séries",
+    "question": "Qual personagem da Disney perde um sapatinho de cristal",
+    "answer": "Cinderela",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0312",
+    "category": "Filmes e séries",
+    "question": "Qual filme de animação apresenta o leão Simba",
+    "answer": "O Rei Leão",
+    "aliases": [
+      "Rei Leão",
+      "The Lion King"
+    ],
+    "word_count": 8,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0313",
+    "category": "Filmes e séries",
+    "question": "Qual é o nome do bruxo protagonista de uma saga ambientada em Hogwarts",
+    "answer": "Harry Potter",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0314",
+    "category": "Filmes e séries",
+    "question": "Em qual filme uma família de super-heróis usa uniformes vermelhos",
+    "answer": "Os Incríveis",
+    "aliases": [
+      "The Incredibles"
+    ],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0315",
+    "category": "Filmes e séries",
+    "question": "Qual personagem de desenho mora num abacaxi no fundo do mar",
+    "answer": "Bob Esponja",
+    "aliases": [
+      "Bob Sponge",
+      "SpongeBob"
+    ],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0316",
+    "category": "Filmes e séries",
+    "question": "Qual série de comédia acompanha amigos no café Central Perk",
+    "answer": "Friends",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0317",
+    "category": "Filmes e séries",
+    "question": "Qual diretor comandou os filmes Avatar e Titanic",
+    "answer": "James Cameron",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0318",
+    "category": "Filmes e séries",
+    "question": "Qual filme de animação acompanha um peixe-palhaço chamado Marlin procurando seu filho",
+    "answer": "Procurando Nemo",
+    "aliases": [
+      "Finding Nemo"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0319",
+    "category": "Filmes e séries",
+    "question": "Qual série sul-coreana popularizou desafios infantis mortais e uniformes verdes",
+    "answer": "Round 6",
+    "aliases": [
+      "Squid Game"
+    ],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0320",
+    "category": "Filmes e séries",
+    "question": "Qual filme apresenta um panda que aprende kung fu",
+    "answer": "Kung Fu Panda",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0321",
+    "category": "Filmes e séries",
+    "question": "Qual personagem da Marvel utiliza um escudo redondo com uma estrela",
+    "answer": "Capitão América",
+    "aliases": [
+      "Captain America"
+    ],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0322",
+    "category": "Filmes e séries",
+    "question": "Em qual filme a personagem Dorothy visita a Terra de Oz",
+    "answer": "O Mágico de Oz",
+    "aliases": [
+      "The Wizard of Oz"
+    ],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0323",
+    "category": "Filmes e séries",
+    "question": "Qual série tem a cidade fictícia de Springfield e a família de Homer",
+    "answer": "Os Simpsons",
+    "aliases": [
+      "The Simpsons"
+    ],
+    "word_count": 13,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0324",
+    "category": "Filmes e séries",
+    "question": "Qual diretor criou o filme de ficção científica Interestelar",
+    "answer": "Christopher Nolan",
+    "aliases": [
+      "Nolan"
+    ],
+    "word_count": 9,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 75
+  },
+  {
+    "id": "Q0325",
+    "category": "Filmes e séries",
+    "question": "Qual filme da Pixar acompanha o robô compactador de lixo no espaço",
+    "answer": "WALL-E",
+    "aliases": [
+      "Wall E"
+    ],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0326",
+    "category": "Filmes e séries",
+    "question": "Qual vilão de Star Wars usa uma máscara preta e respiração mecânica",
+    "answer": "Darth Vader",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0327",
+    "category": "Filmes e séries",
+    "question": "Qual série narra assaltos comandados por um personagem conhecido como Professor",
+    "answer": "La Casa de Papel",
+    "aliases": [
+      "Money Heist"
+    ],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0328",
+    "category": "Filmes e séries",
+    "question": "Qual personagem interpretada por Margot Robbie dá nome ao filme de 2023 dirigido por Greta Gerwig",
+    "answer": "Barbie",
+    "aliases": [],
+    "word_count": 16,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0329",
+    "category": "Filmes e séries",
+    "question": "Qual filme da Disney acompanha uma jovem que navega pelo oceano para salvar sua ilha",
+    "answer": "Moana",
+    "aliases": [
+      "Moana: Um Mar de Aventuras"
+    ],
+    "word_count": 15,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0330",
+    "category": "Filmes e séries",
+    "question": "Qual série apresenta o laboratório fictício e o personagem Sheldon Cooper",
+    "answer": "The Big Bang Theory",
+    "aliases": [
+      "Big Bang Theory"
+    ],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0401",
+    "category": "Música",
+    "question": "Qual cantora e compositora brasileira ficou conhecida como Rainha do Rock e participou da banda Os Mutantes antes da bem-sucedida carreira solo",
+    "answer": "Rita Lee",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0402",
+    "category": "Música",
+    "question": "Qual banda britânica de rock formada em Liverpool lançou o álbum Abbey Road e teve John Lennon e Paul McCartney entre integrantes",
+    "answer": "The Beatles",
+    "aliases": [
+      "Beatles"
+    ],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0403",
+    "category": "Música",
+    "question": "Qual instrumento musical possui teclas brancas e pretas organizadas em sequência e pode produzir sons ao acionar martelos que percutem cordas internas",
+    "answer": "Piano",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0404",
+    "category": "Música",
+    "question": "Qual cantora estadunidense lançou o álbum intitulado 1989, que inclui canções muito populares mundialmente como Shake It Off, Blank Space e Style",
+    "answer": "Taylor Swift",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0405",
+    "category": "Música",
+    "question": "Qual cantor brasileiro ficou conhecido como Rei, construiu uma longa carreira na música romântica e gravou canções como Detalhes e Emoções inesquecíveis",
+    "answer": "Roberto Carlos",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0406",
+    "category": "Música",
+    "question": "Qual banda britânica de rock teve Freddie Mercury como vocalista e gravou músicas famosas como We Will Rock You e Bohemian Rhapsody",
+    "answer": "Queen",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0407",
+    "category": "Música",
+    "question": "Qual instrumento de sopro é feito de metal e utiliza uma palheta simples",
+    "answer": "Saxofone",
+    "aliases": [
+      "Sax"
+    ],
+    "word_count": 13,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 60
+  },
+  {
+    "id": "Q0408",
+    "category": "Música",
+    "question": "Qual cantor é conhecido como Rei do Pop",
+    "answer": "Michael Jackson",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0409",
+    "category": "Música",
+    "question": "Em qual país surgiu o ritmo musical conhecido como tango",
+    "answer": "Argentina",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0410",
+    "category": "Música",
+    "question": "Qual dupla brasileira gravou sucessos como Evidências",
+    "answer": "Chitãozinho e Xororó",
+    "aliases": [
+      "Chitaozinho e Xororo"
+    ],
+    "word_count": 7,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0411",
+    "category": "Música",
+    "question": "Qual instrumento é usado para marcar o ritmo com baquetas e pratos",
+    "answer": "Bateria",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0412",
+    "category": "Música",
+    "question": "Qual cantora estadunidense lançou o álbum Lemonade",
+    "answer": "Beyoncé",
+    "aliases": [
+      "Beyonce"
+    ],
+    "word_count": 7,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 65
+  },
+  {
+    "id": "Q0413",
+    "category": "Música",
+    "question": "Qual banda brasileira tem a canção Tempo Perdido",
+    "answer": "Legião Urbana",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0414",
+    "category": "Música",
+    "question": "Qual compositor ficou conhecido pela Nona Sinfonia e pela perda auditiva progressiva",
+    "answer": "Beethoven",
+    "aliases": [
+      "Ludwig van Beethoven"
+    ],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0415",
+    "category": "Música",
+    "question": "Qual estilo brasileiro é associado a João Gilberto e Tom Jobim",
+    "answer": "Bossa nova",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0416",
+    "category": "Música",
+    "question": "Qual instrumento de cordas possui geralmente seis cordas e pode ser acústico",
+    "answer": "Violão",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0417",
+    "category": "Música",
+    "question": "Qual cantora brasileira lançou a canção Show das Poderosas",
+    "answer": "Anitta",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0418",
+    "category": "Música",
+    "question": "Qual cantor estadunidense ficou conhecido por dançar moonwalk",
+    "answer": "Michael Jackson",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0419",
+    "category": "Música",
+    "question": "Qual banda lançou a música Bohemian Rhapsody",
+    "answer": "Queen",
+    "aliases": [],
+    "word_count": 7,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0420",
+    "category": "Música",
+    "question": "Qual cantor brasileiro é chamado de Rei do Baião",
+    "answer": "Luiz Gonzaga",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0421",
+    "category": "Música",
+    "question": "Qual instrumento de cordas tocado com arco fica entre queixo e ombro e é afinado em sol ré lá mi",
+    "answer": "Violino",
+    "aliases": [],
+    "word_count": 20,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0422",
+    "category": "Música",
+    "question": "Qual é o nome civil da cantora conhecida pelo nome artístico Lady Gaga",
+    "answer": "Stefani Joanne Angelina Germanotta",
+    "aliases": [
+      "Stefani Germanotta"
+    ],
+    "word_count": 13,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 90
+  },
+  {
+    "id": "Q0423",
+    "category": "Música",
+    "question": "Qual grupo sul-coreano lançou a música Dynamite em 2020",
+    "answer": "BTS",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0424",
+    "category": "Música",
+    "question": "Qual banda de rock brasileira lançou o álbum Cabeça Dinossauro",
+    "answer": "Titãs",
+    "aliases": [
+      "Titas"
+    ],
+    "word_count": 10,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 75
+  },
+  {
+    "id": "Q0425",
+    "category": "Música",
+    "question": "Qual gênero musical de origem afro-brasileira usa surdos tamborins e cuícas e anima o carnaval carioca",
+    "answer": "Samba",
+    "aliases": [],
+    "word_count": 16,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0426",
+    "category": "Música",
+    "question": "Qual cantor lançou o álbum Thriller em 1982",
+    "answer": "Michael Jackson",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0427",
+    "category": "Música",
+    "question": "Qual instrumento de sopro é tradicional nas fanfarras e possui três pistões",
+    "answer": "Trompete",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 60
+  },
+  {
+    "id": "Q0428",
+    "category": "Música",
+    "question": "Qual cantora britânica lançou a canção Rolling in the Deep",
+    "answer": "Adele",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0429",
+    "category": "Música",
+    "question": "Qual compositor brasileiro criou a obra Trenzinho do Caipira",
+    "answer": "Heitor Villa-Lobos",
+    "aliases": [
+      "Villa Lobos"
+    ],
+    "word_count": 9,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 80
+  },
+  {
+    "id": "Q0430",
+    "category": "Música",
+    "question": "Qual banda britânica lançou a canção Yellow",
+    "answer": "Coldplay",
+    "aliases": [],
+    "word_count": 7,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 60
+  },
+  {
+    "id": "Q0501",
+    "category": "Geografia",
+    "question": "Qual cidade é a capital do Japão, conhecida por seus trens movimentados, arranha-céus, tecnologia e por sediar os Jogos Olímpicos de 2020",
+    "answer": "Tóquio",
+    "aliases": [
+      "Tokyo"
+    ],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0502",
+    "category": "Geografia",
+    "question": "Qual cidade é capital da França e abriga atrações como a Torre Eiffel, o Museu do Louvre e a Catedral de Notre-Dame",
+    "answer": "Paris",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0503",
+    "category": "Geografia",
+    "question": "Qual país europeu tem formato de bota no mapa, abriga cidades como Roma, Milão e Veneza e possui o Vaticano em Roma",
+    "answer": "Itália",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0504",
+    "category": "Geografia",
+    "question": "Qual rio atravessa a cidade de Londres, passa próximo ao Parlamento britânico e desemboca no Mar do Norte após percorrer a Inglaterra",
+    "answer": "Tâmisa",
+    "aliases": [
+      "Rio Tâmisa",
+      "Thames"
+    ],
+    "word_count": 22,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 65
+  },
+  {
+    "id": "Q0505",
+    "category": "Geografia",
+    "question": "Qual país é o maior do mundo em extensão territorial com áreas tanto na Europa quanto na Ásia, incluindo a região siberiana",
+    "answer": "Rússia",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0506",
+    "category": "Geografia",
+    "question": "Em qual continente está localizado o Egito, país mundialmente conhecido por monumentos antigos como as pirâmides de Gizé e a Grande Esfinge",
+    "answer": "África",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0507",
+    "category": "Geografia",
+    "question": "Qual é a capital da Argentina",
+    "answer": "Buenos Aires",
+    "aliases": [],
+    "word_count": 6,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0508",
+    "category": "Geografia",
+    "question": "Qual oceano banha o litoral leste do Brasil",
+    "answer": "Atlântico",
+    "aliases": [
+      "Oceano Atlântico"
+    ],
+    "word_count": 8,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0509",
+    "category": "Geografia",
+    "question": "Qual é o deserto quente mais extenso da África",
+    "answer": "Saara",
+    "aliases": [
+      "Sahara"
+    ],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0510",
+    "category": "Geografia",
+    "question": "Qual cordilheira percorre a região oeste da América do Sul",
+    "answer": "Andes",
+    "aliases": [
+      "Cordilheira dos Andes"
+    ],
+    "word_count": 10,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0511",
+    "category": "Geografia",
+    "question": "Qual país possui as cidades de Lisboa e Porto",
+    "answer": "Portugal",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0512",
+    "category": "Geografia",
+    "question": "Qual é a capital da Espanha",
+    "answer": "Madri",
+    "aliases": [
+      "Madrid"
+    ],
+    "word_count": 6,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0513",
+    "category": "Geografia",
+    "question": "Qual é a capital do estado brasileiro de Minas Gerais",
+    "answer": "Belo Horizonte",
+    "aliases": [
+      "BH"
+    ],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0514",
+    "category": "Geografia",
+    "question": "Qual país é conhecido pelos fiordes e pela cidade de Oslo",
+    "answer": "Noruega",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0515",
+    "category": "Geografia",
+    "question": "Na divisão da América em subcontinentes, em qual deles fica o Brasil",
+    "answer": "América do Sul",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0516",
+    "category": "Geografia",
+    "question": "Qual é a capital do Canadá",
+    "answer": "Ottawa",
+    "aliases": [],
+    "word_count": 6,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0517",
+    "category": "Geografia",
+    "question": "Qual país abriga as ruínas de Machu Picchu",
+    "answer": "Peru",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0518",
+    "category": "Geografia",
+    "question": "Qual é a capital da Alemanha",
+    "answer": "Berlim",
+    "aliases": [
+      "Berlin"
+    ],
+    "word_count": 6,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0519",
+    "category": "Geografia",
+    "question": "Qual é a ilha mais extensa do planeta sem contar continentes",
+    "answer": "Groenlândia",
+    "aliases": [
+      "Groenlandia",
+      "Greenland"
+    ],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 65
+  },
+  {
+    "id": "Q0520",
+    "category": "Geografia",
+    "question": "Qual lago fica na fronteira entre Peru e Bolívia e é conhecido por sua altitude",
+    "answer": "Titicaca",
+    "aliases": [
+      "Lago Titicaca"
+    ],
+    "word_count": 15,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0521",
+    "category": "Geografia",
+    "question": "Qual é a capital do Chile",
+    "answer": "Santiago",
+    "aliases": [],
+    "word_count": 6,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0522",
+    "category": "Geografia",
+    "question": "Qual país abriga a cidade de Marrakech",
+    "answer": "Marrocos",
+    "aliases": [],
+    "word_count": 7,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 60
+  },
+  {
+    "id": "Q0523",
+    "category": "Geografia",
+    "question": "Qual país tem a capital Wellington",
+    "answer": "Nova Zelândia",
+    "aliases": [],
+    "word_count": 6,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 65
+  },
+  {
+    "id": "Q0524",
+    "category": "Geografia",
+    "question": "Qual é a capital da Austrália",
+    "answer": "Camberra",
+    "aliases": [
+      "Canberra"
+    ],
+    "word_count": 6,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 75
+  },
+  {
+    "id": "Q0525",
+    "category": "Geografia",
+    "question": "Qual oceano separa a África da Austrália",
+    "answer": "Índico",
+    "aliases": [
+      "Oceano Índico"
+    ],
+    "word_count": 7,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0526",
+    "category": "Geografia",
+    "question": "Qual país possui a cidade histórica de Petra",
+    "answer": "Jordânia",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 80
+  },
+  {
+    "id": "Q0527",
+    "category": "Geografia",
+    "question": "Qual é a capital da Coreia do Sul",
+    "answer": "Seul",
+    "aliases": [
+      "Seoul"
+    ],
+    "word_count": 8,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0528",
+    "category": "Geografia",
+    "question": "Qual país abriga o monte Fuji",
+    "answer": "Japão",
+    "aliases": [],
+    "word_count": 6,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0529",
+    "category": "Geografia",
+    "question": "Em qual país fica a cidade de Barcelona",
+    "answer": "Espanha",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0530",
+    "category": "Geografia",
+    "question": "Qual é a capital da Itália",
+    "answer": "Roma",
+    "aliases": [],
+    "word_count": 6,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0601",
+    "category": "História",
+    "question": "Qual civilização da Antiguidade construiu as grandes pirâmides de Gizé, desenvolveu escrita hieroglífica e teve governantes conhecidos como faraós por muitos milênios",
+    "answer": "Egípcia",
+    "aliases": [
+      "Antigos egípcios",
+      "Egito Antigo"
+    ],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0602",
+    "category": "História",
+    "question": "Qual navegador português comandou a frota que chegou ao território brasileiro em 1500, durante o período das grandes navegações marítimas comerciais europeias",
+    "answer": "Pedro Álvares Cabral",
+    "aliases": [
+      "Cabral"
+    ],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0603",
+    "category": "História",
+    "question": "Qual cidade da Roma Antiga foi soterrada pela erupção do vulcão Vesúvio no ano 79 e preservou numerosos vestígios arqueológicos da época",
+    "answer": "Pompeia",
+    "aliases": [
+      "Pompéia"
+    ],
+    "word_count": 22,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0604",
+    "category": "História",
+    "question": "Em qual país europeu começou a Revolução de 1789, movimento associado à queda da Bastilha e à transformação do Antigo Regime monárquico",
+    "answer": "França",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0605",
+    "category": "História",
+    "question": "Qual muro construído durante a Guerra Fria dividiu uma cidade europeia por décadas e teve sua abertura anunciada em novembro de 1989",
+    "answer": "Muro de Berlim",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0606",
+    "category": "História",
+    "question": "Qual imperador francês do século dezenove foi derrotado em Waterloo em 1815 após grandes campanhas militares importantes que marcaram a história europeia",
+    "answer": "Napoleão Bonaparte",
+    "aliases": [
+      "Napoleão"
+    ],
+    "word_count": 22,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0607",
+    "category": "História",
+    "question": "Quem foi o primeiro homem a pisar na Lua em 1969",
+    "answer": "Neil Armstrong",
+    "aliases": [
+      "Armstrong"
+    ],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0608",
+    "category": "História",
+    "question": "Qual civilização antiga tinha Roma como centro político",
+    "answer": "Romana",
+    "aliases": [
+      "Roma Antiga"
+    ],
+    "word_count": 8,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0609",
+    "category": "História",
+    "question": "Em qual continente surgiram as primeiras cidades da Mesopotâmia",
+    "answer": "Ásia",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0610",
+    "category": "História",
+    "question": "Qual tratado encerrou oficialmente a Primeira Guerra Mundial com a Alemanha",
+    "answer": "Tratado de Versalhes",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 65
+  },
+  {
+    "id": "Q0611",
+    "category": "História",
+    "question": "Qual país lançou o satélite Sputnik 1 em 1957",
+    "answer": "União Soviética",
+    "aliases": [
+      "URSS"
+    ],
+    "word_count": 9,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0612",
+    "category": "História",
+    "question": "Qual rainha do Egito antigo foi associada a Júlio César e Marco Antônio",
+    "answer": "Cleópatra",
+    "aliases": [
+      "Cleopatra"
+    ],
+    "word_count": 13,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0613",
+    "category": "História",
+    "question": "Qual era o nome do navio que afundou em sua viagem inaugural em 1912",
+    "answer": "Titanic",
+    "aliases": [
+      "RMS Titanic"
+    ],
+    "word_count": 14,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0614",
+    "category": "História",
+    "question": "Qual explorador chegou às Américas em 1492 a serviço da Espanha",
+    "answer": "Cristóvão Colombo",
+    "aliases": [
+      "Colombo"
+    ],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0615",
+    "category": "História",
+    "question": "Qual cidade foi capital do Império Bizantino",
+    "answer": "Constantinopla",
+    "aliases": [
+      "Bizâncio"
+    ],
+    "word_count": 7,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0616",
+    "category": "História",
+    "question": "Qual movimento artístico europeu teve Leonardo da Vinci como importante representante",
+    "answer": "Renascimento",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0617",
+    "category": "História",
+    "question": "Qual líder indiano ficou associado à resistência não violenta pela independência",
+    "answer": "Mahatma Gandhi",
+    "aliases": [
+      "Gandhi"
+    ],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0618",
+    "category": "História",
+    "question": "Qual presidente brasileiro é associado à construção de Brasília e ao lema cinquenta anos em cinco",
+    "answer": "Juscelino Kubitschek",
+    "aliases": [
+      "JK"
+    ],
+    "word_count": 16,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0619",
+    "category": "História",
+    "question": "Qual foi a forma de governo brasileira antes da Proclamação da República",
+    "answer": "Monarquia",
+    "aliases": [
+      "Império"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0620",
+    "category": "História",
+    "question": "Qual país foi palco da Revolução de Outubro de 1917",
+    "answer": "Rússia",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0621",
+    "category": "História",
+    "question": "Qual general cartaginês atravessou os Alpes com elefantes durante as Guerras Púnicas",
+    "answer": "Aníbal",
+    "aliases": [
+      "Hannibal"
+    ],
+    "word_count": 12,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 80
+  },
+  {
+    "id": "Q0622",
+    "category": "História",
+    "question": "Qual civilização pré-colombiana teve como capital Tenochtitlán",
+    "answer": "Asteca",
+    "aliases": [
+      "Astecas"
+    ],
+    "word_count": 7,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 75
+  },
+  {
+    "id": "Q0623",
+    "category": "História",
+    "question": "Qual império era governado por imperadores chamados czares",
+    "answer": "Império Russo",
+    "aliases": [
+      "Rússia czarista"
+    ],
+    "word_count": 8,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0624",
+    "category": "História",
+    "question": "Qual filósofo grego foi mestre de Alexandre o Grande",
+    "answer": "Aristóteles",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 75
+  },
+  {
+    "id": "Q0625",
+    "category": "História",
+    "question": "Qual país foi governado por Nelson Mandela após o fim do apartheid",
+    "answer": "África do Sul",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0626",
+    "category": "História",
+    "question": "Qual foi o conflito mundial iniciado em 1939 e encerrado em 1945",
+    "answer": "Segunda Guerra Mundial",
+    "aliases": [
+      "Segunda Guerra"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0627",
+    "category": "História",
+    "question": "Qual imperador brasileiro proclamou a independência em 1822",
+    "answer": "Dom Pedro I",
+    "aliases": [
+      "D Pedro I",
+      "Pedro I"
+    ],
+    "word_count": 8,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0628",
+    "category": "História",
+    "question": "Qual foi o nome do movimento liderado por Tiradentes em Minas Gerais",
+    "answer": "Inconfidência Mineira",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0629",
+    "category": "História",
+    "question": "Qual civilização construía aquedutos e estradas por grande parte da Europa",
+    "answer": "Romana",
+    "aliases": [
+      "Roma"
+    ],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0630",
+    "category": "História",
+    "question": "Qual evento de 1888 encerrou oficialmente a escravidão no Brasil",
+    "answer": "Lei Áurea",
+    "aliases": [
+      "Abolição da escravatura"
+    ],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0701",
+    "category": "Ciência e tecnologia",
+    "question": "Qual é a fórmula química de uma molécula formada por dois átomos de hidrogênio e um de oxigênio, essencial à vida terrestre",
+    "answer": "H2O",
+    "aliases": [
+      "H₂O"
+    ],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0702",
+    "category": "Ciência e tecnologia",
+    "question": "Qual físico teórico famoso nascido na Alemanha desenvolveu a teoria da relatividade e recebeu o Prêmio Nobel de Física pelo efeito fotoelétrico",
+    "answer": "Albert Einstein",
+    "aliases": [
+      "Einstein"
+    ],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0703",
+    "category": "Ciência e tecnologia",
+    "question": "Qual unidade do Sistema Internacional mede resistência elétrica e equivale à razão entre um volt de tensão e um ampere de corrente",
+    "answer": "Ohm",
+    "aliases": [
+      "Ôhm"
+    ],
+    "word_count": 22,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0704",
+    "category": "Ciência e tecnologia",
+    "question": "Qual órgão muscular do corpo humano bombeia sangue continuamente pelos principais vasos e possui quatro cavidades, sendo dois átrios e dois ventrículos",
+    "answer": "Coração",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0705",
+    "category": "Ciência e tecnologia",
+    "question": "Qual planeta gigante do Sistema Solar tem uma famosa tempestade chamada Grande Mancha Vermelha e é também o maior planeta em diâmetro",
+    "answer": "Júpiter",
+    "aliases": [
+      "Jupiter"
+    ],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0706",
+    "category": "Ciência e tecnologia",
+    "question": "Qual estrutura das células eucarióticas abriga grande parte do material genético, é delimitada por membrana e contém os cromossomos celulares organizados internamente",
+    "answer": "Núcleo",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0707",
+    "category": "Ciência e tecnologia",
+    "question": "Qual é o nome do processo de divisão celular que produz gametas",
+    "answer": "Meiose",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0708",
+    "category": "Ciência e tecnologia",
+    "question": "Qual linguagem de marcação estrutura páginas na internet",
+    "answer": "HTML",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0709",
+    "category": "Ciência e tecnologia",
+    "question": "Qual é a unidade de medida de frequência",
+    "answer": "Hertz",
+    "aliases": [
+      "Hz"
+    ],
+    "word_count": 8,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0710",
+    "category": "Ciência e tecnologia",
+    "question": "Qual partícula possui carga elétrica negativa",
+    "answer": "Elétron",
+    "aliases": [
+      "Eletron"
+    ],
+    "word_count": 6,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0711",
+    "category": "Ciência e tecnologia",
+    "question": "Qual invenção é associada aos irmãos Wright no início do século vinte",
+    "answer": "Avião",
+    "aliases": [
+      "Aeroplano"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0712",
+    "category": "Ciência e tecnologia",
+    "question": "Qual é o nome da força que atrai corpos em direção à Terra",
+    "answer": "Gravidade",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0713",
+    "category": "Ciência e tecnologia",
+    "question": "Qual cientista propôs as três leis clássicas do movimento",
+    "answer": "Isaac Newton",
+    "aliases": [
+      "Newton"
+    ],
+    "word_count": 9,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0714",
+    "category": "Ciência e tecnologia",
+    "question": "Qual gás é representado pela fórmula O2",
+    "answer": "Oxigênio",
+    "aliases": [
+      "O₂"
+    ],
+    "word_count": 7,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0715",
+    "category": "Ciência e tecnologia",
+    "question": "Qual equipamento utiliza lentes para observar estrelas e planetas",
+    "answer": "Telescópio",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0716",
+    "category": "Ciência e tecnologia",
+    "question": "Como se chama a transformação de líquido em sólido",
+    "answer": "Solidificação",
+    "aliases": [
+      "Congelamento"
+    ],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0717",
+    "category": "Ciência e tecnologia",
+    "question": "Qual é a sigla usada para a memória de acesso aleatório do computador",
+    "answer": "RAM",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0718",
+    "category": "Ciência e tecnologia",
+    "question": "Qual elemento químico possui símbolo Fe",
+    "answer": "Ferro",
+    "aliases": [],
+    "word_count": 6,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0719",
+    "category": "Ciência e tecnologia",
+    "question": "Qual tecnologia sem fio é usada para conexões próximas entre fones e celulares",
+    "answer": "Bluetooth",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0720",
+    "category": "Ciência e tecnologia",
+    "question": "Qual é o nome do sistema de navegação por satélite amplamente utilizado em mapas",
+    "answer": "GPS",
+    "aliases": [],
+    "word_count": 14,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0721",
+    "category": "Ciência e tecnologia",
+    "question": "Qual escala termométrica tem zero no congelamento e cem na ebulição da água pura sob pressão de uma atmosfera",
+    "answer": "Celsius",
+    "aliases": [],
+    "word_count": 19,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0722",
+    "category": "Ciência e tecnologia",
+    "question": "Qual área da biologia estuda os genes e a hereditariedade",
+    "answer": "Genética",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0723",
+    "category": "Ciência e tecnologia",
+    "question": "Qual é a estrela central do Sistema Solar",
+    "answer": "Sol",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 5
+  },
+  {
+    "id": "Q0724",
+    "category": "Ciência e tecnologia",
+    "question": "Qual formato de arquivo é muito usado para documentos portáteis",
+    "answer": "PDF",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0725",
+    "category": "Ciência e tecnologia",
+    "question": "Qual camada da atmosfera concentra a maior parte do ozônio",
+    "answer": "Estratosfera",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 75
+  },
+  {
+    "id": "Q0726",
+    "category": "Ciência e tecnologia",
+    "question": "Qual fenômeno ocorre quando a Lua bloqueia a luz do Sol vista da Terra",
+    "answer": "Eclipse solar",
+    "aliases": [],
+    "word_count": 14,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0727",
+    "category": "Ciência e tecnologia",
+    "question": "Qual dispositivo transforma luz em eletricidade em painéis solares",
+    "answer": "Célula fotovoltaica",
+    "aliases": [
+      "Célula solar"
+    ],
+    "word_count": 9,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0728",
+    "category": "Ciência e tecnologia",
+    "question": "Qual é o nome da unidade básica de informação digital representada por zero ou um",
+    "answer": "Bit",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 60
+  },
+  {
+    "id": "Q0729",
+    "category": "Ciência e tecnologia",
+    "question": "Qual disciplina estuda as rochas minerais e a estrutura da Terra",
+    "answer": "Geologia",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0730",
+    "category": "Ciência e tecnologia",
+    "question": "Qual linguagem de programação é associada à extensão de arquivos ponto py",
+    "answer": "Python",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0801",
+    "category": "Cultura pop",
+    "question": "Qual personagem famoso dos videogames usa um boné vermelho com uma letra M, tem bigode e aparece frequentemente em jogos de plataforma",
+    "answer": "Mario",
+    "aliases": [
+      "Super Mario"
+    ],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0802",
+    "category": "Cultura pop",
+    "question": "Qual franquia japonesa de entretenimento apresenta criaturas colecionáveis usadas em batalhas e tem Pikachu entre seus personagens mais queridos e conhecidos mundialmente",
+    "answer": "Pokémon",
+    "aliases": [
+      "Pokemon"
+    ],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0803",
+    "category": "Cultura pop",
+    "question": "Qual super-herói dos quadrinhos da Marvel usa uniforme vermelho e azul, escala paredes e costuma se locomover com teias pelas grandes cidades",
+    "answer": "Homem-Aranha",
+    "aliases": [
+      "Spider-Man",
+      "Spiderman"
+    ],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0804",
+    "category": "Cultura pop",
+    "question": "Qual franquia de jogos eletrônicos de aventura apresenta Lara Croft, personagem conhecida por explorar tumbas antigas e enfrentar grandes perigos arqueológicos misteriosos",
+    "answer": "Tomb Raider",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0805",
+    "category": "Cultura pop",
+    "question": "Qual personagem heroico da Nintendo costuma vestir roupas verdes, empunha a espada mestra e vive aventuras no vasto reino fictício de Hyrule",
+    "answer": "Link",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 60
+  },
+  {
+    "id": "Q0806",
+    "category": "Cultura pop",
+    "question": "Qual jogo eletrônico de mundo aberto utiliza blocos cúbicos para construção, mineração e sobrevivência, também com criaturas perigosas como creepers e endermen",
+    "answer": "Minecraft",
+    "aliases": [],
+    "word_count": 22,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0807",
+    "category": "Cultura pop",
+    "question": "Qual rede social é conhecida por vídeos curtos exibidos verticalmente",
+    "answer": "TikTok",
+    "aliases": [
+      "Tik Tok"
+    ],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0808",
+    "category": "Cultura pop",
+    "question": "Qual personagem da Sega é um ouriço azul conhecido pela velocidade e por coletar anéis dourados nos jogos",
+    "answer": "Sonic",
+    "aliases": [
+      "Sonic the Hedgehog"
+    ],
+    "word_count": 18,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0809",
+    "category": "Cultura pop",
+    "question": "Qual personagem amarelo de videogame come pontos em labirintos",
+    "answer": "Pac-Man",
+    "aliases": [
+      "Pacman"
+    ],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0810",
+    "category": "Cultura pop",
+    "question": "Qual herói usa um escudo com estrela e integra os Vingadores",
+    "answer": "Capitão América",
+    "aliases": [
+      "Captain America"
+    ],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0811",
+    "category": "Cultura pop",
+    "question": "Qual criatura dos jogos Pokémon é conhecida por seus poderes elétricos e cor amarela",
+    "answer": "Pikachu",
+    "aliases": [],
+    "word_count": 14,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0812",
+    "category": "Cultura pop",
+    "question": "Qual jogo online popularizou partidas em que tripulantes procuram um impostor",
+    "answer": "Among Us",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0813",
+    "category": "Cultura pop",
+    "question": "Qual saga de videogames apresenta o reino de Hyrule",
+    "answer": "The Legend of Zelda",
+    "aliases": [
+      "Zelda"
+    ],
+    "word_count": 9,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0814",
+    "category": "Cultura pop",
+    "question": "Qual jogo competitivo utiliza um ônibus voador antes da chegada à ilha",
+    "answer": "Fortnite",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0815",
+    "category": "Cultura pop",
+    "question": "Qual personagem da DC Comics também é chamado de Homem de Aço",
+    "answer": "Superman",
+    "aliases": [
+      "Super-Homem"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0816",
+    "category": "Cultura pop",
+    "question": "Qual personagem da Marvel é conhecido por transformar sua aparência em um gigante verde",
+    "answer": "Hulk",
+    "aliases": [],
+    "word_count": 14,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0817",
+    "category": "Cultura pop",
+    "question": "Qual jogo de corrida da Nintendo apresenta cascos e bananas como itens",
+    "answer": "Mario Kart",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0818",
+    "category": "Cultura pop",
+    "question": "Qual personagem de quadrinhos utiliza um laço da verdade",
+    "answer": "Mulher-Maravilha",
+    "aliases": [
+      "Wonder Woman"
+    ],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0819",
+    "category": "Cultura pop",
+    "question": "Qual game coloca jogadores para descobrir um assassino por meio de reuniões e votos",
+    "answer": "Among Us",
+    "aliases": [],
+    "word_count": 14,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0820",
+    "category": "Cultura pop",
+    "question": "Qual franquia de jogos apresenta o torneio de luta com Scorpion e Sub-Zero",
+    "answer": "Mortal Kombat",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0821",
+    "category": "Cultura pop",
+    "question": "Qual criatura digital acompanha o treinador Ash em muitas aventuras do anime Pokémon",
+    "answer": "Pikachu",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0822",
+    "category": "Cultura pop",
+    "question": "Qual jogo de cartas tradicional possui ações de comprar cartas e inverter o sentido",
+    "answer": "UNO",
+    "aliases": [
+      "Uno"
+    ],
+    "word_count": 14,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0823",
+    "category": "Cultura pop",
+    "question": "Qual personagem da Sega é um ouriço azul veloz",
+    "answer": "Sonic",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0824",
+    "category": "Cultura pop",
+    "question": "Qual herói dos quadrinhos também é conhecido como Cavaleiro das Trevas",
+    "answer": "Batman",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0825",
+    "category": "Cultura pop",
+    "question": "Qual personagem rosa da Nintendo engole inimigos para copiar habilidades em seus jogos de plataforma",
+    "answer": "Kirby",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0826",
+    "category": "Cultura pop",
+    "question": "Qual é a identidade civil da Mulher-Maravilha nos quadrinhos da DC Comics",
+    "answer": "Diana Prince",
+    "aliases": [
+      "Diana de Themyscira"
+    ],
+    "word_count": 12,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 75
+  },
+  {
+    "id": "Q0827",
+    "category": "Cultura pop",
+    "question": "Qual plataforma de vídeos tem como símbolo um botão triangular de reprodução vermelho",
+    "answer": "YouTube",
+    "aliases": [
+      "Youtube"
+    ],
+    "word_count": 13,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 10
+  },
+  {
+    "id": "Q0828",
+    "category": "Cultura pop",
+    "question": "Qual jogo musical utiliza blocos que precisam ser cortados por sabres virtuais",
+    "answer": "Beat Saber",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 75
+  },
+  {
+    "id": "Q0829",
+    "category": "Cultura pop",
+    "question": "Qual protagonista da série de jogos God of War empunha o Machado Leviatã",
+    "answer": "Kratos",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 60
+  },
+  {
+    "id": "Q0830",
+    "category": "Cultura pop",
+    "question": "Qual é o codinome do protagonista de Persona 5 que lidera os Ladrões Fantasma",
+    "answer": "Joker",
+    "aliases": [
+      "Ren Amamiya"
+    ],
+    "word_count": 14,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 85
+  },
+  {
+    "id": "Q0131",
+    "category": "Conhecimentos gerais",
+    "question": "Qual objeto portátil protege da chuva quando aberto sobre a cabeça",
+    "answer": "Guarda-chuva",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0132",
+    "category": "Conhecimentos gerais",
+    "question": "Qual profissional prepara pães em uma padaria",
+    "answer": "Padeiro",
+    "aliases": [],
+    "word_count": 7,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0133",
+    "category": "Conhecimentos gerais",
+    "question": "Quantos dias tem uma semana",
+    "answer": "Sete",
+    "aliases": [
+      "7"
+    ],
+    "word_count": 5,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0134",
+    "category": "Conhecimentos gerais",
+    "question": "Qual mês vem imediatamente depois de setembro",
+    "answer": "Outubro",
+    "aliases": [],
+    "word_count": 7,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0135",
+    "category": "Conhecimentos gerais",
+    "question": "Qual sentido permite perceber aromas",
+    "answer": "Olfato",
+    "aliases": [],
+    "word_count": 5,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0136",
+    "category": "Conhecimentos gerais",
+    "question": "Qual material é produzido a partir da madeira para fabricar folhas de cadernos",
+    "answer": "Papel",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0137",
+    "category": "Conhecimentos gerais",
+    "question": "Qual utensílio tem dentes e é usado para pentear cabelos",
+    "answer": "Pente",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0138",
+    "category": "Conhecimentos gerais",
+    "question": "Como se chama a refeição feita habitualmente ao acordar",
+    "answer": "Café da manhã",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0139",
+    "category": "Conhecimentos gerais",
+    "question": "Qual aparelho doméstico mantém alimentos congelados em seu compartimento próprio",
+    "answer": "Freezer",
+    "aliases": [
+      "Congelador"
+    ],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0140",
+    "category": "Conhecimentos gerais",
+    "question": "Como se chama a passagem de pedestres marcada por listras no asfalto",
+    "answer": "Faixa de pedestres",
+    "aliases": [
+      "Faixa de segurança"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0141",
+    "category": "Conhecimentos gerais",
+    "question": "Qual serviço público costuma ser acionado para combater incêndios",
+    "answer": "Corpo de Bombeiros",
+    "aliases": [
+      "Bombeiros"
+    ],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0142",
+    "category": "Conhecimentos gerais",
+    "question": "Qual documento brasileiro é conhecido pela sigla CPF",
+    "answer": "Cadastro de Pessoas Físicas",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0143",
+    "category": "Conhecimentos gerais",
+    "question": "Qual unidade corresponde a mil metros",
+    "answer": "Quilômetro",
+    "aliases": [
+      "km"
+    ],
+    "word_count": 6,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0144",
+    "category": "Conhecimentos gerais",
+    "question": "Qual unidade de massa corresponde a mil gramas",
+    "answer": "Quilograma",
+    "aliases": [
+      "Quilo",
+      "kg"
+    ],
+    "word_count": 8,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0145",
+    "category": "Conhecimentos gerais",
+    "question": "Qual objeto guarda dinheiro e cartões e costuma caber no bolso",
+    "answer": "Carteira",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0146",
+    "category": "Conhecimentos gerais",
+    "question": "Como se chama o período de cem anos",
+    "answer": "Século",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0147",
+    "category": "Conhecimentos gerais",
+    "question": "Como se chama o período de dez anos",
+    "answer": "Década",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0148",
+    "category": "Conhecimentos gerais",
+    "question": "Qual profissão cuida da saúde dos dentes",
+    "answer": "Dentista",
+    "aliases": [
+      "Cirurgião-dentista"
+    ],
+    "word_count": 7,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0149",
+    "category": "Conhecimentos gerais",
+    "question": "Como se chama a criação de abelhas para obtenção de mel e outros produtos",
+    "answer": "Apicultura",
+    "aliases": [],
+    "word_count": 14,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0150",
+    "category": "Conhecimentos gerais",
+    "question": "Qual palavra designa um animal que se alimenta tanto de vegetais quanto de outros animais",
+    "answer": "Onívoro",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0151",
+    "category": "Conhecimentos gerais",
+    "question": "Qual parte de uma bússola se orienta pelo campo magnético terrestre",
+    "answer": "Agulha",
+    "aliases": [
+      "Agulha magnética"
+    ],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0152",
+    "category": "Conhecimentos gerais",
+    "question": "Qual instrumento mede o tempo por meio da passagem de areia entre dois recipientes",
+    "answer": "Ampulheta",
+    "aliases": [],
+    "word_count": 14,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0153",
+    "category": "Conhecimentos gerais",
+    "question": "Como se chama a pessoa que não consome alimentos de origem animal",
+    "answer": "Vegano",
+    "aliases": [
+      "Vegana"
+    ],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0154",
+    "category": "Conhecimentos gerais",
+    "question": "Qual nome se dá ao conjunto de bens e dívidas deixados por alguém após morrer",
+    "answer": "Herança",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0155",
+    "category": "Conhecimentos gerais",
+    "question": "Qual sistema de escrita em relevo permite a leitura pelo tato",
+    "answer": "Braille",
+    "aliases": [
+      "Sistema Braille"
+    ],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0156",
+    "category": "Conhecimentos gerais",
+    "question": "Qual idioma é a origem da expressão carpe diem",
+    "answer": "Latim",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0157",
+    "category": "Conhecimentos gerais",
+    "question": "Qual sinal de pontuação indica a supressão de parte de uma palavra em expressões como d'água",
+    "answer": "Apóstrofo",
+    "aliases": [],
+    "word_count": 16,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0158",
+    "category": "Conhecimentos gerais",
+    "question": "Como se chama a arte de dobrar papel de origem japonesa",
+    "answer": "Origami",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0159",
+    "category": "Conhecimentos gerais",
+    "question": "Qual instrumento mede a velocidade do vento",
+    "answer": "Anemômetro",
+    "aliases": [],
+    "word_count": 7,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 60
+  },
+  {
+    "id": "Q0160",
+    "category": "Conhecimentos gerais",
+    "question": "Qual instrumento mede a umidade relativa do ar",
+    "answer": "Higrômetro",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0161",
+    "category": "Conhecimentos gerais",
+    "question": "Qual nome recebe o medo intenso de lugares fechados",
+    "answer": "Claustrofobia",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0162",
+    "category": "Conhecimentos gerais",
+    "question": "Como se chama a coleção e o estudo de moedas e medalhas",
+    "answer": "Numismática",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 75
+  },
+  {
+    "id": "Q0163",
+    "category": "Conhecimentos gerais",
+    "question": "Qual é o nome do estudo e da coleção de selos postais",
+    "answer": "Filatelia",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 80
+  },
+  {
+    "id": "Q0231",
+    "category": "Esportes",
+    "question": "Qual esporte é praticado por duas equipes que tentam marcar gols usando principalmente as mãos",
+    "answer": "Handebol",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0232",
+    "category": "Esportes",
+    "question": "Em qual esporte se usa uma bicicleta em um velódromo",
+    "answer": "Ciclismo",
+    "aliases": [
+      "Ciclismo de pista"
+    ],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0233",
+    "category": "Esportes",
+    "question": "Qual esporte aquático utiliza remos para impulsionar um barco estreito em regatas",
+    "answer": "Remo",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0234",
+    "category": "Esportes",
+    "question": "Qual modalidade olímpica consiste em levantar barras carregadas de pesos",
+    "answer": "Levantamento de peso",
+    "aliases": [
+      "Halterofilismo"
+    ],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0235",
+    "category": "Esportes",
+    "question": "Em qual esporte um atleta salta sobre uma barra horizontal usando uma vara flexível",
+    "answer": "Salto com vara",
+    "aliases": [],
+    "word_count": 14,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0236",
+    "category": "Esportes",
+    "question": "Qual esporte utiliza uma bola oval e permite marcar um try",
+    "answer": "Rúgbi",
+    "aliases": [
+      "Rugby"
+    ],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0237",
+    "category": "Esportes",
+    "question": "Qual modalidade de ginástica utiliza aparelhos como fita arco e bola",
+    "answer": "Ginástica rítmica",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0238",
+    "category": "Esportes",
+    "question": "Qual esporte consiste em deslizar sobre a neve com duas pranchas estreitas nos pés",
+    "answer": "Esqui",
+    "aliases": [],
+    "word_count": 14,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0239",
+    "category": "Esportes",
+    "question": "Qual equipamento é usado nos pés para deslizar no gelo",
+    "answer": "Patins",
+    "aliases": [
+      "Patins de gelo"
+    ],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0240",
+    "category": "Esportes",
+    "question": "Qual país é representado pela seleção de futebol conhecida como Azzurra",
+    "answer": "Itália",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0241",
+    "category": "Esportes",
+    "question": "Qual cidade brasileira sediou os Jogos Olímpicos de Verão de 2016",
+    "answer": "Rio de Janeiro",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0242",
+    "category": "Esportes",
+    "question": "Qual jogador argentino de futebol é conhecido pelo apelido de La Pulga",
+    "answer": "Lionel Messi",
+    "aliases": [
+      "Messi"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0243",
+    "category": "Esportes",
+    "question": "Qual atleta jamaicano ficou famoso por seus recordes mundiais nos cem e duzentos metros rasos",
+    "answer": "Usain Bolt",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0244",
+    "category": "Esportes",
+    "question": "Qual nadador estadunidense conquistou 23 medalhas de ouro olímpicas",
+    "answer": "Michael Phelps",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0245",
+    "category": "Esportes",
+    "question": "Qual país foi campeão da Copa do Mundo masculina de futebol em 2010",
+    "answer": "Espanha",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0246",
+    "category": "Esportes",
+    "question": "Qual país foi campeão da Copa do Mundo masculina de futebol em 1998",
+    "answer": "França",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0247",
+    "category": "Esportes",
+    "question": "Qual é o nome da pontuação de zero no tênis em inglês",
+    "answer": "Love",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0248",
+    "category": "Esportes",
+    "question": "Quantos sets uma equipe precisa vencer para ganhar uma partida de vôlei indoor disputada em melhor de cinco",
+    "answer": "Três",
+    "aliases": [
+      "3"
+    ],
+    "word_count": 18,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0249",
+    "category": "Esportes",
+    "question": "Qual modalidade olímpica feminina apresenta as provas de salto barras assimétricas trave e solo",
+    "answer": "Ginástica artística",
+    "aliases": [],
+    "word_count": 14,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0250",
+    "category": "Esportes",
+    "question": "Qual modalidade do atletismo utiliza um objeto metálico esférico lançado a partir do ombro",
+    "answer": "Arremesso de peso",
+    "aliases": [],
+    "word_count": 14,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0251",
+    "category": "Esportes",
+    "question": "Qual é a duração regulamentar de uma partida de futebol adulto sem acréscimos nem prorrogação",
+    "answer": "Noventa minutos",
+    "aliases": [
+      "90 minutos"
+    ],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0252",
+    "category": "Esportes",
+    "question": "Qual esporte é praticado por equipes montadas a cavalo que utilizam tacos para conduzir uma bola",
+    "answer": "Polo",
+    "aliases": [],
+    "word_count": 16,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0253",
+    "category": "Esportes",
+    "question": "Qual torneio de tênis do Grand Slam é disputado em quadras de saibro em Paris",
+    "answer": "Roland Garros",
+    "aliases": [
+      "Aberto da França"
+    ],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0254",
+    "category": "Esportes",
+    "question": "Qual país é a origem do taekwondo",
+    "answer": "Coreia do Sul",
+    "aliases": [],
+    "word_count": 7,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0255",
+    "category": "Esportes",
+    "question": "Qual é o nome da jogada do vôlei usada para iniciar uma disputa de ponto",
+    "answer": "Saque",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0256",
+    "category": "Esportes",
+    "question": "Qual posição do futebol costuma usar luvas e pode defender com as mãos dentro da própria área",
+    "answer": "Goleiro",
+    "aliases": [
+      "Goleira"
+    ],
+    "word_count": 17,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0257",
+    "category": "Esportes",
+    "question": "Qual é o nome do estádio do Rio de Janeiro que sediou as finais das Copas de 1950 e 2014",
+    "answer": "Maracanã",
+    "aliases": [],
+    "word_count": 20,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0258",
+    "category": "Esportes",
+    "question": "Quantos jogadores de cada equipe ficam em quadra no basquete tradicional",
+    "answer": "Cinco",
+    "aliases": [
+      "5"
+    ],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 60
+  },
+  {
+    "id": "Q0259",
+    "category": "Esportes",
+    "question": "Qual atleta brasileiro conquistou ouro olímpico no salto com vara em 2016",
+    "answer": "Thiago Braz",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 60
+  },
+  {
+    "id": "Q0260",
+    "category": "Esportes",
+    "question": "Qual é a distância da prova olímpica masculina curta de corrida com barreiras",
+    "answer": "Cento e dez metros",
+    "aliases": [
+      "110 metros",
+      "110 m"
+    ],
+    "word_count": 13,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0261",
+    "category": "Esportes",
+    "question": "Qual país conquistou o ouro no futebol masculino nos Jogos Olímpicos de 1996",
+    "answer": "Nigéria",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 75
+  },
+  {
+    "id": "Q0262",
+    "category": "Esportes",
+    "question": "Qual modalidade combina esqui de fundo e tiro com rifle",
+    "answer": "Biatlo",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 75
+  },
+  {
+    "id": "Q0263",
+    "category": "Esportes",
+    "question": "Qual pontuação máxima encerra imediatamente uma luta de judô quando concedida a um dos atletas",
+    "answer": "Ippon",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 80
+  },
+  {
+    "id": "Q0331",
+    "category": "Filmes e séries",
+    "question": "Qual animação da Disney apresenta uma princesa que come uma maçã envenenada e sete anões",
+    "answer": "Branca de Neve e os Sete Anões",
+    "aliases": [
+      "Branca de Neve"
+    ],
+    "word_count": 15,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0332",
+    "category": "Filmes e séries",
+    "question": "Qual filme da Disney acompanha um filhote de elefante que consegue voar usando suas orelhas",
+    "answer": "Dumbo",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0333",
+    "category": "Filmes e séries",
+    "question": "Qual filme apresenta um boneco de madeira cujo nariz cresce quando ele mente",
+    "answer": "Pinóquio",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0334",
+    "category": "Filmes e séries",
+    "question": "Qual super-herói dos filmes da DC vive em Gotham City e usa um símbolo de morcego",
+    "answer": "Batman",
+    "aliases": [],
+    "word_count": 16,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0335",
+    "category": "Filmes e séries",
+    "question": "Qual animação apresenta um mamute chamado Manny e uma preguiça chamada Sid",
+    "answer": "A Era do Gelo",
+    "aliases": [
+      "Era do Gelo",
+      "Ice Age"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0336",
+    "category": "Filmes e séries",
+    "question": "Qual filme da DreamWorks apresenta o dragão Banguela e o jovem Soluço",
+    "answer": "Como Treinar o Seu Dragão",
+    "aliases": [
+      "Como Treinar Seu Dragão"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0337",
+    "category": "Filmes e séries",
+    "question": "Qual franquia de filmes de ação acompanha o agente secreto James Bond",
+    "answer": "007",
+    "aliases": [
+      "James Bond"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0338",
+    "category": "Filmes e séries",
+    "question": "Qual personagem do cinema é um arqueólogo que usa chapéu e chicote",
+    "answer": "Indiana Jones",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0339",
+    "category": "Filmes e séries",
+    "question": "Qual animação da Pixar apresenta as emoções Alegria Tristeza Raiva Medo e Nojinho",
+    "answer": "Divertida Mente",
+    "aliases": [
+      "Inside Out"
+    ],
+    "word_count": 13,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0340",
+    "category": "Filmes e séries",
+    "question": "Qual animação da Pixar acompanha o carro de corrida Relâmpago McQueen",
+    "answer": "Carros",
+    "aliases": [
+      "Cars"
+    ],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0341",
+    "category": "Filmes e séries",
+    "question": "Qual filme de animação apresenta um rato cozinheiro chamado Remy",
+    "answer": "Ratatouille",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0342",
+    "category": "Filmes e séries",
+    "question": "Qual série de comédia acompanha Michael Scott no escritório da empresa Dunder Mifflin",
+    "answer": "The Office",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0343",
+    "category": "Filmes e séries",
+    "question": "Qual série de comédia brasileira acompanha a família de Lineu e Nenê",
+    "answer": "A Grande Família",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0344",
+    "category": "Filmes e séries",
+    "question": "Qual série brasileira apresenta os personagens Bino e Pedro trabalhando nas estradas",
+    "answer": "Carga Pesada",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0345",
+    "category": "Filmes e séries",
+    "question": "Qual franquia de filmes de ação tem Dominic Toretto entre os protagonistas",
+    "answer": "Velozes e Furiosos",
+    "aliases": [
+      "Fast and Furious"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0346",
+    "category": "Filmes e séries",
+    "question": "Qual personagem de Johnny Depp é o capitão do navio Pérola Negra",
+    "answer": "Jack Sparrow",
+    "aliases": [
+      "Capitão Jack Sparrow"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0347",
+    "category": "Filmes e séries",
+    "question": "Qual filme acompanha um garoto chamado Kevin esquecido pela família durante uma viagem de Natal",
+    "answer": "Esqueceram de Mim",
+    "aliases": [
+      "Home Alone"
+    ],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0348",
+    "category": "Filmes e séries",
+    "question": "Qual filme de 1985 apresenta uma máquina do tempo construída em um carro DeLorean",
+    "answer": "De Volta para o Futuro",
+    "aliases": [
+      "Back to the Future"
+    ],
+    "word_count": 14,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0349",
+    "category": "Filmes e séries",
+    "question": "Qual filme apresenta Neo como protagonista em uma realidade simulada por máquinas",
+    "answer": "Matrix",
+    "aliases": [
+      "The Matrix"
+    ],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0350",
+    "category": "Filmes e séries",
+    "question": "Qual série tem uma rainha chamada Elizabeth e retrata a família real britânica",
+    "answer": "The Crown",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0351",
+    "category": "Filmes e séries",
+    "question": "Qual filme de animação da Pixar acompanha um idoso que faz sua casa voar com balões",
+    "answer": "Up",
+    "aliases": [
+      "Up Altas Aventuras",
+      "Up: Altas Aventuras"
+    ],
+    "word_count": 16,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0352",
+    "category": "Filmes e séries",
+    "question": "Qual série apresenta a família Addams e acompanha a filha estudando na escola Nunca Mais",
+    "answer": "Wandinha",
+    "aliases": [
+      "Wednesday"
+    ],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0353",
+    "category": "Filmes e séries",
+    "question": "Qual filme brasileiro apresenta os personagens Chicó e João Grilo interpretados por Selton Mello e Matheus Nachtergaele",
+    "answer": "O Auto da Compadecida",
+    "aliases": [
+      "Auto da Compadecida"
+    ],
+    "word_count": 17,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0354",
+    "category": "Filmes e séries",
+    "question": "Qual ator interpreta o personagem Homem de Ferro no filme lançado em 2008",
+    "answer": "Robert Downey Jr.",
+    "aliases": [
+      "Robert Downey Junior"
+    ],
+    "word_count": 13,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0355",
+    "category": "Filmes e séries",
+    "question": "Qual atriz interpreta Hermione Granger nos oito filmes principais da saga Harry Potter",
+    "answer": "Emma Watson",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0356",
+    "category": "Filmes e séries",
+    "question": "Qual série acompanha um cirurgião chamado Shaun Murphy",
+    "answer": "The Good Doctor",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0357",
+    "category": "Filmes e séries",
+    "question": "Qual filme da Pixar aborda a celebração mexicana do Dia dos Mortos e acompanha o menino Miguel",
+    "answer": "Viva A Vida É uma Festa",
+    "aliases": [
+      "Viva",
+      "Coco",
+      "Viva: A Vida É uma Festa"
+    ],
+    "word_count": 17,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0358",
+    "category": "Filmes e séries",
+    "question": "Qual diretor comandou o filme Tubarão lançado em 1975",
+    "answer": "Steven Spielberg",
+    "aliases": [
+      "Spielberg"
+    ],
+    "word_count": 9,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0359",
+    "category": "Filmes e séries",
+    "question": "Qual filme de 1994 apresenta os personagens Vincent Vega e Jules Winnfield",
+    "answer": "Pulp Fiction",
+    "aliases": [
+      "Pulp Fiction Tempo de Violência"
+    ],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 60
+  },
+  {
+    "id": "Q0360",
+    "category": "Filmes e séries",
+    "question": "Qual cineasta japonês dirigiu a animação A Viagem de Chihiro",
+    "answer": "Hayao Miyazaki",
+    "aliases": [
+      "Miyazaki"
+    ],
+    "word_count": 10,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0361",
+    "category": "Filmes e séries",
+    "question": "Qual compositor criou a trilha sonora principal dos filmes originais de Star Wars",
+    "answer": "John Williams",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 75
+  },
+  {
+    "id": "Q0362",
+    "category": "Filmes e séries",
+    "question": "Qual diretor sul-coreano comandou o filme Parasita lançado em 2019",
+    "answer": "Bong Joon-ho",
+    "aliases": [
+      "Bong Joon Ho"
+    ],
+    "word_count": 10,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 75
+  },
+  {
+    "id": "Q0363",
+    "category": "Filmes e séries",
+    "question": "Qual atriz interpretou a personagem principal em O Fabuloso Destino de Amélie Poulain",
+    "answer": "Audrey Tautou",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 80
+  },
+  {
+    "id": "Q0431",
+    "category": "Música",
+    "question": "Qual instrumento de percussão brasileiro tem formato circular e pequenas peças metálicas ao redor",
+    "answer": "Pandeiro",
+    "aliases": [],
+    "word_count": 14,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0432",
+    "category": "Música",
+    "question": "Qual instrumento é tocado com o movimento de um fole e possui teclas ou botões",
+    "answer": "Acordeão",
+    "aliases": [
+      "Sanfona",
+      "Acordeon"
+    ],
+    "word_count": 15,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0433",
+    "category": "Música",
+    "question": "Qual instrumento musical de cordas amplificadas é associado aos solos de rock",
+    "answer": "Guitarra",
+    "aliases": [
+      "Guitarra elétrica"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0434",
+    "category": "Música",
+    "question": "Qual gênero musical brasileiro é marcado pela improvisação de versos cantados em duelo no Nordeste",
+    "answer": "Repente",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0435",
+    "category": "Música",
+    "question": "Qual cantora brasileira é conhecida como Rainha dos Baixinhos",
+    "answer": "Xuxa",
+    "aliases": [
+      "Xuxa Meneghel"
+    ],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0436",
+    "category": "Música",
+    "question": "Qual cantora brasileira ficou conhecida como a Pequena Notável",
+    "answer": "Carmen Miranda",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0437",
+    "category": "Música",
+    "question": "Qual cantor brasileiro gravou País Tropical e Mas Que Nada",
+    "answer": "Jorge Ben Jor",
+    "aliases": [
+      "Jorge Ben"
+    ],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0438",
+    "category": "Música",
+    "question": "Qual banda brasileira teve Cazuza como vocalista e gravou Bete Balanço",
+    "answer": "Barão Vermelho",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0439",
+    "category": "Música",
+    "question": "Qual cantora brasileira ficou conhecida pela interpretação de Como Nossos Pais",
+    "answer": "Elis Regina",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0440",
+    "category": "Música",
+    "question": "Qual compositor brasileiro escreveu a canção Sozinho popularizada na voz de Caetano Veloso",
+    "answer": "Peninha",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0441",
+    "category": "Música",
+    "question": "Qual grupo brasileiro tem os integrantes Samuel Rosa e Henrique Portugal e lançou Garota Nacional",
+    "answer": "Skank",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0442",
+    "category": "Música",
+    "question": "Qual banda brasileira lançou os sucessos Meu Erro e Alagados",
+    "answer": "Os Paralamas do Sucesso",
+    "aliases": [
+      "Paralamas do Sucesso"
+    ],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0443",
+    "category": "Música",
+    "question": "Qual cantor e compositor brasileiro lançou o álbum Alucinação em 1976",
+    "answer": "Belchior",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0444",
+    "category": "Música",
+    "question": "Qual cantora estadunidense ficou conhecida como Rainha do Soul",
+    "answer": "Aretha Franklin",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0445",
+    "category": "Música",
+    "question": "Qual músico jamaicano é um dos maiores nomes do reggae e gravou Three Little Birds",
+    "answer": "Bob Marley",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0446",
+    "category": "Música",
+    "question": "Qual cantora colombiana lançou a canção Waka Waka para a Copa do Mundo de 2010",
+    "answer": "Shakira",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0447",
+    "category": "Música",
+    "question": "Qual cantora britânica lançou o álbum Back to Black",
+    "answer": "Amy Winehouse",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0448",
+    "category": "Música",
+    "question": "Qual banda australiana gravou Highway to Hell e Back in Black",
+    "answer": "AC/DC",
+    "aliases": [
+      "ACDC",
+      "AC DC"
+    ],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0449",
+    "category": "Música",
+    "question": "Qual banda estadunidense lançou o álbum Nevermind com Kurt Cobain nos vocais",
+    "answer": "Nirvana",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0450",
+    "category": "Música",
+    "question": "Qual banda de rock lançou o álbum The Dark Side of the Moon",
+    "answer": "Pink Floyd",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0451",
+    "category": "Música",
+    "question": "Qual cantor britânico foi vocalista do The Police antes de seguir carreira solo",
+    "answer": "Sting",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0452",
+    "category": "Música",
+    "question": "Qual banda irlandesa tem Bono como vocalista",
+    "answer": "U2",
+    "aliases": [],
+    "word_count": 7,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0453",
+    "category": "Música",
+    "question": "Qual compositor austríaco escreveu a ópera A Flauta Mágica",
+    "answer": "Wolfgang Amadeus Mozart",
+    "aliases": [
+      "Mozart"
+    ],
+    "word_count": 9,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0454",
+    "category": "Música",
+    "question": "Qual compositor italiano escreveu As Quatro Estações",
+    "answer": "Antonio Vivaldi",
+    "aliases": [
+      "Vivaldi"
+    ],
+    "word_count": 7,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0455",
+    "category": "Música",
+    "question": "Qual instrumento de cordas com pedais é tocado na posição vertical e tem formato triangular",
+    "answer": "Harpa",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0456",
+    "category": "Música",
+    "question": "Qual símbolo musical no início da pauta indica a posição da nota sol",
+    "answer": "Clave de sol",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0457",
+    "category": "Música",
+    "question": "Como se chama um conjunto de quatro músicos",
+    "answer": "Quarteto",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0458",
+    "category": "Música",
+    "question": "Qual é o termo italiano usado para indicar aumento gradual de intensidade em uma música",
+    "answer": "Crescendo",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0459",
+    "category": "Música",
+    "question": "Qual instrumento de sopro de madeira usa uma palheta dupla e afina a orquestra antes do concerto",
+    "answer": "Oboé",
+    "aliases": [],
+    "word_count": 17,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 60
+  },
+  {
+    "id": "Q0460",
+    "category": "Música",
+    "question": "Qual compositor brasileiro é autor da canção Aquarela do Brasil",
+    "answer": "Ary Barroso",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0461",
+    "category": "Música",
+    "question": "Qual cantor pernambucano lançou o álbum Da Lama ao Caos com a banda Nação Zumbi",
+    "answer": "Chico Science",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0462",
+    "category": "Música",
+    "question": "Qual compositor russo escreveu o balé O Lago dos Cisnes",
+    "answer": "Piotr Ilitch Tchaikovsky",
+    "aliases": [
+      "Tchaikovsky",
+      "Tchaikovski"
+    ],
+    "word_count": 10,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 75
+  },
+  {
+    "id": "Q0463",
+    "category": "Música",
+    "question": "Qual compositor polonês é conhecido por seus noturnos para piano e pela obra Fantaisie-Impromptu",
+    "answer": "Frédéric Chopin",
+    "aliases": [
+      "Frederic Chopin",
+      "Chopin"
+    ],
+    "word_count": 14,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 80
+  },
+  {
+    "id": "Q0531",
+    "category": "Geografia",
+    "question": "Qual cidade é a capital do Brasil desde 1960",
+    "answer": "Brasília",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0532",
+    "category": "Geografia",
+    "question": "Qual país sul-americano tem Santiago como capital",
+    "answer": "Chile",
+    "aliases": [],
+    "word_count": 7,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0533",
+    "category": "Geografia",
+    "question": "Qual oceano banha a costa oeste do Peru e do Chile",
+    "answer": "Pacífico",
+    "aliases": [
+      "Oceano Pacífico"
+    ],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0534",
+    "category": "Geografia",
+    "question": "Qual cidade é a capital do estado brasileiro da Bahia",
+    "answer": "Salvador",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0535",
+    "category": "Geografia",
+    "question": "Qual cidade é a capital de Pernambuco",
+    "answer": "Recife",
+    "aliases": [],
+    "word_count": 7,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0536",
+    "category": "Geografia",
+    "question": "Qual cidade é a capital do estado brasileiro do Ceará",
+    "answer": "Fortaleza",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0537",
+    "category": "Geografia",
+    "question": "Qual cidade é a capital do estado brasileiro do Amazonas",
+    "answer": "Manaus",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0538",
+    "category": "Geografia",
+    "question": "Qual país tem a cidade de Londres como capital",
+    "answer": "Reino Unido",
+    "aliases": [
+      "Grã-Bretanha"
+    ],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0539",
+    "category": "Geografia",
+    "question": "Qual continente é coberto por uma grande camada de gelo ao redor do Polo Sul",
+    "answer": "Antártida",
+    "aliases": [
+      "Antártica"
+    ],
+    "word_count": 15,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0540",
+    "category": "Geografia",
+    "question": "Qual país norte-americano abriga as cidades de Cancún e Guadalajara",
+    "answer": "México",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0541",
+    "category": "Geografia",
+    "question": "Qual país europeu tem Lisboa como capital",
+    "answer": "Portugal",
+    "aliases": [],
+    "word_count": 7,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0542",
+    "category": "Geografia",
+    "question": "Qual país tem Atenas como capital",
+    "answer": "Grécia",
+    "aliases": [],
+    "word_count": 6,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0543",
+    "category": "Geografia",
+    "question": "Qual país africano tem Cairo como capital",
+    "answer": "Egito",
+    "aliases": [],
+    "word_count": 7,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0544",
+    "category": "Geografia",
+    "question": "Qual país tem Pequim como capital",
+    "answer": "China",
+    "aliases": [],
+    "word_count": 6,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0545",
+    "category": "Geografia",
+    "question": "Qual país tem Nova Délhi como capital",
+    "answer": "Índia",
+    "aliases": [],
+    "word_count": 7,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0546",
+    "category": "Geografia",
+    "question": "Qual é o maior estado brasileiro em área territorial",
+    "answer": "Amazonas",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0547",
+    "category": "Geografia",
+    "question": "Qual é o menor estado brasileiro em área territorial",
+    "answer": "Sergipe",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0548",
+    "category": "Geografia",
+    "question": "Qual é a capital do estado brasileiro do Pará",
+    "answer": "Belém",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0549",
+    "category": "Geografia",
+    "question": "Qual linha imaginária divide a Terra em hemisférios Norte e Sul",
+    "answer": "Linha do Equador",
+    "aliases": [
+      "Equador"
+    ],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0550",
+    "category": "Geografia",
+    "question": "Qual meridiano é usado como referência de longitude zero",
+    "answer": "Meridiano de Greenwich",
+    "aliases": [
+      "Greenwich"
+    ],
+    "word_count": 9,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0551",
+    "category": "Geografia",
+    "question": "Qual estreito separa a Espanha do Marrocos",
+    "answer": "Estreito de Gibraltar",
+    "aliases": [
+      "Gibraltar"
+    ],
+    "word_count": 7,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0552",
+    "category": "Geografia",
+    "question": "Qual cadeia de montanhas abriga o monte Everest",
+    "answer": "Himalaia",
+    "aliases": [
+      "Cordilheira do Himalaia"
+    ],
+    "word_count": 8,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0553",
+    "category": "Geografia",
+    "question": "Qual país tem o monte Kilimanjaro em seu território",
+    "answer": "Tanzânia",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0554",
+    "category": "Geografia",
+    "question": "Qual país africano é uma grande ilha localizada a leste de Moçambique",
+    "answer": "Madagascar",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0555",
+    "category": "Geografia",
+    "question": "Qual rio atravessa a cidade de Paris",
+    "answer": "Sena",
+    "aliases": [
+      "Rio Sena"
+    ],
+    "word_count": 7,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0556",
+    "category": "Geografia",
+    "question": "Qual rio atravessa a cidade de Roma",
+    "answer": "Tibre",
+    "aliases": [
+      "Rio Tibre"
+    ],
+    "word_count": 7,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0557",
+    "category": "Geografia",
+    "question": "Qual é a capital da Suécia",
+    "answer": "Estocolmo",
+    "aliases": [],
+    "word_count": 6,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0558",
+    "category": "Geografia",
+    "question": "Qual é a capital da Suíça",
+    "answer": "Berna",
+    "aliases": [],
+    "word_count": 6,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0559",
+    "category": "Geografia",
+    "question": "Qual país tem Helsinque como capital",
+    "answer": "Finlândia",
+    "aliases": [],
+    "word_count": 6,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 60
+  },
+  {
+    "id": "Q0560",
+    "category": "Geografia",
+    "question": "Qual é a capital do Suriname",
+    "answer": "Paramaribo",
+    "aliases": [],
+    "word_count": 6,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0561",
+    "category": "Geografia",
+    "question": "Qual é a capital da Mongólia",
+    "answer": "Ulan Bator",
+    "aliases": [
+      "Ulaanbaatar",
+      "Ulã Bator"
+    ],
+    "word_count": 6,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0562",
+    "category": "Geografia",
+    "question": "Qual estreito separa a Ásia da América do Norte",
+    "answer": "Estreito de Bering",
+    "aliases": [
+      "Bering"
+    ],
+    "word_count": 9,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 75
+  },
+  {
+    "id": "Q0563",
+    "category": "Geografia",
+    "question": "Qual é o nome da capital do Butão",
+    "answer": "Timbu",
+    "aliases": [
+      "Thimphu"
+    ],
+    "word_count": 8,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 80
+  },
+  {
+    "id": "Q0631",
+    "category": "História",
+    "question": "Qual país presenteou os Estados Unidos com a Estátua da Liberdade",
+    "answer": "França",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0632",
+    "category": "História",
+    "question": "Qual movimento histórico brasileiro é celebrado no feriado nacional de sete de setembro",
+    "answer": "Independência do Brasil",
+    "aliases": [
+      "Independência"
+    ],
+    "word_count": 13,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0633",
+    "category": "História",
+    "question": "Qual cidade brasileira foi a primeira capital colonial do país",
+    "answer": "Salvador",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0634",
+    "category": "História",
+    "question": "Qual cidade brasileira foi a capital federal imediatamente antes de Brasília",
+    "answer": "Rio de Janeiro",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0635",
+    "category": "História",
+    "question": "Qual princesa brasileira assinou a Lei Áurea em 1888",
+    "answer": "Princesa Isabel",
+    "aliases": [
+      "Isabel"
+    ],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0636",
+    "category": "História",
+    "question": "Qual líder sul-africano ficou preso durante 27 anos e depois recebeu o Nobel da Paz",
+    "answer": "Nelson Mandela",
+    "aliases": [
+      "Mandela"
+    ],
+    "word_count": 15,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0637",
+    "category": "História",
+    "question": "Qual país foi governado por Adolf Hitler durante a Segunda Guerra Mundial",
+    "answer": "Alemanha",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0638",
+    "category": "História",
+    "question": "De qual continente vieram os grandes grupos de imigrantes italianos e alemães que chegaram ao Brasil no século dezenove",
+    "answer": "Europa",
+    "aliases": [],
+    "word_count": 19,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0639",
+    "category": "História",
+    "question": "Qual conflito opôs os Estados Unidos e a União Soviética sem uma guerra direta entre as duas superpotências",
+    "answer": "Guerra Fria",
+    "aliases": [],
+    "word_count": 18,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0640",
+    "category": "História",
+    "question": "Em qual país ocorreu a Revolução Industrial iniciada no século dezoito",
+    "answer": "Reino Unido",
+    "aliases": [
+      "Inglaterra",
+      "Grã-Bretanha"
+    ],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0641",
+    "category": "História",
+    "question": "Qual povo europeu realizou expedições marítimas em embarcações conhecidas como caravelas durante as grandes navegações",
+    "answer": "Portugueses",
+    "aliases": [
+      "Povo português"
+    ],
+    "word_count": 15,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0642",
+    "category": "História",
+    "question": "Qual civilização antiga desenvolveu a democracia na cidade de Atenas",
+    "answer": "Grega",
+    "aliases": [
+      "Gregos",
+      "Grécia Antiga"
+    ],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0643",
+    "category": "História",
+    "question": "Qual líder militar romano foi assassinado nos idos de março em 44 antes de Cristo",
+    "answer": "Júlio César",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0644",
+    "category": "História",
+    "question": "Qual imperador romano é associado ao incêndio de Roma no ano 64",
+    "answer": "Nero",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0645",
+    "category": "História",
+    "question": "Qual religião foi iniciada por Martinho Lutero com a Reforma no século dezesseis",
+    "answer": "Protestantismo",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0646",
+    "category": "História",
+    "question": "Qual movimento intelectual europeu do século dezoito valorizava a razão e criticava o absolutismo",
+    "answer": "Iluminismo",
+    "aliases": [],
+    "word_count": 14,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0647",
+    "category": "História",
+    "question": "Qual revolucionário cubano liderou a tomada do poder em Cuba em 1959",
+    "answer": "Fidel Castro",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0648",
+    "category": "História",
+    "question": "Qual país foi invadido pela Alemanha em setembro de 1939 no início da Segunda Guerra Mundial",
+    "answer": "Polônia",
+    "aliases": [],
+    "word_count": 16,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0649",
+    "category": "História",
+    "question": "Qual cidade japonesa foi atingida pela primeira bomba atômica usada em guerra",
+    "answer": "Hiroshima",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0650",
+    "category": "História",
+    "question": "Qual país foi governado por Benito Mussolini durante o regime fascista",
+    "answer": "Itália",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0651",
+    "category": "História",
+    "question": "Qual civilização andina construiu Machu Picchu",
+    "answer": "Inca",
+    "aliases": [
+      "Incas"
+    ],
+    "word_count": 6,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0652",
+    "category": "História",
+    "question": "Qual povo da Antiguidade é associado à criação da escrita cuneiforme na Mesopotâmia",
+    "answer": "Sumérios",
+    "aliases": [
+      "Sumério"
+    ],
+    "word_count": 13,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0653",
+    "category": "História",
+    "question": "Qual navegador português comandava a expedição que iniciou a primeira viagem de circum-navegação do planeta",
+    "answer": "Fernão de Magalhães",
+    "aliases": [
+      "Magalhães"
+    ],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0654",
+    "category": "História",
+    "question": "Qual documento inglês de 1215 limitou poderes do rei João Sem Terra",
+    "answer": "Magna Carta",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0655",
+    "category": "História",
+    "question": "Qual rainha britânica deu nome a uma era do século dezenove marcada pela expansão industrial",
+    "answer": "Vitória",
+    "aliases": [
+      "Rainha Vitória"
+    ],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0656",
+    "category": "História",
+    "question": "Qual presidente brasileiro governava durante a implantação do Estado Novo em 1937",
+    "answer": "Getúlio Vargas",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0657",
+    "category": "História",
+    "question": "Qual movimento brasileiro de 1932 exigiu uma nova constituição e teve São Paulo como principal centro",
+    "answer": "Revolução Constitucionalista",
+    "aliases": [
+      "Revolução Constitucionalista de 1932"
+    ],
+    "word_count": 16,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0658",
+    "category": "História",
+    "question": "Qual revolta de escravizados ocorreu em Salvador em 1835 e teve forte participação de muçulmanos",
+    "answer": "Revolta dos Malês",
+    "aliases": [
+      "Malês"
+    ],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 60
+  },
+  {
+    "id": "Q0659",
+    "category": "História",
+    "question": "Qual líder haitiano foi uma figura central na revolução contra a escravidão em São Domingos",
+    "answer": "Toussaint Louverture",
+    "aliases": [
+      "Toussaint L'Ouverture"
+    ],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 60
+  },
+  {
+    "id": "Q0660",
+    "category": "História",
+    "question": "Qual tratado de 1494 dividiu áreas de exploração entre Portugal e Espanha",
+    "answer": "Tratado de Tordesilhas",
+    "aliases": [
+      "Tordesilhas"
+    ],
+    "word_count": 12,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0661",
+    "category": "História",
+    "question": "Qual revolta do período regencial ocorreu no Pará entre 1835 e 1840",
+    "answer": "Cabanagem",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0662",
+    "category": "História",
+    "question": "Qual civilização antiga foi governada pelo rei Hamurábi associado a um famoso código de leis",
+    "answer": "Babilônica",
+    "aliases": [
+      "Babilônia",
+      "Babilônios"
+    ],
+    "word_count": 15,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 75
+  },
+  {
+    "id": "Q0663",
+    "category": "História",
+    "question": "Qual conferência de 1884 e 1885 estabeleceu regras para a ocupação europeia de territórios africanos",
+    "answer": "Conferência de Berlim",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 80
+  },
+  {
+    "id": "Q0731",
+    "category": "Ciência e tecnologia",
+    "question": "Qual órgão do corpo humano é responsável principalmente por permitir a visão",
+    "answer": "Olho",
+    "aliases": [
+      "Olhos"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0732",
+    "category": "Ciência e tecnologia",
+    "question": "Qual planeta do Sistema Solar é famoso por seus anéis facilmente observáveis com telescópios",
+    "answer": "Saturno",
+    "aliases": [],
+    "word_count": 14,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0733",
+    "category": "Ciência e tecnologia",
+    "question": "Qual região central do átomo contém prótons e nêutrons",
+    "answer": "Núcleo atômico",
+    "aliases": [
+      "Núcleo"
+    ],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0734",
+    "category": "Ciência e tecnologia",
+    "question": "Qual estado físico da matéria tem volume definido e assume o formato do recipiente",
+    "answer": "Líquido",
+    "aliases": [],
+    "word_count": 14,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0735",
+    "category": "Ciência e tecnologia",
+    "question": "Qual órgão humano coordena pensamentos memória e movimentos voluntários",
+    "answer": "Cérebro",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0736",
+    "category": "Ciência e tecnologia",
+    "question": "Qual órgão humano realiza a maior parte das trocas gasosas com o ar inspirado",
+    "answer": "Pulmão",
+    "aliases": [
+      "Pulmões"
+    ],
+    "word_count": 14,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0737",
+    "category": "Ciência e tecnologia",
+    "question": "Qual nutriente presente em carnes ovos e feijão participa da construção e reparação dos tecidos",
+    "answer": "Proteína",
+    "aliases": [
+      "Proteínas"
+    ],
+    "word_count": 15,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0738",
+    "category": "Ciência e tecnologia",
+    "question": "Qual vitamina é produzida pela pele humana com a exposição adequada à luz solar",
+    "answer": "Vitamina D",
+    "aliases": [
+      "D"
+    ],
+    "word_count": 14,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0739",
+    "category": "Ciência e tecnologia",
+    "question": "Como se chama a mudança do estado gasoso para o líquido",
+    "answer": "Condensação",
+    "aliases": [
+      "Liquefação"
+    ],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0740",
+    "category": "Ciência e tecnologia",
+    "question": "Qual aparelho converte energia elétrica em movimento de rotação",
+    "answer": "Motor elétrico",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0741",
+    "category": "Ciência e tecnologia",
+    "question": "Qual aparelho doméstico usa ondas eletromagnéticas para aquecer alimentos rapidamente",
+    "answer": "Forno de micro-ondas",
+    "aliases": [
+      "Micro-ondas",
+      "Microondas"
+    ],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0742",
+    "category": "Ciência e tecnologia",
+    "question": "Qual é o nome do material genético representado pela sigla DNA em português",
+    "answer": "Ácido desoxirribonucleico",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0743",
+    "category": "Ciência e tecnologia",
+    "question": "Qual é a unidade de medida de corrente elétrica no Sistema Internacional",
+    "answer": "Ampere",
+    "aliases": [
+      "Ampère",
+      "A"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0744",
+    "category": "Ciência e tecnologia",
+    "question": "Qual é a unidade de medida de energia no Sistema Internacional",
+    "answer": "Joule",
+    "aliases": [
+      "J"
+    ],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0745",
+    "category": "Ciência e tecnologia",
+    "question": "Qual é a unidade de medida de potência no Sistema Internacional",
+    "answer": "Watt",
+    "aliases": [
+      "W"
+    ],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0746",
+    "category": "Ciência e tecnologia",
+    "question": "Qual elemento químico possui símbolo Na",
+    "answer": "Sódio",
+    "aliases": [],
+    "word_count": 6,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0747",
+    "category": "Ciência e tecnologia",
+    "question": "Qual elemento químico possui símbolo Ag",
+    "answer": "Prata",
+    "aliases": [],
+    "word_count": 6,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0748",
+    "category": "Ciência e tecnologia",
+    "question": "Qual é o planeta mais próximo do Sol",
+    "answer": "Mercúrio",
+    "aliases": [],
+    "word_count": 8,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0749",
+    "category": "Ciência e tecnologia",
+    "question": "Qual é o planeta mais distante do Sol entre os oito planetas reconhecidos do Sistema Solar",
+    "answer": "Netuno",
+    "aliases": [],
+    "word_count": 16,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0750",
+    "category": "Ciência e tecnologia",
+    "question": "Qual fenômeno faz uma colher parecer torta quando parcialmente mergulhada em água",
+    "answer": "Refração",
+    "aliases": [
+      "Refração da luz"
+    ],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0751",
+    "category": "Ciência e tecnologia",
+    "question": "Qual é o nome do processo em que uma planta produz matéria orgânica usando luz",
+    "answer": "Fotossíntese",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0752",
+    "category": "Ciência e tecnologia",
+    "question": "Qual estrutura celular é conhecida por produzir grande parte do ATP na respiração aeróbica",
+    "answer": "Mitocôndria",
+    "aliases": [
+      "Mitocôndrias"
+    ],
+    "word_count": 14,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0753",
+    "category": "Ciência e tecnologia",
+    "question": "Qual grupo de animais vertebrados inclui sapos rãs e salamandras",
+    "answer": "Anfíbios",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0754",
+    "category": "Ciência e tecnologia",
+    "question": "Qual é o nome da camada mais externa da Terra sólida",
+    "answer": "Crosta terrestre",
+    "aliases": [
+      "Crosta"
+    ],
+    "word_count": 11,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0755",
+    "category": "Ciência e tecnologia",
+    "question": "Qual protocolo de internet é indicado pela sigla HTTPS e acrescenta segurança à comunicação web",
+    "answer": "Protocolo de Transferência de Hipertexto Seguro",
+    "aliases": [
+      "Hypertext Transfer Protocol Secure",
+      "HTTP seguro"
+    ],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0756",
+    "category": "Ciência e tecnologia",
+    "question": "Qual empresa criou o sistema operacional Windows",
+    "answer": "Microsoft",
+    "aliases": [],
+    "word_count": 7,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0757",
+    "category": "Ciência e tecnologia",
+    "question": "Qual linguagem é usada para definir estilos em páginas web e é conhecida pela sigla CSS",
+    "answer": "Folhas de Estilo em Cascata",
+    "aliases": [
+      "Cascading Style Sheets"
+    ],
+    "word_count": 16,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0758",
+    "category": "Ciência e tecnologia",
+    "question": "Qual estrutura de dados segue a regra de que o primeiro elemento a entrar é o primeiro a sair",
+    "answer": "Fila",
+    "aliases": [
+      "FIFO"
+    ],
+    "word_count": 19,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0759",
+    "category": "Ciência e tecnologia",
+    "question": "Qual número representa a base do sistema de numeração binário",
+    "answer": "Dois",
+    "aliases": [
+      "2"
+    ],
+    "word_count": 10,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0760",
+    "category": "Ciência e tecnologia",
+    "question": "Qual enzima presente na saliva inicia a digestão do amido",
+    "answer": "Amilase salivar",
+    "aliases": [
+      "Ptialina",
+      "Amilase"
+    ],
+    "word_count": 10,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0761",
+    "category": "Ciência e tecnologia",
+    "question": "Qual lei da eletricidade relaciona tensão corrente e resistência em condutores ôhmicos",
+    "answer": "Lei de Ohm",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0762",
+    "category": "Ciência e tecnologia",
+    "question": "Qual cientista propôs o princípio da incerteza na mecânica quântica",
+    "answer": "Werner Heisenberg",
+    "aliases": [
+      "Heisenberg"
+    ],
+    "word_count": 10,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 75
+  },
+  {
+    "id": "Q0763",
+    "category": "Ciência e tecnologia",
+    "question": "Qual organela celular modifica e empacota proteínas para secreção",
+    "answer": "Complexo de Golgi",
+    "aliases": [
+      "Aparelho de Golgi",
+      "Complexo golgiense"
+    ],
+    "word_count": 9,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 80
+  },
+  {
+    "id": "Q0831",
+    "category": "Cultura pop",
+    "question": "Qual personagem dos quadrinhos brasileiros troca o som de R pelo de L",
+    "answer": "Cebolinha",
+    "aliases": [],
+    "word_count": 13,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0832",
+    "category": "Cultura pop",
+    "question": "Qual personagem dos quadrinhos brasileiros carrega um coelho de pelúcia chamado Sansão",
+    "answer": "Mônica",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 15
+  },
+  {
+    "id": "Q0833",
+    "category": "Cultura pop",
+    "question": "Qual personagem dos quadrinhos brasileiros é conhecido por evitar banho",
+    "answer": "Cascão",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0834",
+    "category": "Cultura pop",
+    "question": "Qual personagem dos quadrinhos brasileiros é conhecida por sua fome e pelo vestido amarelo",
+    "answer": "Magali",
+    "aliases": [],
+    "word_count": 14,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0835",
+    "category": "Cultura pop",
+    "question": "Qual personagem da Disney é um camundongo que costuma usar luvas brancas e shorts vermelhos",
+    "answer": "Mickey Mouse",
+    "aliases": [
+      "Mickey"
+    ],
+    "word_count": 15,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0836",
+    "category": "Cultura pop",
+    "question": "Qual personagem da Disney é um pato que usa roupa de marinheiro",
+    "answer": "Pato Donald",
+    "aliases": [
+      "Donald"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 20
+  },
+  {
+    "id": "Q0837",
+    "category": "Cultura pop",
+    "question": "Qual vilão dos quadrinhos do Batman tem aparência de palhaço e cabelos verdes",
+    "answer": "Coringa",
+    "aliases": [
+      "Joker"
+    ],
+    "word_count": 13,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0838",
+    "category": "Cultura pop",
+    "question": "Qual herói da Marvel usa um traje tecnológico construído por Tony Stark",
+    "answer": "Homem de Ferro",
+    "aliases": [
+      "Iron Man"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0839",
+    "category": "Cultura pop",
+    "question": "Qual personagem da Marvel tem garras retráteis e é associado aos X-Men",
+    "answer": "Wolverine",
+    "aliases": [
+      "Logan"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 25
+  },
+  {
+    "id": "Q0840",
+    "category": "Cultura pop",
+    "question": "Qual herói da DC é conhecido por sua supervelocidade e uniforme vermelho com um raio",
+    "answer": "Flash",
+    "aliases": [
+      "The Flash"
+    ],
+    "word_count": 15,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0841",
+    "category": "Cultura pop",
+    "question": "Qual jogo de tabuleiro tem peças chamadas rei rainha bispo e torre",
+    "answer": "Xadrez",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0842",
+    "category": "Cultura pop",
+    "question": "Qual jogo de tabuleiro é conhecido no Brasil por propriedades compráveis hotéis e dinheiro de brinquedo",
+    "answer": "Banco Imobiliário",
+    "aliases": [
+      "Monopoly"
+    ],
+    "word_count": 16,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0843",
+    "category": "Cultura pop",
+    "question": "Qual jogo eletrônico apresenta plantas que defendem uma casa contra mortos-vivos",
+    "answer": "Plants vs. Zombies",
+    "aliases": [
+      "Plants versus Zombies",
+      "Plantas contra Zumbis"
+    ],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 30
+  },
+  {
+    "id": "Q0844",
+    "category": "Cultura pop",
+    "question": "Qual jogo eletrônico de futebol foi lançado pela Konami com o nome Pro Evolution Soccer",
+    "answer": "PES",
+    "aliases": [
+      "Pro Evolution Soccer"
+    ],
+    "word_count": 15,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0845",
+    "category": "Cultura pop",
+    "question": "Qual franquia de jogos permite construir casas e controlar personagens chamados Sims",
+    "answer": "The Sims",
+    "aliases": [
+      "Os Sims"
+    ],
+    "word_count": 12,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0846",
+    "category": "Cultura pop",
+    "question": "Qual plataforma de jogos permite criar experiências virtuais e usa uma moeda chamada Robux",
+    "answer": "Roblox",
+    "aliases": [],
+    "word_count": 14,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0847",
+    "category": "Cultura pop",
+    "question": "Qual jogo de blocos que caem foi criado por Alexey Pajitnov",
+    "answer": "Tetris",
+    "aliases": [],
+    "word_count": 11,
+    "difficulty": "facil",
+    "review_status": "provisional",
+    "complexity_score": 35
+  },
+  {
+    "id": "Q0848",
+    "category": "Cultura pop",
+    "question": "Qual protagonista dos jogos Halo é um supersoldado conhecido pelo número 117",
+    "answer": "Master Chief",
+    "aliases": [
+      "John-117",
+      "John 117"
+    ],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0849",
+    "category": "Cultura pop",
+    "question": "Qual anime acompanha um jovem ninja da Vila da Folha que abriga a Raposa de Nove Caudas",
+    "answer": "Naruto",
+    "aliases": [],
+    "word_count": 17,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0850",
+    "category": "Cultura pop",
+    "question": "Qual anime tem Goku como protagonista e apresenta as esferas do dragão",
+    "answer": "Dragon Ball",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0851",
+    "category": "Cultura pop",
+    "question": "Qual série de anime acompanha os piratas do Chapéu de Palha liderados por Monkey D. Luffy",
+    "answer": "One Piece",
+    "aliases": [],
+    "word_count": 16,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0852",
+    "category": "Cultura pop",
+    "question": "Qual anime acompanha os irmãos Edward e Alphonse Elric",
+    "answer": "Fullmetal Alchemist",
+    "aliases": [],
+    "word_count": 9,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 40
+  },
+  {
+    "id": "Q0853",
+    "category": "Cultura pop",
+    "question": "Qual personagem dos jogos Street Fighter é um lutador japonês que usa faixa vermelha na cabeça",
+    "answer": "Ryu",
+    "aliases": [],
+    "word_count": 16,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0854",
+    "category": "Cultura pop",
+    "question": "Qual personagem dos jogos Street Fighter é conhecida pelo golpe de chutes rápidos e por seu traje azul",
+    "answer": "Chun-Li",
+    "aliases": [
+      "Chun Li"
+    ],
+    "word_count": 18,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0855",
+    "category": "Cultura pop",
+    "question": "Qual franquia de jogos de terror apresenta a corporação Umbrella",
+    "answer": "Resident Evil",
+    "aliases": [],
+    "word_count": 10,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0856",
+    "category": "Cultura pop",
+    "question": "Qual jogo da Valve opõe equipes chamadas terroristas e contraterroristas",
+    "answer": "Counter-Strike",
+    "aliases": [
+      "Counter Strike",
+      "CS"
+    ],
+    "word_count": 10,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 45
+  },
+  {
+    "id": "Q0857",
+    "category": "Cultura pop",
+    "question": "Qual jogo da Riot Games apresenta campeões em batalhas na arena Summoner's Rift",
+    "answer": "League of Legends",
+    "aliases": [
+      "LoL"
+    ],
+    "word_count": 13,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0858",
+    "category": "Cultura pop",
+    "question": "Qual heroína dos jogos da Nintendo usa uma armadura e protagoniza a série Metroid",
+    "answer": "Samus Aran",
+    "aliases": [
+      "Samus"
+    ],
+    "word_count": 14,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 50
+  },
+  {
+    "id": "Q0859",
+    "category": "Cultura pop",
+    "question": "Qual personagem dos jogos de luta Mortal Kombat é conhecido pelo grito Get over here",
+    "answer": "Scorpion",
+    "aliases": [],
+    "word_count": 15,
+    "difficulty": "medio",
+    "review_status": "provisional",
+    "complexity_score": 55
+  },
+  {
+    "id": "Q0860",
+    "category": "Cultura pop",
+    "question": "Qual estúdio japonês criou a série de jogos Dark Souls",
+    "answer": "FromSoftware",
+    "aliases": [
+      "From Software"
+    ],
+    "word_count": 10,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0861",
+    "category": "Cultura pop",
+    "question": "Qual cidade fictícia submersa é o cenário principal do primeiro jogo BioShock",
+    "answer": "Rapture",
+    "aliases": [],
+    "word_count": 12,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 70
+  },
+  {
+    "id": "Q0862",
+    "category": "Cultura pop",
+    "question": "Qual protagonista de The Witcher é um caçador de monstros conhecido como Lobo Branco",
+    "answer": "Geralt de Rívia",
+    "aliases": [
+      "Geralt",
+      "Geralt of Rivia"
+    ],
+    "word_count": 14,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 75
+  },
+  {
+    "id": "Q0863",
+    "category": "Cultura pop",
+    "question": "Qual protagonista de Horizon Zero Dawn foi criada por Rost e usa um dispositivo chamado Foco",
+    "answer": "Aloy",
+    "aliases": [],
+    "word_count": 16,
+    "difficulty": "dificil",
+    "review_status": "provisional",
+    "complexity_score": 80
+  }
+]

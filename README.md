@@ -18,13 +18,13 @@ No Windows: `Copy-Item .env.example .env.local`. Abra [localhost](http://127.0.0
 ## Configurar Supabase
 
 1. Crie um projeto próprio ou instale Docker + Supabase CLI e execute `supabase start` para desenvolvimento local. Este ambiente não tinha Docker/CLI/credenciais.
-2. Aplique `supabase/migrations/202611130001_game.sql` no SQL Editor ou `supabase db push` após `supabase link --project-ref SEU_REF`.
+2. Aplique todas as migrações de `supabase/migrations/` em ordem no SQL Editor ou execute `supabase db push` após `supabase link --project-ref SEU_REF`.
 3. Carregue `supabase/seed.sql` pelo SQL Editor ou execute `npm run seed` com `SUPABASE_DB_URL` no ambiente e `psql` instalado. `supabase db reset` aplica migration e seed em um projeto local.
 4. Habilite Anonymous Sign-ins e Email/Password. Configure confirmação de e-mail, Site URL e Redirect URLs para a origem do app. Use senha mínima de 12 caracteres. Configure limites do Auth e CAPTCHA antes de acesso público irrestrito.
 5. Habilite Realtime privado; desabilite canais públicos nas configurações do Realtime. As policies de `realtime.messages` estão na migration. Não publique tabelas privadas nem exponha o schema `private` na Data API.
 6. Configure `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. O app não usa service role.
 
-O seed contém **240 questões, 30 por categoria, todas `provisional`**. Por padrão, não entram em partidas. Somente para ambiente PRIVADO de desenvolvimento, execute como administrador:
+O seed contém **504 questões, 63 por categoria, todas `provisional`**, com dificuldade e nota de complexidade. Por padrão, não entram em partidas. Somente para ambiente PRIVADO de desenvolvimento, execute como administrador:
 
 ```sql
 update private.settings set allow_provisional = true where singleton;
@@ -34,7 +34,9 @@ Antes do lançamento, volte para `false` e marque somente perguntas efetivamente
 
 ## Jogar
 
-Crie sala com apelido e compartilhe convite/código. O host escolhe organizador manualmente ou por sorteio. Convide ao menos um jogador. Prepare categorias, rodadas e tamanho, com seleção automática, manual ou mista. O catálogo fecha durante a partida.
+Crie sala com apelido e compartilhe convite/código. O host escolhe organizador manualmente ou por sorteio. Convide ao menos um jogador. Prepare categorias, de 1 a 8 rodadas e tamanho, com seleção automática proporcional à dificuldade (50% fáceis, 35% médias e 15% difíceis, conforme estoque). Seleção manual de perguntas e modo misto estão temporariamente desativados, inclusive na API. O catálogo fecha durante a partida.
+
+Na preparação, 2 minutos sem heartbeat expiram a participação. A limpeza ocorre nos heartbeats de 15 segundos e nas consultas, entradas, trocas de organizador e início da partida. A pessoa deve entrar novamente pelo convite/código. Se o organizador expirar, o jogador elegível mais antigo assume; se todos expirarem, a próxima entrada de jogador recupera a organização. Partidas ativas preservam seus participantes e regras de pausa. Desempates continuam usando a reserva além das rodadas programadas.
 
 O host seleciona posição, confirma revelação, registra o palpite oral e confirma acerto/erro. A comparação é sugestão. Pode registrar desistência, pausar, retomar, desfazer antes do palpite ou pular desconectado após 45 s. Avanço e encerramento são manuais. Empates usam perguntas inéditas extras. Nova partida zera o placar e permite trocar o host.
 

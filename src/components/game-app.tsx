@@ -1,5 +1,15 @@
 "use client";
 import Link from "next/link";
+import { EntryScreen, EntryForm, type EntryMode } from "./game/entry-screen";
+import { PublicPreparation } from "./game/preparation-preview";
+import { readPreparation, type PreparationPreview } from "@/lib/preparation";
+import { Board, Scoreboard } from "./game/board";
+import { Icon } from "./game/game-icon";
+import { categoryMeta } from "./game/category-metadata";
+import { playerColor } from "./game/player-colors";
+import { HostRoulette } from "./game/host-roulette";
+import { CompactScoreStrip } from "./game/score-strip";
+import { RoundResultOverlay, VictoryStage } from "./game/results";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { configured, identity, rpc, supabase } from "@/lib/supabase";
@@ -19,13 +29,6 @@ type Catalog = {
   own: boolean;
 };
 
-type QuestionPreview = Secret & {
-  id: string;
-  category: string;
-  word_count: number;
-  own: boolean;
-};
-
 const categories = [
   "Conhecimentos gerais",
   "Filmes e séries",
@@ -35,28 +38,6 @@ const categories = [
   "História",
   "Ciência e tecnologia",
   "Cultura pop",
-];
-
-const categoryMeta: Record<string, { hint: string; icon: string }> = {
-  "Conhecimentos gerais": { hint: "De tudo um pouco", icon: "bulb" },
-  "Filmes e séries": { hint: "Telonas e maratonas", icon: "clapper" },
-  Música: { hint: "Ritmos, bandas e hits", icon: "music" },
-  Esportes: { hint: "Recordes e campeões", icon: "ball" },
-  Geografia: { hint: "Mapas e lugares", icon: "globe" },
-  História: { hint: "Fatias do tempo", icon: "column" },
-  "Ciência e tecnologia": { hint: "Descobertas e futuro", icon: "atom" },
-  "Cultura pop": { hint: "Games, heróis e redes", icon: "gamepad" },
-};
-
-const wheelPalette = [
-  "#FFBE3B",
-  "#27A5F9",
-  "#1BBC91",
-  "#FFD875",
-  "#4D94FF",
-  "#FF8B6A",
-  "#68D6B9",
-  "#FFA630",
 ];
 
 type SoundKind = "reveal" | "error" | "correct" | "roulette" | "victory";
@@ -132,155 +113,6 @@ function playEventSound(kind: SoundKind, enabled: boolean, volume: number) {
   }
 }
 
-function Icon({
-  name,
-}: {
-  name:
-    | "star"
-    | "trophy"
-    | "arrow"
-    | "crown"
-    | "wheel"
-    | "fullscreen"
-    | "bulb"
-    | "clapper"
-    | "music"
-    | "ball"
-    | "globe"
-    | "column"
-    | "atom"
-    | "gamepad";
-}) {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      {name === "star" ? (
-        <path
-          fill="#FFBE3B"
-          stroke="#102E53"
-          d="m12 2 3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1Z"
-        />
-      ) : name === "trophy" ? (
-        <>
-          <path
-            fill="#FFBE3B"
-            stroke="#102E53"
-            d="M7 3h10v7a5 5 0 0 1-10 0V3Z"
-          />
-          <path
-            stroke="#102E53"
-            d="M12 15v6m-4 0h8M7 5H3v3a4 4 0 0 0 4 4m10-7h4v3a4 4 0 0 1-4 4"
-          />
-        </>
-      ) : name === "crown" ? (
-        <path
-          fill="#FFBE3B"
-          stroke="#102E53"
-          d="m2 18 2-11 5 4 3-6 3 6 5-4 2 11H2Z"
-        />
-      ) : name === "wheel" ? (
-        <>
-          <circle cx="12" cy="12" r="9" fill="#FFBE3B" stroke="#102E53" />
-          <circle cx="12" cy="12" r="2.5" fill="#fff" stroke="#102E53" />
-          <path stroke="#102E53" d="M12 3v6.5M12 14.5V21M3 12h6.5M14.5 12H21" />
-        </>
-      ) : name === "fullscreen" ? (
-        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
-      ) : name === "bulb" ? (
-        <path
-          fill="#FFBE3B"
-          stroke="#102E53"
-          d="M9 18h6m-5 3h4M12 3a6 6 0 0 0-4 10.5c.7.6 1 1.5 1 2.5h6c0-1 .3-1.9 1-2.5A6 6 0 0 0 12 3Z"
-        />
-      ) : name === "clapper" ? (
-        <>
-          <rect
-            x="3"
-            y="8"
-            width="18"
-            height="13"
-            rx="2"
-            fill="#FFBE3B"
-            stroke="#102E53"
-          />
-          <path stroke="#102E53" d="M3 8 6 3h13l2 5M8 3l2 5m4-5 2 5" />
-        </>
-      ) : name === "music" ? (
-        <>
-          <path stroke="#102E53" d="M9 18V5l12-2v13" />
-          <circle cx="6" cy="18" r="3" fill="#FFBE3B" stroke="#102E53" />
-          <circle cx="18" cy="16" r="3" fill="#FFBE3B" stroke="#102E53" />
-        </>
-      ) : name === "ball" ? (
-        <>
-          <circle cx="12" cy="12" r="9" fill="#FFBE3B" stroke="#102E53" />
-          <path
-            stroke="#102E53"
-            d="M4.5 9.5c5 0 10 0 15 0M4.5 14.5h15M12 3v18"
-          />
-        </>
-      ) : name === "globe" ? (
-        <>
-          <circle cx="12" cy="12" r="9" fill="#68D6B9" stroke="#102E53" />
-          <path
-            stroke="#102E53"
-            d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"
-          />
-        </>
-      ) : name === "column" ? (
-        <>
-          <path fill="#FFBE3B" stroke="#102E53" d="M4 6h16v3H4zM4 18h16v3H4z" />
-          <path stroke="#102E53" d="M7 9v9m5-9v9m5-9v9" />
-        </>
-      ) : name === "atom" ? (
-        <>
-          <circle cx="12" cy="12" r="2.5" fill="#FFBE3B" stroke="#102E53" />
-          <ellipse
-            cx="12"
-            cy="12"
-            rx="9"
-            ry="4"
-            transform="rotate(30 12 12)"
-            stroke="#102E53"
-          />
-          <ellipse
-            cx="12"
-            cy="12"
-            rx="9"
-            ry="4"
-            transform="rotate(-30 12 12)"
-            stroke="#102E53"
-          />
-        </>
-      ) : name === "gamepad" ? (
-        <>
-          <rect
-            x="2"
-            y="6"
-            width="20"
-            height="12"
-            rx="5"
-            fill="#FFBE3B"
-            stroke="#102E53"
-          />
-          <path stroke="#102E53" d="M6 12h4m-2-2v4m7-1h.01M18 11h.01" />
-        </>
-      ) : (
-        <path d="m9 5 7 7-7 7" />
-      )}
-    </svg>
-  );
-}
-
 export default function GameApp({ roomId }: { roomId?: string }) {
   const router = useRouter();
   const [now, setNow] = useState(0);
@@ -295,10 +127,25 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const [secret, setSecret] = useState<Secret | null>(null);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  const noticeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const showNotice = useCallback((message: string) => {
+    if (noticeTimer.current) clearTimeout(noticeTimer.current);
+    setNotice(message);
+    noticeTimer.current = setTimeout(() => setNotice(""), 3500);
+  }, []);
+  useEffect(
+    () => () => {
+      if (noticeTimer.current) clearTimeout(noticeTimer.current);
+    },
+    [],
+  );
   const [liveAnnouncement, setLiveAnnouncement] = useState("");
   const [busy, setBusy] = useState(false);
   const [nickname, setNickname] = useState("");
   const [code, setCode] = useState("");
+  const [entryMode, setEntryMode] = useState<EntryMode>("create");
+  const [remotePreparation, setRemotePreparation] =
+    useState<PreparationPreview | null>(null);
   const [auth, setAuth] = useState(false);
   const [recoveryMode, setRecoveryMode] = useState(false);
   const [sound, setSound] = useState(false);
@@ -311,13 +158,6 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const [rounds, setRounds] = useState(3);
   const [exact, setExact] = useState("");
   const [cats, setCats] = useState<string[]>([]);
-  const [mode, setMode] = useState("automatic");
-  const [chosen, setChosen] = useState<string[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [previewMap, setPreviewMap] = useState<Record<string, QuestionPreview>>(
-    {},
-  );
   const [guess, setGuess] = useState("");
   const [custom, setCustom] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
@@ -327,6 +167,8 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const [scoresExpanded, setScoresExpanded] = useState(false);
   const [wheelAngle, setWheelAngle] = useState(0);
   const [wheelSpinning, setWheelSpinning] = useState(false);
+  const [wheelCountdown, setWheelCountdown] = useState<number | null>(null);
+  const [wheelDuration, setWheelDuration] = useState(2100);
   const [wheelBanner, setWheelBanner] = useState("");
   const [wheelMembers, setWheelMembers] = useState<Member[] | null>(null);
   const lastRouletteId = useRef<string | null>(null);
@@ -335,11 +177,46 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const prevGameRef = useRef<Game | null>(null);
   const refreshSequence = useRef(0);
   const locked = useRef(false);
+  const presenceChannel = useRef<ReturnType<
+    ReturnType<typeof supabase>["channel"]
+  > | null>(null);
+  const draftRef = useRef<PreparationPreview | null>(null);
+  const roomCodeRef = useRef("");
+  const roomHostRef = useRef<string | undefined>(undefined);
+
+  useEffect(() => {
+    roomHostRef.current = snapshot?.host_id;
+    const hostId = snapshot?.host_id;
+    const presence = presenceChannel.current?.presenceState<{
+      preparation?: unknown;
+    }>();
+    setRemotePreparation(
+      hostId
+        ? (presence?.[hostId]
+            ?.map((meta) => readPreparation(meta.preparation, hostId))
+            .find(Boolean) ?? null)
+        : null,
+    );
+  }, [snapshot?.host_id]);
 
   const refresh = useCallback(async () => {
     if (!roomId) return;
     const sequence = ++refreshSequence.current;
-    const s = await rpc<Snapshot>("public_room_snapshot", { room: roomId });
+    let s: Snapshot;
+    try {
+      s = await rpc<Snapshot>("public_room_snapshot", { room: roomId });
+    } catch (e) {
+      if (humanError(e).startsWith("Sua presença na sala expirou")) {
+        const inviteCode = roomCodeRef.current;
+        router.replace(
+          "/jogar?expirada=1" +
+            (inviteCode ? "&codigo=" + encodeURIComponent(inviteCode) : ""),
+        );
+        return;
+      }
+      throw e;
+    }
+    roomCodeRef.current = s.code;
     if (sequence !== refreshSequence.current) return;
     setNow(Date.now());
     setSnapshot((prev) => {
@@ -369,7 +246,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
       });
       if (sequence === refreshSequence.current) setSecret(data);
     } else setSecret(null);
-  }, [roomId]);
+  }, [roomId, router]);
 
   async function act(fn: () => Promise<unknown>) {
     if (locked.current) return;
@@ -409,6 +286,12 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     setCode(query.get("codigo") ?? "");
+    if (query.has("codigo") || query.has("telao") || query.has("expirada"))
+      setEntryMode("join");
+    if (query.has("expirada"))
+      setNotice(
+        "Sua presença na sala expirou após 2 minutos sem conexão. Entre novamente pelo link ou código.",
+      );
     setScreen(query.has("telao"));
     setNow(Date.now());
     if (query.has("telao")) setNickname("Telão");
@@ -464,16 +347,36 @@ export default function GameApp({ roomId }: { roomId?: string }) {
           })
           .on("broadcast", { event: "state_changed" }, () => void load())
           .on("presence", { event: "sync" }, () => {
-            if (channel) setOnline(Object.keys(channel.presenceState()));
+            if (!channel) return;
+            const presence = channel.presenceState<{ preparation?: unknown }>();
+            setOnline(Object.keys(presence));
+            const hostId = roomHostRef.current;
+            if (hostId) {
+              const preview =
+                presence[hostId]
+                  ?.map((meta) => readPreparation(meta.preparation, hostId))
+                  .find(Boolean) ?? null;
+              setRemotePreparation((current) =>
+                JSON.stringify(current) === JSON.stringify(preview)
+                  ? current
+                  : preview,
+              );
+            }
           })
           .subscribe((status) => {
             if (!alive) return;
             setChannelHealthy(status === "SUBSCRIBED");
             if (status === "SUBSCRIBED") {
-              void channel?.track({ user_id: uid });
+              void channel?.track({
+                user_id: uid,
+                ...(draftRef.current?.hostId === uid
+                  ? { preparation: draftRef.current }
+                  : {}),
+              });
               void load();
             }
           });
+        presenceChannel.current = channel;
       });
     const heartbeat = () => {
       void rpc("heartbeat", { room: roomId })
@@ -482,8 +385,11 @@ export default function GameApp({ roomId }: { roomId?: string }) {
           setRestHealthy(true);
           void load();
         })
-        .catch(() => {
-          if (alive) setRestHealthy(false);
+        .catch((e) => {
+          if (!alive) return;
+          setRestHealthy(false);
+          if (humanError(e).startsWith("Sua presença na sala expirou"))
+            void load();
         });
     };
     heartbeat();
@@ -502,15 +408,27 @@ export default function GameApp({ roomId }: { roomId?: string }) {
       window.removeEventListener("online", focus);
       window.removeEventListener("offline", offline);
       window.removeEventListener("focus", focus);
+      if (presenceChannel.current === channel) presenceChannel.current = null;
       if (channel) void supabase().removeChannel(channel);
     };
   }, [roomId, uid, refresh]);
 
-  const host = Boolean(snapshot && snapshot.host_id === uid && !screen);
+  const host = Boolean(
+    snapshot &&
+    snapshot.host_id === uid &&
+    !screen &&
+    wheelCountdown === null &&
+    !wheelSpinning,
+  );
   const game = snapshot?.game;
   const active = game?.status === "active";
 
   const connected = channelHealthy && restHealthy;
+  const roomPlayers = snapshot?.members.filter((m) => !m.display_only) ?? [];
+  const shownHostId =
+    wheelCountdown !== null || wheelSpinning
+      ? (snapshot?.roulette?.previous_host_id ?? snapshot?.host_id)
+      : snapshot?.host_id;
 
   // The event ID is consumed once. Its timer survives presence and snapshot refreshes.
   useEffect(() => {
@@ -522,15 +440,17 @@ export default function GameApp({ roomId }: { roomId?: string }) {
       if (rouletteTimer.current) clearTimeout(rouletteTimer.current);
       rouletteTimer.current = null;
       setWheelSpinning(false);
-      const recent = Date.now() - Date.parse(r.spun_at) < 3500;
-      if (firstObservation && !recent) {
+      const startedAt = Date.parse(r.spun_at);
+      const elapsed = Date.now() - startedAt;
+      setWheelCountdown(null);
+      if (firstObservation && elapsed >= 5100) {
         setWheelMembers(null);
         setWheelBanner(`${r.winner_nickname} organiza a sala.`);
         return;
       }
-      const eligible = snapshot.members.filter(
-        (m) => !m.spectator && !m.display_only,
-      );
+      const eligible =
+        r.members ??
+        snapshot.members.filter((m) => !m.spectator && !m.display_only);
       const idx = Math.max(
         0,
         eligible.findIndex((m) => m.user_id === r.winner_id),
@@ -538,33 +458,52 @@ export default function GameApp({ roomId }: { roomId?: string }) {
       const count = Math.max(1, eligible.length);
       if (r.mode === "roulette") {
         setWheelMembers(eligible);
-        const reduced = window.matchMedia?.(
+        setWheelBanner("");
+        const reduced = window.matchMedia(
           "(prefers-reduced-motion: reduce)",
         ).matches;
-        if (!reduced) {
-          setWheelSpinning(true);
-          playEventSound("roulette", sound, volume);
-        }
-        const sliceDeg = 360 / count;
-        const targetDeg = (360 - (((idx + 0.5) * sliceDeg) % 360)) % 360;
-        setWheelAngle((prev) => {
-          const currentMod = ((prev % 360) + 360) % 360;
-          const diff = (targetDeg - currentMod + 360) % 360;
-          return prev + 1440 + diff;
-        });
-        const finish = () => {
-          rouletteTimer.current = null;
-          setWheelSpinning(false);
-          setWheelMembers(null);
-          setWheelBanner(
-            `${r.winner_nickname} foi sorteado(a) na roleta para organizar!`,
-          );
-          setLiveAnnouncement(
-            `Roleta concluída: ${r.winner_nickname} vai organizar a partida.`,
-          );
+        let spinStarted = false;
+        const tick = () => {
+          const remaining = startedAt + 3000 - Date.now();
+          if (remaining > 0) {
+            setWheelCountdown(Math.min(3, Math.ceil(remaining / 1000)));
+          } else if (Date.now() < startedAt + 5100) {
+            setWheelCountdown(null);
+            if (!spinStarted) {
+              spinStarted = true;
+              setWheelDuration(
+                reduced ? 0 : Math.max(0, startedAt + 5100 - Date.now()),
+              );
+              setWheelSpinning(true);
+              playEventSound("roulette", sound, volume);
+              const target =
+                (360 - ((((idx + 0.5) * 360) / count) % 360)) % 360;
+              setWheelAngle(
+                (prev) =>
+                  prev +
+                  1440 +
+                  ((target - (((prev % 360) + 360) % 360) + 360) % 360),
+              );
+            }
+          } else {
+            rouletteTimer.current = null;
+            setWheelCountdown(null);
+            setWheelSpinning(false);
+            // Keep the event roster stable until the next draw.
+            const winnerLabel =
+              r.winner_id === uid ? "Você" : r.winner_nickname;
+            const resultMessage =
+              winnerLabel + " foi sorteado(a) na roleta para organizar!";
+            setWheelBanner(resultMessage);
+            showNotice(resultMessage);
+            setLiveAnnouncement(
+              "Roleta concluída: " + winnerLabel + " vai organizar a partida.",
+            );
+            return;
+          }
+          rouletteTimer.current = setTimeout(tick, 50);
         };
-        if (reduced) finish();
-        else rouletteTimer.current = setTimeout(finish, 2100);
+        tick();
       } else {
         setWheelMembers(null);
         setWheelBanner(`${r.winner_nickname} assumiu a organização da sala.`);
@@ -573,7 +512,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
         );
       }
     }
-  }, [snapshot?.roulette, snapshot?.members, sound, volume]);
+  }, [snapshot?.roulette, snapshot?.members, sound, volume, uid, showNotice]);
 
   useEffect(
     () => () => {
@@ -689,18 +628,15 @@ export default function GameApp({ roomId }: { roomId?: string }) {
     [catalog],
   );
 
-  const filtered = useMemo(() => {
-    const qNorm = searchQuery.trim().toLocaleLowerCase("pt-BR");
-    return catalog.filter(
-      (q) =>
-        (!exact || q.word_count === Number(exact)) &&
-        cats.includes(q.category) &&
-        (!qNorm ||
-          q.question.toLocaleLowerCase("pt-BR").includes(qNorm) ||
-          q.category.toLocaleLowerCase("pt-BR").includes(qNorm) ||
-          previewMap[q.id]?.answer?.toLocaleLowerCase("pt-BR").includes(qNorm)),
-    );
-  }, [catalog, exact, cats, searchQuery, previewMap]);
+  const filtered = useMemo(
+    () =>
+      catalog.filter(
+        (q) =>
+          (!exact || q.word_count === Number(exact)) &&
+          cats.includes(q.category),
+      ),
+    [catalog, exact, cats],
+  );
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, { total: number; w22: number }> = {};
@@ -713,14 +649,6 @@ export default function GameApp({ roomId }: { roomId?: string }) {
     return counts;
   }, [catalog, allCats]);
 
-  const pageSize = 12;
-  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-  const currentPage = Math.min(page, totalPages);
-  const pagedQuestions = filtered.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize,
-  );
-
   const eligibleMembers = useMemo(
     () =>
       snapshot?.members.filter((m) => !m.spectator && !m.display_only) ?? [],
@@ -728,6 +656,35 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   );
 
   const reserveCount = Math.max(0, Math.min(5, filtered.length - rounds));
+
+  // Presence carries only an ephemeral public preview. RPCs remain authoritative.
+  const publicDraft = useMemo<PreparationPreview | null>(
+    () =>
+      host && !active
+        ? {
+            hostId: uid,
+            rounds,
+            words: exact ? Number(exact) : null,
+            categories: cats,
+            categoryOptions: allCats,
+            mode: "automatic",
+            selectedCount: 0,
+            availableCount: filtered.length,
+          }
+        : null,
+    [host, active, uid, rounds, exact, cats, allCats, filtered.length],
+  );
+  useEffect(() => {
+    draftRef.current = publicDraft;
+    if (!publicDraft || !channelHealthy) return;
+    const timer = window.setTimeout(() => {
+      void presenceChannel.current?.track({
+        user_id: uid,
+        preparation: publicDraft,
+      });
+    }, 180);
+    return () => window.clearTimeout(timer);
+  }, [publicDraft, channelHealthy, uid]);
 
   function toggleFullscreen() {
     if (typeof document === "undefined") return;
@@ -741,6 +698,18 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   return (
     <div
       className={screen ? "app television" : "app"}
+      data-experience={
+        !roomId
+          ? "entry"
+          : active
+            ? screen
+              ? "television"
+              : host
+                ? "host"
+                : "player"
+            : "lobby"
+      }
+      data-phase={game?.phase}
       data-ready={uid && identityStatus === "ready" ? "true" : "false"}
     >
       <div className="sr-only" aria-live="polite" aria-atomic="true">
@@ -757,32 +726,26 @@ export default function GameApp({ roomId }: { roomId?: string }) {
           </Link>
           <span className="tagline">Quanto menos pistas, mais pontos!</span>
           <div className="top-actions">
-            {snapshot && (
-              <span className="connection">
-                <span
-                  className={`live-dot ${connected ? "online" : "offline"}`}
-                  aria-hidden="true"
-                />
-                {connected
-                  ? "Ao vivo"
-                  : channelHealthy
-                    ? "Reconectando dados…"
-                    : "Reconectando…"}
+            {snapshot && !connected && (
+              <span className="connection" role="status">
+                Reconectando…
               </span>
             )}
             <button
-              className="quiet"
+              className="quiet sound-toggle"
               type="button"
+              aria-label={sound ? "Desativar som" : "Ativar som"}
+              aria-pressed={sound}
+              title={sound ? "Desativar som" : "Ativar som"}
               onClick={() => {
                 setSound(!sound);
                 sessionStorage.setItem("sound", String(!sound));
               }}
             >
-              {sound ? "Som ligado" : "Som desligado"}
+              <Icon name={sound ? "speaker" : "speaker-off"} />
             </button>
             {sound && (
               <label className="volume">
-                Volume
                 <input
                   aria-label="Volume"
                   type="range"
@@ -818,7 +781,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
             <strong>
               Arriscaí<span>!</span>
             </strong>
-            <span className="tv-chip">PALCO AO VIVO · 16:9</span>
+            <span className="tv-chip">PALCO · 16:9</span>
           </div>
           {snapshot && (
             <div className="tv-room-badge">
@@ -1054,145 +1017,41 @@ export default function GameApp({ roomId }: { roomId?: string }) {
 
       {!roomId ? (
         <main>
-          <section className="hero">
-            <div className="hero-copy">
-              <span className="hero-kicker">
-                ✦ GAME SHOW SOCIAL · ATÉ 22 PALAVRAS
-              </span>
-              <h1>
-                Uma palavra.
-                <br />
-                Um palpite.
-                <br />
-                Vale arriscar.
-              </h1>
-              <p>
-                Reúna a galera. Revele as pistas.
-                <br />
-                Quem acerta antes, leva mais pontos.
+          <EntryScreen>
+            <EntryForm
+              mode={entryMode}
+              onModeChange={setEntryMode}
+              nickname={nickname}
+              onNicknameChange={setNickname}
+              code={code}
+              onCodeChange={setCode}
+              nicknameRef={nicknameInput}
+              ready={configured() && identityStatus === "ready"}
+              busy={busy}
+              screen={screen}
+              onEnter={(create) => void enter(create, screen)}
+            />
+            {configured() && identityStatus === "loading" && (
+              <p role="status" className="setup-note">
+                Conectando sua identidade para entrar na sala…
               </p>
-              <form
-                className="entry"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  void enter(false, screen);
-                }}
+            )}
+            {configured() && identityStatus === "error" && (
+              <button
+                className="secondary"
+                type="button"
+                onClick={() => void establishIdentity()}
               >
-                <label>
-                  Como a galera te chama?
-                  <input
-                    placeholder="Seu apelido"
-                    ref={nicknameInput}
-                    value={nickname}
-                    maxLength={24}
-                    required
-                    onChange={(e) => setNickname(e.target.value)}
-                  />
-                </label>
-                <button
-                  className="primary"
-                  disabled={
-                    screen ||
-                    busy ||
-                    !nickname ||
-                    !configured() ||
-                    identityStatus !== "ready"
-                  }
-                  type="button"
-                  onClick={() => void enter(true)}
-                >
-                  Criar uma sala <Icon name="arrow" />
-                </button>
-                <div className="join">
-                  <label>
-                    Código da sala
-                    <input
-                      placeholder="Ex.: A1B2C3D4"
-                      value={code}
-                      minLength={8}
-                      maxLength={8}
-                      onChange={(e) => setCode(e.target.value.toUpperCase())}
-                    />
-                  </label>
-                  <button
-                    className="secondary"
-                    disabled={
-                      busy ||
-                      !nickname ||
-                      code.length !== 8 ||
-                      !configured() ||
-                      identityStatus !== "ready"
-                    }
-                  >
-                    Entrar
-                  </button>
-                </div>
-              </form>
-              {configured() && identityStatus === "loading" && (
-                <p role="status" className="setup-note">
-                  Conectando sua identidade para entrar na sala…
-                </p>
-              )}
-              {configured() && identityStatus === "error" && (
-                <button
-                  className="secondary"
-                  type="button"
-                  onClick={() => void establishIdentity()}
-                >
-                  Tentar conectar novamente
-                </button>
-              )}
-              {!configured() && (
-                <p className="setup-note">
-                  O jogo está aguardando a conexão com o Supabase. As instruções
-                  estão no README do projeto.
-                </p>
-              )}
-            </div>
-            <div className="hero-art" aria-hidden="true">
-              <div className="orbit" />
-              <span className="floating-star">
-                <Icon name="star" />
-              </span>
-              <div className="floating-crown">
-                <Icon name="crown" />
-              </div>
-              <div className="question-block">?</div>
-              <div className="point-token">
-                22<span>pontos</span>
-              </div>
-              <div className="mini-tile">6</div>
-              <div className="hero-live-card">
-                <span className="live-pill">PISTA #6 ABERTA</span>
-                <strong>“...galo sobre uma bola...”</strong>
-                <small>Acertou na 1ª pista: +22 pts!</small>
-              </div>
-              <span className="art-caption">
-                O próximo palpite pode ser o seu.
-              </span>
-            </div>
-          </section>
-          <section className="how">
-            <h2>
-              Todo mundo sabe jogar.
-              <br />
-              Ninguém sabe a resposta.
-            </h2>
-            <ol>
-              <li>
-                <strong>Escolha uma posição</strong>
-                <span>O organizador confirma e revela a palavra.</span>
-              </li>
-              <li>
-                <strong>Junte as pistas</strong>
-                <span>Arrisque uma resposta ou passe a vez.</span>
-              </li>
-              <li>
-                <strong>Some os pontos</strong>
-                <span>Menos palavras abertas, mais pontos para você.</span>
-              </li>
-            </ol>
-          </section>
+                Tentar conectar novamente
+              </button>
+            )}
+            {!configured() && (
+              <p className="setup-note">
+                O jogo está aguardando a conexão com o Supabase. As instruções
+                estão no README do projeto.
+              </p>
+            )}
+          </EntryScreen>
         </main>
       ) : !snapshot ? (
         <main className="loading">
@@ -1229,7 +1088,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                       await navigator.clipboard.writeText(
                         `${location.origin}/?codigo=${snapshot.code}`,
                       );
-                      setNotice("Link de convite copiado!");
+                      showNotice("Link de convite copiado!");
                     })
                   }
                 >
@@ -1241,7 +1100,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                   onClick={() =>
                     void act(async () => {
                       await navigator.clipboard.writeText(snapshot.code);
-                      setNotice(`Código ${snapshot.code} copiado!`);
+                      showNotice(`Código ${snapshot.code} copiado!`);
                     })
                   }
                 >
@@ -1453,8 +1312,9 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                           <input
                             aria-label="Ajustar rodadas"
                             type="number"
-                            min={game.round + 1}
-                            max={game.prepared}
+                            min={Math.min(8, game.round + 1)}
+                            disabled={game.round >= 8}
+                            max={Math.min(8, game.prepared)}
                             defaultValue={game.planned}
                             key={game.planned}
                             onBlur={(e) => {
@@ -1518,46 +1378,119 @@ export default function GameApp({ roomId }: { roomId?: string }) {
 
               <div className="lobby-layout">
                 <section className="panel members">
-                  <h2>A galera está chegando</h2>
-                  <p>
-                    Compartilhe o código <strong>{snapshot.code}</strong>. Quem
-                    organiza conduz as pistas e não disputa pontos.
+                  <div className="members-heading">
+                    <h2>Na sala</h2>
+                    <span
+                      aria-label={`${roomPlayers.length} de 14 vagas ocupadas`}
+                    >
+                      <strong>{roomPlayers.length}</strong> / 14
+                    </span>
+                  </div>
+                  <p className="members-room-code">
+                    Código <strong>{snapshot.code}</strong>
                   </p>
-                  <ul>
-                    {snapshot.members.map((m) => (
-                      <li key={m.user_id}>
-                        <span className="avatar">
-                          {m.nickname.slice(0, 1).toUpperCase()}
+                  <ul
+                    className="member-list"
+                    aria-label="Participantes da sala"
+                    tabIndex={0}
+                  >
+                    {roomPlayers.map((m, index) => (
+                      <li
+                        key={m.user_id}
+                        className="member-slot"
+                        data-self={m.user_id === uid}
+                      >
+                        <span className="member-avatar">
+                          <span
+                            className="avatar"
+                            style={{
+                              background: playerColor(index),
+                              color: "var(--palette-ink)",
+                            }}
+                          >
+                            {m.nickname.slice(0, 1).toUpperCase()}
+                          </span>
+                          {m.user_id === uid && (
+                            <span
+                              className="self-marker"
+                              role="img"
+                              aria-label="Seu usuário"
+                              title="Seu usuário"
+                            >
+                              <Icon name="user" />
+                            </span>
+                          )}
                         </span>
-                        <div>
-                          <strong>
-                            {m.nickname}
-                            {m.user_id === uid ? " (você)" : ""}
-                          </strong>
-                          <small>
-                            {m.user_id === snapshot.host_id
-                              ? "Organizador"
-                              : m.display_only
-                                ? "Telão (somente leitura)"
-                                : m.spectator
-                                  ? "Espectador (entra na próxima)"
-                                  : "Jogador"}
-                          </small>
+                        <div className="member-identity">
+                          <strong title={m.nickname}>{m.nickname}</strong>
+                          {(m.display_only || m.spectator) && (
+                            <small>
+                              {m.display_only ? "Telão" : "Espectador"}
+                            </small>
+                          )}
                         </div>
-                        <span className="presence">
-                          {online.includes(m.user_id) ? "Online" : "Ausente"}
+                        <span className="member-markers">
+                          {m.user_id === shownHostId && (
+                            <span
+                              className="host-marker"
+                              role="img"
+                              aria-label="Organizador"
+                              title="Organizador"
+                            >
+                              <Icon name="crown" />
+                            </span>
+                          )}
+                          <span
+                            className={`member-presence ${online.includes(m.user_id) ? "online" : "offline"}`}
+                            role="img"
+                            aria-label={
+                              online.includes(m.user_id) ? "Online" : "Ausente"
+                            }
+                            title={
+                              online.includes(m.user_id) ? "Online" : "Ausente"
+                            }
+                          />
                         </span>
                       </li>
                     ))}
+                    {Array.from(
+                      { length: Math.max(0, 14 - roomPlayers.length) },
+                      (_, i) => (
+                        <li
+                          className="member-slot member-empty"
+                          key={`empty-${i}`}
+                          aria-hidden="true"
+                        >
+                          <span className="avatar">
+                            <Icon name="user" />
+                          </span>
+                          <span>Vaga livre</span>
+                        </li>
+                      ),
+                    )}
                   </ul>
+                  {roomPlayers.length <= 14 && (
+                    <p className="members-scroll-hint">
+                      Role a lista para ver todos ↓
+                      <br />
+                      Após 2 min sem conexão, você sai. Volte pelo link.
+                    </p>
+                  )}
 
                   <HostRoulette
-                    members={wheelMembers ?? eligibleMembers}
+                    viewerId={uid}
+                    members={eligibleMembers}
+                    drawMembers={wheelMembers ?? eligibleMembers}
+                    memberColors={Object.fromEntries(
+                      roomPlayers.map((m, i) => [m.user_id, playerColor(i)]),
+                    )}
                     hostId={snapshot.host_id}
                     isHost={host}
-                    busy={busy || wheelSpinning}
+                    busy={busy || wheelSpinning || wheelCountdown !== null}
                     wheelAngle={wheelAngle}
                     wheelSpinning={wheelSpinning}
+                    wheelCountdown={wheelCountdown}
+                    wheelDuration={wheelDuration}
                     wheelBanner={wheelBanner}
                     onChooseManual={(memberId) =>
                       void act(() =>
@@ -1571,20 +1504,12 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                       void act(() => rpc("choose_host", { room: roomId }))
                     }
                   />
-
-                  {!host && (
-                    <p className="lobby-wait-note">
-                      O organizador está preparando a próxima partida. Ela
-                      aparecerá aqui automaticamente.
-                    </p>
-                  )}
                 </section>
 
                 {host && (
-                  <section className="panel preparation">
+                  <section className="panel preparation" data-editable="true">
                     <h2>{game ? "Mais uma partida?" : "Prepare a partida"}</h2>
-                    <p>Escolha as perguntas antes de abrir o tabuleiro.</p>
-
+                    <p>Escolha as categorias e jogue de 1 a 8 rodadas.</p>
                     {catalog.length === 0 && (
                       <div role="status" className="empty-catalog-banner">
                         <strong>
@@ -1598,337 +1523,188 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                         </p>
                       </div>
                     )}
-
-                    <div className="fields">
-                      <label>
-                        Rodadas
-                        <input
-                          type="number"
-                          min="1"
-                          max="30"
-                          value={rounds}
-                          onChange={(e) => setRounds(Number(e.target.value))}
-                        />
-                      </label>
-                      <label>
-                        Tamanho da pergunta
-                        <select
-                          value={exact}
-                          onChange={(e) => {
-                            setExact(e.target.value);
-                            setPage(1);
-                          }}
-                        >
-                          <option value="">Todos os tamanhos</option>
-                          {Array.from({ length: 22 }, (_, i) => (
-                            <option key={i} value={i + 1}>
-                              {i + 1} palavras
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                    </div>
-
-                    <fieldset>
-                      <legend>
-                        Categorias ({cats.length} de {allCats.length}{" "}
-                        selecionadas)
-                      </legend>
-                      <div className="category-list">
-                        {allCats.map((c) => {
-                          const meta = categoryMeta[c] ?? {
-                            hint: "Perguntas variadas",
-                            icon: "bulb",
-                          };
-                          const stat = categoryCounts[c] ?? {
-                            total: 0,
-                            w22: 0,
-                          };
-                          return (
-                            <label
-                              key={c}
-                              className={`cat-card ${cats.includes(c) ? "selected" : ""}`}
-                            >
-                              <input
-                                type="checkbox"
-                                checked={cats.includes(c)}
-                                onChange={(e) => {
-                                  setCats(
-                                    e.target.checked
-                                      ? [...cats, c]
-                                      : cats.filter((x) => x !== c),
-                                  );
-                                  setPage(1);
-                                }}
-                              />
-                              <span className="cat-icon-3d" aria-hidden="true">
-                                <Icon
-                                  name={
-                                    meta.icon as Parameters<
-                                      typeof Icon
-                                    >[0]["name"]
-                                  }
-                                />
-                              </span>
-                              <span className="cat-info">
-                                <strong>{c}</strong>
-                                <small>
-                                  {stat.total} itens · {stat.w22} de 22 palavras
-                                </small>
-                              </span>
-                            </label>
-                          );
-                        })}
-                      </div>
-                    </fieldset>
-
-                    <label>
-                      Seleção
-                      <select
-                        value={mode}
-                        onChange={(e) => {
-                          setMode(e.target.value);
-                          setPage(1);
-                        }}
-                      >
-                        <option value="automatic">Automática</option>
-                        <option value="manual">Manual</option>
-                        <option value="mixed">Mista</option>
-                      </select>
-                    </label>
-
-                    <div className="prep-stats-bar">
-                      <span>
-                        <strong>{filtered.length}</strong> elegíveis nos filtros
-                      </span>
-                      <span>
-                        <strong>{reserveCount}</strong> extras de reserva
-                        (desempate)
-                      </span>
-                      {mode !== "automatic" && (
-                        <span>
-                          <strong>{chosen.length}</strong> selecionadas p/{" "}
-                          {rounds} rodadas
-                        </span>
-                      )}
-                    </div>
-
-                    {mode !== "automatic" && (
-                      <div className="manual-selector">
-                        <div className="selector-toolbar">
-                          <label className="search-field">
-                            Buscar pergunta ou tema
-                            <input
-                              type="search"
-                              placeholder="Digite trecho da pergunta ou categoria..."
-                              value={searchQuery}
-                              onChange={(e) => {
-                                setSearchQuery(e.target.value);
-                                setPage(1);
-                              }}
-                            />
-                          </label>
-                          {chosen.length > 0 && (
-                            <button
-                              type="button"
-                              className="quiet"
-                              onClick={() => setChosen([])}
-                            >
-                              Limpar ({chosen.length})
-                            </button>
-                          )}
-                        </div>
-
-                        <div className="question-list">
-                          {pagedQuestions.map((q) => {
-                            const prev = previewMap[q.id];
-                            const isChecked = chosen.includes(q.id);
+                    <div className="preparation-workspace">
+                      {" "}
+                      <fieldset className="preparation-categories">
+                        <legend>
+                          Categorias ({cats.length} de {allCats.length}{" "}
+                          selecionadas)
+                        </legend>
+                        <div className="category-list">
+                          {allCats.map((c) => {
+                            const meta = categoryMeta[c] ?? {
+                              hint: "Perguntas variadas",
+                              icon: "bulb",
+                            };
+                            const stat = categoryCounts[c] ?? {
+                              total: 0,
+                              w22: 0,
+                            };
                             return (
-                              <div
-                                key={q.id}
-                                className={`question-card ${isChecked ? "chosen" : ""}`}
+                              <label
+                                key={c}
+                                className={`cat-card ${cats.includes(c) ? "selected" : ""}`}
                               >
-                                <label className="question-card-main">
-                                  <input
-                                    type="checkbox"
-                                    checked={isChecked}
-                                    onChange={(e) =>
-                                      setChosen(
-                                        e.target.checked
-                                          ? [...chosen, q.id]
-                                          : chosen.filter((x) => x !== q.id),
-                                      )
+                                <input
+                                  type="checkbox"
+                                  checked={cats.includes(c)}
+                                  onChange={(e) => {
+                                    setCats(
+                                      e.target.checked
+                                        ? [...cats, c]
+                                        : cats.filter((x) => x !== c),
+                                    );
+                                  }}
+                                />
+                                <span
+                                  className="cat-icon-3d"
+                                  aria-hidden="true"
+                                >
+                                  <Icon
+                                    name={
+                                      meta.icon as Parameters<
+                                        typeof Icon
+                                      >[0]["name"]
                                     }
                                   />
-                                  <div>
-                                    <strong>{q.question}?</strong>
-                                    <small>
-                                      {q.category} · {q.word_count} palavras
-                                      {q.own ? " · Autoral" : ""}
-                                    </small>
-                                    {prev && (
-                                      <div className="question-private-preview">
-                                        <span>
-                                          Resposta privada:{" "}
-                                          <strong>{prev.answer}</strong>
-                                        </span>
-                                        {prev.aliases?.length > 0 && (
-                                          <small>
-                                            Aliases: {prev.aliases.join(", ")}
-                                          </small>
-                                        )}
-                                      </div>
-                                    )}
-                                  </div>
-                                </label>
-                                <div className="question-card-actions">
-                                  <button
-                                    className="quiet"
-                                    type="button"
-                                    onClick={() =>
-                                      void act(async () => {
-                                        if (previewMap[q.id]) {
-                                          setPreviewMap((m) => {
-                                            const copy = { ...m };
-                                            delete copy[q.id];
-                                            return copy;
-                                          });
-                                          return;
-                                        }
-                                        const data = await rpc<QuestionPreview>(
-                                          "host_question_preview",
-                                          {
-                                            room: roomId,
-                                            question_id: q.id,
-                                          },
-                                        );
-                                        setPreviewMap((m) => ({
-                                          ...m,
-                                          [q.id]: data,
-                                        }));
-                                      })
-                                    }
-                                  >
-                                    {prev ? "Ocultar resposta" : "Ver resposta"}
-                                  </button>
-                                  {q.own && (
-                                    <button
-                                      className="quiet"
-                                      type="button"
-                                      onClick={() =>
-                                        void act(async () => {
-                                          const data = await rpc<
-                                            Secret & { category: string }
-                                          >("own_question_snapshot", {
-                                            room: roomId,
-                                            question_id: q.id,
-                                          });
-                                          setEditSecret(data);
-                                          setEditId(q.id);
-                                          setCustom(true);
-                                        })
-                                      }
-                                    >
-                                      Editar
-                                    </button>
-                                  )}
-                                </div>
-                              </div>
+                                </span>
+                                <span className="cat-info">
+                                  <strong>{c}</strong>
+                                  <small>
+                                    {stat.total} itens · {stat.w22} de 22
+                                    palavras
+                                  </small>
+                                </span>
+                              </label>
                             );
                           })}
-                          {pagedQuestions.length === 0 && (
-                            <p className="empty-filter-msg">
-                              Nenhuma pergunta encontrada para esta busca ou
-                              combinação de filtros.
-                            </p>
-                          )}
                         </div>
-
-                        {totalPages > 1 && (
-                          <div className="pagination">
-                            <button
-                              type="button"
-                              className="secondary"
-                              disabled={currentPage <= 1}
-                              onClick={() => setPage((p) => Math.max(1, p - 1))}
-                            >
-                              Anterior
-                            </button>
-                            <span>
-                              Página {currentPage} de {totalPages}
-                            </span>
-                            <button
-                              type="button"
-                              className="secondary"
-                              disabled={currentPage >= totalPages}
-                              onClick={() =>
-                                setPage((p) => Math.min(totalPages, p + 1))
+                      </fieldset>
+                      <div className="preparation-settings">
+                        <h3>Ajustes da partida</h3>{" "}
+                        <div className="fields">
+                          <label>
+                            Rodadas
+                            <input
+                              type="number"
+                              min="1"
+                              max="8"
+                              value={rounds}
+                              onChange={(e) =>
+                                setRounds(
+                                  Math.max(
+                                    1,
+                                    Math.min(
+                                      8,
+                                      Math.trunc(Number(e.target.value)) || 1,
+                                    ),
+                                  ),
+                                )
                               }
+                            />
+                          </label>
+                          <label>
+                            Tamanho da pergunta
+                            <select
+                              value={exact}
+                              onChange={(e) => {
+                                setExact(e.target.value);
+                              }}
                             >
-                              Próxima
-                            </button>
-                          </div>
-                        )}
+                              <option value="">Todos os tamanhos</option>
+                              {Array.from({ length: 22 }, (_, i) => (
+                                <option key={i} value={i + 1}>
+                                  {i + 1} palavras
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                        </div>
+                        <label>
+                          Seleção
+                          <select
+                            aria-label="Seleção"
+                            aria-describedby="selection-note"
+                            value="automatic"
+                            disabled
+                          >
+                            <option value="automatic">Automática</option>
+                          </select>
+                          <small id="selection-note" className="sr-only">
+                            A seleção manual está temporariamente desativada.
+                          </small>
+                        </label>
                       </div>
-                    )}
-
-                    <p
-                      className={filtered.length < rounds ? "insufficient" : ""}
-                    >
-                      {filtered.length} perguntas disponíveis.{" "}
-                      {filtered.length < rounds
-                        ? "Amplie os filtros ou reduza as rodadas."
-                        : "Até 5 perguntas adicionais ficam reservadas para desempate."}
-                    </p>
-                    <div className="actions">
-                      <button
-                        disabled={
-                          busy ||
-                          filtered.length < rounds ||
-                          !cats.length ||
-                          (mode === "manual" && chosen.length < rounds) ||
-                          snapshot.members.filter(
-                            (m) => m.user_id !== uid && !m.spectator,
-                          ).length < 1
-                        }
-                        onClick={() =>
-                          void act(() =>
-                            rpc("prepare_match", {
-                              room: roomId,
-                              planned: rounds,
-                              categories: cats,
-                              exact_words: exact ? Number(exact) : null,
-                              selected: mode === "automatic" ? [] : chosen,
-                              selection_mode: mode,
-                            }),
-                          )
-                        }
-                      >
-                        {busy
-                          ? "Preparando…"
-                          : game
-                            ? "Iniciar nova partida"
-                            : "Preparar e iniciar"}
-                      </button>
-                      <button
-                        className="secondary"
-                        type="button"
-                        disabled={!permanent}
-                        onClick={() => {
-                          setEditId(null);
-                          setEditSecret(null);
-                          setCustom(!custom);
-                        }}
-                      >
-                        Criar pergunta
-                      </button>
                     </div>
-                    {!permanent && (
-                      <small>
-                        Entre em uma conta permanente para usar perguntas
-                        próprias.
-                      </small>
-                    )}
+                    <div className="preparation-footer">
+                      {filtered.length < rounds && (
+                        <p className="insufficient" role="status">
+                          Amplie os filtros ou reduza as rodadas.
+                        </p>
+                      )}
+                      <div className="prep-stats-bar">
+                        <span>
+                          <strong>{filtered.length}</strong> elegíveis nos
+                          filtros
+                        </span>
+                        <span>
+                          <strong>{reserveCount}</strong> extras de reserva
+                          (desempate)
+                        </span>
+                      </div>
+                      <div className="actions">
+                        <button
+                          disabled={
+                            busy ||
+                            wheelCountdown !== null ||
+                            wheelSpinning ||
+                            filtered.length < rounds ||
+                            !cats.length ||
+                            rounds < 1 ||
+                            rounds > 8 ||
+                            snapshot.members.filter(
+                              (m) => m.user_id !== uid && !m.spectator,
+                            ).length < 1
+                          }
+                          onClick={() =>
+                            void act(() =>
+                              rpc("prepare_match", {
+                                room: roomId,
+                                planned: rounds,
+                                categories: cats,
+                                exact_words: exact ? Number(exact) : null,
+                                selected: [],
+                                selection_mode: "automatic",
+                              }),
+                            )
+                          }
+                        >
+                          {busy
+                            ? "Preparando…"
+                            : game
+                              ? "Iniciar nova partida"
+                              : "Preparar e iniciar"}
+                        </button>
+                        <button
+                          className="secondary"
+                          type="button"
+                          disabled={!permanent}
+                          onClick={() => {
+                            setEditId(null);
+                            setEditSecret(null);
+                            setCustom(!custom);
+                          }}
+                        >
+                          Criar pergunta
+                        </button>
+                      </div>
+                      {!permanent && (
+                        <small>
+                          Entre em uma conta permanente para usar perguntas
+                          próprias.
+                        </small>
+                      )}
+                    </div>
                     {custom && (
                       <form
                         className="custom-form"
@@ -2002,6 +1778,19 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                     )}
                   </section>
                 )}
+                {!host && (
+                  <PublicPreparation
+                    draft={
+                      remotePreparation?.hostId === shownHostId
+                        ? remotePreparation
+                        : null
+                    }
+                    hostName={
+                      snapshot.members.find((m) => m.user_id === shownHostId)
+                        ?.nickname ?? "O organizador"
+                    }
+                  />
+                )}
               </div>
 
               {snapshot.history.length > 0 && (
@@ -2046,387 +1835,5 @@ export default function GameApp({ roomId }: { roomId?: string }) {
         </footer>
       )}
     </div>
-  );
-}
-
-function HostRoulette({
-  members,
-  hostId,
-  isHost,
-  busy,
-  wheelAngle,
-  wheelSpinning,
-  wheelBanner,
-  onChooseManual,
-  onSpin,
-}: {
-  members: Member[];
-  hostId: string;
-  isHost: boolean;
-  busy: boolean;
-  wheelAngle: number;
-  wheelSpinning: boolean;
-  wheelBanner: string;
-  onChooseManual: (memberId: string) => void;
-  onSpin: () => void;
-}) {
-  const n = Math.max(1, members.length);
-  const gradient = useMemo(() => {
-    if (!members.length) return "#FFBE3B";
-    const step = 360 / members.length;
-    return `conic-gradient(from 0deg, ${members
-      .map(
-        (_, i) =>
-          `${wheelPalette[i % wheelPalette.length]} ${(i * step).toFixed(1)}deg ${((i + 1) * step).toFixed(1)}deg`,
-      )
-      .join(", ")})`;
-  }, [members]);
-
-  return (
-    <div className="roulette-box">
-      <h3>Quem vai organizar?</h3>
-      <div className="wheel-stage" aria-hidden="true">
-        <div className="wheel-pointer" />
-        <div
-          className={`wheel-disc ${wheelSpinning ? "spinning" : ""}`}
-          style={{
-            transform: `rotate(${wheelAngle}deg)`,
-            background: gradient,
-          }}
-        >
-          {members.map((m, i) => {
-            const angle = ((i + 0.5) * 360) / n;
-            return (
-              <span
-                key={m.user_id}
-                className="wheel-slice-label"
-                style={{
-                  transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(var(--wheel-label-radius, -68px))`,
-                }}
-              >
-                {m.nickname.slice(0, 10)}
-              </span>
-            );
-          })}
-          <span className="wheel-hub">★</span>
-        </div>
-      </div>
-
-      {wheelBanner && (
-        <p className="wheel-announcement" role="status">
-          {wheelBanner}
-        </p>
-      )}
-
-      {isHost && (
-        <div className="actions">
-          <select
-            aria-label="Escolher organizador"
-            value={hostId}
-            disabled={busy}
-            onChange={(e) => onChooseManual(e.target.value)}
-          >
-            {members.map((m) => (
-              <option key={m.user_id} value={m.user_id}>
-                {m.nickname}
-              </option>
-            ))}
-          </select>
-          <button
-            className="secondary"
-            type="button"
-            disabled={busy || members.length < 1}
-            onClick={onSpin}
-          >
-            <Icon name="wheel" />{" "}
-            {wheelSpinning ? "Girando roleta…" : "Sortear organizador"}
-          </button>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function CompactScoreStrip({
-  game,
-  expanded,
-  onToggle,
-}: {
-  game: Game;
-  expanded: boolean;
-  onToggle: () => void;
-}) {
-  const sorted = [...game.players].sort((a, b) => b.score - a.score);
-  return (
-    <div className="compact-score-bar" aria-label="Resumo do placar">
-      <div className="score-chips">
-        {sorted.map((p, i) => (
-          <span
-            key={p.id}
-            className={`score-chip ${i === 0 && p.score > 0 ? "leader" : ""} ${game.players[game.current]?.id === p.id ? "turn" : ""}`}
-          >
-            <strong>{p.nickname}</strong>
-            <b>{p.score} pts</b>
-          </span>
-        ))}
-      </div>
-      <button
-        type="button"
-        className="quiet score-toggle-btn"
-        onClick={onToggle}
-      >
-        {expanded ? "Recolher tabela" : "Classificação completa"}
-      </button>
-      {expanded && (
-        <div className="score-drawer">
-          <Scoreboard game={game} />
-        </div>
-      )}
-    </div>
-  );
-}
-
-function RoundResultOverlay({
-  game,
-  host,
-  busy,
-  permanent,
-  onNext,
-  onReserve,
-  onReserveCustom,
-}: {
-  game: Game;
-  host: boolean;
-  busy: boolean;
-  permanent: boolean;
-  onNext: () => void;
-  onReserve: () => void;
-  onReserveCustom: (q: string, a: string) => void;
-}) {
-  const winner = game.players.find((p) => p.id === game.result);
-  const fullQuestion = game.words.filter(Boolean).join(" ") + "?";
-  const earned = game.round_points ?? 0;
-
-  return (
-    <section
-      className="panel round-result-overlay"
-      aria-label="Resultado da rodada"
-    >
-      <div className="result-badge-3d">
-        <Icon name={winner ? "trophy" : "star"} />
-      </div>
-      <span className="result-kicker">RODADA {game.round + 1} ENCERRADA</span>
-      <h2>
-        {winner
-          ? `${winner.nickname} acertou e levou +${earned} ${earned === 1 ? "ponto" : "pontos"}!`
-          : "Ninguém pontuou nesta rodada!"}
-      </h2>
-      {game.answer && (
-        <div className="solution-reveal">
-          <span>Resposta correta</span>
-          <strong className="solution-answer">{game.answer}</strong>
-        </div>
-      )}
-      <p className="solution-question">{fullQuestion}</p>
-
-      {host && (
-        <div className="overlay-host-actions">
-          <button disabled={busy} onClick={onNext}>
-            Avançar rodada / encerrar
-          </button>
-          {game.round + 1 >= game.prepared && (
-            <button className="secondary" disabled={busy} onClick={onReserve}>
-              Preparar pergunta extra inédita
-            </button>
-          )}
-          {game.round + 1 >= game.prepared && permanent && (
-            <details className="custom-form">
-              <summary>Criar pergunta própria para o desempate</summary>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const data = new FormData(e.currentTarget);
-                  onReserveCustom(
-                    String(data.get("question")),
-                    String(data.get("answer")),
-                  );
-                }}
-              >
-                <label>
-                  Pergunta inédita, até 22 palavras
-                  <textarea required name="question" maxLength={1500} />
-                </label>
-                <label>
-                  Resposta da pergunta extra
-                  <input required name="answer" maxLength={200} />
-                </label>
-                <button disabled={busy}>Preparar pergunta própria extra</button>
-              </form>
-            </details>
-          )}
-        </div>
-      )}
-    </section>
-  );
-}
-
-function VictoryStage({ game }: { game: Game }) {
-  const sorted = [...game.players].sort((a, b) => b.score - a.score);
-  const champ = game.players.find((p) => p.id === game.winner) ?? sorted[0];
-  const podiumOrder = [sorted[1], sorted[0], sorted[2]].filter(Boolean);
-
-  return (
-    <section className="podium" aria-label="Pódio da partida">
-      <div className="podium-crown">
-        <Icon name="crown" />
-        <Icon name="trophy" />
-      </div>
-      <span className="podium-kicker">✦ FIM DE JOGO · GRANDE CAMPEÃO ✦</span>
-      <p>Essa foi de</p>
-      <h2>{champ?.nickname}!</h2>
-      <p className="podium-sub">
-        Uma boa dose de coragem. Um lugar no topo com{" "}
-        <strong>{champ?.score ?? 0} pontos</strong> em {game.round + 1}{" "}
-        {game.round + 1 === 1 ? "rodada" : "rodadas"}.
-      </p>
-
-      <div className="podium-3d-pedestals">
-        {podiumOrder.map((p) => {
-          const rank = sorted.findIndex((x) => x.id === p.id) + 1;
-          return (
-            <div key={p.id} className={`pedestal-col rank-${rank}`}>
-              <span className="pedestal-avatar">
-                {p.nickname.slice(0, 1).toUpperCase()}
-              </span>
-              <strong className="pedestal-name">{p.nickname}</strong>
-              <span className="pedestal-score">{p.score} pts</span>
-              <div className="pedestal-block">{rank}º</div>
-            </div>
-          );
-        })}
-      </div>
-
-      <Scoreboard game={game} />
-    </section>
-  );
-}
-
-function Board({
-  game: g,
-  host,
-  busy,
-  onSelect,
-}: {
-  game: Game;
-  host: boolean;
-  busy: boolean;
-  onSelect: (p: number) => void;
-}) {
-  const revealed = g.words.filter((x) => x !== null).length;
-  const isResult = g.phase === "result";
-  const availablePoints = Math.max(
-    1,
-    g.words.length - revealed + (g.phase === "awaiting_guess" ? 1 : 0),
-  );
-  const displayPoints = isResult ? (g.round_points ?? 0) : availablePoints;
-  const pointsLabel = isResult
-    ? g.result
-      ? displayPoints === 1
-        ? "ponto conquistado"
-        : "pontos conquistados"
-      : "sem vencedor"
-    : availablePoints === 1
-      ? "ponto em jogo"
-      : "pontos em jogo";
-
-  return (
-    <section className="board-shell">
-      <div className="board-top">
-        <div>
-          <span>
-            Rodada {g.round + 1}
-            {g.round >= g.planned ? " · Desempate" : ` de ${g.planned}`}
-          </span>
-          <h2>
-            {isResult
-              ? "Pergunta revelada"
-              : `É a vez de ${g.players[g.current]?.nickname}`}
-          </h2>
-        </div>
-        <div className={`points ${isResult ? "points-result" : ""}`}>
-          <strong>{displayPoints}</strong>
-          <span>{pointsLabel}</span>
-        </div>
-      </div>
-      <div className="board-category">
-        {g.category}
-        <span>
-          {revealed} de {g.words.length} palavras
-        </span>
-      </div>
-      <div className="board">
-        {g.words.map((word, i) => (
-          <button
-            key={i}
-            type="button"
-            className={`tile ${word ? "revealed" : ""} ${g.selected === i ? "selected" : ""} ${g.last === i ? "just-opened" : ""}`}
-            aria-label={word ? `Posição ${i + 1}: ${word}` : `Posição ${i + 1}`}
-            disabled={
-              busy ||
-              !host ||
-              g.paused ||
-              g.phase !== "awaiting_position" ||
-              word !== null
-            }
-            onClick={() => onSelect(i)}
-          >
-            <span className="tile-index">{i + 1}</span>
-            {word && (
-              <strong>
-                {word}
-                {i === g.words.length - 1 ? "?" : ""}
-              </strong>
-            )}
-          </button>
-        ))}
-      </div>
-      {g.phase === "pending_confirmation" && (
-        <p className="board-hint" role="status">
-          Posição {(g.selected ?? 0) + 1} selecionada. Aguardando confirmação.
-        </p>
-      )}
-      {g.paused && (
-        <p className="pause-banner" role="status">
-          Partida pausada. O organizador precisa retomar.
-        </p>
-      )}
-    </section>
-  );
-}
-
-function Scoreboard({ game }: { game: Game }) {
-  return (
-    <section className="panel scoreboard">
-      <h2>Placar</h2>
-      <ol>
-        {[...game.players]
-          .sort((a, b) => b.score - a.score)
-          .map((p, i) => (
-            <li
-              key={p.id}
-              className={
-                game.players[game.current]?.id === p.id ? "current" : ""
-              }
-            >
-              <span>{i + 1}</span>
-              <strong>{p.nickname}</strong>
-              <b>
-                {p.score}
-                <small>pts</small>
-              </b>
-            </li>
-          ))}
-      </ol>
-    </section>
   );
 }

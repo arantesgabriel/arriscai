@@ -13,6 +13,7 @@
     "test:migrations": "node scripts/test-migration-upgrade.mjs",
     "seed": "node scripts/seed.mjs",
     "test:db": "node scripts/test-db.mjs",
+    "test:difficulty": "node scripts/test-difficulty.mjs",
     "format": "prettier --write src tests scripts *.ts *.mjs *.json"
   },
   "dependencies": {

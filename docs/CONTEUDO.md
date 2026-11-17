@@ -1,8 +1,14 @@
 # Conteúdo provisório
 
-JSON original preservado em `data/perguntas_240_original.json`. A versão de carga em `data/perguntas_240.json` tem três ajustes abaixo. Seed derivado com `ON CONFLICT DO NOTHING`, sem sobrescrever curadoria. 240 IDs e textos únicos, oito categorias de 30; seis questões de 22 palavras por categoria. Uma categoria + 22 palavras + 12 rodadas é recusada por insuficiência.
+## Dificuldade
 
-Não houve revisão factual individual das 240 questões. Publicação bloqueada por `allow_provisional=false` e `review_status=provisional`. O JSON não entra no bundle web.
+O catálogo atual contém 504 perguntas, 63 por categoria, classificadas por complexidade estimada em 17/11/2026. O [ranking completo](RANKING_DIFICULDADE.md) documenta critérios, notas, níveis e distribuição por categoria. A dificuldade não muda o status editorial provisório. Perguntas próprias e itens sem avaliação recebem nível médio, sem nota de complexidade. O catálogo retorna `difficulty`, sem expor respostas.
+
+As migrações `202611170002` e `202611170003` adicionam a classificação e a seleção proporcional (50/35/15). A migração `202611170004` insere 264 novas perguntas sem substituir IDs existentes. A `202611170005` limita a preparação e os ajustes a 1–8 rodadas e desativa temporariamente os modos manual e misto na API. Filtros, reserva de desempate e snapshots existentes são preservados. A atualização dos níveis dos itens originais exige correspondência de ID, texto e resposta para preservar curadoria remota divergente. Validação: `npm run test:difficulty`, `npm test` e `npm run test:db`. O ranking não inclui itens exclusivos de um banco remoto.
+
+JSON original preservado em `data/perguntas_240_original.json`; `data/perguntas_240.json` mantém a base histórica com os três ajustes abaixo. A fonte da expansão é `data/perguntas_expansao.txt`. Execute `node scripts/rank-questions.mjs` para gerar o catálogo consolidado `data/perguntas_504.json`, seed, migração de expansão e ranking. Não há interrogações armazenadas; cada pergunta tem de 1 a 22 palavras. Uma categoria + 22 palavras + 8 rodadas continua sendo recusada quando só existem seis itens elegíveis.
+
+As perguntas geradas permanecem `provisional`, assim como as originais. A expansão não habilita `allow_provisional` nem promove aprovação editorial em lote. O JSON não entra no bundle web. Consultas pontuais de referência para a expansão: [biatlo, União Internacional de Biatlo](https://www.biathlonworld.com/discover-biathlon/how-it-works/rules-overview), [Audrey Tautou como Amélie, Festival de Cannes](https://www.festival-cannes.com/en/f/le-fabuleux-destin-d-amelie-poulain/). Essas verificações não equivalem à revisão factual integral do catálogo.
 
 Correções iniciais em 13/11/2026, mantendo respostas, aliases e status provisório:
 

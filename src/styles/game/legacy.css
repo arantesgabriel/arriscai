@@ -1,0 +1,2062 @@
+:where(.app) {
+  --blue: #087df2;
+  --white: #fff;
+  --gold: #ffbe3b;
+  --ink: #102e53;
+  --soft: #eaf6ff;
+  --success: #10765e;
+  --danger: #b12647;
+  --display: "Lilita One", "Arial Black", sans-serif;
+  --body: "Nunito Sans", Arial, sans-serif;
+  --radius: 22px;
+  color-scheme: light;
+}
+:where(.app) * {
+  box-sizing: border-box;
+}
+:where(.app) {
+  margin: 0;
+  background: var(--soft);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.5;
+}
+:where(.app) button,
+:where(.app) input,
+:where(.app) select,
+:where(.app) textarea {
+  font: inherit;
+}
+:where(.app) button,
+:where(.app) .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 48px;
+  background: var(--gold);
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  padding: 11px 20px;
+  font-weight: 900;
+  color: var(--ink);
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 4px 0 var(--ink);
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
+}
+:where(.app) button:hover:enabled,
+:where(.app) .button:hover {
+  transform: translateY(-2px);
+}
+:where(.app) button:active:enabled {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--ink);
+}
+:where(.app) button:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+:where(.app) button:focus-visible,
+:where(.app) a:focus-visible,
+:where(.app) input:focus-visible,
+:where(.app) select:focus-visible,
+:where(.app) textarea:focus-visible,
+:where(.app) summary:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 5px;
+}
+:where(.app) .secondary {
+  background: white;
+  box-shadow: 0 3px 0 #b2cae0;
+}
+:where(.app) .quiet {
+  background: transparent;
+  box-shadow: none;
+  border-color: transparent;
+  padding: 8px 10px;
+  min-height: 44px;
+}
+:where(.app) .danger {
+  background: var(--danger);
+  color: white;
+}
+:where(.app) .primary {
+  font-size: 19px;
+  min-height: 59px;
+}
+:where(.app) h1,
+:where(.app) h2,
+:where(.app) h3,
+:where(.app) p {
+  margin-top: 0;
+}
+:where(.app) h1,
+:where(.app) h2,
+:where(.app) h3 {
+  line-height: 1.12;
+  text-wrap: balance;
+}
+:where(.app) h1,
+:where(.app) h2,
+:where(.app) .brand,
+:where(.app) .points strong {
+  font-family: var(--display);
+  font-weight: 400;
+}
+:where(.app) h1 {
+  font-size: clamp(30px, 3.5vw, 48px);
+  margin-bottom: 20px;
+}
+:where(.app) h2 {
+  font-size: 28px;
+  margin-bottom: 17px;
+}
+:where(.app) h3 {
+  font-size: 19px;
+  font-weight: 900;
+}
+:where(.app) p {
+  max-width: 72ch;
+}
+:where(.app) small {
+  font-size: 13px;
+  display: block;
+}
+:where(.app) a {
+  color: inherit;
+}
+:where(.app) label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 800;
+}
+:where(.app) input,
+:where(.app) select,
+:where(.app) textarea {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 10px 13px;
+  background: white;
+  border: 2px solid #b0c7dd;
+  border-radius: 9px;
+  color: var(--ink);
+}
+:where(.app) input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  min-height: 20px;
+  accent-color: var(--blue);
+  flex-shrink: 0;
+}
+:where(.app) input[type="range"] {
+  min-height: 20px;
+  padding: 0;
+  accent-color: var(--gold);
+}
+:where(.app) textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+:where(.app) fieldset {
+  border: 0;
+  padding: 0;
+  margin: 22px 0;
+}
+:where(.app) legend {
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+:where(.app) form {
+  display: grid;
+  gap: 16px;
+}
+.app {
+  min-height: 100vh;
+}
+:where(.app) .topbar {
+  padding: 20px max(28px, calc((100vw - 1440px) / 2));
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  background: white;
+  border-bottom: 2px solid var(--ink);
+}
+:where(.app) .brand {
+  font-size: 39px;
+  text-decoration: none;
+  letter-spacing: -1px;
+  white-space: nowrap;
+  transform: rotate(-3deg);
+}
+:where(.app) .brand span {
+  color: var(--blue);
+}
+:where(.app) .tagline {
+  font-size: 14px;
+  font-weight: 800;
+}
+:where(.app) .top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+:where(.app) .top-actions button {
+  font-size: 13px;
+}
+:where(.app) .connection {
+  font-size: 13px;
+  font-weight: 900;
+}
+:where(.app) .volume {
+  width: 80px;
+  font-size: 12px;
+}
+:where(.app) main {
+  max-width: 1440px;
+  margin: auto;
+  padding: 36px 28px 60px;
+}
+:where(.app) footer {
+  max-width: 1440px;
+  margin: auto;
+  padding: 28px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 14px;
+  font-weight: 800;
+  border-top: 2px solid #c3d9ed;
+}
+:where(.app) .hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 40px 36px 80px;
+}
+:where(.app) .hero h1 {
+  font-size: clamp(48px, 5.5vw, 78px);
+  line-height: 1.02;
+  letter-spacing: -1.5px;
+  margin-bottom: 28px;
+}
+:where(.app) .hero-copy > p {
+  font-size: 20px;
+}
+:where(.app) .entry {
+  max-width: 400px;
+  margin-top: 32px;
+  gap: 19px;
+}
+:where(.app) .join {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: end;
+}
+:where(.app) .entry .primary {
+  width: 100%;
+}
+:where(.app) .hero-art {
+  position: relative;
+  min-height: 510px;
+  display: grid;
+  place-items: center;
+}
+:where(.app) .orbit {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  max-width: 100%;
+  border-radius: 50%;
+  background: var(--blue);
+}
+:where(.app) .question-block {
+  position: relative;
+  width: 255px;
+  height: 285px;
+  display: grid;
+  place-items: center;
+  font: 230px/1 var(--display);
+  color: var(--ink);
+  background: var(--gold);
+  border: 4px solid var(--ink);
+  border-radius: 42px;
+  box-shadow:
+    12px 15px 0 var(--ink),
+    inset 8px 8px 0 #ffe198;
+  transform: rotate(-12deg);
+  padding-bottom: 12px;
+}
+:where(.app) .point-token {
+  position: absolute;
+  right: 5px;
+  bottom: 70px;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 4px solid var(--ink);
+  border-radius: 50%;
+  box-shadow: 7px 8px 0 var(--ink);
+  font: 64px/1 var(--display);
+  transform: rotate(10deg);
+}
+:where(.app) .point-token span {
+  font: 900 16px var(--body);
+}
+:where(.app) .floating-star {
+  position: absolute;
+  top: 10px;
+  right: 45px;
+  color: var(--gold);
+  transform: rotate(20deg);
+}
+:where(.app) .floating-star svg {
+  width: 72px;
+  height: 72px;
+  fill: var(--gold);
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+:where(.app) .mini-tile {
+  position: absolute;
+  bottom: 60px;
+  left: 3px;
+  width: 100px;
+  height: 100px;
+  background: white;
+  border: 3px solid var(--ink);
+  box-shadow: 5px 6px 0 var(--ink);
+  border-radius: 19px;
+  display: grid;
+  place-items: center;
+  transform: rotate(12deg);
+  font: 50px var(--display);
+}
+:where(.app) .art-caption {
+  position: absolute;
+  bottom: 0;
+  font-weight: 900;
+}
+:where(.app) .setup-note {
+  font-size: 14px !important;
+  margin-top: 20px;
+}
+:where(.app) .how {
+  border-top: 2px solid var(--ink);
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 40px;
+  padding: 40px 36px;
+}
+:where(.app) .how h2 {
+  font-size: 35px;
+}
+:where(.app) .how ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 22px;
+  counter-reset: steps;
+}
+:where(.app) .how li {
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  gap: 0 18px;
+  counter-increment: steps;
+}
+:where(.app) .how li:before {
+  content: counter(steps);
+  grid-row: span 2;
+  font: 28px var(--display);
+  color: var(--blue);
+}
+:where(.app) .how strong {
+  font-size: 18px;
+}
+:where(.app) .how span {
+  font-size: 15px;
+}
+:where(.app) .panel {
+  background: white;
+  border: 2px solid #c5d8e9;
+  border-radius: var(--radius);
+  padding: 26px;
+  margin-bottom: 24px;
+}
+:where(.app) .account {
+  max-width: 620px;
+  margin: 24px auto;
+}
+:where(.app) .close {
+  float: right;
+}
+:where(.app) .actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+:where(.app) .error {
+  background: #fff0f3;
+  border: 2px solid var(--danger);
+  color: #8e1632;
+  border-radius: 12px;
+  padding: 12px 18px;
+  margin: 20px auto;
+  max-width: 1384px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  font-weight: 800;
+}
+:where(.app) .error button {
+  border: 0;
+  background: none;
+  box-shadow: none;
+  font-size: 25px;
+}
+:where(.app) .room-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 30px;
+}
+:where(.app) .room-heading h1 {
+  margin-bottom: 0;
+}
+:where(.app) .room-code {
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+:where(.app) .room-code strong {
+  letter-spacing: 2px;
+  font-size: 20px;
+  margin-left: 8px;
+}
+:where(.app) .lobby-layout {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 28px;
+}
+:where(.app) .members ul {
+  list-style: none;
+  padding: 0;
+  margin: 28px 0;
+}
+:where(.app) .members li {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 16px 0;
+  border-bottom: 1px solid #d7e4ef;
+}
+:where(.app) .avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--soft);
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+}
+:where(.app) .presence {
+  margin-left: auto;
+  font-size: 13px;
+}
+:where(.app) .members small {
+  color: #47617e;
+}
+:where(.app) .fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+:where(.app) .category-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+:where(.app) .category-list label {
+  flex-direction: row;
+  align-items: center;
+  background: var(--soft);
+  padding: 12px;
+  border-radius: 10px;
+  min-height: 48px;
+}
+:where(.app) .preparation > .actions {
+  margin: 22px 0;
+}
+:where(.app) .preparation > label {
+  margin-bottom: 16px;
+}
+:where(.app) .question-list {
+  max-height: 300px;
+  overflow: auto;
+  border: 1px solid #b0c7dd;
+  border-radius: 10px;
+}
+:where(.app) .question-list label {
+  padding: 16px;
+  flex-direction: row;
+  align-items: flex-start;
+  border-bottom: 1px solid #d7e4ef;
+  font-weight: 600;
+}
+:where(.app) .insufficient {
+  color: var(--danger);
+  font-weight: 900;
+}
+:where(.app) .custom-form {
+  margin-top: 22px;
+  border-top: 2px solid #c5d8e9;
+  padding-top: 22px;
+}
+:where(.app) .game-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 26px;
+}
+:where(.app) .public-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 26px;
+}
+:where(.app) .board-shell {
+  background: var(--blue);
+  border: 2px solid var(--ink);
+  box-shadow: 0 7px 0 var(--ink);
+  border-radius: 26px;
+  padding: 28px;
+  margin-bottom: 30px;
+}
+:where(.app) .board-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: white;
+}
+:where(.app) .board-top h2 {
+  font-size: 30px;
+  margin: 10px 0 0;
+}
+:where(.app) .board-top > div > span {
+  font-size: 14px;
+  font-weight: 800;
+}
+:where(.app) .points {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--gold);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+  min-width: 110px;
+  min-height: 105px;
+  padding: 10px;
+}
+:where(.app) .points strong {
+  font-size: 50px;
+  line-height: 1;
+}
+:where(.app) .points span {
+  font-size: 12px;
+  font-weight: 900;
+}
+:where(.app) .board-category {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 800;
+  margin: 25px 0 14px;
+}
+:where(.app) .board {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 11px;
+}
+:where(.app) .tile {
+  position: relative;
+  min-height: 90px;
+  min-width: 0;
+  padding: 12px 7px;
+  background: #fff;
+  box-shadow: 0 4px 0 var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 13px;
+  opacity: 1 !important;
+}
+:where(.app) .tile-index {
+  font: 32px var(--display);
+}
+:where(.app) .tile.revealed {
+  background: var(--gold);
+  flex-direction: column;
+  gap: 3px;
+  animation: flip 0.3s ease-out;
+}
+:where(.app) .tile.revealed .tile-index {
+  font: 700 11px var(--body);
+}
+:where(.app) .tile strong {
+  font-size: clamp(12px, 1.1vw, 17px);
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+:where(.app) .tile.selected {
+  background: var(--gold);
+  outline: 3px solid white;
+  outline-offset: 3px;
+}
+:where(.app) .tile:disabled {
+  color: var(--ink);
+}
+:where(.app) .board-hint {
+  color: white;
+  margin: 22px 0 0;
+  font-weight: 800;
+}
+:where(.app) .pause-banner {
+  background: var(--ink);
+  color: white;
+  border: 2px solid white;
+  padding: 18px;
+  border-radius: 12px;
+  margin: 24px 0 0;
+}
+:where(.app) .controls {
+  border-color: var(--ink);
+}
+:where(.app) .controls h2 {
+  font-size: 24px;
+}
+:where(.app) .guess-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  margin-bottom: 20px;
+}
+:where(.app) .judgement {
+  padding: 20px;
+  background: var(--soft);
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+:where(.app) .judgement p:first-child {
+  font-size: 20px;
+  font-weight: 800;
+}
+:where(.app) .private {
+  background: #fff8e7;
+  border-color: #d5b359;
+}
+:where(.app) .private-heading {
+  font-size: 13px;
+  font-weight: 900;
+  border-bottom: 1px solid #d5b359;
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+}
+:where(.app) .private h2 {
+  font-size: 22px;
+}
+:where(.app) .private > span {
+  font-size: 12px;
+}
+:where(.app) .private > strong {
+  display: block;
+  font-size: 26px;
+  margin: 4px 0 10px;
+}
+:where(.app) .scoreboard ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+:where(.app) .scoreboard li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-top: 1px solid #d7e4ef;
+}
+:where(.app) .scoreboard li > span {
+  font: 24px var(--display);
+  width: 25px;
+}
+:where(.app) .scoreboard li > b {
+  margin-left: auto;
+  font-size: 25px;
+  line-height: 1;
+}
+:where(.app) .scoreboard small {
+  font-size: 11px;
+}
+:where(.app) .scoreboard .current > span {
+  color: var(--blue);
+}
+:where(.app) .management summary {
+  cursor: pointer;
+  font-weight: 900;
+}
+:where(.app) .management .actions {
+  margin-top: 20px;
+}
+:where(.app) .management input {
+  width: 100px;
+}
+:where(.app) .spectator-note {
+  font-size: 14px;
+  padding: 0 16px;
+}
+:where(.app) .history > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  border-top: 1px solid #d7e4ef;
+  padding: 15px 0;
+}
+:where(.app) .podium {
+  background: var(--gold);
+  border: 2px solid var(--ink);
+  border-radius: 28px;
+  text-align: center;
+  padding: 40px;
+  margin-bottom: 32px;
+}
+:where(.app) .podium > svg {
+  width: 60px;
+  height: 60px;
+  margin: auto auto 18px;
+}
+:where(.app) .podium > p {
+  margin: 0 auto 15px;
+}
+:where(.app) .podium > h2 {
+  font-size: 64px;
+}
+:where(.app) .podium .scoreboard {
+  max-width: 600px;
+  margin: 30px auto 0;
+  text-align: left;
+}
+:where(.app) .television main {
+  max-width: 1920px;
+}
+@media (min-width: 1101px) {
+  :where(.app) .television .lobby-layout {
+    display: block;
+  }
+  :where(.app) .television .members {
+    display: grid;
+    grid-template-areas:
+      "title wheel"
+      "intro wheel"
+      "players wheel"
+      "note wheel";
+    grid-template-columns: minmax(0, 1.15fr) minmax(420px, 0.85fr);
+    grid-template-rows: auto auto 1fr auto;
+    column-gap: clamp(32px, 4vw, 88px);
+    min-height: clamp(600px, calc(100dvh - 235px), 850px);
+    padding: clamp(30px, 3vw, 56px);
+  }
+  :where(.app) .television .members > h2 {
+    grid-area: title;
+    font-size: clamp(30px, 2.4vw, 46px);
+  }
+  :where(.app) .television .members > p:first-of-type {
+    grid-area: intro;
+    font-size: clamp(18px, 1.1vw, 22px);
+  }
+  :where(.app) .television .members > ul {
+    grid-area: players;
+    margin: 16px 0;
+  }
+  :where(.app) .television .members li {
+    padding: clamp(13px, 1.25vh, 20px) 0;
+    font-size: clamp(20px, 1.3vw, 26px);
+  }
+  :where(.app) .television .members .avatar {
+    width: 54px;
+    height: 54px;
+    font-size: 23px;
+  }
+  :where(.app) .television .members small,
+  :where(.app) .television .members .presence {
+    font-size: 16px;
+  }
+  :where(.app) .television .members > .lobby-wait-note {
+    grid-area: note;
+    font-size: 18px;
+  }
+  :where(.app) .television .roulette-box {
+    grid-area: wheel;
+    margin: 0;
+    padding: 24px;
+    border: 2px solid #d7e4ef;
+    border-radius: 22px;
+    background: #eaf6ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    --wheel-label-radius: -128px;
+  }
+  :where(.app) .television .roulette-box h3 {
+    font-size: clamp(26px, 2vw, 38px);
+  }
+  :where(.app) .television .wheel-stage {
+    height: 390px;
+    width: 100%;
+    margin: 16px 0 24px;
+  }
+  :where(.app) .television .wheel-disc {
+    width: 350px;
+    height: 350px;
+  }
+  :where(.app) .television .wheel-slice-label {
+    font-size: 17px;
+    max-width: 145px;
+  }
+  :where(.app) .television .wheel-announcement {
+    font-size: 22px;
+  }
+}
+:where(.app) .television .public-layout {
+  grid-template-columns: minmax(0, 1fr) 350px;
+}
+:where(.app) .television .board {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+:where(.app) .television .tile {
+  min-height: 130px;
+}
+:where(.app) .television .tile-index {
+  font-size: 46px;
+}
+:where(.app) .television .tile strong {
+  font-size: 25px;
+}
+:where(.app) .television .board-top h2 {
+  font-size: 42px;
+}
+:where(.app) .television .scoreboard {
+  font-size: 22px;
+}
+:where(.app) .loading {
+  min-height: 60vh;
+  padding-top: 80px;
+}
+@keyframes flip {
+  from {
+    transform: rotateX(80deg);
+  }
+  to {
+    transform: rotateX(0);
+  }
+}
+@media (min-width: 1800px) {
+  :where(.app) .television .tile {
+    min-height: 150px;
+  }
+  :where(.app) .television .tile strong {
+    font-size: 30px;
+  }
+  :where(.app) .television .board {
+    gap: 16px;
+  }
+}
+@media (max-width: 1100px) {
+  :where(.app) .tagline {
+    display: none;
+  }
+  :where(.app) .hero {
+    padding: 25px 0 60px;
+    gap: 20px;
+  }
+  :where(.app) .hero-art {
+    min-height: 430px;
+  }
+  :where(.app) .orbit {
+    width: 340px;
+    height: 340px;
+  }
+  :where(.app) .question-block {
+    width: 210px;
+    height: 240px;
+    font-size: 190px;
+  }
+  :where(.app) .point-token {
+    width: 120px;
+    height: 120px;
+    right: 0;
+    font-size: 52px;
+  }
+  :where(.app) .mini-tile {
+    width: 75px;
+    height: 75px;
+  }
+  :where(.app) .game-layout,
+  :where(.app) .public-layout,
+  :where(.app) .television .public-layout {
+    grid-template-columns: minmax(0, 1fr) 260px;
+  }
+  :where(.app) .board-shell {
+    padding: 20px;
+  }
+  :where(.app) .board {
+    gap: 8px;
+  }
+  :where(.app) .tile {
+    min-height: 80px;
+  }
+  :where(.app) .game-layout .board {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  :where(.app) .room-heading {
+    align-items: flex-start;
+  }
+  :where(.app) .room-heading .actions {
+    max-width: 350px;
+  }
+  :where(.app) .television .tile strong {
+    font-size: 18px;
+  }
+  :where(.app) .television .board {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (max-width: 800px) {
+  :where(.app) main {
+    padding: 28px 20px 44px;
+  }
+  :where(.app) .topbar {
+    padding: 15px 20px;
+    gap: 15px;
+  }
+  :where(.app) .brand {
+    font-size: 32px;
+  }
+  :where(.app) .top-actions {
+    gap: 0;
+  }
+  :where(.app) .connection {
+    display: none;
+  }
+  :where(.app) .hero h1 {
+    font-size: 54px;
+  }
+  :where(.app) .hero-copy > p {
+    font-size: 18px;
+  }
+  :where(.app) .hero-art {
+    min-height: 350px;
+  }
+  :where(.app) .orbit {
+    width: 270px;
+    height: 270px;
+  }
+  :where(.app) .question-block {
+    width: 170px;
+    height: 200px;
+    font-size: 160px;
+    border-radius: 30px;
+  }
+  :where(.app) .point-token {
+    right: 0;
+    bottom: 30px;
+    width: 100px;
+    height: 100px;
+    font-size: 43px;
+  }
+  :where(.app) .floating-star {
+    top: 10px;
+    right: 15px;
+  }
+  :where(.app) .floating-star svg {
+    width: 50px;
+    height: 50px;
+  }
+  :where(.app) .art-caption {
+    display: none;
+  }
+  :where(.app) .mini-tile {
+    left: 0;
+    bottom: 45px;
+    width: 65px;
+    height: 65px;
+    font-size: 35px;
+  }
+  :where(.app) .how {
+    padding: 30px 0;
+    grid-template-columns: 1fr;
+  }
+  :where(.app) .lobby-layout,
+  :where(.app) .game-layout,
+  :where(.app) .public-layout,
+  :where(.app) .television .public-layout {
+    grid-template-columns: 1fr;
+  }
+  :where(.app) .game-layout .board,
+  :where(.app) .board,
+  :where(.app) .television .board {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  :where(.app) .room-heading {
+    flex-direction: column;
+    gap: 20px;
+  }
+  :where(.app) .room-heading .actions {
+    max-width: none;
+  }
+  :where(.app) .panel {
+    padding: 22px;
+  }
+  :where(.app) .game-layout aside {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  :where(.app) .board-top h2 {
+    font-size: 29px;
+  }
+  :where(.app) .television .tile {
+    min-height: 100px;
+  }
+  :where(.app) .television .board-top h2 {
+    font-size: 30px;
+  }
+  :where(.app) .history > div {
+    flex-direction: column;
+    gap: 8px;
+  }
+  :where(.app) footer {
+    padding: 22px 20px;
+  }
+  :where(.app) .fields {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 540px) {
+  :where(.app) main {
+    padding: 26px 16px 40px;
+  }
+  :where(.app) .topbar {
+    padding: 14px 16px;
+  }
+  :where(.app) .brand {
+    font-size: 30px;
+  }
+  :where(.app) .top-actions button {
+    font-size: 12px;
+    padding: 6px;
+  }
+  :where(.app) .volume {
+    width: 62px;
+  }
+  :where(.app) .hero {
+    grid-template-columns: 1fr;
+    padding-top: 12px;
+    gap: 38px;
+  }
+  :where(.app) .hero h1 {
+    font-size: 58px;
+  }
+  :where(.app) .hero-art {
+    grid-row: 2;
+    min-height: 330px;
+    max-width: 340px;
+    width: 100%;
+    margin: auto;
+  }
+  :where(.app) .hero-copy > p {
+    font-size: 18px;
+  }
+  :where(.app) .entry {
+    max-width: none;
+  }
+  :where(.app) .hero-art .orbit {
+    width: 290px;
+    height: 290px;
+  }
+  :where(.app) .hero-art .question-block {
+    width: 175px;
+    height: 205px;
+  }
+  :where(.app) .how h2 {
+    font-size: 30px;
+  }
+  :where(.app) .room-heading h1 {
+    font-size: 32px;
+  }
+  :where(.app) .room-heading .actions {
+    gap: 8px;
+  }
+  :where(.app) .room-heading .button,
+  :where(.app) .room-heading button {
+    font-size: 12px;
+    padding: 9px 12px;
+    min-height: 44px;
+  }
+  :where(.app) .fields {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  :where(.app) .category-list {
+    grid-template-columns: 1fr;
+  }
+  :where(.app) .panel {
+    padding: 20px;
+    border-radius: 18px;
+  }
+  :where(.app) .board-shell {
+    padding: 15px;
+    border-radius: 20px;
+  }
+  :where(.app) .board-top {
+    gap: 10px;
+  }
+  :where(.app) .board-top h2 {
+    font-size: 25px;
+  }
+  :where(.app) .board-top > div > span {
+    font-size: 12px;
+  }
+  :where(.app) .points {
+    min-width: 85px;
+    min-height: 86px;
+    padding: 8px;
+    border-radius: 16px;
+  }
+  :where(.app) .points strong {
+    font-size: 40px;
+  }
+  :where(.app) .points span {
+    font-size: 10px;
+  }
+  :where(.app) .board-category {
+    font-size: 11px;
+    gap: 8px;
+    margin-top: 20px;
+  }
+  :where(.app) .board {
+    gap: 8px;
+  }
+  :where(.app) .tile {
+    min-height: 78px;
+    padding: 7px 4px;
+    border-radius: 9px;
+  }
+  :where(.app) .tile-index {
+    font-size: 25px;
+  }
+  :where(.app) .tile strong {
+    font-size: 12px;
+  }
+  :where(.app) .guess-form {
+    grid-template-columns: 1fr;
+  }
+  :where(.app) .controls h2 {
+    font-size: 23px;
+  }
+  :where(.app) .game-layout aside {
+    display: block;
+  }
+  :where(.app) .television .tile {
+    min-height: 85px;
+  }
+  :where(.app) .television .tile strong {
+    font-size: 13px;
+  }
+  :where(.app) .television .tile-index {
+    font-size: 30px;
+  }
+  :where(.app) .television .board-top h2 {
+    font-size: 26px;
+  }
+  :where(.app) .podium {
+    padding: 30px 18px;
+  }
+  :where(.app) .podium > h2 {
+    font-size: 48px;
+  }
+  :where(.app) .account {
+    margin: 20px 16px;
+  }
+  :where(.app) .error {
+    margin: 15px 16px;
+    font-size: 14px;
+  }
+  :where(.app) .history strong {
+    overflow-wrap: anywhere;
+  }
+  :where(.app) footer {
+    font-size: 12px;
+  }
+  :where(.app) footer span {
+    max-width: 170px;
+  }
+  :where(.app) .question-list label {
+    flex-wrap: wrap;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  :where(.app) *,
+  :where(.app) *:before,
+  :where(.app) *:after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+@media (min-width: 801px) {
+  :where(.app) .television main {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+  :where(.app) .television .board-shell {
+    height: calc(100dvh - 310px);
+    min-height: 490px;
+    display: flex;
+    flex-direction: column;
+  }
+  :where(.app) .television .board {
+    flex: 1;
+    min-height: 0;
+    grid-auto-rows: minmax(0, 1fr);
+  }
+  :where(.app) .television .tile {
+    min-height: 0;
+  }
+}
+@media (max-width: 540px) {
+  :where(.app) .tv-stage-bar {
+    min-width: 0;
+    padding: 10px 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  :where(.app) .tv-brand {
+    min-width: 0;
+    gap: 7px;
+    flex-wrap: wrap;
+    font-size: 22px;
+  }
+  :where(.app) .tv-chip {
+    font-size: 9px;
+    padding: 4px 8px;
+  }
+  :where(.app) .tv-room-badge {
+    width: 100%;
+    min-width: 0;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  :where(.app) .tv-room-badge strong {
+    font-size: 20px;
+  }
+  :where(.app) .tv-fs-btn {
+    min-height: 44px;
+    margin-left: auto;
+  }
+  :where(.app) .fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   QA Stabilization & Game Show 3D / UX Refinements
+   ========================================================= */
+:where(.app) .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+:where(.app) .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+:where(.app) .brand-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--gold);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 4px 0 var(--ink);
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 26px;
+}
+
+:where(.app) .live-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-right: 6px;
+  background: #1bbc91;
+  box-shadow: 0 0 0 3px rgba(27, 188, 145, 0.25);
+}
+
+:where(.app) .live-dot.offline {
+  background: var(--danger);
+  box-shadow: none;
+}
+
+:where(.app) .notice-banner {
+  background: #e9f9f3;
+  border: 2px solid var(--success);
+  color: #0b5341;
+  border-radius: 12px;
+  padding: 12px 18px;
+  margin: 20px auto;
+  max-width: 1384px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  font-weight: 800;
+}
+
+:where(.app) .notice-banner button {
+  border: 0;
+  background: none;
+  box-shadow: none;
+  font-size: 24px;
+  min-height: 36px;
+  padding: 4px 8px;
+}
+
+:where(.app) .account-status {
+  display: grid;
+  gap: 12px;
+}
+
+:where(.app) .status-pill {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+:where(.app) .status-pill.confirmed {
+  background: #e3f9f1;
+  color: var(--success);
+  border: 1px solid var(--success);
+}
+
+:where(.app) .status-pill.pending {
+  background: #fff6dc;
+  color: #875800;
+  border: 1px solid #d59b1a;
+}
+
+:where(.app) .hero-kicker {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  box-shadow: 0 3px 0 var(--ink);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  margin-bottom: 16px;
+}
+
+:where(.app) .floating-crown {
+  position: absolute;
+  top: 22px;
+  left: 24px;
+  width: 68px;
+  height: 68px;
+  background: white;
+  border: 3px solid var(--ink);
+  box-shadow: 5px 6px 0 var(--ink);
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
+  transform: rotate(-14deg);
+}
+
+:where(.app) .floating-crown svg {
+  width: 38px;
+  height: 38px;
+}
+
+:where(.app) .hero-live-card {
+  position: absolute;
+  bottom: 24px;
+  left: 16px;
+  background: white;
+  border: 3px solid var(--ink);
+  box-shadow: 6px 7px 0 var(--ink);
+  border-radius: 18px;
+  padding: 12px 16px;
+  max-width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transform: rotate(-3deg);
+}
+
+:where(.app) .hero-live-card .live-pill {
+  font-size: 10px;
+  font-weight: 900;
+  color: var(--blue);
+  letter-spacing: 0.6px;
+}
+
+:where(.app) .hero-live-card strong {
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+:where(.app) .hero-live-card small {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--success);
+}
+
+/* Synchronized 3D Roulette */
+:where(.app) .roulette-box {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid #d7e4ef;
+}
+
+:where(.app) .wheel-stage {
+  position: relative;
+  height: 220px;
+  display: grid;
+  place-items: center;
+  margin: 14px 0 18px;
+}
+
+:where(.app) .wheel-pointer {
+  position: absolute;
+  top: 0;
+  z-index: 4;
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 26px solid var(--ink);
+  filter: drop-shadow(0 3px 0 var(--gold));
+}
+
+:where(.app) .wheel-disc {
+  width: 192px;
+  height: 192px;
+  border-radius: 50%;
+  border: 5px solid var(--ink);
+  box-shadow:
+    inset 0 0 0 4px rgba(255, 255, 255, 0.75),
+    0 8px 0 var(--ink);
+  position: relative;
+  transition: transform 2s cubic-bezier(0.14, 0.8, 0.12, 1);
+}
+
+:where(.app) .wheel-slice-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.88);
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1.5px solid var(--ink);
+  white-space: nowrap;
+  max-width: 78px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+:where(.app) .wheel-hub {
+  position: absolute;
+  inset: calc(50% - 22px);
+  border-radius: 50%;
+  background: white;
+  border: 3px solid var(--ink);
+  box-shadow: 0 3px 0 var(--ink);
+  display: grid;
+  place-items: center;
+  font-family: var(--display);
+  font-size: 20px;
+  color: var(--ink);
+}
+
+:where(.app) .wheel-announcement {
+  background: #fff6dc;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 900;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+/* Preparation 3D category cards & Manual selector */
+:where(.app) .cat-card {
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 10px !important;
+  background: var(--soft);
+  border: 2px solid #c5d8e9;
+  border-radius: 14px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition:
+    transform 0.12s,
+    border-color 0.12s,
+    background 0.12s;
+}
+
+:where(.app) .cat-card.selected {
+  background: #fff9e6;
+  border-color: var(--ink);
+  box-shadow: 0 3px 0 var(--ink);
+}
+
+:where(.app) .cat-icon-3d {
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  background: white;
+  border: 2px solid var(--ink);
+  box-shadow: 0 3px 0 var(--ink);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+:where(.app) .cat-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+:where(.app) .cat-info strong {
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+:where(.app) .cat-info small {
+  font-size: 11px;
+  color: #415c79;
+}
+
+:where(.app) .prep-stats-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 14px 0;
+  padding: 12px 14px;
+  background: var(--soft);
+  border: 2px solid #b8d0e6;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+:where(.app) .prep-stats-bar span {
+  background: white;
+  border: 1.5px solid #b8d0e6;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+:where(.app) .manual-selector {
+  margin: 14px 0 18px;
+  display: grid;
+  gap: 12px;
+}
+
+:where(.app) .selector-toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+:where(.app) .selector-toolbar .search-field {
+  flex: 1;
+}
+
+:where(.app) .question-list {
+  max-height: 360px;
+  overflow: auto;
+  border: 2px solid #b0c7dd;
+  border-radius: 14px;
+  background: #f8fcff;
+  padding: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+:where(.app) .question-card {
+  background: white;
+  border: 2px solid #c7d9ea;
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+:where(.app) .question-card.chosen {
+  border-color: var(--ink);
+  background: #fff9e6;
+  box-shadow: 0 3px 0 var(--ink);
+}
+
+:where(.app) .question-card-main {
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+  flex: 1;
+  cursor: pointer;
+}
+
+:where(.app) .question-card-main strong {
+  display: block;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+:where(.app) .question-card-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+:where(.app) .question-card-actions button {
+  font-size: 12px;
+  padding: 6px 10px;
+  min-height: 36px;
+}
+
+:where(.app) .question-private-preview {
+  margin-top: 8px;
+  padding: 8px 10px;
+  background: #fff4d1;
+  border: 1.5px solid #d5b359;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+:where(.app) .pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+:where(.app) .empty-catalog-banner {
+  background: #fff4d1;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 18px;
+}
+
+/* Compact Score Strip always visible */
+:where(.app) .compact-score-bar {
+  background: white;
+  border: 2px solid var(--ink);
+  box-shadow: 0 4px 0 var(--ink);
+  border-radius: 16px;
+  padding: 10px 16px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+:where(.app) .score-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+:where(.app) .score-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--soft);
+  border: 1.5px solid #b5cde2;
+  font-size: 13px;
+}
+
+:where(.app) .score-chip.leader {
+  background: var(--gold);
+  border-color: var(--ink);
+}
+
+:where(.app) .score-chip.turn {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+:where(.app) .score-toggle-btn {
+  font-size: 13px;
+  font-weight: 900;
+  min-height: 38px;
+}
+
+:where(.app) .score-drawer {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* Round Result Overlay & Points */
+:where(.app) .points.points-result {
+  background: #fff;
+  box-shadow: 0 4px 0 var(--ink);
+}
+
+:where(.app) .round-result-overlay {
+  background: #fffdf5;
+  border: 3px solid var(--ink);
+  box-shadow: 0 7px 0 var(--ink);
+  text-align: center;
+  position: relative;
+}
+
+:where(.app) .result-badge-3d {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 12px;
+  border-radius: 18px;
+  background: var(--gold);
+  border: 2.5px solid var(--ink);
+  box-shadow: 0 4px 0 var(--ink);
+  display: grid;
+  place-items: center;
+}
+
+:where(.app) .result-kicker {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+
+:where(.app) .solution-reveal {
+  background: var(--gold);
+  border: 2.5px solid var(--ink);
+  box-shadow: 0 5px 0 var(--ink);
+  border-radius: 16px;
+  padding: 14px 22px;
+  max-width: 520px;
+  margin: 14px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+:where(.app) .solution-reveal span {
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+:where(.app) .solution-answer {
+  font-family: var(--display);
+  font-size: clamp(26px, 3vw, 38px);
+  line-height: 1.1;
+}
+
+:where(.app) .solution-question {
+  margin: 12px auto 18px;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+:where(.app) .overlay-host-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+/* 3D Podium & Victory Stage */
+:where(.app) .podium-crown {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+:where(.app) .podium-crown svg {
+  width: 44px;
+  height: 44px;
+}
+
+:where(.app) .podium-kicker {
+  display: block;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  margin-bottom: 8px;
+}
+
+:where(.app) .podium-sub {
+  font-size: 17px;
+  margin-bottom: 24px !important;
+}
+
+:where(.app) .podium-3d-pedestals {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 14px;
+  max-width: 520px;
+  margin: 22px auto 28px;
+}
+
+:where(.app) .pedestal-col {
+  flex: 1;
+  max-width: 155px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+:where(.app) .pedestal-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: white;
+  border: 2.5px solid var(--ink);
+  box-shadow: 0 3px 0 var(--ink);
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+:where(.app) .pedestal-name {
+  font-size: 14px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:where(.app) .pedestal-score {
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+:where(.app) .pedestal-block {
+  width: 100%;
+  border: 2.5px solid var(--ink);
+  border-radius: 14px 14px 6px 6px;
+  box-shadow:
+    inset 0 6px 0 rgba(255, 255, 255, 0.55),
+    0 5px 0 var(--ink);
+  display: grid;
+  place-items: center;
+  font-family: var(--display);
+  font-size: 30px;
+}
+
+:where(.app) .pedestal-col.rank-1 .pedestal-block {
+  height: 118px;
+  background: #fff;
+}
+
+:where(.app) .pedestal-col.rank-2 .pedestal-block {
+  height: 88px;
+  background: #cbe7ff;
+}
+
+:where(.app) .pedestal-col.rank-3 .pedestal-block {
+  height: 68px;
+  background: #ffe3a8;
+}
+
+/* History metadata */
+:where(.app) .history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  border-top: 1px solid #d7e4ef;
+  padding: 14px 0;
+}
+
+:where(.app) .history-champ {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+}
+
+:where(.app) .history-champ svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* TV 16:9 Stage Mode without utility buttons */
+:where(.app) .tv-stage-bar {
+  padding: 14px 28px;
+  background: var(--ink);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 3px solid var(--gold);
+}
+
+:where(.app) .tv-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--display);
+  font-size: 28px;
+}
+
+:where(.app) .tv-brand span {
+  color: var(--gold);
+}
+
+:where(.app) .tv-chip {
+  font-family: var(--body);
+  font-size: 11px;
+  font-weight: 900;
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--gold);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+:where(.app) .tv-room-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+:where(.app) .tv-room-badge strong {
+  font-family: var(--display);
+  font-size: 24px;
+  color: var(--gold);
+  letter-spacing: 2px;
+}
+
+:where(.app) .tv-fs-btn {
+  color: white;
+  font-size: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Mobile Host Sticky Dock & Secret Peek */
+:where(.app) .dock-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+:where(.app) .dock-header h2 {
+  margin-bottom: 0;
+}
+
+:where(.app) .mobile-secret-peek {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  :where(.app) .mobile-secret-peek {
+    display: block;
+    font-size: 13px;
+  }
+  :where(.app) .mobile-secret-peek summary {
+    cursor: pointer;
+    font-weight: 900;
+    color: var(--blue);
+  }
+  :where(.app) .peek-box {
+    margin-top: 8px;
+    padding: 10px;
+    background: #fff8e7;
+    border: 1.5px solid #d5b359;
+    border-radius: 10px;
+  }
+  :where(.app) .host-sticky-dock {
+    position: sticky;
+    bottom: 8px;
+    z-index: 20;
+    max-height: min(58dvh, 420px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    box-shadow:
+      0 -4px 18px rgba(16, 46, 83, 0.16),
+      0 5px 0 var(--ink);
+    padding: 16px;
+  }
+  :where(.app) .history-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  :where(.app) .hero-live-card {
+    display: none;
+  }
+}
