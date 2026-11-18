@@ -16,7 +16,7 @@ export default defineConfig({
     screenshot: "only-on-failure",
   },
   webServer: {
-    command: `npm run dev -- --port ${port}`,
+    command: `npm run ${process.env.ARRISCAI_E2E_PRODUCTION === "1" ? "start" : "dev"} -- --port ${port}`,
     url: `http://127.0.0.1:${port}`,
     reuseExistingServer: process.env.PW_REUSE_SERVER === "1",
     timeout: 120000,

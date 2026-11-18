@@ -17,7 +17,7 @@ test("participante expirado volta à entrada e precisa entrar novamente", async 
     for (const context of contexts) await runtime.attach(context);
     const [host, guest] = await Promise.all(contexts.map((c) => c.newPage()));
     await host.goto("/jogar");
-    await host.getByLabel("Como a galera te chama?").fill("Host expiração");
+    await host.getByLabel("Escolha seu apelido").fill("Host expiração");
     await host
       .getByRole("button", { name: "Criar uma sala", exact: false })
       .click();
@@ -26,7 +26,7 @@ test("participante expirado volta à entrada e precisa entrar novamente", async 
     const room = host.url().split("/sala/")[1].split("?")[0];
     await guest.goto(`/?codigo=${code}`);
     await guest
-      .getByLabel("Como a galera te chama?")
+      .getByLabel("Escolha seu apelido")
       .fill("Visitante expiração");
     await guest.getByRole("button", { name: "Entrar", exact: true }).click();
     await expect(guest.locator(".preparation-preview")).toBeVisible();
@@ -42,7 +42,7 @@ test("participante expirado volta à entrada e precisa entrar novamente", async 
       host.locator(".member-slot").filter({ hasText: "Visitante expiração" }),
     ).toHaveCount(0);
     await guest
-      .getByLabel("Como a galera te chama?")
+      .getByLabel("Escolha seu apelido")
       .fill("Visitante expiração");
     await guest.getByRole("button", { name: "Entrar", exact: true }).click();
     await expect(guest).toHaveURL(new RegExp(`/sala/${room}`));

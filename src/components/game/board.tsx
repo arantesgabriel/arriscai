@@ -29,7 +29,12 @@ export function Board({
       : "pontos em jogo";
 
   return (
-    <section className="board-shell">
+    <section
+      className="board-shell"
+      id="round-board"
+      tabIndex={-1}
+      aria-label="Tabuleiro da rodada"
+    >
       <div className="board-top">
         <div>
           <span>

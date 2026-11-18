@@ -1,5 +1,7 @@
 # Integração oficial V4 · Fases 1 a 5
 
+> Privacidade do catálogo (18/11/2026): esta cópia histórica teve enunciados, respostas, arquivos de dados e capturas removidos. Resultados anteriores foram preservados como histórico, não como nova homologação; instruções de catálogo devem seguir `docs/CONTEUDO.md`.
+
 Implementação na branch `dev`, a partir de `8214235`, em 16/11/2026. Escopo autorizado pelo usuário: conectar todas as interfaces às rotas oficiais, sem merge ou deploy. Referência visual exclusiva: a landing V4 já implementada.
 
 As telas novas fazem parte do `GameApp` de `/jogar`, `/sala/[id]` e dos convites/modo telão existentes. Criar sala, entrar, preparar, selecionar, revelar, julgar, avançar e reiniciar continuam usando os handlers e comandos existentes. Não há uma rota paralela de protótipo na experiência oficial.
@@ -43,7 +45,7 @@ Os arquivos da landing em `src/components/landing/` não foram editados.
 
 ## Evidências
 
-- [Galeria das interfaces oficiais](galeria.html).
+- Galeria das interfaces oficiais (captura retirada por privacidade).
 - [Manifesto do fluxo real](resultados.json).
 - [Comparação estática da landing](landing-comparison/resultados.json).
 - [Enquadramento final do resultado no telão](telao-final.json): 1920×1080, `scrollHeight=1080`, resposta visível e tabuleiro recolhido visualmente durante o resultado.

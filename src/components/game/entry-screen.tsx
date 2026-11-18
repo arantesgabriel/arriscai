@@ -86,7 +86,7 @@ export function EntryForm({
   }
   const nameField = (
     <label>
-      Como a galera te chama?
+      Escolha seu apelido
       <input
         placeholder="Seu apelido"
         ref={nicknameRef}

@@ -86,7 +86,7 @@ for (const width of [320, 390, 768, 1360, 1440, 1920]) {
     expect(errors).toEqual([]);
     await page.locator(".nav-cta").click();
     await expect(page).toHaveURL(/\/jogar$/);
-    await expect(page.getByLabel("Como a galera te chama?")).toBeVisible();
+    await expect(page.getByLabel("Escolha seu apelido")).toBeVisible();
   });
 }
 

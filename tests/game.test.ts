@@ -8,7 +8,8 @@ import {
   suggestsCorrect,
   tokenize,
 } from "../src/lib/game";
-import seed from "../data/perguntas_504.json";
+import { testCatalog } from "../scripts/test-catalog-fixtures.mjs";
+const seed = testCatalog();
 describe("Regras de conteúdo e pontuação", () => {
   it.each([
     [22, 1, 22],
@@ -80,7 +81,7 @@ describe("Regras de conteúdo e pontuação", () => {
       }),
     ).toBe("Esse apelido já está em uso nesta sala. Escolha outro.");
   });
-  it("seed tem 504 perguntas distintas, 63 por categoria e ao menos 6 de 22 palavras por categoria", () => {
+  it("fixture sintética tem 504 itens distintos, 63 por categoria e ao menos 6 de 22 palavras por categoria", () => {
     expect(seed).toHaveLength(504);
     expect(new Set(seed.map((q) => normalize(q.question))).size).toBe(504);
     const cats = [...new Set(seed.map((q) => q.category))];

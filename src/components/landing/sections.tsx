@@ -120,29 +120,28 @@ export function ScoreSection() {
     >
       <div className="shell score-interlude-grid">
         <div className="score-intro enter">
-          <span className="score-eye">
-            <span aria-hidden="true" className="score-eye-mark">
-              ✳
-            </span>{" "}
-            CADA PISTA CONTA
-          </span>
+          <span className="score-eye">CADA PISTA CONTA</span>
           <h2 id="score-title">
             O melhor momento
             <br /> é <em>antes.</em>
           </h2>
           <p>
-            <span className="desktop-copy">
-              Em uma pergunta com <strong>22 palavras</strong>, acertar cedo faz
-              toda a diferença.
-            </span>
-            <span className="mobile-copy">
-              Acerte com menos pistas. Ganhe mais pontos.
-            </span>
+            Exemplo com uma pergunta de <strong>22 palavras</strong>:
           </p>
-          <p className="score-explainer">
-            A primeira pista vale 22 pontos. Cada pista extra tira 1 ponto do
-            acerto.
-          </p>
+          <dl className="score-explainer">
+            <div>
+              <dt>Acerto na primeira pista</dt>
+              <dd>
+                22 <span>pontos</span>
+              </dd>
+            </div>
+            <div>
+              <dt>A cada pista extra</dt>
+              <dd>
+                −1 <span>ponto em jogo</span>
+              </dd>
+            </div>
+          </dl>
         </div>
         <ScoreSimulator />
       </div>

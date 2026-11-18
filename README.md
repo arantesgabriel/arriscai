@@ -19,12 +19,12 @@ No Windows: `Copy-Item .env.example .env.local`. Abra [localhost](http://127.0.0
 
 1. Crie um projeto próprio ou instale Docker + Supabase CLI e execute `supabase start` para desenvolvimento local. Este ambiente não tinha Docker/CLI/credenciais.
 2. Aplique todas as migrações de `supabase/migrations/` em ordem no SQL Editor ou execute `supabase db push` após `supabase link --project-ref SEU_REF`.
-3. Carregue `supabase/seed.sql` pelo SQL Editor ou execute `npm run seed` com `SUPABASE_DB_URL` no ambiente e `psql` instalado. `supabase db reset` aplica migration e seed em um projeto local.
+3. O catálogo oficial existe somente no banco privado. Não há carga de perguntas no repositório. Bancos novos precisam de importação administrativa privada; `npm run seed` exige `SUPABASE_DB_URL`, `psql` e `ARRISCAI_PRIVATE_SEED_SQL` apontando para um arquivo fornecido pelo responsável fora do repositório. Não exporte o catálogo para docs, capturas ou commits.
 4. Habilite Anonymous Sign-ins e Email/Password. Configure confirmação de e-mail, Site URL e Redirect URLs para a origem do app. Use senha mínima de 12 caracteres. Configure limites do Auth e CAPTCHA antes de acesso público irrestrito.
 5. Habilite Realtime privado; desabilite canais públicos nas configurações do Realtime. As policies de `realtime.messages` estão na migration. Não publique tabelas privadas nem exponha o schema `private` na Data API.
 6. Configure `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. O app não usa service role.
 
-O seed contém **504 questões, 63 por categoria, todas `provisional`**, com dificuldade e nota de complexidade. Por padrão, não entram em partidas. Somente para ambiente PRIVADO de desenvolvimento, execute como administrador:
+O catálogo e sua aprovação editorial são administrados na base. Quantidade, distribuição e disponibilidade devem ser verificadas por consultas administrativas privadas. Somente para ambiente PRIVADO de desenvolvimento, execute como administrador:
 
 ```sql
 update private.settings set allow_provisional = true where singleton;
@@ -58,7 +58,7 @@ npm run test:e2e
 
 No Windows restrito, se o Vitest falhar ao renomear temporários, aponte TEMP/TMP para pasta gravável no projeto. Webpack está explícito nos scripts porque Turbopack não iniciou um subprocesso neste ambiente.
 
-`test:db` executa migration/seed em PGlite, PostgreSQL embarcado, com schemas Auth/Realtime simulados e grants/RLS/RPC reais. O Playwright padrão abre três contextos Chromium conectando a UI ao mesmo SQL por adaptador exclusivo de testes. **Isso não valida o serviço Supabase hospedado.** O adaptador não é importado pela aplicação nem empacotado no deploy.
+`test:db` executa migrations em PGlite com um catálogo inteiramente fictício, schemas Auth/Realtime simulados e grants/RLS/RPC reais. Os testes não importam o catálogo oficial nem comprovam sua revisão editorial ou estoque no banco hospedado. O Playwright usa contextos Chromium conectando a UI ao SQL por adaptador exclusivo de testes. **Isso não valida o serviço Supabase hospedado.** O adaptador não é importado pela aplicação nem empacotado no deploy.
 
 Para rodar o mesmo fluxo contra Supabase real: configure as duas variáveis públicas no shell, `ARRISCAI_LIVE_E2E=1`, habilite questões revisadas ou provisórias somente no projeto de teste privado e execute `npm run test:e2e`. Não use produção: o teste cria identidades, sala e partidas. Veja [relatório](docs/TESTES.md).
 
@@ -67,3 +67,5 @@ Para rodar o mesmo fluxo contra Supabase real: configure as duas variáveis púb
 Importe o repositório como Next.js. Build `npm run build`, instalação `npm ci`. Configure as duas variáveis públicas em Production e Preview com projetos Supabase separados. Redeploy após alterar variáveis públicas. Configure origem/redirect de produção no Supabase Auth. Execute três contextos contra o serviço real antes de liberar o domínio.
 
 Veja [segurança e operação](docs/SEGURANCA.md). Nenhum deploy foi realizado. Projeto/credenciais Supabase e Vercel, revisão editorial, Rufing licenciada e verificação de marca continuam externos.
+
+O conteúdo oficial fica somente na base privada. Veja [privacidade do catálogo e limite do histórico Git](docs/PRIVACIDADE_CATALOGO.md).

@@ -13,7 +13,12 @@ export function CompactScoreStrip({
   const sorted = [...game.players].sort((a, b) => b.score - a.score);
   return (
     <div className="compact-score-bar" aria-label="Resumo do placar">
-      <div className="score-chips">
+      <div
+        className="score-chips"
+        role="region"
+        aria-label="Pontos dos jogadores, role para consultar"
+        tabIndex={0}
+      >
         {sorted.map((p, i) => (
           <span
             key={p.id}

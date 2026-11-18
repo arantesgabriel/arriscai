@@ -123,7 +123,21 @@
   margin-top: 0;
 }
 .app .podium .scoreboard {
-  color: var(--palette-ink);
+  background: var(--palette-night-secondary);
+  color: var(--palette-paper);
+  border-color: var(--palette-line);
+}
+.app .podium .scoreboard li {
+  border-color: var(--palette-line);
+}
+.app .podium .scoreboard li > b {
+  color: var(--palette-gold);
+}
+.app .podium .scoreboard li > span {
+  color: var(--palette-paper);
+}
+.app .podium .scoreboard .current > span {
+  color: var(--palette-mint);
 }
 .app.television .round-result-overlay {
   margin-top: 28px;

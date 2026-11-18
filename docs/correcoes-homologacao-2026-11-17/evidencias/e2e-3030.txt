@@ -1,0 +1,69 @@
+npm notice run arriscai@0.1.0 npx
+npm notice run playwright test tests/e2e/homologation-fixes.spec.ts --output=.tmp/results-fixes-3030
+[WebServer] npm notice run arriscai@0.1.0 dev
+[WebServer] npm notice run next dev --webpack --hostname 127.0.0.1 --port 3030
+[WebServer] (node:9180) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:17168) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:13820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS local guest identity ready
+  x  1 tests\e2e\homologation-fixes.spec.ts:17:1 › correções: mobile, dois telões, placares, quatro rodadas e desempates (SQL local) (24.7s)
+
+
+  1) tests\e2e\homologation-fixes.spec.ts:17:1 › correções: mobile, dois telões, placares, quatro rodadas e desempates (SQL local)
+
+    TimeoutError: locator.click: Timeout 20000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Criar uma sala', exact: true })
+
+
+      163 |     await host
+      164 |       .getByRole("button", { name: /^Criar uma sala/ })
+    > 165 |       .click();
+          |        ^
+      166 |     const code = await host.locator(".room-code strong").innerText();
+      167 |     room = new URL(host.url()).pathname.split("/").pop()!;
+      168 |     await Promise.all(
+        at C:\Fontes\arriscai\tests\e2e\homologation-fixes.spec.ts:165:8
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tmp\results-fixes-3030\homologation-fixes-correçõ-80ab4-das-e-desempates-SQL-local-\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tmp\results-fixes-3030\homologation-fixes-correçõ-80ab4-das-e-desempates-SQL-local-\test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tmp\results-fixes-3030\homologation-fixes-correçõ-80ab4-das-e-desempates-SQL-local-\test-failed-3.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #4: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tmp\results-fixes-3030\homologation-fixes-correçõ-80ab4-das-e-desempates-SQL-local-\test-failed-4.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #5: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tmp\results-fixes-3030\homologation-fixes-correçõ-80ab4-das-e-desempates-SQL-local-\test-failed-5.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: screenshot (image/png) ──────────────────────────────────────────────────────────
+    .tmp\results-fixes-3030\homologation-fixes-correçõ-80ab4-das-e-desempates-SQL-local-\test-failed-6.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: .tmp\results-fixes-3030\homologation-fixes-correçõ-80ab4-das-e-desempates-SQL-local-\error-context.md
+
+    attachment #8: trace (application/zip) ─────────────────────────────────────────────────────────
+    .tmp\results-fixes-3030\homologation-fixes-correçõ-80ab4-das-e-desempates-SQL-local-\trace.zip
+    Usage:
+
+        npx playwright show-trace .tmp\results-fixes-3030\homologation-fixes-correçõ-80ab4-das-e-desempates-SQL-local-\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\homologation-fixes.spec.ts:17:1 › correções: mobile, dois telões, placares, quatro rodadas e desempates (SQL local)

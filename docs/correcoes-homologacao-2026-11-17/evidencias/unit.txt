@@ -1,0 +1,10 @@
+npm notice run arriscai@0.1.0 test
+npm notice run vitest run
+
+ RUN  v4.1.12 C:/Fontes/arriscai
+
+
+ Test Files  5 passed (5)
+      Tests  22 passed (22)
+   Start at  08:56:48
+   Duration  4.76s (transform 618ms, setup 0ms, import 1.61s, tests 5.50s, environment 1ms)

@@ -1,5 +1,7 @@
 # Configuração de publicação — 13/11/2026
 
+> Privacidade do catálogo (18/11/2026): esta cópia histórica teve enunciados, respostas, arquivos de dados e capturas removidos. Resultados anteriores foram preservados como histórico, não como nova homologação; instruções de catálogo devem seguir `docs/CONTEUDO.md`.
+
 - GitHub: `arantesgabriel/arriscai`, branch `main`, commit inicial da implementação `91e6db8`. A instalação GitHub da Vercel recebeu acesso ao repositório.
 - Vercel: equipe `arantesgabriels-projects`; importação `arriscai` preparada no navegador, ainda não criada nem publicada. Preset Next.js, raiz `./`, instalação `npm ci`, build `npm run build` (Webpack). Variáveis públicas carregadas no formulário somente para Production; ainda não salvas. Preview requer projeto Supabase de teste separado.
 - Supabase: organização Arriscai, projeto `arriscai-prod` vinculado ao repositório. Inventário SQL não encontrou tabelas nas áreas `public` e `private`; painel informa nenhuma migration registrada. Nenhum SQL de aplicação ou seed foi aplicado nesta sessão. Realtime ativado, acesso público a canais desabilitado; policies de `realtime.messages` ainda ausentes até a migration. Email habilitado e confirmação exigida; entrada anônima desabilitada.

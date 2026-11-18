@@ -1,0 +1,88 @@
+[
+  {
+    "role": "host",
+    "phase": "active",
+    "engine": {
+      "name": "axe-core",
+      "version": "4.14.0"
+    },
+    "violations": [],
+    "incomplete": [],
+    "passes": 5
+  },
+  {
+    "role": "player",
+    "phase": "active",
+    "engine": {
+      "name": "axe-core",
+      "version": "4.14.0"
+    },
+    "violations": [],
+    "incomplete": [],
+    "passes": 5
+  },
+  {
+    "role": "tv",
+    "phase": "active",
+    "engine": {
+      "name": "axe-core",
+      "version": "4.14.0"
+    },
+    "violations": [],
+    "incomplete": [],
+    "passes": 5
+  },
+  {
+    "mobileSize": "320x720",
+    "firstPosition": 22,
+    "confirmationInViewport": true,
+    "manualScrollAfterSelection": 0
+  },
+  {
+    "mobileQuestionWords": 22,
+    "longestWord": 10
+  },
+  {
+    "role": "host",
+    "phase": "podium",
+    "engine": {
+      "name": "axe-core",
+      "version": "4.14.0"
+    },
+    "violations": [],
+    "incomplete": [],
+    "passes": 5
+  },
+  {
+    "role": "player",
+    "phase": "podium",
+    "engine": {
+      "name": "axe-core",
+      "version": "4.14.0"
+    },
+    "violations": [],
+    "incomplete": [],
+    "passes": 5
+  },
+  {
+    "role": "tv",
+    "phase": "podium",
+    "engine": {
+      "name": "axe-core",
+      "version": "4.14.0"
+    },
+    "violations": [],
+    "incomplete": [],
+    "passes": 5
+  },
+  {
+    "mobileSize": "390x844",
+    "firstPosition": 22,
+    "confirmationInViewport": true,
+    "manualScrollAfterSelection": 0
+  },
+  {
+    "mobileQuestionWords": 22,
+    "longestWord": 13
+  }
+]

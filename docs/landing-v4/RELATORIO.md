@@ -1,5 +1,7 @@
 # Landing Arriscaí! GDevelop V4
 
+> Privacidade do catálogo (18/11/2026): esta cópia histórica teve enunciados, respostas, arquivos de dados e capturas removidos. Resultados anteriores foram preservados como histórico, não como nova homologação; instruções de catálogo devem seguir `docs/CONTEUDO.md`.
+
 ## Refinamentos posteriores solicitados
 
 Textos da interface atualizados de “turma” para “galera”; removidos travessões textuais e traços decorativos antes das frases. CTA final compactado, tracejado do portal removido, explicação dos pontos simplificada e convite da demonstração redesenhado. Identificadores das regras usam peso normal e os números dos quadrados foram reduzidos.
@@ -41,12 +43,12 @@ As comparações mostram **HTML de referência à esquerda e Next.js à direita*
 
 | Viewport | Comparação completa |
 | --- | --- |
-| 320×844 | [Abrir](captures/comparison-320.png) |
-| 390×844 | [Abrir](captures/comparison-390.png) |
-| 768×1024 | [Abrir](captures/comparison-768.png) |
-| 1360×900 | [Abrir](captures/comparison-1360.png) |
-| 1440×900 | [Abrir](captures/comparison-1440.png) |
-| 1920×1080 | [Abrir](captures/comparison-1920.png) |
+| 320×844 | Abrir (captura retirada por privacidade) |
+| 390×844 | Abrir (captura retirada por privacidade) |
+| 768×1024 | Abrir (captura retirada por privacidade) |
+| 1360×900 | Abrir (captura retirada por privacidade) |
+| 1440×900 | Abrir (captura retirada por privacidade) |
+| 1920×1080 | Abrir (captura retirada por privacidade) |
 
 As 11 regiões medidas (hero, título, cena, pontuação, simulador, regras, demonstração, frame, recursos, CTA e rodapé) apresentaram **delta de 0 px** em posição e dimensão, com valores registrados a duas casas decimais, em todas as larguras. Não houve overflow horizontal.
 
@@ -54,10 +56,10 @@ No estado inicial, pixels com diferença de canal RGB superior a 24 representam 
 
 | Estado | 390 px | 1440 px |
 | --- | --- | --- |
-| Simulador: 22 pistas / 1 ponto | [Comparação](captures/comparison-score22-390.png) | [Comparação](captures/comparison-score22-1440.png) |
-| Erro e bloqueio de novo palpite | [Comparação](captures/comparison-wrong-390.png) | [Comparação](captures/comparison-wrong-1440.png) |
-| Vitória com acentos: 13 pontos | [Comparação](captures/comparison-win-390.png) | [Comparação](captures/comparison-win-1440.png) |
-| Derrota após 14 palavras | [Comparação](captures/comparison-loss-390.png) | [Comparação](captures/comparison-loss-1440.png) |
+| Simulador: 22 pistas / 1 ponto | Comparação (captura retirada por privacidade) | Comparação (captura retirada por privacidade) |
+| Erro e bloqueio de novo palpite | Comparação (captura retirada por privacidade) | Comparação (captura retirada por privacidade) |
+| Vitória com acentos: 13 pontos | Comparação (captura retirada por privacidade) | Comparação (captura retirada por privacidade) |
+| Derrota após 14 palavras | Comparação (captura retirada por privacidade) | Comparação (captura retirada por privacidade) |
 
 Arquivos `next-*` e `reference-*` na mesma pasta permitem inspecionar cada lado separadamente.
 

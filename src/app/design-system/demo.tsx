@@ -90,7 +90,7 @@ export function Demo() {
           <Card style={{ flex: "1 1 300px" }}>
             <h2 className={s.h2}>Campos</h2>
             <div className={s.stack}>
-              <Field label="Como a galera te chama?" placeholder="Seu apelido" hint="Até 20 caracteres" />
+              <Field label="Escolha seu apelido" placeholder="Seu apelido" hint="Até 20 caracteres" />
               <Field label="Código da sala" placeholder="Ex.: A1B2C3D4" error="Sala não encontrada" defaultValue="ZZZ" />
               <Field label="Desabilitado" placeholder="—" disabled />
             </div>

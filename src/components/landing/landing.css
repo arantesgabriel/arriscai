@@ -1520,16 +1520,6 @@
   letter-spacing: 0.07em;
   color: #555b93;
 }
-.landing-v4 .score-eye-mark {
-  width: 36px;
-  height: 36px;
-  display: grid;
-  place-items: center;
-  background: #151a37;
-  color: #80efcd;
-  border-radius: 50%;
-  font-size: 21px;
-}
 .landing-v4 .score-intro h2 {
   font-size: clamp(48px, 4.2vw, 74px);
   line-height: 1.03;
@@ -2265,12 +2255,36 @@ html:has(.landing-v4) {
 }
 /* Refinements requested after V4 acceptance. */
 .landing-v4 .score-explainer {
-  margin-top: 24px;
-  max-width: 340px;
-  padding-left: 16px;
-  border-left: 3px solid #6657d3;
-  font-size: 15px;
-  line-height: 1.6;
+  margin: 22px 0 0;
+  max-width: 390px;
+  border-top: 1px solid #c9c3e8;
+}
+.landing-v4 .score-explainer > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  padding: 14px 0;
+  border-bottom: 1px solid #c9c3e8;
+}
+.landing-v4 .score-explainer dt {
+  color: #485070;
+  font: 700 15px/1.5 var(--font-body);
+}
+.landing-v4 .score-explainer dd {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 8px;
+  margin: 0;
+  color: #6657d3;
+  white-space: nowrap;
+  font: 400 38px/1 var(--font-title);
+}
+.landing-v4 .score-explainer dd > span {
+  width: 12ch;
+  color: #485070;
+  font: 600 12px/1.4 var(--font-body);
 }
 .landing-v4 .demo-invite {
   display: inline-flex;
@@ -2443,8 +2457,10 @@ html:has(.landing-v4) {
     margin: 14px 0;
   }
   .landing-v4 .score-explainer {
-    margin-top: 16px;
-    font-size: 13px;
+    margin-top: 18px;
+  }
+  .landing-v4 .score-explainer > div {
+    gap: 16px;
   }
   .landing-v4 .score-level {
     min-height: 102px;

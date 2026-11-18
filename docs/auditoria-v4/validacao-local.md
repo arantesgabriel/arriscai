@@ -1,5 +1,7 @@
 # Validação de referência · Fase 0
 
+> Privacidade do catálogo (18/11/2026): esta cópia histórica teve enunciados, respostas, arquivos de dados e capturas removidos. Resultados anteriores foram preservados como histórico, não como nova homologação; instruções de catálogo devem seguir `docs/CONTEUDO.md`.
+
 Executada em 16/11/2026 sobre `dev`, HEAD inicial `7cf6bce`. Não houve implementação no frontend.
 
 | Comando | Resultado |

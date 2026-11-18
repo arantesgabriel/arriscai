@@ -162,6 +162,9 @@
   max-height: none;
   overflow: visible;
 }
+.app .mobile-board-link {
+  display: none;
+}
 .app .controls h2 {
   font-size: 25px;
 }
@@ -462,6 +465,18 @@
     overflow: visible;
     max-height: none;
   }
+  .app[data-experience="host"] .controls {
+    order: -1;
+  }
+  .app .mobile-board-link {
+    display: block;
+    min-height: 44px;
+    margin-bottom: 12px;
+  }
+  .app .controls h2,
+  .app .board-shell {
+    scroll-margin-block: 12px;
+  }
   .app .round-result-overlay {
     order: 1;
   }
@@ -535,6 +550,13 @@
   }
   .app .score-chips {
     gap: 6px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    min-width: 0;
+    padding-block: 4px;
+  }
+  .app .score-chip {
+    flex-shrink: 0;
   }
   .app .score-toggle-btn {
     padding: 6px;
