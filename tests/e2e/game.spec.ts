@@ -61,7 +61,7 @@ async function joinAs(
   expectedHeading = "Junte a galera.",
 ) {
   await page.goto("/?codigo=" + encodeURIComponent(code));
-  await page.getByLabel("Como a galera te chama?").fill(nickname);
+  await page.getByLabel("Escolha seu apelido").fill(nickname);
   await page.getByRole("button", { name: "Entrar", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: expectedHeading, exact: true }),
@@ -94,7 +94,7 @@ test("three players, telão and late spectator share one hosted or isolated game
       await capture(host, `home-${width}`);
     }
     await host.setViewportSize({ width: 1440, height: 1000 });
-    await host.getByLabel("Como a galera te chama?").fill("Ana");
+    await host.getByLabel("Escolha seu apelido").fill("Ana");
     await host.getByRole("button", { name: "Criar uma sala" }).click();
     await expect(
       host.getByRole("heading", { name: "Junte a galera.", exact: true }),

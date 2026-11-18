@@ -50,7 +50,7 @@ test("entrada alternável, convite direto e preparação pública sincronizada",
     ).toHaveAttribute("aria-expanded", "true");
     await expect(p.getByLabel("Código da sala")).toHaveValue(code);
     await expect(p.locator("#create-room-fields")).toHaveCount(0);
-    await p.getByLabel("Como a galera te chama?").fill(nickname);
+    await p.getByLabel("Escolha seu apelido").fill(nickname);
     await p.getByRole("button", { name: "Entrar", exact: true }).click();
     await expect(
       p.getByRole("heading", { name: "Junte a galera.", exact: true }),
@@ -66,11 +66,11 @@ test("entrada alternável, convite direto e preparação pública sincronizada",
     await expect(host.getByLabel("Volume", { exact: true })).toBeVisible();
     await host.getByRole("button", { name: "Desativar som" }).click();
     await expect(host.getByLabel("Volume", { exact: true })).toBeHidden();
-    await host.getByLabel("Como a galera te chama?").fill("UX Ana");
+    await host.getByLabel("Escolha seu apelido").fill("UX Ana");
     await expect(host.locator("#join-room-fields")).toHaveCount(0);
     await host.getByRole("button", { name: "Tenho um código" }).click();
     await expect(host.locator("#create-room-fields")).toHaveCount(0);
-    await expect(host.getByLabel("Como a galera te chama?")).toHaveValue(
+    await expect(host.getByLabel("Escolha seu apelido")).toHaveValue(
       "UX Ana",
     );
     await host.getByLabel("Código da sala").fill("AB12CD34");
@@ -92,8 +92,8 @@ test("entrada alternável, convite direto e preparação pública sincronizada",
       await capture(host, `entrada-codigo-${w}`);
     }
     await host.setViewportSize({ width: 320, height: 720 });
-    await host.getByLabel("Como a galera te chama?").focus();
-    await host.getByLabel("Como a galera te chama?").press("Tab");
+    await host.getByLabel("Escolha seu apelido").focus();
+    await host.getByLabel("Escolha seu apelido").press("Tab");
     await expect(host.getByLabel("Código da sala")).toBeFocused();
     const codeBox = await host.getByLabel("Código da sala").boundingBox();
     const footerBox = await host.locator("footer").boundingBox();
@@ -106,7 +106,7 @@ test("entrada alternável, convite direto e preparação pública sincronizada",
     await host.setViewportSize({ width: 1920, height: 1080 });
     await host.getByRole("button", { name: "Criar sala", exact: true }).click();
     await expect(host.locator("#join-room-fields")).toHaveCount(0);
-    await expect(host.getByLabel("Como a galera te chama?")).toHaveValue(
+    await expect(host.getByLabel("Escolha seu apelido")).toHaveValue(
       "UX Ana",
     );
     await capture(host, "entrada-criar-1920");

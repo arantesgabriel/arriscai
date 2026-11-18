@@ -225,7 +225,7 @@ test("correções: mobile, dois telões, placares, quatro rodadas e desempates (
     await host.goto("/jogar");
     await expect(host.locator(".app")).toHaveAttribute("data-ready", "true");
     console.log("PASS local guest identity ready");
-    await host.getByLabel("Como a galera te chama?").fill("Host");
+    await host.getByLabel("Escolha seu apelido").fill("Host");
     await host.getByRole("button", { name: /^Criar uma sala/ }).click();
     const code = await host.locator(".room-code strong").innerText();
     room = new URL(host.url()).pathname.split("/").pop()!;
@@ -234,7 +234,7 @@ test("correções: mobile, dois telões, placares, quatro rodadas e desempates (
         await p.goto(`/?codigo=${code}${i >= 3 ? "&telao=1" : ""}`);
         if (i < 3)
           await p
-            .getByLabel("Como a galera te chama?")
+            .getByLabel("Escolha seu apelido")
             .fill(["Ana", "Bruno", "Carla"][i]);
         await p.getByRole("button", { name: "Entrar", exact: true }).click();
         await expect(p).toHaveURL(/\/sala\//);
@@ -333,7 +333,7 @@ test("correções: mobile, dois telões, placares, quatro rodadas e desempates (
       await runtime.attach(context);
       const page = await context.newPage();
       await page.goto("/?codigo=" + code);
-      await page.getByLabel("Como a galera te chama?").fill(nickname);
+      await page.getByLabel("Escolha seu apelido").fill(nickname);
       await page.getByRole("button", { name: "Entrar", exact: true }).click();
       await expect(page).toHaveURL(/\/sala\//);
     }

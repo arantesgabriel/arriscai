@@ -33,7 +33,7 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
   ) {
     await page.goto(`/?codigo=${code}${screen ? "&telao=1" : ""}`);
     if (!screen)
-      await page.getByLabel("Como a galera te chama?").fill(nickname);
+      await page.getByLabel("Escolha seu apelido").fill(nickname);
     await expect(
       page.getByRole("button", { name: "Entrar", exact: true }),
     ).toBeEnabled();
@@ -83,7 +83,7 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
   try {
     await host.goto("/jogar");
     await expect(host.locator(".app")).toHaveAttribute("data-ready", "true");
-    await host.getByLabel("Como a galera te chama?").fill("QA-Organizador-R");
+    await host.getByLabel("Escolha seu apelido").fill("QA-Organizador-R");
     await host.getByRole("button", { name: "Criar uma sala" }).click();
     await expect(
       host.getByRole("heading", { name: "Junte a galera.", exact: true }),
@@ -97,7 +97,7 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
       await route.continue();
     });
     await first.goto(`/?codigo=${code}`);
-    await first.getByLabel("Como a galera te chama?").fill("QA-Jogador-1");
+    await first.getByLabel("Escolha seu apelido").fill("QA-Jogador-1");
     await expect(
       first.getByRole("button", { name: "Entrar", exact: true }),
     ).toBeDisabled();
@@ -157,7 +157,7 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
     await join(third, code, "QA-Jogador-3");
     await join(tv, code, "Telão", true);
     await duplicate.goto(`/?codigo=${code}`);
-    await duplicate.getByLabel("Como a galera te chama?").fill("QA-Jogador-1");
+    await duplicate.getByLabel("Escolha seu apelido").fill("QA-Jogador-1");
     await expect(
       duplicate.getByRole("button", { name: "Entrar", exact: true }),
     ).toBeEnabled();
@@ -167,8 +167,8 @@ test("staging: identidade, roleta, reconexão e apelido duplicado", async ({
     await expect(duplicate.locator(".error[role=alert]")).toContainText(
       "Esse apelido já está em uso nesta sala. Escolha outro.",
     );
-    await expect(duplicate.getByLabel("Como a galera te chama?")).toBeFocused();
-    await duplicate.getByLabel("Como a galera te chama?").fill("QA-Jogador-4");
+    await expect(duplicate.getByLabel("Escolha seu apelido")).toBeFocused();
+    await duplicate.getByLabel("Escolha seu apelido").fill("QA-Jogador-4");
     await expect(host.locator(".members li:not(.member-empty)")).toHaveCount(5);
 
     const members = await host

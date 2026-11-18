@@ -25,7 +25,7 @@ async function shot(page,name,fullPage=true){
 async function matrix(page,name){for(const [width,height] of sizes){await page.setViewportSize({width,height});await shot(page,`${name}-${width}x${height}`);}await page.setViewportSize({width:1440,height:900});}
 async function join(page,code,name,screen=false){
  await page.goto(`https://arriscai.vercel.app/?codigo=${code}${screen?'&telao=1':''}`);
- if(!screen)await page.getByLabel('Como a galera te chama?').fill(name);
+ if(!screen)await page.getByLabel('Escolha seu apelido').fill(name);
  await expect(page.getByRole('button',{name:'Entrar',exact:true})).toBeEnabled();
  await page.getByRole('button',{name:'Entrar',exact:true}).click();
  await expect(page.getByRole('heading',{name:'Junte a galera.'})).toBeVisible();
@@ -41,7 +41,7 @@ try {
  await host.getByRole('button',{name:'Entrar na conta'}).click();await shot(host,'conta-desktop');
  await host.getByRole('button',{name:'Esqueci minha senha'}).click();await shot(host,'recuperacao-desktop');
  await host.getByRole('button',{name:'Fechar',exact:true}).click();
- await host.getByLabel('Como a galera te chama?').fill('QA V4 Host');await host.getByRole('button',{name:'Criar uma sala'}).click();
+ await host.getByLabel('Escolha seu apelido').fill('QA V4 Host');await host.getByRole('button',{name:'Criar uma sala'}).click();
  await expect(host.getByRole('heading',{name:'Junte a galera.'})).toBeVisible();
  const code=await host.locator('.room-code strong').innerText();report.roomCode=code;report.roomUrl=host.url();
  console.log('ROOM',code);

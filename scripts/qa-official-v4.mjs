@@ -117,7 +117,7 @@ async function matrix(page, name) {
 }
 async function join(page, code, name, screen = false) {
   await page.goto(`${origin}/?codigo=${code}${screen ? "&telao=1" : ""}`);
-  if (!screen) await page.getByLabel("Como a galera te chama?").fill(name);
+  if (!screen) await page.getByLabel("Escolha seu apelido").fill(name);
   await expect(
     page.getByRole("button", { name: "Entrar", exact: true }),
   ).toBeEnabled();
@@ -179,7 +179,7 @@ try {
     await host.getByRole("button", { name: "Esqueci minha senha" }).click();
     await shot(host, "recuperacao-desktop");
     await host.getByRole("button", { name: "Fechar", exact: true }).click();
-    await host.getByLabel("Como a galera te chama?").fill("QA V4 Host");
+    await host.getByLabel("Escolha seu apelido").fill("QA V4 Host");
     await host.getByRole("button", { name: "Criar uma sala" }).click();
     await expect(
       host.getByRole("heading", { name: "Junte a galera." }),
