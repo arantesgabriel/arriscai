@@ -606,7 +606,7 @@ await check(
 );
 mkdirSync("docs", { recursive: true });
 writeFileSync(
-  "docs/db-test-results.json",
+  process.env.ARRISCAI_DB_REPORT ?? "docs/db-test-results.json",
   JSON.stringify(
     {
       runtime:

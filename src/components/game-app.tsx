@@ -423,6 +423,23 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const game = snapshot?.game;
   const active = game?.status === "active";
 
+  // On small screens the operating panel precedes the board in normal flow.
+  // Return focus after a selection without a fixed overlay or opening a keyboard.
+  useEffect(() => {
+    if (!host || !active || !window.matchMedia("(max-width: 800px)").matches)
+      return;
+    const target =
+      secret?.guess && game?.phase === "awaiting_guess"
+        ? ".controls .judgement"
+        : game?.phase === "pending_confirmation"
+          ? ".controls h2"
+          : null;
+    if (!target) return;
+    const element = document.querySelector<HTMLElement>(target);
+    element?.focus({ preventScroll: true });
+    element?.scrollIntoView({ block: "start", behavior: "instant" });
+  }, [host, active, game?.phase, secret?.guess]);
+
   const connected = channelHealthy && restHealthy;
   const roomPlayers = snapshot?.members.filter((m) => !m.display_only) ?? [];
   const shownHostId =
@@ -1151,7 +1168,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                   {host && game.phase !== "result" && (
                     <section className="panel controls host-sticky-dock">
                       <div className="dock-header">
-                        <h2>
+                        <h2 tabIndex={-1}>
                           {game.paused
                             ? "Partida pausada"
                             : game.phase === "pending_confirmation"
@@ -1175,6 +1192,16 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                           </details>
                         )}
                       </div>
+
+                      <button
+                        type="button"
+                        className="quiet mobile-board-link"
+                        onClick={() => {
+                          document.getElementById("round-board")?.focus();
+                        }}
+                      >
+                        Ver tabuleiro
+                      </button>
 
                       {game.paused ? (
                         <button
@@ -1227,7 +1254,12 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                                 </button>
                               </form>
                               {secret?.guess && (
-                                <div className="judgement">
+                                <div
+                                  className="judgement"
+                                  tabIndex={-1}
+                                  role="group"
+                                  aria-label="Decisão do organizador"
+                                >
                                   <p>“{secret.guess}”</p>
                                   <p>
                                     {secret.suggested

@@ -12,6 +12,23 @@ let seeded = false;
 
 const db = await testDatabase({
   afterMigration: async (file, database) => {
+    if (file.endsWith("202611170005_lobby_rules.sql")) {
+      await database.exec(
+        "update private.questions set question='Qual partícula possui carga elétrica negativa',review_status='approved' where id='Q0710'",
+      );
+    }
+    if (file.endsWith("202611170007_q0710_electron.sql")) {
+      const {
+        rows: [electron],
+      } = await database.query(
+        "select question,review_status from private.questions where id='Q0710'",
+      );
+      assert.equal(
+        electron.question,
+        "Qual partícula de carga elétrica negativa compõe a eletrosfera dos átomos",
+      );
+      assert.equal(electron.review_status, "approved");
+    }
     if (file.endsWith("202611170003_balanced_decks.sql")) {
       // Simula um banco já povoado com as 240 questões e curadoria local.
       const baseline = JSON.parse(

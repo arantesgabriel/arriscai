@@ -2248,12 +2248,12 @@
   {
     "id": "Q0710",
     "category": "Ciência e tecnologia",
-    "question": "Qual partícula possui carga elétrica negativa",
+    "question": "Qual partícula de carga elétrica negativa compõe a eletrosfera dos átomos",
     "answer": "Elétron",
     "aliases": [
       "Eletron"
     ],
-    "word_count": 6,
+    "word_count": 11,
     "difficulty": "medio",
     "review_status": "provisional",
     "complexity_score": 45
