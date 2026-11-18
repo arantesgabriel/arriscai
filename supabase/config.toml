@@ -8,8 +8,8 @@ extra_search_path = ["public", "extensions"]
 port = 54322
 major_version = 17
 [db.seed]
-enabled = true
-sql_paths = ["./seed.sql"]
+enabled = false
+sql_paths = []
 [auth]
 enabled = true
 site_url = "http://localhost:3000"

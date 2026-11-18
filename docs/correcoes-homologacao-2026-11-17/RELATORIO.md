@@ -1,5 +1,7 @@
 # Correções da homologação B01–B04
 
+> Privacidade do catálogo (18/11/2026): esta cópia histórica teve enunciados, respostas, arquivos de dados e capturas removidos. Resultados anteriores foram preservados como histórico, não como nova homologação; instruções de catálogo devem seguir `docs/CONTEUDO.md`.
+
 Trabalho iniciado em 17/11 e concluído na sessão de 18/11/2026, na branch `dev`, conforme instrução do responsável. Base: `132c1250b1e9c31eb0f8dbcc73693ce67e1f1ef0`. Os relatórios e o ZIP da auditoria anterior já estavam sem rastreamento e foram preservados, sem incorporá-los aos commits deste trabalho.
 
 **Parecer: correções implementadas e verificadas localmente; ainda não certificadas no Supabase hospedado e não publicadas.** Não declarar a aplicação inteira homologada nem a produção corrigida. O acesso de banco de homologação foi bloqueado por DNS/TLS; nenhuma migration foi aplicada remotamente. Não houve push, merge ou deploy.
@@ -13,9 +15,9 @@ Código e testes commitados em `870c5d071e898a19374ea48173474f9823d1ad8b` (`fix:
 | B01 | O placar dentro do pódio usa superfície noturna com título, nomes e posições claros; pontos dourados e posição atual em menta. | Seis análises axe de placares: host/jogador/telão, ativo/pódio. Contrastes calculados de 14,17:1 (papel), 10,59:1 (dourado) e 11,60:1 (menta) sobre `#1e2144`. Capturas reais do build local nas sete resoluções. |
 | B02 | Placar mobile em uma linha com rolagem horizontal e classificação completa disponível. Painel de operação antes do tabuleiro; seleção transfere foco à confirmação e comparação transfere foco ao julgamento. Botão para retornar ao tabuleiro. | Rodadas mobile inteiras com 22 revelações, posição 22 primeiro, em 320×720 com três jogadores e 390×844 com cinco. Confirmação fica na viewport após seleção, sem rolagem manual adicional. Consulta secreta abre/fecha. Palavras de até 13 caracteres nos enunciados jogados. |
 | B03 | Migration incremental aloca apelidos disponíveis para telões sob a trava da sala, preservando identidades e unicidade de jogadores. | Dois contextos de telão entram juntos como `Telão` e `Telão 2`. SQL local testa apelido de jogador ocupado, reconexão e nome de 24 caracteres. Exclusão dos telões do rodízio e preservação como espectadores na nova partida. Concorrência hospedada pendente. |
-| B04 | Q0710 passa a “Qual partícula de carga elétrica negativa compõe a eletrosfera dos átomos?”. | 11 palavras, resposta `Elétron`, alias `Eletron`. Dados atuais de 240/504 questões, seed e ranking atualizados. Arquivo `perguntas_240_original.json` e migrations históricas preservados. Migration específica corrige registro existente com guarda editorial, sem alterar aprovação. |
+| B04 | Q0710 passa a “[enunciado omitido por privacidade]?”. | 11 palavras, resposta `[resposta omitida]`, alias `[alias omitido]`. Dados atuais de 240/504 questões, seed e ranking atualizados. Arquivo `perguntas_240_original.json` e migrations históricas preservados. Migration específica corrige registro existente com guarda editorial, sem alterar aprovação. |
 
-O novo enunciado especifica a eletrosfera, em vez de apenas carga negativa. Referências factuais consultadas: [CERN: múon](https://opendata.cern.ch/glossary/Muon) e [Department of Energy: elétrons e sua posição em torno do núcleo](https://www.energy.gov/science/doe-explainselectrons). O formato de armazenamento continua sem `?`, acrescentado pelo cliente. Não foram adicionados aliases de partículas diferentes nem alterada a autoridade do julgamento humano.
+O novo enunciado especifica a eletrosfera, em vez de apenas carga negativa. As fontes e o conteúdo editorial são mantidos no processo privado do catálogo. O formato de armazenamento continua sem `?`, acrescentado pelo cliente. Não foram adicionados aliases de partículas diferentes nem alterada a autoridade do julgamento humano.
 
 ## Regressão funcional local
 
@@ -49,12 +51,12 @@ Esse teste sempre usa o adaptador local, mesmo se `.env.local` contiver endpoint
 
 - [Regressão e contexto](evidencias/regression.json), [log E2E final](evidencias/e2e-final.txt).
 - [axe dos placares](evidencias/axe.json), [contrastes calculados](evidencias/contrast.json). O axe tem escopo `.scoreboard`; não constitui certificação integral WCAG.
-- [Telão no pódio, 1920×1080](evidencias/tv-podium-1920x1080.png).
-- [Confirmação da posição 22 em 320×720](evidencias/mobile-confirm-22-320x720.png), [julgamento em 320×720](evidencias/mobile-judgement-320x720.png).
-- [Cinco jogadores em 390×844](evidencias/host-five-players-390x844.png), [confirmação da posição 22 em 390×844](evidencias/mobile-confirm-22-390x844.png).
+- Telão no pódio, 1920×1080 (captura retirada por privacidade).
+- Confirmação da posição 22 em 320×720 (captura retirada por privacidade), julgamento em 320×720 (captura retirada por privacidade).
+- Cinco jogadores em 390×844 (captura retirada por privacidade), confirmação da posição 22 em 390×844 (captura retirada por privacidade).
 - Baseline visual preservado nos arquivos fornecidos em `docs/homologacao-final-2026-11-17/evidencias/screenshots/`: `partida-2-podio-telao.png`, `mobile-22-controles-abaixo.png` e demais referências do relatório anterior. As novas capturas não sobrescrevem essas evidências.
 
-`evidencias/revision.json` identifica o commit testado e os exit codes; `manifest.json` contém hashes SHA-256, binários para imagens e com normalização LF para textos. Nos logs novos foram normalizados apenas finais de linha, espaços finais e linhas vazias no fim, preservando mensagens e resultados.
+`evidencias/revision.json` identifica o commit da validação histórica. O manifesto e as capturas originais foram retirados por privacidade; os resumos de resultados não contêm o catálogo.
 
 ## Checks e incidentes de execução
 

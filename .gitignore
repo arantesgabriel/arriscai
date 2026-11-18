@@ -11,3 +11,8 @@ test-results/
 
 debug.log
 supabase/.temp/
+
+# Official catalogue payloads belong only in the private database.
+data/perguntas_*
+supabase/*private*seed*.sql
+supabase/catalog*.sql

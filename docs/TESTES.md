@@ -1,5 +1,7 @@
 # Relatório de implementação e aceite
 
+> Privacidade do catálogo (18/11/2026): esta cópia histórica teve enunciados, respostas, arquivos de dados e capturas removidos. Resultados anteriores foram preservados como histórico, não como nova homologação; instruções de catálogo devem seguir `docs/CONTEUDO.md`.
+
 Execução local em 13/11/2026, Windows, Node 24.21.0. Next.js 16.4.6, React 19, Supabase JS 2; versões resolvidas no lockfile. Sem projeto Supabase/Vercel configurado e sem Docker/CLI Supabase.
 
 ## Executado

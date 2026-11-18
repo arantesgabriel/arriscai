@@ -2,7 +2,7 @@ import { test, expect, type Page } from "@playwright/test";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { harness } from "./sql-harness";
 
-const evidence = "docs/correcoes-homologacao-2026-11-17/evidencias";
+const evidence = process.env.ARRISCAI_QA_OUTPUT ?? ".tmp/catalog-privacy/e2e";
 const sizes = [
   [320, 720],
   [390, 844],

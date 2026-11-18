@@ -28,7 +28,7 @@
     "exhausted tie blocks victory, accepts only eligible pre-round custom reserve",
     "cancel converts late spectator into eligible player while preserving display_only screen",
     "host_question_preview only works for host outside active match and roulette syncs",
-    "nine-word Tour de France result exposes 8 round points and completed score"
+    "nine-word item de teste result exposes 8 round points and completed score"
   ],
   "passed": 28,
   "limitations": [

@@ -1,6 +1,7 @@
 // Test-only PostgreSQL runtime. Not imported by the application.
 import { PGlite } from "@electric-sql/pglite";
 import { readdirSync, readFileSync } from "node:fs";
+import { insertTestCatalog } from "./test-catalog-fixtures.mjs";
 export async function testDatabase({ afterMigration } = {}) {
   const db = new PGlite();
   await db.exec(`create role anon; create role authenticated;
@@ -22,7 +23,7 @@ grant execute on function realtime.topic() to authenticated;
     await db.exec(readFileSync(`supabase/migrations/${file}`, "utf8"));
     await afterMigration?.(file, db);
   }
-  await db.exec(readFileSync("supabase/seed.sql", "utf8"));
+  await insertTestCatalog(db);
 
   return db;
 }

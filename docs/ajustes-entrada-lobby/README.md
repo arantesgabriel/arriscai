@@ -1,5 +1,7 @@
 # Entrada e lobby · ajustes solicitados
 
+> Privacidade do catálogo (18/11/2026): esta cópia histórica teve enunciados, respostas, arquivos de dados e capturas removidos. Resultados anteriores foram preservados como histórico, não como nova homologação; instruções de catálogo devem seguir `docs/CONTEUDO.md`.
+
 Implementados na branch `dev`, sobre `247592b`. Referência: telas oficiais existentes e os três anexos fornecidos pelo usuário. Sem merge, push ou deploy.
 
 ## Comportamento
@@ -25,14 +27,14 @@ As imagens são do frontend oficial local em `127.0.0.1:3018`, conectado ao Supa
 
 | Entrada | Sala do jogador |
 |---|---|
-| ![Criar sala](capturas/entrada-criar-1920.jpg) | ![Preparação somente leitura](capturas/lobby-player-1440.jpg) |
+| Criar sala (captura retirada por privacidade) | Preparação somente leitura (captura retirada por privacidade) |
 
-- [Entrar por código, desktop](capturas/entrada-codigo-1440.jpg).
-- [Card do organizador e preparação](capturas/lobby-host-1440.jpg).
-- [Entrada mobile, início do conteúdo](capturas/entrada-codigo-320.jpg).
-- [Campo de código alcançado por Tab em 320×720](capturas/entrada-codigo-320-formulario.jpg).
-- [Sala do jogador no celular](capturas/lobby-player-390.jpg).
-- Antes: [entrada](../v4-oficial/capturas/entrada-1440x900.jpg) e [lobby](../v4-oficial/capturas/lobby-host-1440x900.jpg).
+- Entrar por código, desktop (captura retirada por privacidade).
+- Card do organizador e preparação (captura retirada por privacidade).
+- Entrada mobile, início do conteúdo (captura retirada por privacidade).
+- Campo de código alcançado por Tab em 320×720 (captura retirada por privacidade).
+- Sala do jogador no celular (captura retirada por privacidade).
+- Antes: entrada (captura retirada por privacidade) e lobby (captura retirada por privacidade).
 
 ## Validação executada
 

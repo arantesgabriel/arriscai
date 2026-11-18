@@ -1,11 +1,13 @@
 # Arriscaí! · Auditoria e proposta V4
 
+> Privacidade do catálogo (18/11/2026): esta cópia histórica teve enunciados, respostas, arquivos de dados e capturas removidos. Resultados anteriores foram preservados como histórico, não como nova homologação; instruções de catálogo devem seguir `docs/CONTEUDO.md`.
+
 Fase 0, realizada em 16/11/2026. Referência visual exclusiva: a landing já implementada e publicada em https://arriscai.vercel.app/. Nenhuma alteração em `src/`, regras, RPCs, migrations, RLS ou autenticação faz parte desta entrega. Os mockups são documentos isolados, com dados ilustrativos, sem conexão com Supabase. Não houve merge, push ou deploy.
 
 ## Entrega para aprovação
 
-- [Mockups navegáveis](proposta.html): entrada, sala/preparação, organizador, jogador, telão, acerto e pódio. A navegação troca a proposta exibida; os botões de partida são apenas ilustrações.
-- [Galeria de evidências e propostas](galeria.html).
+- Mockups navegáveis (captura retirada por privacidade): entrada, sala/preparação, organizador, jogador, telão, acerto e pódio. A navegação troca a proposta exibida; os botões de partida são apenas ilustrações.
+- Galeria de evidências e propostas (captura retirada por privacidade).
 - [Resultados brutos da produção](resultados.json): 70 capturas, dimensões, overflow e erros capturados na execução concluída.
 - [Resultados de renderização dos mockups](mockups/resultados.json).
 - [Roteiro reproduzível de auditoria](../../scripts/audit-v4.mjs).
@@ -56,26 +58,26 @@ A biblioteca já possui busca, filtros, paginação e seleção; não deve ser r
 
 | Experiência | Situação verificada | Evidências representativas |
 |---|---|---|
-| Landing `/` | V4 publicada, desktop e mobile; referências de cartas, mint, gold e tipografia | [1440](capturas/landing-1440x900.jpg), [390](capturas/landing-390x844.jpg) |
-| Entrada `/jogar` | Apelido, criar sala, código, autenticação anônima | [1440](capturas/entrada-1440x900.jpg), [320](capturas/entrada-320x720.jpg) |
-| Conta | Login/cadastro e recuperação abertos, sem enviar credenciais nem e-mail | [Conta](capturas/conta-desktop.jpg), [Recuperação](capturas/recuperacao-desktop.jpg) |
-| Lobby `/sala/[id]` | Código, convites, cinco participantes, presença e papéis | [Host](capturas/lobby-host-1440x900.jpg), [Mobile](capturas/lobby-host-390x844.jpg), [Jogador](capturas/lobby-jogador.jpg) |
-| Escolha do organizador | Sorteio real e retorno manual ao host original | [Instante após solicitação](capturas/roleta-em-curso.jpg), [Resultado](capturas/roleta-resultado.jpg) |
-| Preparação | Rodadas, 22 palavras, categorias e modo automático | [Desktop](capturas/lobby-host-1440x900.jpg) |
-| Biblioteca | Modo manual, catálogo e busca por “Tour de France” | [Lista](capturas/biblioteca-desktop.jpg), [Busca](capturas/biblioteca-busca.jpg) |
-| Organizador em rodada | Tabuleiro de 22 posições, pergunta privada e operação | [1440](capturas/rodada-host-1440x900.jpg), [390](capturas/rodada-host-390x844.jpg) |
-| Seleção | Posição pública selecionada ainda não revela palavra | [Host](capturas/selecao-host.jpg), [Telão](capturas/selecao-telao.jpg) |
-| Revelação e palpite | Palavra aparece nas quatro telas públicas; input e comparação no host | [Host](capturas/palpite-host.jpg), [Mobile](capturas/palpite-mobile.jpg), [Telão](capturas/revelacao-telao.jpg) |
-| Julgamento e erro | Palpite incorreto e confirmação humana, mudança de jogador | [Julgamento](capturas/julgamento-mobile.jpg), [Após erro](capturas/erro-mobile.jpg) |
-| Pausa e retomada | Comando real; aviso também no jogador e telão | [Host](capturas/pausa-host-mobile.jpg), [Telão](capturas/pausa-telao.jpg) |
-| Desconexão e reconexão | Contexto do jogador offline, retorno online e reload preservando revelação | [Offline](capturas/offline-jogador.jpg), [Retorno](capturas/reconectado-jogador.jpg) |
-| Tela dos jogadores | Acompanhamento público sem `.private` ou `.controls` | [1440](capturas/rodada-jogador-1440x900.jpg), [390](capturas/rodada-jogador-390x844.jpg) |
-| Telão `/?codigo=…&telao=1` | Sessão própria e somente leitura; tabuleiro de 22 palavras em Full HD | [1920×1080](capturas/rodada-telao.jpg) |
-| Resultado com acerto | Resposta aparece nas quatro sessões públicas, pontuação e avanço manual | [Desktop](capturas/resultado-host-1440x900.jpg), [Mobile](capturas/resultado-host-390x844.jpg), [Telão](capturas/resultado-telao.jpg) |
-| Resultado sem acerto | 22 revelações e desistências até encerrar sem pontos | [Host](capturas/sem-acerto-host.jpg), [Telão](capturas/sem-acerto-telao.jpg) |
-| Encerramento e pódio | Avanço manual encerra, campeão e classificação | [Desktop](capturas/podio-host-1440x900.jpg), [Mobile](capturas/podio-host-390x844.jpg), [Telão](capturas/podio-telao.jpg) |
-| Histórico | Lista da partida concluída na mesma sala | [Histórico](capturas/historico-desktop.jpg) |
-| Nova partida | Início pela interface, retorno ao tabuleiro | [Host](capturas/nova-partida-host.jpg) |
+| Landing `/` | V4 publicada, desktop e mobile; referências de cartas, mint, gold e tipografia | 1440 (captura retirada por privacidade), 390 (captura retirada por privacidade) |
+| Entrada `/jogar` | Apelido, criar sala, código, autenticação anônima | 1440 (captura retirada por privacidade), 320 (captura retirada por privacidade) |
+| Conta | Login/cadastro e recuperação abertos, sem enviar credenciais nem e-mail | Conta (captura retirada por privacidade), Recuperação (captura retirada por privacidade) |
+| Lobby `/sala/[id]` | Código, convites, cinco participantes, presença e papéis | Host (captura retirada por privacidade), Mobile (captura retirada por privacidade), Jogador (captura retirada por privacidade) |
+| Escolha do organizador | Sorteio real e retorno manual ao host original | Instante após solicitação (captura retirada por privacidade), Resultado (captura retirada por privacidade) |
+| Preparação | Rodadas, 22 palavras, categorias e modo automático | Desktop (captura retirada por privacidade) |
+| Biblioteca | Modo manual, catálogo e busca por “item de teste” | Lista (captura retirada por privacidade), Busca (captura retirada por privacidade) |
+| Organizador em rodada | Tabuleiro de 22 posições, pergunta privada e operação | 1440 (captura retirada por privacidade), 390 (captura retirada por privacidade) |
+| Seleção | Posição pública selecionada ainda não revela palavra | Host (captura retirada por privacidade), Telão (captura retirada por privacidade) |
+| Revelação e palpite | Palavra aparece nas quatro telas públicas; input e comparação no host | Host (captura retirada por privacidade), Mobile (captura retirada por privacidade), Telão (captura retirada por privacidade) |
+| Julgamento e erro | Palpite incorreto e confirmação humana, mudança de jogador | Julgamento (captura retirada por privacidade), Após erro (captura retirada por privacidade) |
+| Pausa e retomada | Comando real; aviso também no jogador e telão | Host (captura retirada por privacidade), Telão (captura retirada por privacidade) |
+| Desconexão e reconexão | Contexto do jogador offline, retorno online e reload preservando revelação | Offline (captura retirada por privacidade), Retorno (captura retirada por privacidade) |
+| Tela dos jogadores | Acompanhamento público sem `.private` ou `.controls` | 1440 (captura retirada por privacidade), 390 (captura retirada por privacidade) |
+| Telão `/?codigo=…&telao=1` | Sessão própria e somente leitura; tabuleiro de 22 palavras em Full HD | 1920×1080 (captura retirada por privacidade) |
+| Resultado com acerto | Resposta aparece nas quatro sessões públicas, pontuação e avanço manual | Desktop (captura retirada por privacidade), Mobile (captura retirada por privacidade), Telão (captura retirada por privacidade) |
+| Resultado sem acerto | 22 revelações e desistências até encerrar sem pontos | Host (captura retirada por privacidade), Telão (captura retirada por privacidade) |
+| Encerramento e pódio | Avanço manual encerra, campeão e classificação | Desktop (captura retirada por privacidade), Mobile (captura retirada por privacidade), Telão (captura retirada por privacidade) |
+| Histórico | Lista da partida concluída na mesma sala | Histórico (captura retirada por privacidade) |
+| Nova partida | Início pela interface, retorno ao tabuleiro | Host (captura retirada por privacidade) |
 | Perguntas próprias | Botão desabilitado para conta anônima; implementação inspecionada no código | Exige conta permanente de teste para validar criação/edição real |
 | Áudio | Controles existentes e implementação inspecionados; não foi certificado por escuta | Validar som opt-in e volume na homologação |
 

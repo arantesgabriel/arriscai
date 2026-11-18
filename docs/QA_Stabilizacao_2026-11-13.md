@@ -1,5 +1,7 @@
 # Arriscaí — estabilização e auditoria QA
 
+> Privacidade do catálogo (18/11/2026): esta cópia histórica teve enunciados, respostas, arquivos de dados e capturas removidos. Resultados anteriores foram preservados como histórico, não como nova homologação; instruções de catálogo devem seguir `docs/CONTEUDO.md`.
+
 | Campo | Valor |
 | --- | --- |
 | Data | 13/11/2026 |
@@ -33,7 +35,7 @@
 - `npm run lint` — passou.
 - `npm run typecheck` — passou.
 - `npm test` — 14 testes unitários passaram.
-- `npm run test:db` — 28 verificações SQL/RLS passaram em PGlite; Auth e Realtime são simulados. A nova regressão usa a pergunta de 9 palavras do Tour de France e confirma 8 pontos após duas reveladas.
+- `npm run test:db` — 28 verificações SQL/RLS passaram em PGlite; Auth e Realtime são simulados. A nova regressão usa a pergunta de 9 palavras do item de teste e confirma 8 pontos após duas reveladas.
 - `npm run test:migrations` — upgrade desde o schema anterior validou vencedor único, empate preservado, organizador e número de rodadas.
 - `npm run test:e2e` — 1 cenário passou com três jogadores, host, telão e espectador tardio no harness local. Cobriu pontuação 22/19/1, a pergunta de 9 palavras exibindo 8 no Board/resultado/placar/pódio, rotação, confirmação antes da revelação, resposta oculta antes do resultado, reconexão por reload, corrida de seleção (um sucesso e um conflito), telão somente leitura e elegibilidade após cancelamento.
 - `npm run build` — build Webpack de produção passou.
@@ -55,14 +57,14 @@
 
 ## Evidências visuais locais
 
-- [Host — resultado em 390 px](../.tmp/qa-evidence/screenshots/host-round-result-390.png)
-- [Jogador — resultado em 390 px](../.tmp/qa-evidence/screenshots/player-a-round-result-390.png)
-- [Telão — resultado em 390 px](../.tmp/qa-evidence/screenshots/tv-round-result-390.png)
-- [Pergunta Tour de France — resultado 8 pontos em 390 px](../.tmp/qa-evidence/screenshots/tour-de-france-host-result-390.png)
-- [Vídeo do host](../.tmp/qa-evidence/videos/host.webm)
-- [Vídeo do jogador A](../.tmp/qa-evidence/videos/player-a.webm)
-- [Vídeo do jogador B](../.tmp/qa-evidence/videos/player-b.webm)
-- [Vídeo do jogador C](../.tmp/qa-evidence/videos/player-c.webm)
-- [Vídeo do telão](../.tmp/qa-evidence/videos/telao.webm)
-- [Vídeo do espectador tardio](../.tmp/qa-evidence/videos/late-spectator.webm)
-- [Vídeo de cancelamento com espectador tardio](../.tmp/qa-evidence/videos/cancel-late-spectator.webm)
+- Host — resultado em 390 px (captura retirada por privacidade)
+- Jogador — resultado em 390 px (captura retirada por privacidade)
+- Telão — resultado em 390 px (captura retirada por privacidade)
+- Pergunta item de teste — resultado 8 pontos em 390 px (captura retirada por privacidade)
+- Vídeo do host (captura retirada por privacidade)
+- Vídeo do jogador A (captura retirada por privacidade)
+- Vídeo do jogador B (captura retirada por privacidade)
+- Vídeo do jogador C (captura retirada por privacidade)
+- Vídeo do telão (captura retirada por privacidade)
+- Vídeo do espectador tardio (captura retirada por privacidade)
+- Vídeo de cancelamento com espectador tardio (captura retirada por privacidade)

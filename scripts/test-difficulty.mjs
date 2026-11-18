@@ -66,7 +66,7 @@ try {
   assert.equal(total, 504);
   assert.equal(ranked, 504);
   console.log(
-    "PASS difficulty helper: quotas, reserve, uniqueness, fallback and 504 classified items",
+    "PASS difficulty helper: quotas, reserve, uniqueness, fallback and 504 classified synthetic items",
   );
 } finally {
   await db.close();

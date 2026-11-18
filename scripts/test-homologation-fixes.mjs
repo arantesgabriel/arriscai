@@ -1,28 +1,53 @@
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
-import { readFileSync } from "node:fs";
 import { testDatabase } from "./pg-test-runtime.mjs";
+import { correctCatalogQuestion } from "./catalog-correction.mjs";
+import { readFileSync } from "node:fs";
 
 const db = await testDatabase();
-const editorial = readFileSync(
-  "supabase/migrations/202611170007_q0710_electron.sql",
-  "utf8",
-);
-const old = "Qual partícula possui carga elétrica negativa";
+const old = "QA enunciado anterior do item fictício";
 const corrected =
-  "Qual partícula de carga elétrica negativa compõe a eletrosfera dos átomos";
+  "QA enunciado revisado com pistas fictícias destinado somente ao teste local";
+const patch = {
+  id: "QA_0710",
+  category: "Ciência e tecnologia",
+  previousQuestion: old,
+  question: corrected,
+  answer: "gabarito-0710",
+  aliases: ["alias-0710"],
+};
+const apply = () => correctCatalogQuestion(db, patch);
 try {
-  await db.query("update private.questions set question=$1 where id='Q0710'", [
-    old,
-  ]);
-  await db.exec(editorial);
+  const privatePatch = readFileSync(
+    "supabase/migrations/202611170007_private_editorial_patch.sql",
+    "utf8",
+  );
+  await db.query(
+    "insert into private.questions(id,category,question,answer) values('Q0710','QA','QA registro fictício protegido','gabarito-qa')",
+  );
+  await assert.rejects(db.exec(privatePatch), /Configure o texto editorial/);
+  await db.query(
+    "select set_config('arriscai.editorial_q0710','QA entrada não aprovada',false)",
+  );
+  await assert.rejects(db.exec(privatePatch), /Configure o texto editorial/);
+  assert.equal(
+    (await db.query("select question from private.questions where id='Q0710'"))
+      .rows[0].question,
+    "QA registro fictício protegido",
+  );
+  await db.exec("delete from private.questions where id='Q0710'");
+  await db.query(
+    "update private.questions set question=$1 where id='QA_0710'",
+    [old],
+  );
+  await apply();
   const question = async () =>
-    (await db.query("select * from private.questions where id='Q0710'"))
+    (await db.query("select * from private.questions where id='QA_0710'"))
       .rows[0];
   assert.equal((await question()).question, corrected);
   assert.equal(corrected.split(/\s+/).length, 11);
-  assert.deepEqual((await question()).aliases, ["Eletron"]);
-  await db.exec(editorial);
+  assert.deepEqual((await question()).aliases, ["alias-0710"]);
+  await apply();
   assert.equal((await question()).question, corrected);
   for (const mutation of [
     "question='Revisão editorial posterior'",
@@ -31,12 +56,14 @@ try {
     "category='História'",
   ]) {
     await db.query(
-      "update private.questions set question=$1,answer='Elétron',aliases='[\"Eletron\"]',category='Ciência e tecnologia' where id='Q0710'",
+      "update private.questions set question=$1,answer='gabarito-0710',aliases='[\"alias-0710\"]',category='Ciência e tecnologia' where id='QA_0710'",
       [old],
     );
-    await db.exec(`update private.questions set ${mutation} where id='Q0710'`);
+    await db.exec(
+      `update private.questions set ${mutation} where id='QA_0710'`,
+    );
     const before = await question();
-    await db.exec(editorial);
+    await apply();
     assert.deepEqual(await question(), before);
   }
   const host = randomUUID(),
@@ -45,10 +72,10 @@ try {
   for (const id of [host, a, b])
     await db.query("insert into auth.users values($1)", [id]);
   await db.query(
-    "update private.questions set owner_id=$1,question=$2,answer='Elétron',aliases='[\"Eletron\"]',category='Ciência e tecnologia' where id='Q0710'",
+    "update private.questions set owner_id=$1,question=$2,answer='gabarito-0710',aliases='[\"alias-0710\"]',category='Ciência e tecnologia' where id='QA_0710'",
     [host, old],
   );
-  await db.exec(editorial);
+  await apply();
   assert.equal((await question()).question, old);
   async function as(id, sql, args = []) {
     return db.transaction(async (tx) => {
@@ -114,7 +141,7 @@ try {
   assert.equal(longDisplay.nickname.length, 24);
   assert(longDisplay.display_only && longDisplay.spectator);
   console.log(
-    "PASS Q0710: existing record, replay, later wording, answer, aliases, category and owner guards; 11 words. PASS display allocation, occupied player name, reconnect and player uniqueness (local SQL).",
+    "PASS synthetic editorial correction: existing record, replay, later wording, answer, aliases, category and owner guards. PASS display allocation, occupied player name, reconnect and player uniqueness (local SQL).",
   );
 } finally {
   await db.close();

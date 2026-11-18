@@ -27,5 +27,5 @@ PASS fourth reveal scores 19, final reveal scores 1 in real SQL
 PASS exhausted tie blocks victory, accepts only eligible pre-round custom reserve
 PASS cancel converts late spectator into eligible player while preserving display_only screen
 PASS host_question_preview only works for host outside active match and roulette syncs
-PASS nine-word Tour de France result exposes 8 round points and completed score
+PASS nine-word item de teste result exposes 8 round points and completed score
 28 database checks passed.

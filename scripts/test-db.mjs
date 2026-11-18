@@ -72,7 +72,13 @@ await check(
   async () => {
     await as(host);
     await denied(() =>
-      call("save_question", [room, "Qual planeta", "Marte", "Teste", []]),
+      call("save_question", [
+        room,
+        "Qual planeta",
+        "gabarito-0101",
+        "Teste",
+        [],
+      ]),
     );
   },
 );
@@ -81,16 +87,16 @@ await check("permanent author can create and edit own questions", async () => {
   const id = await call("save_question", [
     room,
     "Qual planeta???",
-    "Marte",
+    "gabarito-0101",
     "Teste",
     [],
   ]);
   await call("save_question", [
     room,
     "Qual planeta vermelho?",
-    "Marte",
+    "gabarito-0101",
     "Teste",
-    ["marte"],
+    ["gabarito-0101"],
     id,
   ]);
   const qs = await call("question_catalog", [room]);
@@ -467,7 +473,7 @@ await check(
     // Original room is cancelled by the preceding public-catalog check.
     await db.exec("reset role");
     await db.exec(`insert into private.questions(id,category,question,answer,review_status)
-      select 'QA_SINGLE_RESERVE','QA Reserva',question,answer,'approved' from private.questions where id='Q0101'`);
+      select 'QA_SINGLE_RESERVE','QA Reserva',question,answer,'approved' from private.questions where id='QA_0101'`);
     await as(player);
     await call("prepare_match", [room, 1, ["QA Reserva"], 22, [], "automatic"]);
     for (let i = 0; i < 22; i++) {
@@ -479,7 +485,7 @@ await check(
     await denied(() =>
       command("reserve_custom", {
         question: "Qual planeta vermelho",
-        answer: "Marte",
+        answer: "gabarito-0101",
       }),
     );
     await as(player, false);
@@ -540,10 +546,10 @@ await check(
       "reset role; update private.settings set allow_provisional=true",
     );
     await as(player);
-    const prev = await call("host_question_preview", [room, "Q0101"]);
-    assert.equal(prev.answer, "Marte");
+    const prev = await call("host_question_preview", [room, "QA_0101"]);
+    assert.equal(prev.answer, "gabarito-0101");
     await as(host);
-    await denied(() => call("host_question_preview", [room, "Q0101"]));
+    await denied(() => call("host_question_preview", [room, "QA_0101"]));
     await as(player);
     await call("choose_host", [room, null]);
     const snap = await snapshot();
@@ -552,12 +558,12 @@ await check(
   },
 );
 await check(
-  "nine-word Tour de France result exposes 8 round points and completed score",
+  "nine-word synthetic fixture result exposes 8 round points and completed score",
   async () => {
     await db.exec("reset role; delete from private.rate_limits");
     await db.query(
       `insert into private.questions(id, category, question, answer, review_status)
-       values ('QA_NINE_WORDS', 'QA Pontuação', 'Qual esporte é tradicionalmente associado ao Tour de France', 'Ciclismo', 'approved')
+       values ('QA_NINE_WORDS', 'QA Pontuação', 'QA item fictício com nove pistas numeradas para testes', 'gabarito-nove', 'approved')
        on conflict(id) do nothing`,
     );
     await as(host);
