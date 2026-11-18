@@ -1,0 +1,9 @@
+npm notice run arriscai@0.1.0 lint
+npm notice run eslint .
+
+C:\Fontes\arriscai\docs\homologacao-final-2026-11-17\evidencias\scripts\worker.cjs
+  1:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  3:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+✖ 3 problems (3 errors, 0 warnings)

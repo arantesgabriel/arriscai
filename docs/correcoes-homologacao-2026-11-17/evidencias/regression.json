@@ -1,0 +1,16 @@
+{
+  "environment": "local PGlite, simulated Auth/Realtime transport",
+  "scores": [
+    22,
+    19,
+    1
+  ],
+  "rounds": 4,
+  "tieExtraRounds": 2,
+  "independentContexts": 8,
+  "mobileRounds": [
+    "320x720, three players",
+    "390x844, five players"
+  ],
+  "pageErrors": []
+}

@@ -1,0 +1,15 @@
+[WebServer] npm notice run arriscai@0.1.0 start
+[WebServer] npm notice run next start --hostname 127.0.0.1 --port 3040
+[WebServer] (node:11120) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:10868) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS local guest identity ready
+PASS four rounds, mobile 320 and scoreboard axe; respecting command rate window
+PASS two extras, replayed judgments, reset, reconnect and full mobile round with five players
+  ok 1 tests\e2e\homologation-fixes.spec.ts:17:1 › correções: mobile, dois telões, placares, quatro rodadas e desempates (SQL local) (1.7m)
+
+  1 passed (1.8m)

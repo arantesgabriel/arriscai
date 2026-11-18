@@ -1,0 +1,14 @@
+ID,Estado,Ambiente,Evidencia
+B01,PASSOU,Build local Chromium,axe.json e contrast.json
+B02,PASSOU,Build local Chromium e SQL embarcado,mobile-confirm-22-320x720.png e mobile-judgement-390x844.png
+B03,PASSOU LOCAL,Auth e Realtime simulados,regression.json e fixes-sql.txt
+B04,PASSOU LOCAL,SQL embarcado e upgrade,fixes-sql.txt e upgrade.txt
+PONTUACAO_22_19_1_ZERO,PASSOU,SQL embarcado e UI local,regression.json
+EMPATE_DUAS_EXTRAS,PASSOU,SQL embarcado e UI local,e2e-final.txt
+RESET_RECONEXAO_IDEMPOTENCIA,PASSOU,SQL embarcado e UI local,e2e-final.txt
+VIEWPORTS_SETE,PASSOU,Chromium local,capturas active e podium por papel
+SUPABASE_HOSPEDADO,BLOQUEADO,DNS e cadeia TLS,staging-probe.txt e staging-system-ca-probe.txt
+MIGRATIONS_PRODUCAO,NAO APLICADAS,Fora do escopo autorizado,APLICACAO_SQL.md
+LINT_COMPLETO,FALHA PREEXISTENTE,Script arquivado da auditoria,lint.txt
+TECLADO_VIRTUAL_FISICO,NAO TESTADO,Dispositivo indisponivel,RELATORIO.md
+FIREFOX_WEBKIT_JWT_SOAK,NAO TESTADO,Fora da cobertura disponivel,RELATORIO.md

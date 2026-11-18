@@ -1,0 +1,1 @@
+{"errorCode":"SELF_SIGNED_CERT_IN_CHAIN","message":"self-signed certificate in certificate chain"}

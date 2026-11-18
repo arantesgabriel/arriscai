@@ -1,0 +1,3 @@
+npm notice run arriscai@0.1.0 test:migrations
+npm notice run node scripts/test-migration-upgrade.mjs
+PASS incremental history migration backfills winners, organizer and rounds; preserves ties

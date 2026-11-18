@@ -1,0 +1,69 @@
+npm notice run arriscai@0.1.0 npx
+npm notice run playwright test tests/e2e/homologation-fixes.spec.ts
+[WebServer] npm notice run arriscai@0.1.0 dev
+[WebServer] npm notice run next dev --webpack --hostname 127.0.0.1 --port 3020
+[WebServer] (node:3760) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:6388) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:3024) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\homologation-fixes.spec.ts:16:1 › correções: mobile, dois telões, placares, quatro rodadas e desempates (SQL local) (5.0m)
+
+
+  1) tests\e2e\homologation-fixes.spec.ts:16:1 › correções: mobile, dois telões, placares, quatro rodadas e desempates (SQL local)
+
+    Test timeout of 300000ms exceeded.
+
+    Error: browserContext.close: Protocol error (Target.disposeBrowserContext): Failed to find context with id F14D2B0E5D66E02565E8F8EA7389844E
+
+      250 |         2,
+      251 |       ),
+    > 252 |     );
+          |     ^
+      253 |   } finally {
+      254 |     writeFileSync(`${evidence}/axe.json`, JSON.stringify(report, null, 2));
+      255 |     await Promise.all(contexts.map((c) => c.close()));
+        at C:\Fontes\arriscai\tests\e2e\homologation-fixes.spec.ts:252:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\homologation-fixes-correçõ-80ab4-das-e-desempates-SQL-local-\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\homologation-fixes-correçõ-80ab4-das-e-desempates-SQL-local-\test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\homologation-fixes-correçõ-80ab4-das-e-desempates-SQL-local-\test-failed-5.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #4: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\homologation-fixes-correçõ-80ab4-das-e-desempates-SQL-local-\test-failed-4.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #5: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\homologation-fixes-correçõ-80ab4-das-e-desempates-SQL-local-\test-failed-3.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\homologation-fixes-correçõ-80ab4-das-e-desempates-SQL-local-\test-failed-6.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\homologation-fixes-correçõ-80ab4-das-e-desempates-SQL-local-\error-context.md
+
+    attachment #8: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\homologation-fixes-correçõ-80ab4-das-e-desempates-SQL-local-\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\homologation-fixes-correçõ-80ab4-das-e-desempates-SQL-local-\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Slow test file: tests\e2e\homologation-fixes.spec.ts (5.0m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  1 failed
+    tests\e2e\homologation-fixes.spec.ts:16:1 › correções: mobile, dois telões, placares, quatro rodadas e desempates (SQL local)

@@ -1,0 +1,31 @@
+npm notice run arriscai@0.1.0 test:db
+npm notice run node scripts/test-db.mjs
+PASS room codes, anonymous authenticated identity and lobby
+PASS outsider cannot read room or tables
+PASS guest cannot author, including authenticated Postgres role
+PASS permanent author can create and edit own questions
+PASS 22 words + one category + 8 rounds rejects insufficient without duplicates
+PASS public snapshot has no question IDs, answers, aliases or hidden words
+PASS late spectator and player cannot mutate, read host RPC or catalog
+PASS host cannot change organizer or edit question during play
+PASS reveal requires selection; selection does not reveal
+PASS undo before guess removes last reveal
+PASS guess stays private; human can correct suggestion; duplicate command scores once
+PASS stale version loses; phase cannot double-award
+PASS round advances manually and rotates first player
+PASS pause blocks mutations; resume restores; invalid indices rejected
+PASS round adjustment uses prepared deck only
+PASS wrong/pass leaves words revealed and rotates turn
+PASS last incorrect answer ends without points; unique leader wins on manual advance
+PASS new host and match reset all scores, old host becomes player
+PASS disconnected host automatically pauses and can resume
+PASS skip only disconnected current player, preserves circular order
+PASS tie consumes an unrepeated reserve and keeps rotation
+PASS private Broadcast topic membership and Presence-only client writes
+PASS public launch blocks provisional catalog by default
+PASS fourth reveal scores 19, final reveal scores 1 in real SQL
+PASS exhausted tie blocks victory, accepts only eligible pre-round custom reserve
+PASS cancel converts late spectator into eligible player while preserving display_only screen
+PASS host_question_preview only works for host outside active match and roulette syncs
+PASS nine-word Tour de France result exposes 8 round points and completed score
+28 database checks passed.

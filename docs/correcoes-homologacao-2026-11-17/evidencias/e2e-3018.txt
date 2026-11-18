@@ -1,0 +1,18 @@
+npm notice run arriscai@0.1.0 npx
+npm notice run playwright test tests/e2e/homologation-fixes.spec.ts
+[WebServer] npm notice run arriscai@0.1.0 dev
+[WebServer] npm notice run next dev --webpack --hostname 127.0.0.1 --port 3018
+[WebServer] (node:9644) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:15172) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⨯ Failed to start server
+[WebServer] Error: listen EADDRINUSE: address already in use 127.0.0.1:3018
+[WebServer]     at ignore-listed frames {
+[WebServer]   code: 'EADDRINUSE',
+[WebServer]   errno: -4091,
+[WebServer]   syscall: 'listen',
+[WebServer]   address: '127.0.0.1',
+[WebServer]   port: 3018
+[WebServer] }
+Error: Process from config.webServer was not able to start. Exit code: 1

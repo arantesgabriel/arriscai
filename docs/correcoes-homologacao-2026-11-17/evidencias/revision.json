@@ -1,0 +1,19 @@
+{
+  "codeCommit": "870c5d071e898a19374ea48173474f9823d1ad8b",
+  "branch": "dev",
+  "reviewDate": "2026-11-18",
+  "environment": "compiled local Next.js; PGlite; simulated Auth/Realtime",
+  "productionChanged": false,
+  "remoteMigrationsApplied": false,
+  "checks": {
+    "lint": 1,
+    "sourceLint": 0,
+    "typecheck": 0,
+    "unit": 0,
+    "database": 0,
+    "upgrade": 0,
+    "fixesSql": 0,
+    "build": 0,
+    "e2e": 0
+  }
+}
