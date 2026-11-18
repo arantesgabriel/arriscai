@@ -14,7 +14,7 @@ O catálogo oficial não é distribuído na árvore atual do repositório. Não 
 
 O frontend continua consultando o catálogo no banco por RPCs autorizadas, com schema privado, RLS e ocultação de respostas preservados. Não há alteração de interface ou de regras do jogo nesta limpeza.
 
-As versões das migrations foram preservadas. Isso não reexecuta SQL em bases já instaladas. Bases novas não recebem um catálogo embutido: dependem de importação administrativa privada. A correção editorial pendente exige o texto aprovado na sessão administrativa e valida fingerprints antes de escrever. Ver [operação do conteúdo privado](CONTEUDO.md).
+As versões das migrations foram preservadas. Isso não reexecuta SQL em bases já instaladas. Bases novas não recebem um catálogo embutido: dependem de importação administrativa privada. A correção editorial pendente usa uma função administrativa instalada pela migration `202611180001`, separada do deploy, que recebe o texto aprovado privadamente e valida fingerprints antes de escrever. A versão `202611170007` não exige mais entrada privada durante o pipeline. Ver [operação do conteúdo privado](CONTEUDO.md).
 
 Os testes locais passaram a usar itens inteiramente fictícios, identificados como QA, gerados por `scripts/test-catalog-fixtures.mjs`. Quantidades, dificuldades, palavras longas e reservas são cenários de teste; não constituem inventário ou validação editorial da base real. Os artefatos de novos testes ficam em `.tmp/`, ignorado pelo Git.
 
@@ -40,7 +40,7 @@ Resultados dos checks e regressões desta limpeza estão no relatório de execu�
 | `npm run test:db` | 28 verificações passaram |
 | `npm run test:migrations` | Passou, preservando dados e histórico de teste |
 | `npm run test:difficulty` | Passou com itens fictícios |
-| `node scripts/test-homologation-fixes.mjs` | Passou, incluindo recusa do patch editorial sem entrada aprovada |
+| `node scripts/test-homologation-fixes.mjs` | Passou; recusa de entrada editorial não aprovada ocorre somente na função administrativa, não na migration |
 | Regressão multiplayer local | Passou com fixtures: quatro rodadas, pontos 22/19/1/zero, duas extras, reset, reconexões e rodadas mobile com três/cinco jogadores |
 
 A regressão de interface utilizou o build local compilado que já existia, pois esta limpeza não altera o frontend. Para não incorporar alterações simultâneas de copy/interface, a execução usou uma cópia temporária do spec compatível com esse build; o adaptador SQL foi o atual, já sem catálogo real. As demais alterações simultâneas foram preservadas fora do commit desta limpeza.

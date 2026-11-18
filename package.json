@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "test:migrations": "node scripts/test-migration-upgrade.mjs",
+    "test:migrations": "node scripts/test-migration-upgrade.mjs && node scripts/test-preview-editorial.mjs",
     "seed": "node scripts/seed.mjs",
     "test:db": "node scripts/test-db.mjs",
     "test:difficulty": "node scripts/test-difficulty.mjs",

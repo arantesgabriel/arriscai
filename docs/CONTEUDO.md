@@ -14,7 +14,11 @@ O conteúdo oficial de perguntas, respostas e aliases é administrado exclusivam
 
 Os identificadores das migrations foram preservados, mas os payloads de catálogo foram retirados por confidencialidade. A migration de dificuldade usa fingerprints combinados de enunciado e resposta para preservar a guarda editorial sem divulgar os textos. A antiga expansão não distribui mais perguntas: bases novas dependem de importação privada.
 
-A migration editorial `202611170007_private_editorial_patch.sql` exige, quando o registro ainda precisa de correção, o texto aprovado na variável de sessão `arriscai.editorial_q0710`. Esse valor deve ser fornecido privadamente pelo responsável, na mesma sessão administrativa da execução. O SQL valida o fingerprint do novo texto e do registro anterior. Entrada ausente ou não aprovada falha sem alterar dados; um registro já corrigido não é reescrito. Não marcar a migration como aplicada à força. O fluxo automático de migrations de uma base existente pode parar nessa etapa até a configuração privada.
+A versão `202611170007_private_editorial_patch.sql` é somente um marcador histórico, sem payload ou exigência de variável de sessão. A migration `202611180001_private_editorial_operation.sql` instala a função `private.apply_q0710_editorial_patch(text)`; nenhuma delas modifica o catálogo durante o deploy. Isso permite que Preview e CI executem as migrations sem acesso ao conteúdo editorial privado.
+
+A correção do registro é uma operação administrativa posterior, separada do deploy. O responsável fornece o texto aprovado como parâmetro da função, por uma conexão administrativa privada e parametrizada. A função não é acessível a `PUBLIC`, `anon` ou `authenticated`, não é `SECURITY DEFINER` e mantém `search_path` vazio. Valida fingerprints do novo texto e do registro anterior (categoria, enunciado, resposta e aliases), além de exigir ausência de dono. Retorna `true` quando corrige e `false` quando o texto já está corrigido. Entrada não aprovada ou registro ausente/divergente causa erro sem alterações.
+
+O sucesso das migrations **não significa que a correção editorial foi aplicada**. A conferência e a execução dessa operação privada continuam sendo uma pendência própria; não usar `migration repair`, reset ou mudança manual do histórico para contornar falhas.
 
 `scripts/catalog-correction.mjs` fornece a operação parametrizada para correções editoriais privadas, com guardas de ID, dono, categoria, texto anterior, resposta e aliases. O módulo não inclui nenhum payload e não é importado pelo frontend.
 
