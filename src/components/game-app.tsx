@@ -162,6 +162,10 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const [restHealthy, setRestHealthy] = useState(false);
   const [screen, setScreen] = useState(false);
   const [catalog, setCatalog] = useState<Catalog[]>([]);
+  const [catalogState, setCatalogState] = useState<
+    "loading" | "ready" | "error"
+  >("loading");
+  const [catalogAttempt, setCatalogAttempt] = useState(0);
   const [rounds, setRounds] = useState(3);
   const [exact, setExact] = useState("");
   const [cats, setCats] = useState<string[]>([]);
@@ -569,15 +573,26 @@ export default function GameApp({ roomId }: { roomId?: string }) {
 
   useEffect(() => {
     if (!host || active || !roomId) return;
+    let alive = true;
+    setCatalogState("loading");
     rpc<Catalog[]>("question_catalog", { room: roomId })
       .then((q) => {
+        if (!alive) return;
         setCatalog(q);
+        setCatalogState("ready");
         setCats((prev) =>
           prev.length ? prev : [...new Set(q.map((x) => x.category))],
         );
       })
-      .catch((e) => setError(humanError(e)));
-  }, [host, active, roomId, game?.id]);
+      .catch((e) => {
+        if (!alive) return;
+        setCatalogState("error");
+        setError(humanError(e));
+      });
+    return () => {
+      alive = false;
+    };
+  }, [host, active, roomId, game?.id, catalogAttempt]);
 
   // Distinct event sounds + aria-live announcements on game transitions
   useEffect(() => {
@@ -1404,16 +1419,37 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                   <section className="panel preparation" data-editable="true">
                     <h2>{game ? "Mais uma partida?" : "Prepare a partida"}</h2>
                     <p>Escolha as categorias e jogue de 1 a 8 rodadas.</p>
-                    {catalog.length === 0 && (
+                    {catalogState === "loading" && (
+                      <p role="status">Carregando perguntas disponíveis…</p>
+                    )}
+                    {catalogState === "error" && (
+                      <div role="status" className="empty-catalog-banner">
+                        <strong>Não foi possível carregar as perguntas.</strong>
+                        <p>
+                          Tente novamente para consultar o catálogo da sala.
+                        </p>
+                        <button
+                          className="secondary"
+                          onClick={() => {
+                            setError("");
+                            setCatalogAttempt((attempt) => attempt + 1);
+                          }}
+                        >
+                          Tentar novamente
+                        </button>
+                      </div>
+                    )}
+                    {catalogState === "ready" && catalog.length === 0 && (
                       <div role="status" className="empty-catalog-banner">
                         <strong>
-                          Catálogo oficial sem perguntas liberadas.
+                          Nenhuma pergunta disponível para esta sala.
                         </strong>
                         <p>
-                          Nenhuma pergunta aprovada está disponível no momento.
+                          Nenhuma pergunta liberada e inédita está disponível
+                          para os participantes no momento.
                           {permanent
-                            ? " Você pode criar perguntas próprias abaixo. O catálogo oficial depende de liberação editorial."
-                            : " O catálogo oficial ainda depende de liberação editorial. Você pode aguardar e jogar como convidado quando houver perguntas, ou usar uma conta permanente para criar perguntas próprias."}
+                            ? " Você pode criar perguntas próprias abaixo."
+                            : " Você pode aguardar novas perguntas ou criar perguntas próprias com uma conta permanente."}
                         </p>
                       </div>
                     )}
@@ -1531,25 +1567,28 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                       </div>
                     </div>
                     <div className="preparation-footer">
-                      {filtered.length < rounds && (
+                      {catalogState === "ready" && filtered.length < rounds && (
                         <p className="insufficient" role="status">
                           Amplie os filtros ou reduza as rodadas.
                         </p>
                       )}
-                      <div className="prep-stats-bar">
-                        <span>
-                          <strong>{filtered.length}</strong> perguntas elegíveis
-                          nos filtros
-                        </span>
-                        <span>
-                          <strong>{reserveCount}</strong> perguntas extras de
-                          reserva (desempate)
-                        </span>
-                      </div>
+                      {catalogState === "ready" && (
+                        <div className="prep-stats-bar">
+                          <span>
+                            <strong>{filtered.length}</strong> perguntas
+                            elegíveis nos filtros
+                          </span>
+                          <span>
+                            <strong>{reserveCount}</strong> perguntas extras de
+                            reserva (desempate)
+                          </span>
+                        </div>
+                      )}
                       <div className="actions">
                         <button
                           disabled={
                             busy ||
+                            catalogState !== "ready" ||
                             wheelCountdown !== null ||
                             wheelSpinning ||
                             filtered.length < rounds ||
