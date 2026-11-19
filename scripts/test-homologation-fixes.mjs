@@ -25,11 +25,15 @@ try {
   await db.query(
     "insert into private.questions(id,category,question,answer) values('Q0710','QA','QA registro fictício protegido','gabarito-qa')",
   );
-  await assert.rejects(db.exec(privatePatch), /Configure o texto editorial/);
+  await db.exec(privatePatch);
   await db.query(
     "select set_config('arriscai.editorial_q0710','QA entrada não aprovada',false)",
   );
-  await assert.rejects(db.exec(privatePatch), /Configure o texto editorial/);
+  await db.exec(privatePatch);
+  await assert.rejects(
+    db.query("select private.apply_q0710_editorial_patch(null)"),
+    /Texto editorial ausente ou não aprovado/,
+  );
   assert.equal(
     (await db.query("select question from private.questions where id='Q0710'"))
       .rows[0].question,

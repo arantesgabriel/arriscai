@@ -4,11 +4,13 @@ import { EntryScreen, EntryForm, type EntryMode } from "./game/entry-screen";
 import { PublicPreparation } from "./game/preparation-preview";
 import { readPreparation, type PreparationPreview } from "@/lib/preparation";
 import { Board, Scoreboard } from "./game/board";
+import { HostWorkspace } from "./game/host-workspace";
+import { PlayerGuess } from "./game/player-guess";
+import { GameFeedback } from "./game/game-feedback";
 import { Icon } from "./game/game-icon";
 import { categoryMeta } from "./game/category-metadata";
 import { playerColor } from "./game/player-colors";
 import { HostRoulette } from "./game/host-roulette";
-import { CompactScoreStrip } from "./game/score-strip";
 import { RoundResultOverlay, VictoryStage } from "./game/results";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -40,7 +42,8 @@ const categories = [
   "Cultura pop",
 ];
 
-type SoundKind = "reveal" | "error" | "correct" | "roulette" | "victory";
+type SoundKind =
+  "guess" | "reveal" | "error" | "correct" | "roulette" | "victory";
 
 function playEventSound(kind: SoundKind, enabled: boolean, volume: number) {
   if (!enabled || volume <= 0 || typeof window === "undefined") return;
@@ -59,6 +62,10 @@ function playEventSound(kind: SoundKind, enabled: boolean, volume: number) {
       SoundKind,
       { freq: number; dur: number; delay: number; type: OscillatorType }[]
     > = {
+      guess: [
+        { freq: 520, dur: 0.09, delay: 0, type: "sine" },
+        { freq: 780, dur: 0.12, delay: 0.08, type: "sine" },
+      ],
       reveal: [
         { freq: 440, dur: 0.1, delay: 0, type: "triangle" },
         { freq: 660, dur: 0.14, delay: 0.08, type: "triangle" },
@@ -158,13 +165,11 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const [rounds, setRounds] = useState(3);
   const [exact, setExact] = useState("");
   const [cats, setCats] = useState<string[]>([]);
-  const [guess, setGuess] = useState("");
   const [custom, setCustom] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
   const [editSecret, setEditSecret] = useState<
     (Secret & { category: string }) | null
   >(null);
-  const [scoresExpanded, setScoresExpanded] = useState(false);
   const [wheelAngle, setWheelAngle] = useState(0);
   const [wheelSpinning, setWheelSpinning] = useState(false);
   const [wheelCountdown, setWheelCountdown] = useState<number | null>(null);
@@ -423,22 +428,10 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const game = snapshot?.game;
   const active = game?.status === "active";
 
-  // On small screens the operating panel precedes the board in normal flow.
-  // Return focus after a selection without a fixed overlay or opening a keyboard.
-  useEffect(() => {
-    if (!host || !active || !window.matchMedia("(max-width: 800px)").matches)
-      return;
-    const target =
-      secret?.guess && game?.phase === "awaiting_guess"
-        ? ".controls .judgement"
-        : game?.phase === "pending_confirmation"
-          ? ".controls h2"
-          : null;
-    if (!target) return;
-    const element = document.querySelector<HTMLElement>(target);
-    element?.focus({ preventScroll: true });
-    element?.scrollIntoView({ block: "start", behavior: "instant" });
-  }, [host, active, game?.phase, secret?.guess]);
+  const onFeedbackSound = useCallback(
+    (kind: "guess" | "error") => playEventSound(kind, sound, volume),
+    [sound, volume],
+  );
 
   const connected = channelHealthy && restHealthy;
   const roomPlayers = snapshot?.members.filter((m) => !m.display_only) ?? [];
@@ -510,11 +503,11 @@ export default function GameApp({ roomId }: { roomId?: string }) {
             const winnerLabel =
               r.winner_id === uid ? "Você" : r.winner_nickname;
             const resultMessage =
-              winnerLabel + " foi sorteado(a) na roleta para organizar!";
+              winnerLabel + " foi sorteado(a) na roleta como Host!";
             setWheelBanner(resultMessage);
             showNotice(resultMessage);
             setLiveAnnouncement(
-              "Roleta concluída: " + winnerLabel + " vai organizar a partida.",
+              "Roleta concluída: " + winnerLabel + " será o Host da partida.",
             );
             return;
           }
@@ -523,10 +516,8 @@ export default function GameApp({ roomId }: { roomId?: string }) {
         tick();
       } else {
         setWheelMembers(null);
-        setWheelBanner(`${r.winner_nickname} assumiu a organização da sala.`);
-        setLiveAnnouncement(
-          `${r.winner_nickname} assumiu a organização da sala.`,
-        );
+        setWheelBanner(`${r.winner_nickname} agora é o Host da sala.`);
+        setLiveAnnouncement(`${r.winner_nickname} agora é o Host da sala.`);
       }
     }
   }, [snapshot?.roulette, snapshot?.members, sound, volume, uid, showNotice]);
@@ -572,7 +563,8 @@ export default function GameApp({ roomId }: { roomId?: string }) {
             `${w ?? "Jogador"} acertou a resposta ${game.answer ?? ""} e ganhou ${game.round_points ?? 0} pontos!`,
           );
         } else {
-          playEventSound("error", sound, volume);
+          if (game.feedback?.id === prev.feedback?.id)
+            playEventSound("error", sound, volume);
           setLiveAnnouncement(
             `Rodada encerrada sem vencedor. A resposta era ${game.answer ?? ""}.`,
           );
@@ -591,7 +583,6 @@ export default function GameApp({ roomId }: { roomId?: string }) {
         game.phase === "awaiting_position" &&
         prev.phase === "awaiting_guess"
       ) {
-        playEventSound("error", sound, volume);
         setLiveAnnouncement(
           `Vez passada. Agora é a vez de ${game.players[game.current]?.nickname}.`,
         );
@@ -631,9 +622,6 @@ export default function GameApp({ roomId }: { roomId?: string }) {
         command,
         payload,
       });
-      if (command === "judge" || command === "pass" || command === "next") {
-        setGuess("");
-      }
     });
   }
 
@@ -727,6 +715,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
             : "lobby"
       }
       data-phase={game?.phase}
+      data-host-active={host && active ? "true" : undefined}
       data-ready={uid && identityStatus === "ready" ? "true" : "false"}
     >
       <div className="sr-only" aria-live="polite" aria-atomic="true">
@@ -804,6 +793,18 @@ export default function GameApp({ roomId }: { roomId?: string }) {
             <div className="tv-room-badge">
               <span>SALA</span>
               <strong>{snapshot.code}</strong>
+              <button
+                type="button"
+                className="quiet tv-fs-btn"
+                aria-label={sound ? "Desativar som" : "Ativar som"}
+                onClick={() => {
+                  setSound(!sound);
+                  sessionStorage.setItem("sound", String(!sound));
+                }}
+              >
+                <Icon name={sound ? "speaker" : "speaker-off"} />
+                {sound ? "Som ligado" : "Som desligado"}
+              </button>
               <button
                 type="button"
                 className="quiet tv-fs-btn"
@@ -1096,9 +1097,15 @@ export default function GameApp({ roomId }: { roomId?: string }) {
               </h1>
             </div>
             {!screen && (
-              <div className="actions">
+              <div
+                className="actions room-tools"
+                role="group"
+                aria-label="Compartilhar sala"
+              >
                 <button
-                  className="secondary"
+                  className="secondary room-tool"
+                  aria-label="Copiar convite"
+                  title="Copiar convite"
                   type="button"
                   onClick={() =>
                     void act(async () => {
@@ -1109,10 +1116,12 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                     })
                   }
                 >
-                  Copiar convite
+                  <Icon name="link" />
                 </button>
                 <button
-                  className="secondary"
+                  className="secondary room-tool"
+                  aria-label="Copiar código"
+                  title="Copiar código"
                   type="button"
                   onClick={() =>
                     void act(async () => {
@@ -1121,289 +1130,79 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                     })
                   }
                 >
-                  Copiar código
+                  <Icon name="copy" />
                 </button>
                 <a
-                  className="button secondary"
+                  className="button secondary room-tool"
+                  aria-label="Abrir telão"
+                  title="Abrir telão"
                   href={`/?codigo=${snapshot.code}&telao=1`}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Abrir telão
+                  <Icon name="tv" />
                 </a>
               </div>
             )}
           </div>
 
           {active && game ? (
-            <>
-              <CompactScoreStrip
+            host ? (
+              <HostWorkspace
                 game={game}
-                expanded={scoresExpanded}
-                onToggle={() => setScoresExpanded(!scoresExpanded)}
+                secret={secret}
+                busy={busy}
+                permanent={permanent}
+                members={snapshot.members}
+                now={now}
+                onCommand={cmd}
               />
-              <div className={host ? "game-layout" : "public-layout"}>
-                <div>
-                  <Board
-                    game={game}
-                    host={host}
-                    busy={busy}
-                    onSelect={(p) => void cmd("select", { position: p })}
-                  />
-
-                  {game.phase === "result" && (
-                    <RoundResultOverlay
+            ) : (
+              <>
+                <div className="public-layout">
+                  <div>
+                    <Board
                       game={game}
-                      host={host}
+                      host={false}
                       busy={busy}
-                      permanent={permanent}
-                      onNext={() => void cmd("next")}
-                      onReserve={() => void cmd("reserve")}
-                      onReserveCustom={(question, answer) =>
-                        void cmd("reserve_custom", { question, answer })
-                      }
+                      onSelect={() => {}}
                     />
-                  )}
-
-                  {host && game.phase !== "result" && (
-                    <section className="panel controls host-sticky-dock">
-                      <div className="dock-header">
-                        <h2 tabIndex={-1}>
-                          {game.paused
-                            ? "Partida pausada"
-                            : game.phase === "pending_confirmation"
-                              ? `Revelar posição ${(game.selected ?? 0) + 1}?`
-                              : game.phase === "awaiting_guess"
-                                ? "Qual foi o palpite?"
-                                : "Escolha uma posição no tabuleiro"}
-                        </h2>
-                        {secret && (
-                          <details className="mobile-secret-peek">
-                            <summary>Ver resposta secreta</summary>
-                            <div className="peek-box">
-                              <p>{secret.question}?</p>
-                              <strong>Resposta: {secret.answer}</strong>
-                              {secret.aliases?.length > 0 && (
-                                <small>
-                                  Aceita: {secret.aliases.join(", ")}
-                                </small>
-                              )}
-                            </div>
-                          </details>
-                        )}
-                      </div>
-
-                      <button
-                        type="button"
-                        className="quiet mobile-board-link"
-                        onClick={() => {
-                          document.getElementById("round-board")?.focus();
-                        }}
-                      >
-                        Ver tabuleiro
-                      </button>
-
-                      {game.paused ? (
-                        <button
-                          disabled={busy}
-                          onClick={() => void cmd("resume")}
-                        >
-                          Retomar partida
-                        </button>
-                      ) : (
-                        <>
-                          {game.phase === "pending_confirmation" && (
-                            <div className="actions">
-                              <button
-                                disabled={busy}
-                                onClick={() => void cmd("reveal")}
-                              >
-                                Confirmar revelação
-                              </button>
-                              <button
-                                className="secondary"
-                                disabled={busy}
-                                onClick={() => void cmd("cancel_selection")}
-                              >
-                                Cancelar seleção
-                              </button>
-                            </div>
-                          )}
-                          {game.phase === "awaiting_guess" && (
-                            <>
-                              <form
-                                className="guess-form"
-                                onSubmit={(e) => {
-                                  e.preventDefault();
-                                  void cmd("guess", { text: guess });
-                                }}
-                              >
-                                <label>
-                                  Palpite de{" "}
-                                  {game.players[game.current]?.nickname}
-                                  <input
-                                    required
-                                    maxLength={200}
-                                    value={guess}
-                                    onChange={(e) => setGuess(e.target.value)}
-                                    placeholder="Digite a resposta que ouviu"
-                                  />
-                                </label>
-                                <button disabled={busy || !guess.trim()}>
-                                  Comparar palpite
-                                </button>
-                              </form>
-                              {secret?.guess && (
-                                <div
-                                  className="judgement"
-                                  tabIndex={-1}
-                                  role="group"
-                                  aria-label="Decisão do organizador"
-                                >
-                                  <p>“{secret.guess}”</p>
-                                  <p>
-                                    {secret.suggested
-                                      ? "A comparação sugere acerto."
-                                      : "A comparação sugere erro."}{" "}
-                                    A decisão é sua.
-                                  </p>
-                                  <div className="actions">
-                                    <button
-                                      disabled={busy}
-                                      onClick={() =>
-                                        void cmd("judge", { correct: true })
-                                      }
-                                    >
-                                      Confirmar acerto
-                                    </button>
-                                    <button
-                                      className="danger"
-                                      disabled={busy}
-                                      onClick={() =>
-                                        void cmd("judge", { correct: false })
-                                      }
-                                    >
-                                      Confirmar erro
-                                    </button>
-                                  </div>
-                                </div>
-                              )}
-                              <div className="actions">
-                                <button
-                                  className="secondary"
-                                  disabled={busy}
-                                  onClick={() => void cmd("pass")}
-                                >
-                                  Jogador desistiu
-                                </button>
-                                <button
-                                  className="quiet"
-                                  disabled={busy || Boolean(secret?.guess)}
-                                  onClick={() => void cmd("undo")}
-                                >
-                                  Desfazer revelação
-                                </button>
-                              </div>
-                            </>
-                          )}
-                          {game.phase === "awaiting_position" && (
-                            <button
-                              className="secondary"
-                              disabled={
-                                busy ||
-                                snapshot.members.some(
-                                  (m) =>
-                                    m.user_id ===
-                                      game.players[game.current]?.id &&
-                                    now - Date.parse(m.last_seen) < 45000,
-                                )
-                              }
-                              onClick={() => void cmd("skip")}
-                            >
-                              Pular jogador desconectado
-                            </button>
-                          )}
-                        </>
-                      )}
-                    </section>
-                  )}
-
-                  {host && (
-                    <details className="panel management">
-                      <summary>Controles da partida</summary>
-                      <div className="actions">
-                        <button
-                          className="secondary"
-                          disabled={busy || game.paused}
-                          onClick={() => void cmd("pause")}
-                        >
-                          Pausar
-                        </button>
-                        <label>
-                          Rodadas programadas
-                          <input
-                            aria-label="Ajustar rodadas"
-                            type="number"
-                            min={Math.min(8, game.round + 1)}
-                            disabled={game.round >= 8}
-                            max={Math.min(8, game.prepared)}
-                            defaultValue={game.planned}
-                            key={game.planned}
-                            onBlur={(e) => {
-                              if (Number(e.target.value) !== game.planned)
-                                void cmd("adjust", {
-                                  rounds: Number(e.target.value),
-                                });
-                            }}
-                          />
-                        </label>
-                        <button
-                          className="danger"
-                          disabled={busy}
-                          onClick={() => {
-                            if (
-                              confirm(
-                                "Cancelar esta partida sem declarar vencedor?",
-                              )
-                            )
-                              void cmd("cancel");
-                          }}
-                        >
-                          Cancelar partida
-                        </button>
-                      </div>
-                    </details>
-                  )}
-                </div>
-
-                <aside>
-                  <Scoreboard game={game} />
-                  {host && secret && (
-                    <section className="panel private">
-                      <div className="private-heading">Só você vê</div>
-                      <h2>Pergunta do organizador</h2>
-                      <p>{secret.question}?</p>
-                      <span>Resposta</span>
-                      <strong>{secret.answer}</strong>
-                      {secret.aliases?.length > 0 && (
-                        <small>
-                          Também aceito: {secret.aliases.join(", ")}
-                        </small>
-                      )}
-                    </section>
-                  )}
-                  {!host && (
+                    {game.phase === "result" && (
+                      <RoundResultOverlay
+                        game={game}
+                        host={false}
+                        busy={busy}
+                        permanent={permanent}
+                        onNext={() => {}}
+                        onReserve={() => {}}
+                        onReserveCustom={() => {}}
+                      />
+                    )}
+                  </div>
+                  <aside
+                    className="game-sidebar"
+                    aria-label="Painel da partida"
+                  >
+                    {!screen && game.players.some((p) => p.id === uid) && (
+                      <PlayerGuess
+                        game={game}
+                        uid={uid}
+                        busy={busy}
+                        onSubmit={(text) => void cmd("submit_guess", { text })}
+                      />
+                    )}
+                    <Scoreboard game={game} />
                     <p className="spectator-note">
                       {screen
                         ? "Telão · somente leitura"
                         : game.players.some((p) => p.id === uid)
-                          ? "Peça a posição e dê seu palpite ao organizador."
+                          ? "Escolha uma posição com o Host. Depois, envie seu palpite por aqui."
                           : "Você está assistindo. Entre no rodízio na próxima partida."}
                     </p>
-                  )}
-                </aside>
-              </div>
-            </>
+                  </aside>
+                </div>
+              </>
+            )
           ) : (
             <>
               {game?.status === "completed" && <VictoryStage game={game} />}
@@ -1466,8 +1265,8 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                             <span
                               className="host-marker"
                               role="img"
-                              aria-label="Organizador"
-                              title="Organizador"
+                              aria-label="Host"
+                              title="Host"
                             >
                               <Icon name="crown" />
                             </span>
@@ -1819,7 +1618,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                     }
                     hostName={
                       snapshot.members.find((m) => m.user_id === shownHostId)
-                        ?.nickname ?? "O organizador"
+                        ?.nickname ?? "O Host"
                     }
                   />
                 )}
@@ -1841,7 +1640,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                             <strong>{champ}</strong>
                           </span>
                           <small>
-                            Organizador: {h.host_nickname ?? "Organizador"} ·{" "}
+                            Host: {h.host_nickname ?? "Host"} ·{" "}
                             {h.total_rounds ?? 1}{" "}
                             {(h.total_rounds ?? 1) === 1 ? "rodada" : "rodadas"}{" "}
                             · {new Date(h.ended_at).toLocaleString("pt-BR")}
@@ -1861,6 +1660,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
           )}
         </main>
       )}
+      {game && <GameFeedback game={game} onSound={onFeedbackSound} />}
       {!screen && (
         <footer>
           Arriscaí! <span>Quanto menos pistas, mais pontos!</span>

@@ -174,8 +174,7 @@ export function HowItWorks() {
             <div className="step-icon">01</div>
             <h3>Escolha uma posição.</h3>
             <p>
-              Toque em uma posição. O organizador confirma e abre a palavra
-              escondida.
+              Toque em uma posição. O Host confirma e abre a palavra escondida.
             </p>
           </article>
           <article className="step enter" data-symbol="?">
@@ -213,12 +212,12 @@ export function DemoSection() {
           <p className="lead-small">
             <span className="desktop-copy">
               Escolha uma posição, abra uma palavra e tente descobrir a
-              resposta. A demonstração é individual; no jogo real, o organizador
-              conduz as jogadas.
+              resposta. A demonstração é individual; no jogo real, o Host conduz
+              as jogadas.
             </span>
             <span className="mobile-copy">
-              Abra uma palavra e tente acertar. No multiplayer, o organizador
-              conduz a rodada.
+              Abra uma palavra e tente acertar. No multiplayer, o Host conduz a
+              rodada.
             </span>
           </p>
           <a className="demo-invite" href="#demo-tabuleiro">

@@ -40,13 +40,16 @@ export function firstPlayer(round: number, players: string[]) {
   return players[round % players.length];
 }
 export function humanError(raw: unknown): string {
-  const msg =
+  const rawMessage =
     raw &&
     typeof raw === "object" &&
     "message" in raw &&
     typeof raw.message === "string"
       ? raw.message
       : String(raw ?? "");
+  const msg = rawMessage
+    .replace(/organizadores/gi, "Hosts")
+    .replace(/organizador/gi, "Host");
   const low = msg.toLowerCase();
   const code =
     raw && typeof raw === "object" && "code" in raw ? raw.code : null;
@@ -99,6 +102,20 @@ export type Game = {
   result: string | null;
   answer?: string | null;
   round_points?: number;
+  live_guess?: {
+    id: string;
+    player_id: string;
+    nickname: string;
+    text: string;
+    at: string;
+  } | null;
+  feedback?: {
+    id: string;
+    kind: "incorrect";
+    player_id: string;
+    nickname: string;
+    at: string;
+  } | null;
 };
 export type Member = {
   user_id: string;

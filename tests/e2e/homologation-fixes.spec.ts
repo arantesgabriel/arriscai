@@ -1,3 +1,4 @@
+import { selectPosition, openSpokenGuess } from "./game-ui";
 import { test, expect, type Page } from "@playwright/test";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { harness } from "./sql-harness";
@@ -96,9 +97,7 @@ test("correções: mobile, dois telões, placares, quatro rodadas e desempates (
     for (let k = 0; k < reveals; k++) {
       const position = 21 - k;
       if (mobile) {
-        await host
-          .getByRole("button", { name: `Posição ${position + 1}`, exact: true })
-          .click();
+        await selectPosition(host, position + 1);
         await expect(host.locator(".controls h2")).toBeFocused();
         const button = host.getByRole("button", {
           name: "Confirmar revelação",
@@ -114,11 +113,18 @@ test("correções: mobile, dois telões, placares, quatro rodadas e desempates (
             confirmationInViewport: true,
             manualScrollAfterSelection: 0,
           });
-          await host.locator(".mobile-secret-peek summary").click();
+          await host
+            .getByRole("button", {
+              name: "Resposta secreta Só você vê",
+              exact: true,
+            })
+            .click();
           await expect(
-            host.locator(".mobile-secret-peek .peek-box"),
+            host.getByRole("region", { name: "Consulta do Host" }),
           ).toBeVisible();
-          await host.locator(".mobile-secret-peek summary").click();
+          await host
+            .getByRole("button", { name: "Fechar consulta", exact: true })
+            .click();
         }
         if (k === 0 || k === 21)
           await host.screenshot({
@@ -150,6 +156,7 @@ test("correções: mobile, dois telões, placares, quatro rodadas e desempates (
         await host.screenshot({
           path: `${evidence}/mobile-guess-${mobileSize}.png`,
         });
+        await openSpokenGuess(host);
         await host.locator(".guess-form input").fill(secret.answer);
         await host
           .getByRole("button", { name: "Comparar palpite", exact: true })
@@ -340,7 +347,18 @@ test("correções: mobile, dois telões, placares, quatro rodadas e desempates (
     await start(1);
     expect((await state()).game.players).toHaveLength(5);
     await host.setViewportSize({ width: 390, height: 844 });
-    await expect(host.locator(".score-chip")).toHaveCount(5);
+    await expect(host.locator(".scoreboard li")).toHaveCount(5);
+    await host.setViewportSize({ width: 320, height: 720 });
+    await expect(host.locator(".scoreboard li")).toHaveCount(5);
+    const visibleNames = await host
+      .locator(".scoreboard li > strong")
+      .allTextContents();
+    expect(visibleNames.sort()).toEqual(
+      (await state()).game.players
+        .map((p: { nickname: string }) => p.nickname)
+        .sort(),
+    );
+    await host.setViewportSize({ width: 390, height: 844 });
     await host.screenshot({
       path: evidence + "/host-five-players-390x844.png",
     });

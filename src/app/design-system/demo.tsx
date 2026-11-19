@@ -129,7 +129,7 @@ export function Demo() {
           </Card>
           <Card tone="private" style={{ flex: "1 1 260px" }}>
             <h2 className={s.h2}>🔒 Privado (host)</h2>
-            <p>Área exclusiva do organizador.</p>
+            <p>Área exclusiva do Host.</p>
           </Card>
           <Card tone="stage" style={{ flex: "1 1 260px" }}>
             <h2 className={s.h2}>Stage</h2>

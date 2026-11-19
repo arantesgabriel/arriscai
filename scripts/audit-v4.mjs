@@ -51,13 +51,13 @@ try {
  await host.getByLabel('Seleção').selectOption('manual');await shot(host,'biblioteca-desktop');
  await host.getByPlaceholder('Digite trecho da pergunta ou categoria...').fill('Tour de France');await shot(host,'biblioteca-busca');
  await host.getByPlaceholder('Digite trecho da pergunta ou categoria...').fill('');await host.getByLabel('Seleção').selectOption('automatic');
- await host.getByRole('button',{name:'Sortear organizador'}).click();
+ await host.getByRole('button',{name:'Sortear Host'}).click();
  await shot(p1,'roleta-em-curso');
  await expect(p1.locator('.wheel-announcement')).toContainText('foi sorteado',{timeout:20000});
  await shot(p1,'roleta-resultado');
  let operator;
- for(const p of players)if(await p.getByRole('button',{name:'Sortear organizador',exact:true}).count())operator=p;
- await operator.getByRole('combobox',{name:'Escolher organizador'}).selectOption({label:'QA V4 Host'});
+ for(const p of players)if(await p.getByRole('button',{name:'Sortear Host',exact:true}).count())operator=p;
+ await operator.getByRole('combobox',{name:'Escolher Host'}).selectOption({label:'QA V4 Host'});
  await expect(host.getByRole('button',{name:'Preparar e iniciar'})).toBeVisible();
  await host.getByLabel('Rodadas',{exact:true}).fill('2');await host.getByLabel('Tamanho da pergunta').selectOption('22');
  await host.getByRole('button',{name:'Preparar e iniciar'}).click();await expect(host.locator('.board .tile')).toHaveCount(22);

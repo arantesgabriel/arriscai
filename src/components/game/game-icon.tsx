@@ -2,6 +2,8 @@ export function Icon({
   name,
 }: {
   name:
+    | "link"
+    | "copy"
     | "star"
     | "trophy"
     | "arrow"
@@ -11,6 +13,7 @@ export function Icon({
     | "user"
     | "wheel"
     | "fullscreen"
+    | "tv"
     | "bulb"
     | "clapper"
     | "music"
@@ -32,7 +35,16 @@ export function Icon({
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      {name === "star" ? (
+      {name === "link" ? (
+        <>
+          <path d="M9 17H7A5 5 0 0 1 7 7h2M15 7h2a5 5 0 0 1 0 10h-2M8 12h8" />
+        </>
+      ) : name === "copy" ? (
+        <>
+          <rect x="8" y="8" width="12" height="13" rx="2" />
+          <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" />
+        </>
+      ) : name === "star" ? (
         <path
           fill="var(--palette-gold)"
           stroke="var(--palette-ink)"
@@ -92,6 +104,11 @@ export function Icon({
             stroke="var(--palette-ink)"
             d="M12 3v6.5M12 14.5V21M3 12h6.5M14.5 12H21"
           />
+        </>
+      ) : name === "tv" ? (
+        <>
+          <rect x="3" y="4" width="18" height="14" rx="2" />
+          <path d="M12 18v3M8 21h8" />
         </>
       ) : name === "fullscreen" ? (
         <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />

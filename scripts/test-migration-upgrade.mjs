@@ -12,6 +12,23 @@ let seeded = false;
 
 const db = await testDatabase({
   afterMigration: async (file, database) => {
+    if (file.endsWith("202611170006_display_names.sql")) {
+      // A Preview with an existing, uncorrected item must migrate unattended.
+      await database.query(
+        "insert into private.questions(id,category,question,answer) values('Q0710','QA','QA registro anterior preservado','gabarito-qa')",
+      );
+    }
+    if (file.endsWith("202611180001_private_editorial_operation.sql")) {
+      const {
+        rows: [item],
+      } = await database.query(
+        "select question,answer from private.questions where id='Q0710'",
+      );
+      assert.deepEqual(item, {
+        question: "QA registro anterior preservado",
+        answer: "gabarito-qa",
+      });
+    }
     if (file.endsWith("202611170003_balanced_decks.sql")) {
       await insertTestCatalog(database, { baseline: true });
       await database.exec(

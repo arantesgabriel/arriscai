@@ -1,0 +1,738 @@
+/* The match surface borrows the reference's quiet stage and integrated rail.
+   Height follows real rows; no viewport filler or concealed board pages. */
+.app[data-experience="host"],
+.app[data-experience="player"],
+.app[data-experience="television"] {
+  --match-panel: #1c1d3b;
+  --match-tile: #25264d;
+  --match-line: #414574;
+}
+.app[data-experience="host"] .topbar,
+.app[data-experience="player"] .topbar {
+  background: #191a35;
+  min-height: 64px;
+  padding-block: 8px;
+}
+.app[data-host-active="true"] main,
+.app[data-experience="player"] main {
+  max-width: 1520px;
+  padding: 20px 28px 32px;
+}
+.app[data-host-active="true"] .room-heading h1,
+.app[data-experience="player"] .room-heading h1 {
+  font: 800 18px/1.35 var(--font-body);
+  margin: 0;
+}
+.app[data-experience="player"] .room-heading {
+  margin-bottom: 18px;
+}
+.app .host-workspace {
+  flex: 0 0 auto;
+}
+.app .host-round,
+.app .public-layout {
+  grid-template-columns: minmax(0, 1fr) 320px;
+  align-items: start;
+  gap: 24px;
+}
+.app .host-round .host-stage {
+  height: auto;
+}
+.app .host-round .match-board,
+.app .public-layout .match-board {
+  height: auto;
+  min-height: 0;
+  padding: 24px;
+  border-radius: 18px;
+  background: #15192f;
+  border: 1px solid #303653;
+  box-shadow: none;
+  display: block;
+}
+.app .match-board .round-status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.app .round-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--palette-mint);
+  font-size: 12px;
+  font-weight: 800;
+}
+.app .round-status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+.app .round-status[data-state="pending_confirmation"],
+.app .round-status[data-state="paused"] {
+  color: var(--palette-gold);
+}
+.app .round-word-count {
+  font-size: 11px;
+  color: var(--palette-muted);
+}
+.app .match-board .board-top {
+  align-items: center;
+  gap: 16px;
+}
+.app .match-board .board-top h2 {
+  font-size: clamp(24px, 2.3vw, 34px);
+  margin: 5px 0 0;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+.app .match-board .board-top > div > span {
+  color: var(--palette-muted);
+  font-size: 12px;
+}
+.app .match-board .points {
+  background: #322c24;
+  color: var(--palette-gold);
+  border: 1px solid #675939;
+  border-radius: 12px;
+  min-width: 90px;
+  min-height: 66px;
+  padding: 8px 12px;
+  box-shadow: none;
+}
+.app .match-board .points strong {
+  font-size: 34px;
+}
+.app .match-board .board-top .points span {
+  color: var(--palette-gold);
+  font-size: 10px;
+}
+.app .match-board .board-category {
+  margin: 20px 0 8px;
+  font-size: 12px;
+}
+.app .round-progress {
+  height: 5px;
+  background: #30334f;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.app .round-progress > span {
+  display: block;
+  height: 100%;
+  background: var(--palette-mint);
+  border-radius: inherit;
+}
+.app .match-board .board {
+  display: grid;
+  flex: none;
+  grid-template-columns: repeat(var(--board-columns), minmax(0, 1fr));
+  grid-template-rows: none;
+  grid-auto-rows: minmax(82px, auto);
+  gap: 10px;
+}
+.app .match-board .tile,
+.app .match-board .tile:disabled {
+  background: var(--match-tile, #25264d);
+  color: #dedafa;
+  border: 1px solid #4c507d;
+  border-radius: 11px;
+  padding: 16px 10px;
+  min-height: 82px;
+  height: auto;
+  box-shadow: inset 0 -3px 0 #11162c55;
+}
+.app .match-board .tile:hover:enabled {
+  background: #30325e;
+  border-color: var(--palette-lilac);
+  transform: none;
+}
+.app .match-board .tile-index {
+  font-size: 30px;
+}
+.app .match-board .tile strong {
+  font-size: 16px;
+  line-height: 1.35;
+  padding-top: 8px;
+}
+.app .match-board .tile.selected,
+.app .match-board .tile.selected:disabled {
+  background: var(--palette-gold);
+  color: var(--palette-ink);
+  border-color: var(--palette-gold);
+  outline: 2px solid var(--palette-gold);
+  outline-offset: 3px;
+}
+.app .match-board .tile.revealed,
+.app .match-board .tile.revealed:disabled {
+  background: #79f5cb;
+  color: var(--palette-ink);
+  border-color: #79f5cb;
+}
+.app .match-board .board-hint {
+  display: block;
+  margin: 18px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.app .match-board .pause-banner {
+  display: block;
+  padding: 12px;
+  margin: 16px 0 0;
+  font-size: 13px;
+}
+.app .game-sidebar,
+.app .public-layout > .game-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 8px 18px;
+  min-width: 0;
+  background: var(--match-panel, #1c1d3b);
+  border: 1px solid #34385c;
+  border-radius: 18px;
+  box-shadow: none;
+}
+.app .host-round .host-sidebar {
+  position: sticky;
+  top: 0;
+  max-height: calc(100dvh - 110px);
+  scrollbar-gutter: auto;
+  overflow-y: auto;
+}
+.app .sidebar-heading {
+  padding: 12px 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.app .sidebar-heading > span {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--palette-lilac);
+}
+.app .sidebar-heading small {
+  font-size: 11px;
+  color: var(--palette-muted);
+}
+.app .game-sidebar .panel {
+  background: transparent;
+  color: var(--palette-paper);
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 18px 0;
+  margin: 0;
+}
+.app .game-sidebar .host-controls {
+  gap: 12px;
+  padding: 18px 0;
+  border-top: 1px solid #393c60;
+}
+.app .game-sidebar .host-controls h2,
+.app .game-sidebar .player-guess h2 {
+  font-size: 24px;
+  line-height: 1.2;
+}
+.app .game-sidebar .host-controls > p,
+.app .game-sidebar .judgement p,
+.app .game-sidebar .player-guess p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--palette-muted);
+}
+.app .game-sidebar .host-controls > p strong,
+.app .game-sidebar .player-guess p strong {
+  color: var(--palette-paper);
+}
+.app .game-sidebar .guess-kicker {
+  color: var(--palette-muted);
+}
+.app .game-sidebar button {
+  border-radius: 10px;
+  border-width: 1px;
+  box-shadow: none;
+  min-height: 44px;
+  font-size: 13px;
+}
+.app .game-sidebar .secondary {
+  background: #292b50;
+  color: var(--palette-paper);
+  border-color: #555a86;
+}
+.app .game-sidebar .danger {
+  background: #632c43;
+  color: #ffe3eb;
+  border-color: #ab5873;
+}
+.app .game-sidebar button:disabled {
+  background: #282b47;
+  color: #b4bcd3;
+  border-color: #454b70;
+}
+.app .game-sidebar .quiet {
+  color: var(--palette-muted);
+  background: transparent;
+  border-color: transparent;
+}
+.app .game-sidebar :is(input, select, textarea) {
+  background: #12162e;
+  color: var(--palette-paper);
+  border: 1px solid #626789;
+  border-radius: 10px;
+  color-scheme: dark;
+}
+.app .game-sidebar input::placeholder {
+  color: var(--palette-muted);
+}
+.app .game-sidebar :is(input, button, summary):focus-visible {
+  outline: 2px solid var(--palette-mint);
+  outline-offset: 3px;
+}
+.app .game-sidebar .host-answer,
+.app .game-sidebar .host-section {
+  background: transparent;
+  border: 0;
+  border-top: 1px solid #393c60;
+  border-radius: 0;
+  overflow: visible;
+}
+.app .game-sidebar .host-answer-toggle {
+  padding: 14px 0;
+}
+.app .game-sidebar .host-answer-content {
+  padding: 0 0 16px;
+}
+.app .game-sidebar .host-answer-content > strong {
+  font-size: 28px;
+}
+.app .game-sidebar .host-answer-content p {
+  font-size: 13px;
+}
+.app .game-sidebar .host-answer-content .quiet {
+  color: var(--palette-lilac);
+}
+.app .game-sidebar .host-section > summary {
+  padding: 16px 0;
+  min-height: 52px;
+}
+.app .game-sidebar .host-settings {
+  padding: 0 0 18px;
+}
+.app .game-sidebar .host-section .scoreboard {
+  padding: 0 0 12px;
+}
+.app .game-sidebar .scoreboard h2 {
+  font: 800 14px var(--font-body);
+  margin-bottom: 14px;
+}
+.app .game-sidebar .scoreboard li {
+  padding: 9px 10px;
+  gap: 9px;
+  border: 0;
+  border-radius: 9px;
+  margin: 3px 0;
+  background: #252744;
+  font-size: 13px;
+}
+.app .game-sidebar .scoreboard li.current {
+  background: #34324b;
+}
+.app .scoreboard li > .score-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font: 900 13px var(--font-body);
+  color: var(--palette-ink);
+}
+.app .game-sidebar .scoreboard li > .score-rank {
+  width: 14px;
+  color: var(--palette-muted);
+  font: 800 12px var(--font-body);
+}
+.app .game-sidebar .scoreboard li.current > .score-rank {
+  color: var(--palette-gold);
+}
+.app .game-sidebar .scoreboard li > strong {
+  flex: 1;
+}
+.app .game-sidebar .scoreboard li > b {
+  color: var(--palette-paper);
+  font: 900 17px var(--font-body);
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+.app .game-sidebar .scoreboard small {
+  font-size: 9px;
+  color: var(--palette-muted);
+}
+.app .game-sidebar .spectator-note {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--palette-muted);
+  padding: 16px 0 10px;
+  margin: 0;
+  border-top: 1px solid #393c60;
+}
+.app .game-sidebar .spoken-guess-form {
+  border-color: #393c60;
+}
+.app .public-layout > div {
+  min-width: 0;
+}
+@media (max-width: 1000px) and (min-width: 801px) {
+  .app .host-round,
+  .app .public-layout {
+    grid-template-columns: minmax(0, 1fr) 290px;
+    gap: 16px;
+  }
+  .app .host-round .match-board,
+  .app .public-layout .match-board {
+    padding: 18px;
+  }
+}
+@media (max-width: 800px) {
+  .app[data-host-active="true"] main,
+  .app[data-experience="player"] main {
+    padding: 12px 12px 24px;
+  }
+  .app[data-host-active="true"] .room-heading h1,
+  .app[data-experience="player"] .room-heading h1 {
+    font-size: 14px;
+  }
+  .app .host-round,
+  .app .public-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .app .host-round .host-stage {
+    width: 100%;
+  }
+  .app .host-round .match-board,
+  .app .public-layout .match-board {
+    padding: 16px 12px;
+    height: auto;
+    width: 100%;
+  }
+  .app .match-board .round-status-row {
+    margin-bottom: 14px;
+    gap: 6px;
+  }
+  .app .round-status {
+    font-size: 11px;
+  }
+  .app .round-word-count {
+    display: none;
+  }
+  .app .match-board .board-top h2 {
+    font-size: 23px;
+  }
+  .app .match-board .points {
+    min-height: 58px;
+    min-width: 74px;
+    padding: 7px;
+  }
+  .app .match-board .points strong {
+    font-size: 30px;
+  }
+  .app .match-board .board-top .points span {
+    font-size: 9px;
+  }
+  .app .match-board .board-category {
+    font-size: 10px;
+    margin: 14px 0 8px;
+  }
+  .app .round-progress {
+    margin-bottom: 16px;
+    height: 4px;
+  }
+  .app .match-board .board {
+    grid-template-columns: repeat(var(--board-columns-mobile), minmax(0, 1fr));
+    grid-auto-rows: minmax(62px, auto);
+    gap: 8px;
+  }
+  .app .match-board .tile,
+  .app .match-board .tile:disabled {
+    min-height: 62px;
+    padding: 14px 5px;
+    border-radius: 9px;
+  }
+  .app .match-board .tile-index {
+    font-size: 25px;
+  }
+  .app .match-board .tile strong {
+    font-size: 13px;
+  }
+  .app .host-round .host-sidebar,
+  .app .public-layout > .game-sidebar {
+    display: flex;
+    position: static;
+    max-height: none;
+    overflow: visible;
+    width: 100%;
+    padding: 6px 16px;
+  }
+  .app .game-sidebar .host-controls {
+    width: 100%;
+  }
+  .app .public-layout > .game-sidebar > .scoreboard {
+    display: block;
+  }
+  .app .game-sidebar .player-guess {
+    order: 0;
+  }
+}
+@media (min-width: 801px) {
+  .app.television .public-layout {
+    grid-template-columns: minmax(0, 1fr) 300px;
+  }
+  .app.television .match-board .board {
+    grid-template-columns: repeat(var(--board-columns), minmax(0, 1fr));
+    grid-auto-rows: minmax(100px, auto);
+  }
+  .app.television .match-board .tile {
+    min-height: 100px;
+  }
+  .app.television .match-board .tile strong {
+    font-size: 21px;
+  }
+}
+.app[data-experience="player"] {
+  padding-bottom: 0;
+}
+.app[data-experience="player"] > footer {
+  display: none;
+}
+.app .game-sidebar > .sidebar-heading {
+  order: -2;
+}
+.app .game-sidebar .scoreboard li > .score-avatar {
+  color: var(--palette-ink);
+}
+.app .round-index {
+  color: var(--palette-muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+.app .game-sidebar .host-answer-toggle svg {
+  color: var(--palette-lilac);
+  flex-shrink: 0;
+}
+@media (max-width: 800px) {
+  .app .round-index {
+    font-size: 10px;
+  }
+}
+/* Incoming guesses: response first, recommendation second, decision last. */
+.app .game-sidebar .judgement {
+  display: grid;
+  gap: 16px;
+}
+.app .game-sidebar .judgement .guess-kicker {
+  font-size: 13px;
+  font-weight: 700;
+}
+.app .game-sidebar .judgement .submitted-guess {
+  margin: 0;
+  padding: 18px 16px;
+  border: 1px solid #484b77;
+  border-left: 3px solid var(--palette-lilac);
+  border-radius: 10px;
+  background: #14182f;
+  color: var(--palette-paper);
+  font: 800 24px/1.4 var(--font-body);
+  overflow-wrap: anywhere;
+}
+.app .game-sidebar .judgement > p:not(.submitted-guess) {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.app .game-sidebar .judgement-actions {
+  margin: 0;
+  gap: 10px;
+}
+.app .game-sidebar .judgement-actions button {
+  min-height: 48px;
+  padding: 10px 8px;
+}
+.app .game-sidebar .host-controls .host-turn-actions {
+  margin-top: 8px;
+  padding-top: 18px;
+  border-top: 1px solid #393c60;
+  gap: 10px;
+}
+/* Results belong to the same dark stage as the question board. */
+.app .round-result-overlay {
+  background: #1c1d3b;
+  color: var(--palette-paper);
+  border: 1px solid #414574;
+  box-shadow: none;
+  border-radius: 18px;
+  padding: 28px;
+  gap: 24px;
+}
+.app .round-result-overlay .round-result-summary {
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+}
+.app .round-result-overlay .result-badge-3d {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #322c24;
+  border: 1px solid #675939;
+  box-shadow: none;
+}
+.app .round-result-overlay .result-kicker {
+  color: var(--palette-muted);
+  font: 700 12px/1.5 var(--font-body);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.app .round-result-overlay .round-result-summary h2 {
+  color: var(--palette-paper);
+  font-size: clamp(24px, 2.5vw, 34px);
+  margin-top: 5px;
+}
+.app .round-result-overlay .round-reward {
+  background: #322c24;
+  color: var(--palette-gold);
+  border: 1px solid #675939;
+  border-radius: 12px;
+  min-width: 92px;
+  padding: 12px 16px;
+  box-shadow: none;
+}
+.app .round-result-overlay .round-reward strong {
+  color: var(--palette-gold);
+  font-size: 38px;
+}
+.app .round-result-overlay .round-reward span {
+  color: var(--palette-gold);
+  font-size: 11px;
+}
+.app .round-result-overlay .result-solution {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  margin: 0;
+  padding: 24px 0 0;
+  border-top: 1px solid #414574;
+  border-bottom: 0;
+}
+.app .round-result-overlay .solution-reveal > span {
+  color: var(--palette-muted);
+  font: 700 12px/1.5 var(--font-body);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.app .round-result-overlay .solution-answer {
+  color: var(--palette-mint);
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.2;
+  margin-top: 6px;
+}
+.app .round-result-overlay .solution-question {
+  color: var(--palette-muted);
+  font-size: 16px;
+  line-height: 1.65;
+  max-width: 70ch;
+}
+.app .round-result-overlay .overlay-host-actions {
+  padding-top: 20px;
+  border-top: 1px solid #414574;
+  justify-content: flex-start;
+  gap: 12px;
+}
+.app .round-result-overlay .board-pagination button {
+  color: var(--palette-paper);
+}
+.app .round-result-overlay[data-outcome="unanswered"] .round-reward {
+  background: transparent;
+  border-color: #414574;
+}
+@media (max-width: 600px) {
+  .app .round-result-overlay {
+    padding: 20px 16px;
+    gap: 20px;
+  }
+  .app .round-result-overlay .round-result-summary {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px;
+  }
+  .app .round-result-overlay .result-badge-3d {
+    display: none;
+  }
+  .app .round-result-overlay .round-reward {
+    min-width: 72px;
+    padding: 10px 12px;
+  }
+  .app .round-result-overlay .round-reward strong {
+    font-size: 32px;
+  }
+  .app .round-result-overlay .round-result-summary h2 {
+    font-size: 25px;
+  }
+  .app .round-result-overlay .solution-question {
+    font-size: 14px;
+  }
+  .app .round-result-overlay .overlay-host-actions > button {
+    width: 100%;
+  }
+}
+/* White answer and trophy keep the result readable on the dark surface. */
+.app .round-result-overlay .solution-answer {
+  color: #fff;
+}
+.app .round-result-overlay .result-badge-3d svg {
+  color: #fff;
+}
+.app .round-result-overlay .result-badge-3d svg path {
+  stroke: #fff;
+}
+.app .round-result-overlay .result-badge-3d svg path[fill] {
+  fill: #fff;
+}
+/* Softer result accents: a legible trophy and a quieter answer. */
+.app .round-result-overlay .result-badge-3d {
+  background: #34314a;
+  border-color: #62566c;
+}
+.app .round-result-overlay .result-badge-3d svg path {
+  stroke: #ffe0a1;
+}
+.app .round-result-overlay .result-badge-3d svg path[fill] {
+  fill: none;
+}
+.app .round-result-overlay .solution-answer {
+  color: #eee9ff;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(26px, 2.6vw, 38px);
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+}
+.app .round-result-overlay .solution-answer {
+  font-weight: 700;
+}
+.app .round-result-overlay .result-badge-3d {
+  background: #322c24;
+  border-color: #675939;
+}
+.app .round-result-overlay .result-badge-3d svg,
+.app .round-result-overlay .result-badge-3d svg path {
+  color: var(--palette-gold);
+  stroke: var(--palette-gold);
+}
