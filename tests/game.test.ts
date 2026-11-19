@@ -81,6 +81,14 @@ describe("Regras de conteúdo e pontuação", () => {
       }),
     ).toBe("Esse apelido já está em uso nesta sala. Escolha outro.");
   });
+  it("exibe Host nas mensagens legadas do servidor", () => {
+    expect(humanError({ message: "Somente organizador." })).toBe(
+      "Somente Host.",
+    );
+    expect(humanError(new Error("Aguarde a avaliação do organizador."))).toBe(
+      "Aguarde a avaliação do Host.",
+    );
+  });
   it("fixture sintética tem 504 itens distintos, 63 por categoria e ao menos 6 de 22 palavras por categoria", () => {
     expect(seed).toHaveLength(504);
     expect(new Set(seed.map((q) => normalize(q.question))).size).toBe(504);

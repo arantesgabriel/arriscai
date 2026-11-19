@@ -114,10 +114,13 @@ test("correções: mobile, dois telões, placares, quatro rodadas e desempates (
             manualScrollAfterSelection: 0,
           });
           await host
-            .getByRole("button", { name: "Resposta secreta", exact: true })
+            .getByRole("button", {
+              name: "Resposta secreta Só você vê",
+              exact: true,
+            })
             .click();
           await expect(
-            host.getByRole("region", { name: "Consulta do organizador" }),
+            host.getByRole("region", { name: "Consulta do Host" }),
           ).toBeVisible();
           await host
             .getByRole("button", { name: "Fechar consulta", exact: true })

@@ -96,10 +96,6 @@ test("player submits, organizer judges, room feedback, fit workspace and balance
       name: `Posição ${position}`,
       exact: true,
     });
-    for (let i = 0; i < 22 && !(await tile.isVisible()); i++)
-      await host
-        .getByRole("button", { name: "Próximas posições", exact: true })
-        .click();
     await tile.click();
     await expect(
       host.getByRole("button", { name: "Confirmar revelação", exact: true }),
@@ -115,7 +111,7 @@ test("player submits, organizer judges, room feedback, fit workspace and balance
   try {
     await host.goto("/jogar");
     await expect(host.locator(".app")).toHaveAttribute("data-ready", "true");
-    await host.getByLabel("Escolha seu apelido").fill("QA Organizador");
+    await host.getByLabel("Escolha seu apelido").fill("QA Host");
     await host.getByRole("button", { name: "Ativar som", exact: true }).click();
     await host.getByRole("button", { name: /^Criar uma sala/ }).click();
     const code = await host.locator(".room-code strong").innerText();
@@ -148,30 +144,10 @@ test("player submits, organizer judges, room feedback, fit workspace and balance
           requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
         );
       });
-      const previous = host.getByRole("button", {
-        name: "Posições anteriores",
-        exact: true,
-      });
-      while (await previous.isEnabled()) await previous.click();
-      const seen = new Set<number>();
-      await expect
-        .poll(async () => host.locator(".board-fit .tile").count())
-        .toBeGreaterThan(0);
-      for (let p = 0; p < 22; p++) {
-        for (const label of await host
-          .locator(".board-fit .tile")
-          .evaluateAll((tiles) =>
-            tiles.map((t) => t.getAttribute("aria-label")!),
-          ))
-          seen.add(Number(label.match(/Posição (\d+)/)![1]));
-        const next = host.getByRole("button", {
-          name: "Próximas posições",
-          exact: true,
-        });
-        if (await next.isDisabled()) break;
-        await next.click();
-      }
-      expect(seen.size).toBe(22);
+      await expect(host.locator(".match-board .tile")).toHaveCount(22);
+      await expect(
+        host.getByRole("navigation", { name: "Páginas do tabuleiro" }),
+      ).toHaveCount(0);
       await expect(host.locator(".host-scores .scoreboard")).toBeVisible();
       await expect(
         host.getByRole("button", { name: "Copiar convite", exact: true }),
@@ -185,16 +161,15 @@ test("player submits, organizer judges, room feedback, fit workspace and balance
       const scores = host.locator(".host-scores summary");
       await scores.click();
       await expect(host.locator(".host-scores .scoreboard")).toBeHidden();
-      await expect(host.locator(".board-fit")).toBeVisible();
+      await expect(host.locator(".match-board")).toBeVisible();
       await scores.click();
       const settings = host
         .locator("summary")
         .filter({ hasText: "Ajustes da partida" });
       await settings.click();
       await expect(host.getByLabel("Ajustar rodadas")).toBeVisible();
-      await expect(host.locator(".board-fit")).toBeVisible();
+      await expect(host.locator(".match-board")).toBeVisible();
       await settings.click();
-      await noOverflow(host);
       await noOverflow(host);
       await host.locator("main").evaluate((el) => el.scrollTo({ top: 0 }));
       await host.screenshot({
@@ -203,17 +178,17 @@ test("player submits, organizer judges, room feedback, fit workspace and balance
     }
     await host.setViewportSize({ width: 390, height: 844 });
     await host
-      .getByRole("button", { name: "Resposta secreta", exact: true })
+      .getByRole("button", { name: "Resposta secreta Só você vê", exact: true })
       .click();
     await expect(
-      host.getByRole("region", { name: "Consulta do organizador" }),
+      host.getByRole("region", { name: "Consulta do Host" }),
     ).toBeVisible();
     await expect(host.getByRole("dialog")).toHaveCount(0);
     await host.screenshot({ path: out + "/secret-mobile.png" });
     await host.setViewportSize({ width: 1360, height: 768 });
     await host.screenshot({ path: out + "/secret-desktop.png" });
     await host.setViewportSize({ width: 390, height: 844 });
-    await expect(host.locator(".board-fit")).toBeVisible();
+    await expect(host.locator(".match-board")).toBeVisible();
     await host
       .getByRole("button", { name: "Fechar consulta", exact: true })
       .click();

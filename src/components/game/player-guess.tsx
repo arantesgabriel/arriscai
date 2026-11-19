@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Game } from "@/lib/game";
 
 export function PlayerGuess({
@@ -13,20 +13,34 @@ export function PlayerGuess({
   busy: boolean;
   onSubmit: (text: string) => void;
 }) {
+  const section = useRef<HTMLElement>(null);
   const [text, setText] = useState("");
   const turnId = game.players[game.current]?.id;
   const mine = turnId === uid;
   useEffect(() => setText(""), [game.id, game.round, turnId, game.phase]);
+  useEffect(() => {
+    if (
+      game.phase === "awaiting_guess" &&
+      mine &&
+      !game.live_guess &&
+      window.matchMedia("(max-width: 800px)").matches
+    )
+      section.current?.scrollIntoView({ block: "nearest" });
+  }, [game.phase, mine, game.live_guess]);
   if (game.phase !== "awaiting_guess") return null;
   return (
-    <section className="panel player-guess" aria-label="Palpite da rodada">
+    <section
+      ref={section}
+      className="panel player-guess"
+      aria-label="Palpite da rodada"
+    >
       {game.live_guess ? (
         <>
           <span className="guess-kicker">
             Palpite de {game.live_guess.nickname}
           </span>
           <p className="submitted-guess">“{game.live_guess.text}”</p>
-          <p>O organizador está avaliando.</p>
+          <p>O Host está avaliando.</p>
         </>
       ) : mine ? (
         <>
@@ -55,8 +69,7 @@ export function PlayerGuess({
             </button>
           </form>
           <p>
-            Seu palpite será exibido para a sala. O organizador decide o
-            resultado.
+            Seu palpite será exibido para a sala. O Host decide o resultado.
           </p>
         </>
       ) : (

@@ -11,7 +11,6 @@ import { Icon } from "./game/game-icon";
 import { categoryMeta } from "./game/category-metadata";
 import { playerColor } from "./game/player-colors";
 import { HostRoulette } from "./game/host-roulette";
-import { CompactScoreStrip } from "./game/score-strip";
 import { RoundResultOverlay, VictoryStage } from "./game/results";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -171,7 +170,6 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const [editSecret, setEditSecret] = useState<
     (Secret & { category: string }) | null
   >(null);
-  const [scoresExpanded, setScoresExpanded] = useState(false);
   const [wheelAngle, setWheelAngle] = useState(0);
   const [wheelSpinning, setWheelSpinning] = useState(false);
   const [wheelCountdown, setWheelCountdown] = useState<number | null>(null);
@@ -505,11 +503,11 @@ export default function GameApp({ roomId }: { roomId?: string }) {
             const winnerLabel =
               r.winner_id === uid ? "Você" : r.winner_nickname;
             const resultMessage =
-              winnerLabel + " foi sorteado(a) na roleta para organizar!";
+              winnerLabel + " foi sorteado(a) na roleta como Host!";
             setWheelBanner(resultMessage);
             showNotice(resultMessage);
             setLiveAnnouncement(
-              "Roleta concluída: " + winnerLabel + " vai organizar a partida.",
+              "Roleta concluída: " + winnerLabel + " será o Host da partida.",
             );
             return;
           }
@@ -518,10 +516,8 @@ export default function GameApp({ roomId }: { roomId?: string }) {
         tick();
       } else {
         setWheelMembers(null);
-        setWheelBanner(`${r.winner_nickname} assumiu a organização da sala.`);
-        setLiveAnnouncement(
-          `${r.winner_nickname} assumiu a organização da sala.`,
-        );
+        setWheelBanner(`${r.winner_nickname} agora é o Host da sala.`);
+        setLiveAnnouncement(`${r.winner_nickname} agora é o Host da sala.`);
       }
     }
   }, [snapshot?.roulette, snapshot?.members, sound, volume, uid, showNotice]);
@@ -1144,7 +1140,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <Icon name="fullscreen" />
+                  <Icon name="tv" />
                 </a>
               </div>
             )}
@@ -1163,11 +1159,6 @@ export default function GameApp({ roomId }: { roomId?: string }) {
               />
             ) : (
               <>
-                <CompactScoreStrip
-                  game={game}
-                  expanded={scoresExpanded}
-                  onToggle={() => setScoresExpanded(!scoresExpanded)}
-                />
                 <div className="public-layout">
                   <div>
                     <Board
@@ -1188,7 +1179,10 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                       />
                     )}
                   </div>
-                  <aside>
+                  <aside
+                    className="game-sidebar"
+                    aria-label="Painel da partida"
+                  >
                     {!screen && game.players.some((p) => p.id === uid) && (
                       <PlayerGuess
                         game={game}
@@ -1202,7 +1196,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                       {screen
                         ? "Telão · somente leitura"
                         : game.players.some((p) => p.id === uid)
-                          ? "Escolha uma posição com o organizador. Depois, envie seu palpite por aqui."
+                          ? "Escolha uma posição com o Host. Depois, envie seu palpite por aqui."
                           : "Você está assistindo. Entre no rodízio na próxima partida."}
                     </p>
                   </aside>
@@ -1271,8 +1265,8 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                             <span
                               className="host-marker"
                               role="img"
-                              aria-label="Organizador"
-                              title="Organizador"
+                              aria-label="Host"
+                              title="Host"
                             >
                               <Icon name="crown" />
                             </span>
@@ -1624,7 +1618,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                     }
                     hostName={
                       snapshot.members.find((m) => m.user_id === shownHostId)
-                        ?.nickname ?? "O organizador"
+                        ?.nickname ?? "O Host"
                     }
                   />
                 )}
@@ -1646,7 +1640,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                             <strong>{champ}</strong>
                           </span>
                           <small>
-                            Organizador: {h.host_nickname ?? "Organizador"} ·{" "}
+                            Host: {h.host_nickname ?? "Host"} ·{" "}
                             {h.total_rounds ?? 1}{" "}
                             {(h.total_rounds ?? 1) === 1 ? "rodada" : "rodadas"}{" "}
                             · {new Date(h.ended_at).toLocaleString("pt-BR")}

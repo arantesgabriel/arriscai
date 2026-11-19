@@ -78,7 +78,7 @@ export function HostRoulette({
         }}
       >
         <Icon name="crown" />
-        {isHost ? "Trocar organizador" : "Ver sorteio do organizador"}
+        {isHost ? "Trocar Host" : "Ver sorteio do Host"}
         <Icon name="arrow" />
       </button>
       <dialog
@@ -97,11 +97,11 @@ export function HostRoulette({
       >
         <div className="organizer-dialog-content">
           <div className="organizer-dialog-heading">
-            <h2 id="organizer-title">Quem vai organizar?</h2>
+            <h2 id="organizer-title">Quem será o Host?</h2>
             <button
               type="button"
               className="quiet"
-              aria-label="Fechar troca de organizador"
+              aria-label="Fechar troca de Host"
               disabled={running}
               onClick={() => setExpanded(false)}
             >
@@ -112,7 +112,7 @@ export function HostRoulette({
             <div
               className="organizer-methods"
               role="group"
-              aria-label="Forma de escolher organizador"
+              aria-label="Forma de escolher Host"
             >
               <button
                 type="button"
@@ -238,9 +238,9 @@ export function HostRoulette({
                 {method === "manual" && (
                   <>
                     <label>
-                      Selecione o organizador
+                      Selecione o Host
                       <select
-                        aria-label="Escolher organizador"
+                        aria-label="Escolher Host"
                         value={selectedId}
                         disabled={busy}
                         onChange={(e) => setManualId(e.target.value)}
@@ -260,7 +260,7 @@ export function HostRoulette({
                         setExpanded(false);
                       }}
                     >
-                      Confirmar novo organizador
+                      Confirmar novo Host
                     </button>
                   </>
                 )}
@@ -271,7 +271,7 @@ export function HostRoulette({
                     disabled={busy || members.length < 2}
                     onClick={onSpin}
                   >
-                    <Icon name="wheel" /> Sortear organizador
+                    <Icon name="wheel" /> Sortear Host
                   </button>
                 )}
               </div>

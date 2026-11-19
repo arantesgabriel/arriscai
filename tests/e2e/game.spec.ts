@@ -344,17 +344,15 @@ test("three players, telão and late spectator share one hosted or isolated game
       await capture(host, `match-result-${width}`);
     }
     await host
-      .getByRole("button", { name: "Trocar organizador", exact: true })
+      .getByRole("button", { name: "Trocar Host", exact: true })
       .click();
     await host
       .getByRole("button", { name: "Selecionar manualmente", exact: true })
       .click();
     await host
-      .getByRole("combobox", { name: "Escolher organizador" })
+      .getByRole("combobox", { name: "Escolher Host" })
       .selectOption({ label: "Bia" });
-    await host
-      .getByRole("button", { name: "Confirmar novo organizador" })
-      .click();
+    await host.getByRole("button", { name: "Confirmar novo Host" }).click();
     await expect(
       player.getByRole("heading", { name: "Mais uma partida?" }),
     ).toBeVisible();

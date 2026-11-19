@@ -74,12 +74,18 @@ export function HostWorkspace({
               game={game}
               host
               busy={busy}
-              fit
               onSelect={(position) => void command("select", { position })}
             />
           )}
         </div>
-        <aside className="host-sidebar" aria-label="Painel do organizador">
+        <aside
+          className="host-sidebar game-sidebar"
+          aria-label="Painel do Host"
+        >
+          <div className="sidebar-heading">
+            <span>Host</span>
+            <small>Você conduz a rodada</small>
+          </div>
           {game.phase !== "result" && (
             <section className="panel controls host-controls" ref={controls}>
               <h2 tabIndex={-1}>
@@ -124,7 +130,7 @@ export function HostWorkspace({
                     <div
                       className="judgement"
                       role="group"
-                      aria-label="Decisão do organizador"
+                      aria-label="Decisão do Host"
                       tabIndex={-1}
                     >
                       <span className="guess-kicker">
@@ -261,15 +267,26 @@ export function HostWorkspace({
               <button
                 type="button"
                 className="host-answer-toggle"
-                aria-label="Resposta secreta"
+                aria-label="Resposta secreta Só você vê"
                 aria-expanded={secretOpen}
                 aria-controls="organizer-answer"
                 onClick={() => setSecretOpen((open) => !open)}
               >
                 <span>
-                  Resposta secreta<small>Só você vê</small>
+                  Resposta secreta <small>Só você vê</small>
                 </span>
-                <span aria-hidden="true">{secretOpen ? "−" : "+"}</span>
+                <svg
+                  aria-hidden="true"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M3 9h12" />
+                  {!secretOpen && <path d="M9 3v12" />}
+                </svg>
               </button>
               {secretOpen && (
                 <div
@@ -277,7 +294,7 @@ export function HostWorkspace({
                   ref={secretContent}
                   className="host-answer-content"
                   role="region"
-                  aria-label="Consulta do organizador"
+                  aria-label="Consulta do Host"
                 >
                   {secret ? (
                     <>

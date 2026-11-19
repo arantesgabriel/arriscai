@@ -77,7 +77,7 @@ export function GameFeedback({
         <p>
           {event.kind === "incorrect"
             ? `${event.nickname}, vamos para a próxima jogada.`
-            : "Agora é com o organizador."}
+            : "Agora é com o Host."}
         </p>
       </section>
     </div>

@@ -208,7 +208,7 @@ try {
       .fill("");
     await host.getByLabel("Seleção").selectOption("automatic");
     await host.locator(".organizer-options > summary").click();
-    await host.getByRole("button", { name: "Sortear organizador" }).click();
+    await host.getByRole("button", { name: "Sortear Host" }).click();
     await shot(p1, "roleta-em-curso");
     await expect(p1.locator(".wheel-announcement")).toContainText(
       "foi sorteado",
@@ -219,12 +219,12 @@ try {
     for (const p of players)
       if (
         await p
-          .getByRole("button", { name: "Sortear organizador", exact: true })
+          .getByRole("button", { name: "Sortear Host", exact: true })
           .count()
       )
         operator = p;
     await operator
-      .getByRole("combobox", { name: "Escolher organizador" })
+      .getByRole("combobox", { name: "Escolher Host" })
       .selectOption({ label: "QA V4 Host" });
     await expect(
       host.getByRole("button", { name: "Preparar e iniciar" }),

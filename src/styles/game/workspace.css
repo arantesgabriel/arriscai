@@ -49,56 +49,6 @@
   grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
   gap: 16px;
 }
-.app .host-round .board-fit {
-  min-width: 0;
-  min-height: 0;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-}
-.app .board-fit .board-top {
-  flex-shrink: 0;
-  gap: 12px;
-}
-.app .board-fit .board-top h2 {
-  font-size: clamp(23px, 2vw, 34px);
-  margin: 4px 0 0;
-  overflow-wrap: anywhere;
-}
-.app .board-fit .points {
-  min-height: 64px;
-  min-width: 80px;
-}
-.app .board-fit .points strong {
-  font-size: 38px;
-}
-.app .board-fit .board-category {
-  margin: 14px 0;
-  flex-shrink: 0;
-}
-.app .board-fit .board {
-  flex: 1;
-  min-height: 0;
-  gap: 8px;
-  grid-auto-rows: minmax(0, 1fr);
-}
-.app .board-fit .tile {
-  min-height: 0;
-  padding: 4px;
-}
-.app .board-fit .tile-index {
-  font-size: 26px;
-}
-.app .board-fit .tile strong {
-  font-size: 13px;
-  line-height: 18px;
-  padding-top: 8px;
-}
-.app .board-fit .board-hint,
-.app .board-fit .pause-banner {
-  display: none;
-}
 .app .board-pagination {
   flex-shrink: 0;
   display: flex;
@@ -112,13 +62,6 @@
   min-width: 44px;
   min-height: 44px;
   padding: 4px 10px;
-}
-.app .board-fit .board-pagination button {
-  color: var(--palette-paper);
-}
-.app .board-fit .board-pagination button:disabled {
-  color: var(--palette-muted);
-  background: transparent;
 }
 .app .host-controls {
   align-self: start;
@@ -467,19 +410,6 @@
     grid-template-columns: 1fr;
     gap: 12px;
   }
-  .app .host-round .board-fit {
-    padding: 12px;
-  }
-  .app .board-fit .board {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 8px;
-  }
-  .app .board-fit .board-category {
-    margin-block: 10px;
-  }
-  .app .board-fit .board-top h2 {
-    font-size: 23px;
-  }
   .app .host-controls {
     padding: 16px;
     gap: 12px;
@@ -793,7 +723,7 @@
 }
 @media (min-width: 801px) {
   .app .host-stage {
-    height: max(420px, calc(100dvh - 174px));
+    height: auto;
   }
   .app .host-sidebar {
     max-height: max(420px, calc(100dvh - 174px));
@@ -813,33 +743,13 @@
   .app .host-stage {
     height: auto;
   }
-  .app .host-stage > .board-fit {
-    height: clamp(300px, 46dvh, 460px);
-  }
   .app .host-sidebar {
     overflow: visible;
     scrollbar-gutter: auto;
     padding: 0;
   }
-  .app .host-round .board-fit .board {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
   .app .host-controls .actions {
     grid-template-columns: 1fr 1fr;
-  }
-  .app .host-round .board-fit .board-top h2 {
-    font-size: 21px;
-  }
-  .app .host-round .board-fit .points {
-    min-width: 66px;
-    min-height: 58px;
-    padding: 6px;
-  }
-  .app .host-round .board-fit .points strong {
-    font-size: 32px;
-  }
-  .app .host-round .board-fit .board-category {
-    margin: 8px 0;
   }
   .app .room-heading > div:first-child {
     min-width: 0;

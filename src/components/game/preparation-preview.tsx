@@ -17,7 +17,7 @@ export function PublicPreparation({
     >
       <div className="preparation-title">
         <h2>Preparação da partida</h2>
-        <span className="read-only-label">Só o organizador altera</span>
+        <span className="read-only-label">Só o Host altera</span>
       </div>
       <p>
         {hostName} está preparando a partida. Acompanhe as escolhas por aqui.
@@ -95,14 +95,14 @@ export function PublicPreparation({
             <span>{draft.availableCount} perguntas disponíveis</span>
           </div>
           <p className="public-preparation-note">
-            As perguntas e respostas ficam com o organizador. A partida aparece
-            aqui assim que ele iniciar.
+            As perguntas e respostas ficam com o Host. A partida aparece aqui
+            assim que ele iniciar.
           </p>
         </>
       ) : (
         <div className="preparation-wait" role="status">
           <span className="live-dot online" aria-hidden="true" /> Aguardando a
-          configuração do organizador…
+          configuração do Host…
         </div>
       )}
     </section>

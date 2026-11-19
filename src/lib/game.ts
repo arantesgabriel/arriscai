@@ -40,13 +40,16 @@ export function firstPlayer(round: number, players: string[]) {
   return players[round % players.length];
 }
 export function humanError(raw: unknown): string {
-  const msg =
+  const rawMessage =
     raw &&
     typeof raw === "object" &&
     "message" in raw &&
     typeof raw.message === "string"
       ? raw.message
       : String(raw ?? "");
+  const msg = rawMessage
+    .replace(/organizadores/gi, "Hosts")
+    .replace(/organizador/gi, "Host");
   const low = msg.toLowerCase();
   const code =
     raw && typeof raw === "object" && "code" in raw ? raw.code : null;
