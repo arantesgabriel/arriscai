@@ -17,6 +17,7 @@
     "test:guesses": "node scripts/test-player-guesses.mjs",
     "test:timer": "node scripts/test-guess-timer.mjs",
     "test:daily": "node scripts/test-daily-questions.mjs",
+    "test:selection": "node scripts/test-question-selection-performance.mjs",
     "format": "prettier --write src tests scripts *.ts *.mjs *.json"
   },
   "dependencies": {

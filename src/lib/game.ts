@@ -53,6 +53,8 @@ export function humanError(raw: unknown): string {
   const low = msg.toLowerCase();
   const code =
     raw && typeof raw === "object" && "code" in raw ? raw.code : null;
+  if (code === "57014" || low.includes("statement timeout"))
+    return "A consulta demorou mais que o esperado. Tente novamente em alguns segundos.";
   if (
     (code === "23505" || low.includes("duplicate key")) &&
     low.includes("room_members_room_id_nickname_key")
