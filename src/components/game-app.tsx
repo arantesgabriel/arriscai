@@ -181,6 +181,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const nicknameInput = useRef<HTMLInputElement>(null);
   const prevGameRef = useRef<Game | null>(null);
   const refreshSequence = useRef(0);
+  const serverClockOffset = useRef(0);
   const locked = useRef(false);
   const presenceChannel = useRef<ReturnType<
     ReturnType<typeof supabase>["channel"]
@@ -223,7 +224,9 @@ export default function GameApp({ roomId }: { roomId?: string }) {
     }
     roomCodeRef.current = s.code;
     if (sequence !== refreshSequence.current) return;
-    setNow(Date.now());
+    if (s.server_now)
+      serverClockOffset.current = Date.parse(s.server_now) - Date.now();
+    setNow(Date.now() + serverClockOffset.current);
     setSnapshot((prev) => {
       if (
         prev?.game?.id === s.game?.id &&
@@ -428,6 +431,41 @@ export default function GameApp({ roomId }: { roomId?: string }) {
   const game = snapshot?.game;
   const active = game?.status === "active";
 
+  useEffect(() => {
+    if (
+      !active ||
+      game?.phase !== "awaiting_guess" ||
+      game.paused ||
+      game.live_guess ||
+      !game.guess_deadline
+    )
+      return;
+    const deadline = Date.parse(game.guess_deadline);
+    let refreshing = false;
+    const tick = () => {
+      const currentTime = Date.now() + serverClockOffset.current;
+      setNow(currentTime);
+      if (currentTime >= deadline && !refreshing) {
+        refreshing = true;
+        void refresh()
+          .catch(() => {})
+          .finally(() => {
+            refreshing = false;
+          });
+      }
+    };
+    tick();
+    const timer = setInterval(tick, 1000);
+    return () => clearInterval(timer);
+  }, [
+    active,
+    game?.phase,
+    game?.paused,
+    game?.live_guess,
+    game?.guess_deadline,
+    refresh,
+  ]);
+
   const onFeedbackSound = useCallback(
     (kind: "guess" | "error") => playEventSound(kind, sound, volume),
     [sound, volume],
@@ -539,7 +577,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
         );
       })
       .catch((e) => setError(humanError(e)));
-  }, [host, active, roomId]);
+  }, [host, active, roomId, game?.id]);
 
   // Distinct event sounds + aria-live announcements on game transitions
   useEffect(() => {
@@ -1093,7 +1131,9 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                     : host
                       ? "Você comanda o jogo."
                       : "Sua próxima pista está aqui."
-                  : "Junte a galera."}
+                  : game?.status === "completed"
+                    ? "Resultado da partida."
+                    : "Junte a galera."}
               </h1>
             </div>
             {!screen && (
@@ -1162,6 +1202,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                 <div className="public-layout">
                   <div>
                     <Board
+                      now={now}
                       game={game}
                       host={false}
                       busy={busy}
@@ -1185,6 +1226,7 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                   >
                     {!screen && game.players.some((p) => p.id === uid) && (
                       <PlayerGuess
+                        now={now}
                         game={game}
                         uid={uid}
                         busy={busy}
@@ -1203,10 +1245,31 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                 </div>
               </>
             )
+          ) : game?.status === "completed" ? (
+            <>
+              <VictoryStage game={game} />
+              <section className="panel" aria-label="Próxima partida">
+                {host ? (
+                  <button
+                    disabled={busy}
+                    onClick={() =>
+                      void act(() =>
+                        rpc("return_to_lobby", {
+                          room: roomId,
+                          match: game.id,
+                        }),
+                      )
+                    }
+                  >
+                    Voltar todos ao lobby
+                  </button>
+                ) : (
+                  <p>Aguarde o Host levar a sala de volta ao lobby.</p>
+                )}
+              </section>
+            </>
           ) : (
             <>
-              {game?.status === "completed" && <VictoryStage game={game} />}
-
               <div className="lobby-layout">
                 <section className="panel members">
                   <div className="members-heading">
@@ -1475,12 +1538,12 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                       )}
                       <div className="prep-stats-bar">
                         <span>
-                          <strong>{filtered.length}</strong> elegíveis nos
-                          filtros
+                          <strong>{filtered.length}</strong> perguntas elegíveis
+                          nos filtros
                         </span>
                         <span>
-                          <strong>{reserveCount}</strong> extras de reserva
-                          (desempate)
+                          <strong>{reserveCount}</strong> perguntas extras de
+                          reserva (desempate)
                         </span>
                       </div>
                       <div className="actions">

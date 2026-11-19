@@ -21,7 +21,10 @@ export function testCatalog({ baseline = false } = {}) {
         "QA",
         `item${number}`,
         "palavra-fictícia-extremamente-comprida",
-        ...Array.from({ length: size - 3 }, (_, i) => `pista${i + 4}`),
+        ...Array.from(
+          { length: size - 3 },
+          (_, i) => `pista${i + 4}q${number}`,
+        ),
       ];
       const difficulty = ["facil", "medio", "dificil"][index % 3];
       return {

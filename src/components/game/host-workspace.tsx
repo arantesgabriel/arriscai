@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import type { Game, Member, Secret } from "@/lib/game";
+import { guessSeconds, type Game, type Member, type Secret } from "@/lib/game";
 import { Board, Scoreboard } from "./board";
 import { RoundResultOverlay } from "./results";
 import { GuessText } from "./guess-text";
+import { GuessTimer } from "./guess-timer";
 
 type Props = {
   game: Game;
@@ -32,6 +33,7 @@ export function HostWorkspace({
   const [spokenOpen, setSpokenOpen] = useState(false);
   const [secretOpen, setSecretOpen] = useState(false);
   const turn = game.players[game.current];
+  const guessExpired = guessSeconds(game, now) === 0;
   const incomingGuessId = game.live_guess?.id;
   useEffect(() => {
     setGuess("");
@@ -71,6 +73,7 @@ export function HostWorkspace({
             />
           ) : (
             <Board
+              now={now}
               game={game}
               host
               busy={busy}
@@ -99,6 +102,9 @@ export function HostWorkspace({
                         : "Aguardando o palpite"
                       : "Escolha uma posição"}
               </h2>
+              <div className="guess-input-timer">
+                <GuessTimer game={game} now={now} />
+              </div>
               {game.paused ? (
                 <button disabled={busy} onClick={() => void command("resume")}>
                   Retomar partida
@@ -191,6 +197,7 @@ export function HostWorkspace({
                           aria-label="Registrar palpite falado"
                           onSubmit={(e) => {
                             e.preventDefault();
+                            if (guessExpired) return;
                             void command("guess", { text: guess });
                           }}
                         >
@@ -200,13 +207,16 @@ export function HostWorkspace({
                               autoFocus
                               required
                               maxLength={200}
+                              disabled={busy || guessExpired}
                               value={guess}
                               onChange={(e) => setGuess(e.target.value)}
                               placeholder="Digite a resposta que ouviu"
                             />
                           </label>
                           <div className="actions">
-                            <button disabled={busy || !guess.trim()}>
+                            <button
+                              disabled={busy || guessExpired || !guess.trim()}
+                            >
                               Comparar palpite
                             </button>
                             <button
@@ -259,6 +269,23 @@ export function HostWorkspace({
                     Pular jogador desconectado
                   </button>
                 </>
+              )}
+              {!game.paused && (
+                <button
+                  type="button"
+                  className="quiet"
+                  disabled={busy}
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        "Pular esta pergunta? A resposta será revelada e ninguém receberá pontos nesta rodada.",
+                      )
+                    )
+                      void command("skip_question");
+                  }}
+                >
+                  Pular pergunta sem pontuar
+                </button>
               )}
             </section>
           )}

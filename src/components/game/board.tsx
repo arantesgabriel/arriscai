@@ -2,17 +2,20 @@
 import type { Game } from "@/lib/game";
 import { useState, type CSSProperties } from "react";
 import { playerColor } from "./player-colors";
+import { GuessTimer } from "./guess-timer";
 
 export function Board({
   game: g,
   host,
   busy,
   onSelect,
+  now,
 }: {
   game: Game;
   host: boolean;
   busy: boolean;
   onSelect: (p: number) => void;
+  now: number;
 }) {
   const revealed = g.words.filter((x) => x !== null).length;
   const isResult = g.phase === "result";
@@ -96,6 +99,12 @@ export function Board({
           {revealed} de {g.words.length} palavras
         </span>
       </div>
+      <GuessTimer game={g} now={now} />
+      {g.timed_out && (
+        <p className="board-hint" role="status">
+          O tempo de {g.timed_out.nickname} acabou. A vez passou.
+        </p>
+      )}
       <div
         className="round-progress"
         role="progressbar"

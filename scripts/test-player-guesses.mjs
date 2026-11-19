@@ -147,6 +147,15 @@ try {
   assert.equal(g.players.find((p) => p.id === b).score, 21);
   await send(host, "next");
   assert.equal((await state()).history[0].winner_id, b);
+  await assert.rejects(
+    rpc(a, "return_to_lobby", [room, g.id]),
+    /Somente organizador/,
+  );
+  const finished = (await state()).game.id;
+  await rpc(host, "return_to_lobby", [room, finished]);
+  assert.equal((await state()).game, null);
+  assert.equal((await state()).history[0].winner_id, b);
+  await rpc(host, "return_to_lobby", [room, finished]);
   await rpc(host, "prepare_match", [
     room,
     1,
