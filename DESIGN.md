@@ -30,4 +30,8 @@ Componentes visuais ficam em `src/components/game/`; autenticação, comandos, s
 
 Revelações e resultados usam transform/opacity com tokens de motion. Movimento reduzido elimina deslocamentos e viradas no aplicativo. Som continua opt-in.
 
+O palpite tem 60 segundos a partir da revelação. O prazo do servidor aparece no tabuleiro como texto secundário; nos últimos 10 segundos, o número cresce e usa Gold junto de “Envie seu palpite!”. Sem piscar, som ou sobreposição. Pausar preserva o tempo restante; enviar o palpite encerra a contagem para permitir a avaliação do Host.
+
+O ranking final ocupa uma tela própria, sem preparação nem participantes do lobby abaixo. Só o Host aciona “Voltar todos ao lobby”; a transição é compartilhada por todos os dispositivos e preserva o histórico.
+
 Evidências da integração oficial e limites de homologação: `docs/v4-oficial/README.md`. Auditoria anterior e proposta aprovada: `docs/auditoria-v4/README.md`.

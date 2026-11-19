@@ -83,6 +83,9 @@ export type Phase =
   "awaiting_position" | "pending_confirmation" | "awaiting_guess" | "result";
 export type Player = { id: string; nickname: string; score: number };
 export type Game = {
+  guess_deadline?: string;
+  guess_remaining_ms?: number;
+  timed_out?: { nickname: string; at: string };
   id: string;
   host: string;
   version: number;
@@ -144,6 +147,7 @@ export type HistoryItem = {
   winner_nickname?: string;
 };
 export type Snapshot = {
+  server_now?: string;
   id: string;
   code: string;
   host_id: string;
@@ -152,6 +156,16 @@ export type Snapshot = {
   game: Game | null;
   history: HistoryItem[];
 };
+
+export function guessSeconds(game: Game, now: number): number | null {
+  if (game.phase !== "awaiting_guess" || game.live_guess) return null;
+  const ms = game.paused
+    ? game.guess_remaining_ms
+    : game.guess_deadline
+      ? Date.parse(game.guess_deadline) - now
+      : undefined;
+  return ms === undefined ? null : Math.max(0, Math.ceil(ms / 1000));
+}
 export type Secret = {
   question: string;
   answer: string;

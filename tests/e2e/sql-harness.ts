@@ -222,6 +222,18 @@ export async function harness() {
   return {
     attach,
     close: () => db.close(),
+    answerForRoom: async (room: string) =>
+      (
+        await db.query<{ answer: string }>(
+          "select d.questions->((r.game->>'round')::int)->>'answer' answer from private.decks d join public.rooms r on r.id=d.room_id where r.id=$1 and d.match_id=(r.game->>'id')::uuid",
+          [room],
+        )
+      ).rows[0].answer,
+    setGuessSeconds: (room: string, seconds: number) =>
+      db.query(
+        "update public.rooms set game=jsonb_set(game,'{guess_deadline}',to_jsonb((now()+$2*interval '1 second')::text)) where id=$1",
+        [room, seconds],
+      ),
     // Simula a passagem do prazo sem aguardar dois minutos no teste de UI.
     expireMember: (room: string, nickname: string) =>
       db.query(

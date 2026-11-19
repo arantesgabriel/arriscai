@@ -361,6 +361,17 @@ test("player submits, organizer judges, room feedback, fit workspace and balance
       .getByRole("button", { name: "Avançar rodada / encerrar", exact: true })
       .click();
     await expect(host.locator(".podium")).toBeVisible();
+    for (const p of pages) {
+      await expect(p.locator(".lobby-layout")).toHaveCount(0);
+      await expect(p.locator(".podium")).toBeVisible();
+    }
+    await host
+      .getByRole("button", { name: "Voltar todos ao lobby", exact: true })
+      .click();
+    for (const p of pages) {
+      await expect(p.locator(".podium")).toHaveCount(0);
+      await expect(p.locator(".lobby-layout")).toBeVisible();
+    }
     expect(errors).toEqual([]);
     writeFileSync(
       `${out}/report.json`,

@@ -1,22 +1,26 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import type { Game } from "@/lib/game";
+import { guessSeconds, type Game } from "@/lib/game";
+import { GuessTimer } from "./guess-timer";
 
 export function PlayerGuess({
   game,
   uid,
   busy,
   onSubmit,
+  now,
 }: {
   game: Game;
   uid: string;
   busy: boolean;
   onSubmit: (text: string) => void;
+  now: number;
 }) {
   const section = useRef<HTMLElement>(null);
   const [text, setText] = useState("");
   const turnId = game.players[game.current]?.id;
   const mine = turnId === uid;
+  const expired = guessSeconds(game, now) === 0;
   useEffect(() => setText(""), [game.id, game.round, turnId, game.phase]);
   useEffect(() => {
     if (
@@ -45,11 +49,15 @@ export function PlayerGuess({
       ) : mine ? (
         <>
           <h2>Sua vez de arriscar.</h2>
+          <div className="guess-input-timer">
+            <GuessTimer game={game} now={now} />
+          </div>
           <form
             className="guess-form"
             onSubmit={(e) => {
               e.preventDefault();
-              if (text.trim()) onSubmit(text.trim());
+              if (text.trim() && !expired && !game.paused)
+                onSubmit(text.trim());
             }}
           >
             <label>
@@ -61,10 +69,10 @@ export function PlayerGuess({
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Digite sua resposta"
-                disabled={busy || game.paused}
+                disabled={busy || game.paused || expired}
               />
             </label>
-            <button disabled={busy || game.paused || !text.trim()}>
+            <button disabled={busy || game.paused || expired || !text.trim()}>
               Enviar palpite
             </button>
           </form>
