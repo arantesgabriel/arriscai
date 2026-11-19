@@ -1101,9 +1101,15 @@ export default function GameApp({ roomId }: { roomId?: string }) {
               </h1>
             </div>
             {!screen && (
-              <div className="actions">
+              <div
+                className="actions room-tools"
+                role="group"
+                aria-label="Compartilhar sala"
+              >
                 <button
-                  className="secondary"
+                  className="secondary room-tool"
+                  aria-label="Copiar convite"
+                  title="Copiar convite"
                   type="button"
                   onClick={() =>
                     void act(async () => {
@@ -1114,10 +1120,12 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                     })
                   }
                 >
-                  Copiar convite
+                  <Icon name="link" />
                 </button>
                 <button
-                  className="secondary"
+                  className="secondary room-tool"
+                  aria-label="Copiar código"
+                  title="Copiar código"
                   type="button"
                   onClick={() =>
                     void act(async () => {
@@ -1126,15 +1134,17 @@ export default function GameApp({ roomId }: { roomId?: string }) {
                     })
                   }
                 >
-                  Copiar código
+                  <Icon name="copy" />
                 </button>
                 <a
-                  className="button secondary"
+                  className="button secondary room-tool"
+                  aria-label="Abrir telão"
+                  title="Abrir telão"
                   href={`/?codigo=${snapshot.code}&telao=1`}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Abrir telão
+                  <Icon name="fullscreen" />
                 </a>
               </div>
             )}

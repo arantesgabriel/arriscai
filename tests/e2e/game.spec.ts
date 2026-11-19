@@ -1,4 +1,4 @@
-import { selectPosition, openSpokenGuess } from "./game-ui";
+import { selectPosition, openSpokenGuess, readSecretAnswer } from "./game-ui";
 import { test, expect, type Page } from "@playwright/test";
 import { mkdirSync } from "node:fs";
 import { harness } from "./sql-harness";
@@ -143,7 +143,9 @@ test("three players, telão and late spectator share one hosted or isolated game
       "Você está assistindo. Entre no rodízio na próxima partida.",
     );
     for (const page of [player, secondPlayer, thirdPlayer, tv, late])
-      await expect(page.locator(".private")).toHaveCount(0);
+      await expect(
+        page.locator(".host-answer, .host-answer-content"),
+      ).toHaveCount(0);
     await expect(tv.locator(".controls")).toHaveCount(0);
     const room = new URL(player.url()).pathname.split("/").pop()!;
     const publicState = await browserRPC(player, "public_room_snapshot", {
@@ -221,7 +223,7 @@ test("three players, telão and late spectator share one hosted or isolated game
     await expect(tv.locator(".tile.revealed")).toHaveCount(1);
     await player.reload();
     await expect(player.locator(".tile.revealed")).toHaveCount(1);
-    const answer = await host.locator(".private>strong").innerText();
+    const answer = await readSecretAnswer(host);
     const fullQuestion =
       (await browserRPC(host, "host_private_round_snapshot", { room })).body
         .question + "?";
@@ -281,7 +283,7 @@ test("three players, telão and late spectator share one hosted or isolated game
         await host.getByRole("button", { name: "Jogador desistiu" }).click();
       }
     }
-    const answer2 = await host.locator(".private>strong").innerText();
+    const answer2 = await readSecretAnswer(host);
     await openSpokenGuess(host);
     await host.getByLabel("Palpite de Caio").fill(answer2);
     await host.getByRole("button", { name: "Comparar palpite" }).click();
@@ -323,7 +325,7 @@ test("three players, telão and late spectator share one hosted or isolated game
     await expect(host.locator(".board-top h2")).toContainText("Bia");
     await selectPosition(host, 6);
     await host.getByRole("button", { name: "Confirmar revelação" }).click();
-    const answer4 = await host.locator(".private>strong").innerText();
+    const answer4 = await readSecretAnswer(host);
     await openSpokenGuess(host);
     await host.getByLabel("Palpite de Bia").fill(answer4);
     await host.getByRole("button", { name: "Comparar palpite" }).click();
@@ -377,7 +379,10 @@ test("three players, telão and late spectator share one hosted or isolated game
       "Você está assistindo. Entre no rodízio na próxima partida.",
     );
 
-    await player.getByRole("button", { name: "Ajustes", exact: true }).click();
+    await player
+      .locator("summary")
+      .filter({ hasText: "Ajustes da partida" })
+      .click();
     player.once("dialog", (dialog) => void dialog.accept());
     await player.getByRole("button", { name: "Cancelar partida" }).click();
     await expect(
@@ -418,7 +423,7 @@ test("three players, telão and late spectator share one hosted or isolated game
     await player.getByRole("button", { name: "Jogador desistiu" }).click();
     await selectPosition(player, 2);
     await player.getByRole("button", { name: "Confirmar revelação" }).click();
-    const answer9 = await player.locator(".private>strong").innerText();
+    const answer9 = await readSecretAnswer(player);
     const turn9 = (await player.locator(".board-top h2").innerText()).replace(
       "É a vez de ",
       "",

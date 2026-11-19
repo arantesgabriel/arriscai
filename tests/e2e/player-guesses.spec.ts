@@ -75,29 +75,23 @@ test("player submits, organizer judges, room feedback, fit workspace and balance
   }
   let room: string;
   const state = () => rpc(host, "public_room_snapshot", { room });
-  async function noScroll(page: Page) {
+  async function noOverflow(page: Page) {
     await expect
       .poll(() =>
         page.evaluate(() => {
           const main = document.querySelector("main")!;
           const app = document.querySelector(".app")!;
           return {
-            main: main.scrollHeight - main.clientHeight,
+            mainHorizontal: main.scrollWidth - main.clientWidth,
             app: app.scrollHeight - app.clientHeight,
             document: document.documentElement.scrollHeight - innerHeight,
             horizontal: document.documentElement.scrollWidth - innerWidth,
           };
         }),
       )
-      .toEqual({ main: 0, app: 0, document: 0, horizontal: 0 });
+      .toEqual({ mainHorizontal: 0, app: 0, document: 0, horizontal: 0 });
   }
   async function choose(position: number) {
-    await host.getByRole("button", { name: "Rodada", exact: true }).click();
-    const switcher = host.getByRole("button", {
-      name: "Tabuleiro",
-      exact: true,
-    });
-    if (await switcher.isVisible()) await switcher.click();
     const tile = host.getByRole("button", {
       name: `Posição ${position}`,
       exact: true,
@@ -110,7 +104,7 @@ test("player submits, organizer judges, room feedback, fit workspace and balance
     await expect(
       host.getByRole("button", { name: "Confirmar revelação", exact: true }),
     ).toBeVisible();
-    await noScroll(host);
+    await noOverflow(host);
     await host
       .getByRole("button", { name: "Confirmar revelação", exact: true })
       .click();
@@ -146,7 +140,7 @@ test("player submits, organizer judges, room feedback, fit workspace and balance
       .click();
     for (const [width, height] of sizes) {
       await host.setViewportSize({ width, height });
-      await noScroll(host);
+      await noOverflow(host);
       // Let responsive measurement and web fonts settle before inspecting pages.
       await host.evaluate(async () => {
         await document.fonts.ready;
@@ -154,6 +148,11 @@ test("player submits, organizer judges, room feedback, fit workspace and balance
           requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
         );
       });
+      const previous = host.getByRole("button", {
+        name: "Posições anteriores",
+        exact: true,
+      });
+      while (await previous.isEnabled()) await previous.click();
       const seen = new Set<number>();
       await expect
         .poll(async () => host.locator(".board-fit .tile").count())
@@ -173,12 +172,31 @@ test("player submits, organizer judges, room feedback, fit workspace and balance
         await next.click();
       }
       expect(seen.size).toBe(22);
-      await host.getByRole("button", { name: "Placar", exact: true }).click();
-      await noScroll(host);
-      await host.getByRole("button", { name: "Ajustes", exact: true }).click();
-      await noScroll(host);
-      await host.getByRole("button", { name: "Rodada", exact: true }).click();
-      await noScroll(host);
+      await expect(host.locator(".host-scores .scoreboard")).toBeVisible();
+      await expect(
+        host.getByRole("button", { name: "Copiar convite", exact: true }),
+      ).toBeVisible();
+      await expect(
+        host.getByRole("button", { name: "Copiar código", exact: true }),
+      ).toBeVisible();
+      await expect(
+        host.getByRole("link", { name: "Abrir telão", exact: true }),
+      ).toBeVisible();
+      const scores = host.locator(".host-scores summary");
+      await scores.click();
+      await expect(host.locator(".host-scores .scoreboard")).toBeHidden();
+      await expect(host.locator(".board-fit")).toBeVisible();
+      await scores.click();
+      const settings = host
+        .locator("summary")
+        .filter({ hasText: "Ajustes da partida" });
+      await settings.click();
+      await expect(host.getByLabel("Ajustar rodadas")).toBeVisible();
+      await expect(host.locator(".board-fit")).toBeVisible();
+      await settings.click();
+      await noOverflow(host);
+      await noOverflow(host);
+      await host.locator("main").evaluate((el) => el.scrollTo({ top: 0 }));
       await host.screenshot({
         path: `${out}/host-board-${width}x${height}.png`,
       });
@@ -187,7 +205,15 @@ test("player submits, organizer judges, room feedback, fit workspace and balance
     await host
       .getByRole("button", { name: "Resposta secreta", exact: true })
       .click();
-    await expect(host.getByRole("dialog")).toBeVisible();
+    await expect(
+      host.getByRole("region", { name: "Consulta do organizador" }),
+    ).toBeVisible();
+    await expect(host.getByRole("dialog")).toHaveCount(0);
+    await host.screenshot({ path: out + "/secret-mobile.png" });
+    await host.setViewportSize({ width: 1360, height: 768 });
+    await host.screenshot({ path: out + "/secret-desktop.png" });
+    await host.setViewportSize({ width: 390, height: 844 });
+    await expect(host.locator(".board-fit")).toBeVisible();
     await host
       .getByRole("button", { name: "Fechar consulta", exact: true })
       .click();
@@ -206,11 +232,13 @@ test("player submits, organizer judges, room feedback, fit workspace and balance
       spokenInput,
       host.getByRole("button", { name: "Comparar palpite", exact: true }),
     ]) {
+      await control.scrollIntoViewIfNeeded();
       const box = await control.boundingBox();
       if (!box) throw new Error("Controle fora da tela");
       expect(box.y).toBeGreaterThanOrEqual(0);
       expect(box.y + box.height).toBeLessThanOrEqual(500);
     }
+    await host.screenshot({ path: out + "/spoken-mobile.png" });
     await host.getByRole("button", { name: "Voltar", exact: true }).click();
     await host.setViewportSize({ width: 390, height: 844 });
     const player = rest[names.indexOf(current)];
@@ -244,12 +272,12 @@ test("player submits, organizer judges, room feedback, fit workspace and balance
     ).toHaveCount(0);
     expect((await state()).game.live_guess.text).toBe(wrongGuess);
     await host.setViewportSize({ width: 320, height: 720 });
-    await noScroll(host);
+    await noOverflow(host);
     await expect(
       host.getByRole("navigation", { name: "Trechos do palpite" }),
     ).toBeVisible();
     await host.setViewportSize({ width: 390, height: 844 });
-    await noScroll(host);
+    await noOverflow(host);
     await host
       .getByRole("button", { name: "Confirmar erro", exact: true })
       .click();
@@ -287,7 +315,7 @@ test("player submits, organizer judges, room feedback, fit workspace and balance
       .click();
     await expect(
       host
-        .getByRole("dialog", { name: "Registrar palpite falado" })
+        .getByRole("form", { name: "Registrar palpite falado" })
         .getByRole("textbox"),
     ).toHaveValue("");
     await host.getByRole("button", { name: "Voltar", exact: true }).click();
@@ -298,7 +326,7 @@ test("player submits, organizer judges, room feedback, fit workspace and balance
       [1920, 1080],
     ]) {
       await host.setViewportSize({ width, height });
-      await noScroll(host);
+      await noOverflow(host);
       await host.screenshot({
         path: `${out}/host-awaiting-${width}x${height}.png`,
       });
@@ -324,7 +352,7 @@ test("player submits, organizer judges, room feedback, fit workspace and balance
     await expect(host.locator(".round-reward strong")).toHaveText("+21");
     for (const [width, height] of sizes) {
       await host.setViewportSize({ width, height });
-      await noScroll(host);
+      await noOverflow(host);
       await host.screenshot({
         path: `${out}/host-result-${width}x${height}.png`,
       });

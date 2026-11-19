@@ -2,6 +2,8 @@ export function Icon({
   name,
 }: {
   name:
+    | "link"
+    | "copy"
     | "star"
     | "trophy"
     | "arrow"
@@ -32,7 +34,17 @@ export function Icon({
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      {name === "star" ? (
+      {name === "link" ? (
+        <>
+          <path d="m10 13 4-4" />
+          <path d="m8 16-1 1a4 4 0 0 1-6-6l4-4a4 4 0 0 1 6 0m2 0 1-1a4 4 0 0 1 6 6l-4 4a4 4 0 0 1-6 0" />
+        </>
+      ) : name === "copy" ? (
+        <>
+          <rect x="8" y="8" width="12" height="13" rx="2" />
+          <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" />
+        </>
+      ) : name === "star" ? (
         <path
           fill="var(--palette-gold)"
           stroke="var(--palette-ink)"
