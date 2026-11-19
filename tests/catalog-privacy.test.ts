@@ -52,7 +52,8 @@ it("não distribui enunciados do catálogo em arquivos públicos do projeto", ()
   expect(
     files.filter((file) => /^docs\/.*\.(?:png|jpe?g|webm|html)$/i.test(file)),
   ).toEqual([]);
-});
+  // Full-repository hashing grows with source size; keep every fingerprint check.
+}, 15000);
 
 it("recusa importar payloads privados armazenados no repositório", () => {
   const result = spawnSync(process.execPath, ["scripts/seed.mjs"], {

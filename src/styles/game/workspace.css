@@ -1,0 +1,649 @@
+/* The organizer operates inside one viewport. Longer lists use explicit pages. */
+.app[data-host-active="true"] {
+  padding-bottom: 0;
+}
+.app[data-host-active="true"] > footer {
+  display: none;
+}
+.app[data-host-active="true"] .topbar {
+  min-height: 64px;
+  padding-block: 8px;
+}
+.app[data-host-active="true"] main {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 16px 24px;
+  max-width: 1680px;
+}
+.app[data-host-active="true"] .room-heading {
+  flex-shrink: 0;
+  margin: 0 0 12px;
+  gap: 12px;
+}
+.app[data-host-active="true"] .room-heading h1 {
+  font-size: 26px;
+  margin: 0;
+}
+.app[data-host-active="true"] .room-code {
+  margin: 0 0 4px;
+}
+.app[data-host-active="true"] .room-heading .actions {
+  gap: 8px;
+}
+.app[data-host-active="true"] .room-heading .actions > * {
+  min-height: 44px;
+  padding: 8px 12px;
+}
+.app .host-workspace {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.app .host-tabs {
+  flex-shrink: 0;
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+.app .host-tabs button,
+.app .host-mobile-switch button {
+  min-height: 44px;
+  padding: 8px 18px;
+}
+.app .host-tabs .selected,
+.app .host-mobile-switch .selected {
+  background: var(--palette-mint);
+  color: var(--palette-ink);
+}
+.app .host-secret-button {
+  margin-left: auto;
+}
+.app .host-round {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+  gap: 16px;
+}
+.app .host-mobile-switch {
+  display: none;
+}
+.app .host-round .board-fit {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.app .board-fit .board-top {
+  flex-shrink: 0;
+  gap: 12px;
+}
+.app .board-fit .board-top h2 {
+  font-size: clamp(23px, 2vw, 34px);
+  margin: 4px 0 0;
+  overflow-wrap: anywhere;
+}
+.app .board-fit .points {
+  min-height: 64px;
+  min-width: 80px;
+}
+.app .board-fit .points strong {
+  font-size: 38px;
+}
+.app .board-fit .board-category {
+  margin: 14px 0;
+  flex-shrink: 0;
+}
+.app .board-fit .board {
+  flex: 1;
+  min-height: 0;
+  gap: 8px;
+  grid-auto-rows: minmax(0, 1fr);
+}
+.app .board-fit .tile {
+  min-height: 0;
+  padding: 4px;
+}
+.app .board-fit .tile-index {
+  font-size: 26px;
+}
+.app .board-fit .tile strong {
+  font-size: 13px;
+  line-height: 18px;
+  padding-top: 8px;
+}
+.app .board-fit .board-hint,
+.app .board-fit .pause-banner {
+  display: none;
+}
+.app .board-pagination {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 12px;
+}
+.app .board-pagination button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 4px 10px;
+}
+.app .board-fit .board-pagination button {
+  color: var(--palette-paper);
+}
+.app .board-fit .board-pagination button:disabled {
+  color: var(--palette-muted);
+  background: transparent;
+}
+.app .host-controls {
+  align-self: start;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+  padding: 20px;
+}
+.app .host-controls h2 {
+  margin: 0;
+  font-size: 25px;
+}
+.app .host-controls > p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.app .host-controls .actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.app .host-controls .actions button {
+  min-width: 0;
+  min-height: 44px;
+  padding: 9px 6px;
+  font-size: 13px;
+}
+.app .host-controls .host-turn-actions {
+  margin-top: auto;
+}
+.app .host-controls .guess-form {
+  margin: 12px 0 0;
+  gap: 8px;
+}
+.app .host-controls .judgement {
+  background: transparent;
+  padding: 0;
+}
+.app .guess-kicker {
+  display: block;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 800;
+}
+.app .submitted-guess {
+  font-weight: 900;
+  font-size: clamp(20px, 2vw, 30px);
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  margin: 12px 0;
+}
+.app .spoken-guess summary {
+  min-height: 44px;
+  align-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.app .host-workspace > .scoreboard {
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.app .host-workspace > .scoreboard h2 {
+  margin: 0 0 8px;
+}
+.app .host-workspace > .scoreboard ol {
+  margin: 0;
+}
+.app .host-workspace > .scoreboard .board-pagination {
+  margin-top: auto;
+}
+.app .host-settings {
+  width: min(100%, 700px);
+  margin: 0 auto;
+  display: grid;
+  align-content: start;
+  gap: 20px;
+  padding: 24px;
+}
+.app .host-settings h2 {
+  margin: 0;
+}
+.app .host-settings .actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.app .host-settings .actions button {
+  min-height: 44px;
+  padding: 8px;
+  font-size: 13px;
+}
+.app .host-secret-dialog {
+  width: min(620px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px);
+  padding: 16px;
+  border: 2px solid var(--palette-lilac);
+  border-radius: 20px;
+  background: var(--palette-night);
+  color: var(--palette-paper);
+}
+.app .host-secret-dialog::backdrop {
+  background: #0b1027c9;
+}
+.app .secret-dialog-heading {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.app .secret-dialog-heading h2 {
+  margin: 0;
+  font-size: 22px;
+}
+.app .secret-dialog-heading button {
+  min-height: 44px;
+  padding: 6px 12px;
+}
+.app .host-secret-dialog .private {
+  margin: 0;
+  padding: 16px;
+  border-radius: 12px;
+}
+.app .host-secret-dialog .private > strong,
+.app .host-secret-dialog .private > small {
+  display: block;
+}
+.app .host-secret-dialog .private p {
+  overflow-wrap: anywhere;
+  margin-block: 10px;
+}
+.app .host-secret-dialog .private > small {
+  margin-top: 10px;
+  overflow-wrap: anywhere;
+}
+.app .player-guess {
+  padding: 20px;
+  margin: 0 0 16px;
+}
+.app .player-guess h2 {
+  font-size: 24px;
+}
+.app .player-guess p {
+  font-size: 14px;
+}
+.app .player-guess .submitted-guess {
+  font-size: 24px;
+}
+.app .game-feedback {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: #0c102b66;
+  pointer-events: none;
+}
+.app .feedback-card {
+  width: min(560px, 100%);
+  padding: 28px;
+  border-radius: 24px;
+  border: 2px solid var(--palette-ink);
+  background: var(--palette-paper);
+  color: var(--palette-ink);
+  box-shadow: var(--shadow-tactile-lg);
+  text-align: center;
+  animation:
+    guess-arrival 320ms var(--ease-out),
+    feedback-exit 250ms 3100ms ease-in forwards;
+}
+.app .feedback-mark {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: var(--palette-lilac);
+  color: var(--palette-ink);
+  font: 36px var(--font-display);
+}
+.app .feedback-kicker {
+  display: block;
+  font-size: 13px;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+.app .feedback-card > strong {
+  display: block;
+  font: clamp(23px, 3.5vw, 38px)/1.15 var(--font-display);
+  overflow-wrap: anywhere;
+}
+.app .feedback-card p {
+  margin: 14px 0 0;
+  font-size: 14px;
+}
+.app .game-feedback[data-kind="incorrect"] .feedback-mark {
+  background: #f9d5e0;
+  color: #8d244d;
+}
+.app .game-feedback[data-kind="incorrect"] .feedback-card {
+  animation:
+    guess-miss 420ms var(--ease-out),
+    feedback-exit 250ms 3100ms ease-in forwards;
+}
+/* Round result: concise winner header, separate reward and answer, one next action. */
+.app .round-result-overlay {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 24px;
+  padding: 28px;
+}
+.app .round-result-summary {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+}
+.app .round-result-summary .result-badge-3d {
+  width: 54px;
+  height: 54px;
+  margin: 0;
+  border-radius: 16px;
+}
+.app .round-result-summary .result-kicker {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+}
+.app .round-result-summary h2 {
+  max-width: none;
+  margin: 5px 0 0;
+  font-size: clamp(23px, 2.4vw, 36px);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+.app .round-reward {
+  text-align: center;
+  padding: 10px 18px;
+  border-radius: 14px;
+  background: var(--palette-mint);
+  color: var(--palette-ink);
+}
+.app .round-reward strong {
+  display: block;
+  font: 44px/1 var(--font-display);
+}
+.app .round-reward span {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+}
+.app .result-solution {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 32px;
+  align-items: center;
+  border-block: 1px solid var(--palette-blue-200);
+  padding-block: 26px;
+  margin-block: auto;
+}
+.app .result-solution .solution-reveal {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  align-items: flex-start;
+  text-align: left;
+}
+.app .result-solution .solution-reveal > span {
+  color: var(--color-text-secondary);
+  font-size: 11px;
+}
+.app .result-solution .solution-answer {
+  color: var(--palette-ink);
+  font-size: clamp(30px, 3vw, 48px);
+  line-height: 1.1;
+}
+.app .result-solution .solution-question {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.app .round-result-overlay .overlay-host-actions {
+  justify-content: flex-end;
+  margin: 0;
+}
+.app .host-workspace > .round-result-overlay {
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+}
+@keyframes guess-arrival {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes guess-miss {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  25% {
+    opacity: 1;
+    transform: translateX(-9px);
+  }
+  50% {
+    transform: translateX(7px);
+  }
+  75% {
+    transform: translateX(-4px);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes feedback-exit {
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+@media (max-width: 800px) {
+  .app[data-host-active="true"] .topbar {
+    min-height: 56px;
+    padding: 8px 12px;
+  }
+  .app[data-host-active="true"] .topbar .tagline {
+    display: none;
+  }
+  .app[data-host-active="true"] main {
+    padding: 10px 12px;
+  }
+  .app[data-host-active="true"] .room-heading h1 {
+    font-size: 18px;
+  }
+  .app[data-host-active="true"] .room-heading {
+    margin-bottom: 8px;
+  }
+  .app .host-workspace {
+    gap: 8px;
+  }
+  .app .host-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .app .host-tabs button {
+    width: 100%;
+    min-width: 0;
+    padding: 4px;
+    font-size: 12px;
+  }
+  .app .host-secret-button {
+    margin: 0;
+  }
+  .app .host-mobile-switch {
+    flex-shrink: 0;
+    display: flex;
+    gap: 8px;
+  }
+  .app .host-mobile-switch button {
+    flex: 1;
+    padding: 6px 10px;
+  }
+  .app .host-round {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .app .host-round[data-pane="board"] .host-controls {
+    display: none;
+  }
+  .app .host-round[data-pane="controls"] .board-fit {
+    display: none;
+  }
+  .app .host-round .board-fit {
+    padding: 12px;
+  }
+  .app .board-fit .board {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .app .board-fit .board-category {
+    margin-block: 10px;
+  }
+  .app .board-fit .board-top h2 {
+    font-size: 23px;
+  }
+  .app .host-controls {
+    padding: 16px;
+    gap: 12px;
+    width: 100%;
+  }
+  .app .host-controls h2 {
+    font-size: 23px;
+  }
+  .app .public-layout .player-guess {
+    order: -1;
+    width: 100%;
+  }
+  .app .host-settings {
+    padding: 16px;
+    gap: 14px;
+  }
+  .app .host-settings .actions {
+    grid-template-columns: 1fr 1fr;
+  }
+  .app .round-result-overlay {
+    padding: 20px 16px;
+    gap: 18px;
+  }
+  .app .round-result-summary {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px;
+  }
+  .app .round-result-summary .result-badge-3d {
+    display: none;
+  }
+  .app .round-reward {
+    padding: 10px 12px;
+  }
+  .app .round-reward strong {
+    font-size: 36px;
+  }
+  .app .result-solution {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding-block: 18px;
+  }
+  .app .result-solution .solution-question {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .app .result-solution .solution-answer {
+    font-size: 34px;
+  }
+  .app .host-secret-dialog {
+    padding: 12px;
+  }
+  .app .secret-dialog-heading h2 {
+    font-size: 18px;
+  }
+}
+@media (max-height: 650px) {
+  .app[data-host-active="true"] .topbar {
+    min-height: 48px;
+    padding-block: 4px;
+  }
+  .app[data-host-active="true"] main {
+    padding-block: 8px;
+  }
+  .app[data-host-active="true"] .room-heading h1 {
+    font-size: 18px;
+  }
+  .app[data-host-active="true"] .tagline {
+    display: none;
+  }
+  .app .host-controls {
+    padding: 12px;
+    gap: 8px;
+  }
+  .app .host-controls h2 {
+    font-size: 21px;
+  }
+  .app .host-controls > p {
+    font-size: 13px;
+  }
+  .app .host-workspace .judgement p {
+    font-size: 13px;
+    margin: 8px 0;
+  }
+  .app .host-workspace .judgement .submitted-guess {
+    font-size: 22px;
+  }
+  .app .round-result-overlay {
+    padding: 14px;
+    gap: 12px;
+  }
+  .app .result-solution {
+    padding-block: 12px;
+    gap: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app .game-feedback .feedback-card {
+    animation: none;
+  }
+}

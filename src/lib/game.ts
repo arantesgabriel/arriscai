@@ -99,6 +99,20 @@ export type Game = {
   result: string | null;
   answer?: string | null;
   round_points?: number;
+  live_guess?: {
+    id: string;
+    player_id: string;
+    nickname: string;
+    text: string;
+    at: string;
+  } | null;
+  feedback?: {
+    id: string;
+    kind: "incorrect";
+    player_id: string;
+    nickname: string;
+    at: string;
+  } | null;
 };
 export type Member = {
   user_id: string;

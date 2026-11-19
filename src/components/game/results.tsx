@@ -1,4 +1,6 @@
+"use client";
 import type { Game } from "@/lib/game";
+import { useRef, useState } from "react";
 import { Icon } from "./game-icon";
 import { Scoreboard } from "./board";
 
@@ -10,6 +12,7 @@ export function RoundResultOverlay({
   onNext,
   onReserve,
   onReserveCustom,
+  questionPageSize,
 }: {
   game: Game;
   host: boolean;
@@ -18,10 +21,22 @@ export function RoundResultOverlay({
   onNext: () => void;
   onReserve: () => void;
   onReserveCustom: (q: string, a: string) => void;
+  questionPageSize?: number;
 }) {
+  const [questionPage, setQuestionPage] = useState(0);
+  const customDialog = useRef<HTMLDialogElement>(null);
   const winner = game.players.find((p) => p.id === game.result);
   const fullQuestion = game.words.filter(Boolean).join(" ") + "?";
   const earned = game.round_points ?? 0;
+  const size = questionPageSize ?? game.words.length;
+  const pages = Math.ceil(game.words.length / size);
+  const page = Math.min(questionPage, pages - 1);
+  const shownQuestion = questionPageSize
+    ? game.words
+        .slice(page * size, (page + 1) * size)
+        .filter(Boolean)
+        .join(" ") + (page === pages - 1 ? "?" : "…")
+    : fullQuestion;
 
   return (
     <section
@@ -29,22 +44,60 @@ export function RoundResultOverlay({
       aria-label="Resultado da rodada"
       data-outcome={winner ? "correct" : "unanswered"}
     >
-      <div className="result-badge-3d">
-        <Icon name={winner ? "trophy" : "star"} />
-      </div>
-      <span className="result-kicker">RODADA {game.round + 1} ENCERRADA</span>
-      <h2>
-        {winner
-          ? `${winner.nickname} acertou e levou +${earned} ${earned === 1 ? "ponto" : "pontos"}!`
-          : "Ninguém pontuou nesta rodada!"}
-      </h2>
-      {game.answer && (
-        <div className="solution-reveal">
-          <span>Resposta correta</span>
-          <strong className="solution-answer">{game.answer}</strong>
+      <header className="round-result-summary">
+        <div className="result-badge-3d">
+          <Icon name={winner ? "trophy" : "star"} />
         </div>
-      )}
-      <p className="solution-question">{fullQuestion}</p>
+        <div className="result-winner">
+          <span className="result-kicker">
+            Rodada {game.round + 1} encerrada
+          </span>
+          <h2>
+            {winner
+              ? `${winner.nickname} acertou!`
+              : "Essa ficou sem vencedor."}
+          </h2>
+        </div>
+        <div className="round-reward">
+          <strong>{winner ? `+${earned}` : "0"}</strong>
+          <span>{earned === 1 ? "ponto" : "pontos"}</span>
+        </div>
+      </header>
+      <div className="result-solution">
+        {game.answer && (
+          <div className="solution-reveal">
+            <span>Resposta da rodada</span>
+            <strong className="solution-answer">{game.answer}</strong>
+          </div>
+        )}
+        <div className="result-question">
+          <p className="solution-question">{shownQuestion}</p>
+          {pages > 1 && (
+            <nav
+              className="board-pagination"
+              aria-label="Trechos da pergunta revelada"
+            >
+              <button
+                className="quiet"
+                disabled={page === 0}
+                onClick={() => setQuestionPage((p) => p - 1)}
+              >
+                ←
+              </button>
+              <span>
+                Trecho {page + 1} de {pages}
+              </span>
+              <button
+                className="quiet"
+                disabled={page === pages - 1}
+                onClick={() => setQuestionPage((p) => p + 1)}
+              >
+                →
+              </button>
+            </nav>
+          )}
+        </div>
+      </div>
 
       {host && (
         <div className="overlay-host-actions">
@@ -57,29 +110,52 @@ export function RoundResultOverlay({
             </button>
           )}
           {game.round + 1 >= game.prepared && permanent && (
-            <details className="custom-form">
-              <summary>Criar pergunta própria para o desempate</summary>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const data = new FormData(e.currentTarget);
-                  onReserveCustom(
-                    String(data.get("question")),
-                    String(data.get("answer")),
-                  );
-                }}
+            <>
+              <button
+                className="secondary"
+                onClick={() => customDialog.current?.showModal()}
               >
-                <label>
-                  Pergunta inédita, até 22 palavras
-                  <textarea required name="question" maxLength={1500} />
-                </label>
-                <label>
-                  Resposta da pergunta extra
-                  <input required name="answer" maxLength={200} />
-                </label>
-                <button disabled={busy}>Preparar pergunta própria extra</button>
-              </form>
-            </details>
+                Criar pergunta própria para o desempate
+              </button>
+              <dialog
+                ref={customDialog}
+                className="host-secret-dialog"
+                aria-labelledby="custom-extra-title"
+              >
+                <div className="secret-dialog-heading">
+                  <h2 id="custom-extra-title">Pergunta extra</h2>
+                  <button
+                    type="button"
+                    className="quiet"
+                    onClick={() => customDialog.current?.close()}
+                  >
+                    Voltar
+                  </button>
+                </div>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const data = new FormData(e.currentTarget);
+                    onReserveCustom(
+                      String(data.get("question")),
+                      String(data.get("answer")),
+                    );
+                  }}
+                >
+                  <label>
+                    Pergunta inédita, até 22 palavras
+                    <textarea required name="question" maxLength={1500} />
+                  </label>
+                  <label>
+                    Resposta da pergunta extra
+                    <input required name="answer" maxLength={200} />
+                  </label>
+                  <button disabled={busy}>
+                    Preparar pergunta própria extra
+                  </button>
+                </form>
+              </dialog>
+            </>
           )}
         </div>
       )}

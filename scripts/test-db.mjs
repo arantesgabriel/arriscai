@@ -212,7 +212,7 @@ await check("undo before guess removes last reveal", async () => {
   await command("reveal");
 });
 await check(
-  "guess stays private; human can correct suggestion; duplicate command scores once",
+  "comparison stays private; human can correct suggestion; duplicate command scores once",
   async () => {
     const sec = await call("host_private_round_snapshot", [room]);
     await command("guess", { text: sec.answer });

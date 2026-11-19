@@ -5,6 +5,7 @@
 @import "../styles/game/lobby.css";
 @import "../styles/game/play.css";
 @import "../styles/game/results.css";
+@import "../styles/game/workspace.css";
 
 body {
   margin: 0;
